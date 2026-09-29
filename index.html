@@ -122,7 +122,7 @@
 //   取得は TimerRunner（yahoo_review_fetch.py）が行い、このページは
 //   data/{shopId}/review_data.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'y0.1.0';
+const VERSION = 'y0.1.2';
 
 // ---- ショップ定義（seller_id は Yahoo! のストアID）----
 const SHOPS = [
@@ -164,6 +164,16 @@ const setStatus = (msg, cls = '') => { const el = $('#status'); el.textContent =
 // ※ String.fromCharCode(...bytes) は数十KBで "Maximum call stack size exceeded" になるので分割する
 const utf8ToB64 = (s) => { const b = new TextEncoder().encode(s); let bin = ''; for (let i = 0; i < b.length; i += 0x8000) bin += String.fromCharCode.apply(null, b.subarray(i, i + 0x8000)); return btoa(bin); };
 const b64ToUtf8 = (b) => new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\n/g, '')), c => c.charCodeAt(0)));
+
+// localStorage は kaiyoshida0318.github.io の全プロジェクト（楽天版 reviewcheck / ADcheck 等）で
+// 共有される 5MB 枠。楽天版のキャッシュで埋まっていることがあるので、保存できなくても諦めるだけにする。
+function cacheSet(obj) {
+  try { localStorage.setItem(LS.cache(SHOP.id), JSON.stringify(obj)); }
+  catch (e) { try { localStorage.removeItem(LS.cache(SHOP.id)); } catch (_) {} }
+}
+function cacheGet() {
+  try { const c = localStorage.getItem(LS.cache(SHOP.id)); return c ? JSON.parse(c) : null; } catch (e) { return null; }
+}
 
 function ghConfig() {
   return {
@@ -221,10 +231,10 @@ async function load() {
       store = await res.json(); sha = null;
       setStatus('閲覧のみ（⚙でPATを設定すると保存できます）', 'err');
     }
-    localStorage.setItem(LS.cache(SHOP.id), JSON.stringify(store));
+    cacheSet(store);
   } catch (e) {
-    const cached = localStorage.getItem(LS.cache(SHOP.id));
-    if (cached) { store = JSON.parse(cached); setStatus(`読込失敗、ローカルキャッシュ表示: ${e.message}`, 'err'); }
+    const cached = cacheGet();
+    if (cached) { store = cached; setStatus(`読込失敗、ローカルキャッシュ表示: ${e.message}`, 'err'); }
     else { store = { productCache: {} }; setStatus(`読込失敗: ${e.message}`, 'err'); }
   }
   render();
@@ -233,7 +243,7 @@ async function load() {
 // ---- 保存（入力 → ローカル即時 → 3秒後に GitHub）----
 function markDirty() {
   dirty = true;
-  localStorage.setItem(LS.cache(SHOP.id), JSON.stringify(store));
+  cacheSet(store);
   clearTimeout(saveTimer);
   saveTimer = setTimeout(flush, SAVE_DEBOUNCE_MS);
   setStatus('未送信…');
