@@ -23,7 +23,10 @@
   header { position: sticky; top: 0; z-index: 20; background: var(--panel); border-bottom: 1px solid var(--line); padding: 8px 14px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   header h1 { font-size: 15px; margin: 0; display: flex; align-items: baseline; gap: 8px; }
   header h1 .ver { font-size: 11px; color: var(--muted); font-weight: normal; }
-  header .shop { font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
+  header .shops { display: flex; gap: 4px; }
+  header .shops a { font-weight: 600; padding: 2px 10px; border-radius: 999px; color: var(--muted); border: 1px solid transparent; }
+  header .shops a:hover { text-decoration: none; background: #f0f2f5; }
+  header .shops a.on { background: var(--accent-soft); color: var(--accent); border-color: #ffd0d8; }
   header .meta { color: var(--muted); font-size: 12px; }
   header .spacer { flex: 1; }
   #status { font-size: 12px; color: var(--muted); min-width: 120px; text-align: right; }
@@ -68,7 +71,7 @@
 
 <header>
   <h1>reviewcheck <span style="color:var(--accent)">Yahoo</span> <span class="ver" id="ver"></span></h1>
-  <span class="shop" id="shopName">–</span>
+  <nav class="shops" id="shops"></nav>
   <span class="meta" id="metaFetch"></span>
   <span class="meta" id="metaStore"></span>
   <span class="spacer"></span>
@@ -122,11 +125,12 @@
 //   取得は TimerRunner（yahoo_review_fetch.py）が行い、このページは
 //   data/{shopId}/review_data.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'y0.1.2';
+const VERSION = 'y0.2.0';
 
 // ---- ショップ定義（seller_id は Yahoo! のストアID）----
 const SHOPS = [
   { id: 'yukaiya', name: 'ゆかい屋', sellerId: 'yukaiya' },
+  { id: 'kairy',   name: 'KAIRY',   sellerId: 'burariya' },   // Yahoo! の店舗IDは楽天(kai-ry)と違う
 ];
 const SHOP_ALIASES = { kairy: 'kairy', 'kai-ry': 'kairy', burariya: 'kairy' };
 
@@ -145,6 +149,7 @@ function resolveShop() {
   return shop;
 }
 const SHOP = resolveShop();
+document.title = `${SHOP.name} - reviewcheck Yahoo`;
 const DATA_PATH = `data/${SHOP.id}/review_data.json`;
 
 // ---- 状態 ----
@@ -310,7 +315,7 @@ function stateHtml(p) {
 
 function render() {
   $('#ver').textContent = VERSION;
-  $('#shopName').textContent = SHOP.name;
+  $('#shops').innerHTML = SHOPS.map(sh => `<a href="?shop=${esc(sh.id)}" class="${sh.id === SHOP.id ? 'on' : ''}" title="seller_id: ${esc(sh.sellerId)}">${esc(sh.name)}</a>`).join('');
   $('#metaFetch').textContent = store.lastAutoFetch ? `最終取得 ${fmtDate(store.lastAutoFetch)}` : '';
   $('#metaStore').textContent = store.storeReview ? `ストア評価 ${store.storeReview.rate} / ${store.storeReview.count.toLocaleString()}件` : '';
 
