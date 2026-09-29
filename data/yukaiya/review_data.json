@@ -18,11 +18,16 @@
       "inStock": true,
       "price": 1080,
       "categoryId": 2049,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "その他メガネ備品",
+      "categoryPath": [
+        "ダイエット、健康グッズ",
+        "メガネ、老眼鏡",
+        "メガネ備品",
+        "その他メガネ備品"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-sma-10": {
       "reviewHistory": {
@@ -42,11 +47,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "foot-25-04": {
       "reviewHistory": {
@@ -66,11 +75,15 @@
       "inStock": true,
       "price": 1480,
       "categoryId": 68542,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "外反母趾対策用品",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "シューケア、革手入れ用品",
+        "外反母趾対策用品"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "tb-23-01": {
       "reviewHistory": {
@@ -90,11 +103,16 @@
       "inStock": true,
       "price": 650,
       "categoryId": 77059,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "電動歯ブラシ用替えブラシ",
+      "categoryPath": [
+        "家電",
+        "美容家電",
+        "オーラルケア家電",
+        "電動歯ブラシ用替えブラシ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "foot-22-04-2set": {
       "reviewHistory": {
@@ -114,11 +132,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 68521,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "靴の滑り止め用品",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "シューケア、革手入れ用品",
+        "靴の滑り止め用品"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "ih-21-02": {
       "reviewHistory": {
@@ -138,11 +160,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 5014,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "フットケア用品",
+      "categoryPath": [
+        "コスメ、美容、ヘアケア",
+        "ボディケア用品",
+        "フットケア用品"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "foot-22-02-3set": {
       "reviewHistory": {
@@ -162,11 +188,15 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 68512,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "インソール",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "シューケア、革手入れ用品",
+        "インソール"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "eq-22-01": {
       "reviewHistory": {
@@ -186,11 +216,15 @@
       "inStock": true,
       "price": 1080,
       "categoryId": 4225,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "家具転倒防止用品",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "防災、防犯、セーフティ用品",
+        "家具転倒防止用品"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-fb-21-02": {
       "reviewHistory": {
@@ -210,11 +244,15 @@
       "inStock": true,
       "price": 970,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-22-05": {
       "reviewHistory": {
@@ -234,11 +272,15 @@
       "inStock": true,
       "price": 1380,
       "categoryId": 1814,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "爪切り",
+      "categoryPath": [
+        "ダイエット、健康グッズ",
+        "衛生日用品",
+        "爪切り"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "yoga-23-03-00set": {
       "reviewHistory": {
@@ -258,11 +300,15 @@
       "inStock": true,
       "price": 1080,
       "categoryId": 47489,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ヨガ　ソックス",
+      "categoryPath": [
+        "スポーツ用品",
+        "ヨガ、ピラティス用品",
+        "ヨガ　ソックス"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "yoga-23-01-00set": {
       "reviewHistory": {
@@ -282,11 +328,15 @@
       "inStock": true,
       "price": 1080,
       "categoryId": 47489,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ヨガ　ソックス",
+      "categoryPath": [
+        "スポーツ用品",
+        "ヨガ、ピラティス用品",
+        "ヨガ　ソックス"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-22-11-00set": {
       "reviewHistory": {
@@ -306,11 +356,15 @@
       "inStock": true,
       "price": 780,
       "categoryId": 48934,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "メガネチェーン",
+      "categoryPath": [
+        "ダイエット、健康グッズ",
+        "メガネ、老眼鏡",
+        "メガネチェーン"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "tb-23-01-2set": {
       "reviewHistory": {
@@ -330,11 +384,16 @@
       "inStock": true,
       "price": 1170,
       "categoryId": 77059,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "電動歯ブラシ用替えブラシ",
+      "categoryPath": [
+        "家電",
+        "美容家電",
+        "オーラルケア家電",
+        "電動歯ブラシ用替えブラシ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "ih-22-10-0set": {
       "reviewHistory": {
@@ -354,11 +413,16 @@
       "inStock": true,
       "price": 1380,
       "categoryId": 1993,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "眉毛、フェイスシェーバー",
+      "categoryPath": [
+        "家電",
+        "美容家電",
+        "レディースシェーバー",
+        "眉毛、フェイスシェーバー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-21-01": {
       "reviewHistory": {
@@ -378,11 +442,16 @@
       "inStock": true,
       "price": 580,
       "categoryId": 46694,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "排水口カバー、ネット",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "バス、洗面所用品",
+        "浴室用具",
+        "排水口カバー、ネット"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-sma-01b": {
       "reviewHistory": {
@@ -402,11 +471,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-os-01": {
       "reviewHistory": {
@@ -426,11 +499,16 @@
       "inStock": true,
       "price": 1980,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "cg-22-03": {
       "reviewHistory": {
@@ -450,11 +528,16 @@
       "inStock": true,
       "price": 680,
       "categoryId": 46694,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "排水口カバー、ネット",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "バス、洗面所用品",
+        "浴室用具",
+        "排水口カバー、ネット"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-sma-01": {
       "reviewHistory": {
@@ -474,11 +557,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "ih-22-01": {
       "reviewHistory": {
@@ -498,11 +585,15 @@
       "inStock": true,
       "price": 780,
       "categoryId": 136,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "マウスパッド",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "PCサプライ、アクセサリー",
+        "マウスパッド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "foot-23-02-4set": {
       "reviewHistory": {
@@ -522,11 +613,15 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 68512,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "インソール",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "シューケア、革手入れ用品",
+        "インソール"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "scarf-23-01": {
       "reviewHistory": {
@@ -546,11 +641,16 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 24076,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "レディーススカーフ",
+      "categoryPath": [
+        "ファッション",
+        "レディースファッション",
+        "レディースファッション小物",
+        "レディーススカーフ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "foot-25-03": {
       "reviewHistory": {
@@ -570,11 +670,16 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 46618,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スポーツケア用品　その他サポーター",
+      "categoryPath": [
+        "スポーツ用品",
+        "スポーツケア用品",
+        "サポーター",
+        "スポーツケア用品　その他サポーター"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "foot-23-05": {
       "reviewHistory": {
@@ -594,11 +699,15 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 68512,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "インソール",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "シューケア、革手入れ用品",
+        "インソール"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "ih-23-01-00set": {
       "reviewHistory": {
@@ -618,11 +727,16 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 67723,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "鍋敷き",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "調理器具",
+        "鍋、グリル",
+        "鍋敷き"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "foot-23-03-4set": {
       "reviewHistory": {
@@ -642,11 +756,15 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 68512,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "インソール",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "シューケア、革手入れ用品",
+        "インソール"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-22-07": {
       "reviewHistory": {
@@ -666,11 +784,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 1814,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "爪切り",
+      "categoryPath": [
+        "ダイエット、健康グッズ",
+        "衛生日用品",
+        "爪切り"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "tb-23-02": {
       "reviewHistory": {
@@ -690,11 +812,16 @@
       "inStock": true,
       "price": 650,
       "categoryId": 77059,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "電動歯ブラシ用替えブラシ",
+      "categoryPath": [
+        "家電",
+        "美容家電",
+        "オーラルケア家電",
+        "電動歯ブラシ用替えブラシ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-23-03": {
       "reviewHistory": {
@@ -714,11 +841,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 45423,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ツボ押しグッズ",
+      "categoryPath": [
+        "ダイエット、健康グッズ",
+        "マッサージ、リラクゼーション",
+        "ツボ押しグッズ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-sma-03": {
       "reviewHistory": {
@@ -738,11 +869,15 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "ih-24-05": {
       "reviewHistory": {
@@ -762,11 +897,15 @@
       "inStock": true,
       "price": 2980,
       "categoryId": 1814,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "爪切り",
+      "categoryPath": [
+        "ダイエット、健康グッズ",
+        "衛生日用品",
+        "爪切り"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-23-09": {
       "reviewHistory": {
@@ -786,11 +925,15 @@
       "inStock": true,
       "price": 1600,
       "categoryId": 2962,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "体育器具その他",
+      "categoryPath": [
+        "スポーツ用品",
+        "体育器具",
+        "体育器具その他"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "ih-22-02": {
       "reviewHistory": {
@@ -810,11 +953,16 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 71557,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ドライバーセット",
+      "categoryPath": [
+        "DIY、工具",
+        "DIY関連の道具、工具類",
+        "ドライバー",
+        "ドライバーセット"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-sma-01-0set": {
       "reviewHistory": {
@@ -834,11 +982,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-22-04a": {
       "reviewHistory": {
@@ -858,11 +1010,16 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 68113,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "レディース用カチューシャ",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "レディースヘアアクセサリー",
+        "レディース用カチューシャ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-22-05-2l": {
       "reviewHistory": {
@@ -882,11 +1039,15 @@
       "inStock": true,
       "price": 1680,
       "categoryId": 1814,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "爪切り",
+      "categoryPath": [
+        "ダイエット、健康グッズ",
+        "衛生日用品",
+        "爪切り"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "foot-25-05": {
       "reviewHistory": {
@@ -906,11 +1067,16 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 46618,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スポーツケア用品　その他サポーター",
+      "categoryPath": [
+        "スポーツ用品",
+        "スポーツケア用品",
+        "サポーター",
+        "スポーツケア用品　その他サポーター"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-02": {
       "reviewHistory": {
@@ -930,11 +1096,16 @@
       "inStock": true,
       "price": 540,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "eq-22-01-clear-2set": {
       "reviewHistory": {
@@ -954,11 +1125,15 @@
       "inStock": true,
       "price": 1680,
       "categoryId": 4225,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "家具転倒防止用品",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "防災、防犯、セーフティ用品",
+        "家具転倒防止用品"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "foot-22-01-3set": {
       "reviewHistory": {
@@ -978,11 +1153,15 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 68512,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "インソール",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "シューケア、革手入れ用品",
+        "インソール"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-18-22-0set": {
       "reviewHistory": {
@@ -1002,11 +1181,16 @@
       "inStock": true,
       "price": 990,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-18-08-set": {
       "reviewHistory": {
@@ -1026,11 +1210,16 @@
       "inStock": true,
       "price": 1260,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "ih-23-11": {
       "reviewHistory": {
@@ -1050,11 +1239,15 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 3958,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "洗濯ネット",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "洗濯用品",
+        "洗濯ネット"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-21-01-0set": {
       "reviewHistory": {
@@ -1074,11 +1267,16 @@
       "inStock": true,
       "price": 1080,
       "categoryId": 46694,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "排水口カバー、ネット",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "バス、洗面所用品",
+        "浴室用具",
+        "排水口カバー、ネット"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "tb-23-01-4set": {
       "reviewHistory": {
@@ -1098,11 +1296,16 @@
       "inStock": true,
       "price": 2080,
       "categoryId": 77059,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "電動歯ブラシ用替えブラシ",
+      "categoryPath": [
+        "家電",
+        "美容家電",
+        "オーラルケア家電",
+        "電動歯ブラシ用替えブラシ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "cab-25-02": {
       "reviewHistory": {
@@ -1122,18 +1325,22 @@
       "inStock": true,
       "price": 780,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "cab-25-01": {
       "reviewHistory": {
         "2026-09-29": 1
       },
-      "name": "Shokz 充電ケーブル USB Type-C Aftershokz ヘッドフォン充電コード Aeropex OpenRun/OpenRun Pro OpenRun Mini & OpenComm 磁気充電交換用ケーブル",
-      "apiTitle": "Shokz 充電ケーブル USB Type-C Aftershokz ヘッドフォン充電コード Aeropex OpenRun/OpenRun Pro OpenRun Mini & OpenComm 磁気充電交換用ケーブル",
+      "name": "Shokz 充電ケーブル USB Type-C Aftershokz ヘッドフォン充電コード Aeropex OpenRun/OpenRun Pro OpenRun Mini &amp; OpenComm 磁気充電交換用ケーブル",
+      "apiTitle": "Shokz 充電ケーブル USB Type-C Aftershokz ヘッドフォン充電コード Aeropex OpenRun/OpenRun Pro OpenRun Mini &amp; OpenComm 磁気充電交換用ケーブル",
       "headline": "Shokz 充電ケーブル USB Type-C Aftershokz Aeropex OpenR",
       "itemUrl": "https://store.shopping.yahoo.co.jp/yukaiya/cab-25-01.html",
       "reviewUrl": "https://shopping.yahoo.co.jp/review/item/list?store_id=yukaiya&page_key=cab-25-01",
@@ -1146,11 +1353,16 @@
       "inStock": true,
       "price": 780,
       "categoryId": 49491,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "イヤホンアクセサリー",
+      "categoryPath": [
+        "テレビ、オーディオ、カメラ",
+        "オーディオ機器",
+        "イヤホン、ヘッドホン",
+        "イヤホンアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-23-04-00set": {
       "reviewHistory": {
@@ -1170,11 +1382,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 45423,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ツボ押しグッズ",
+      "categoryPath": [
+        "ダイエット、健康グッズ",
+        "マッサージ、リラクゼーション",
+        "ツボ押しグッズ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-22-08": {
       "reviewHistory": {
@@ -1194,11 +1410,15 @@
       "inStock": true,
       "price": 1080,
       "categoryId": 46385,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ファイル、爪やすり",
+      "categoryPath": [
+        "コスメ、美容、ヘアケア",
+        "ネイル用品",
+        "ファイル、爪やすり"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "fel-22-02": {
       "reviewHistory": {
@@ -1218,11 +1438,15 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 48112,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "椅子カバー",
+      "categoryPath": [
+        "家具、インテリア用品",
+        "ファブリック、カバー類",
+        "椅子カバー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "neck-long": {
       "reviewHistory": {
@@ -1242,11 +1466,16 @@
       "inStock": true,
       "price": 980,
       "categoryId": 1617,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ネックレス、ペンダント",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "レディースアクセサリー",
+        "ネックレス、ペンダント"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "tb-23-02-2set": {
       "reviewHistory": {
@@ -1266,11 +1495,16 @@
       "inStock": true,
       "price": 1170,
       "categoryId": 77059,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "電動歯ブラシ用替えブラシ",
+      "categoryPath": [
+        "家電",
+        "美容家電",
+        "オーラルケア家電",
+        "電動歯ブラシ用替えブラシ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "tb-23-02-4set": {
       "reviewHistory": {
@@ -1290,11 +1524,16 @@
       "inStock": true,
       "price": 2080,
       "categoryId": 77059,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "電動歯ブラシ用替えブラシ",
+      "categoryPath": [
+        "家電",
+        "美容家電",
+        "オーラルケア家電",
+        "電動歯ブラシ用替えブラシ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-26-08-3set": {
       "reviewHistory": {
@@ -1314,11 +1553,14 @@
       "inStock": true,
       "price": 2080,
       "categoryId": 4353,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "その他子ども服ベビー、キッズ、マタニティ用品",
+      "categoryPath": [
+        "ベビー、キッズ、マタニティ",
+        "その他子ども服ベビー、キッズ、マタニティ用品"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "ih-21-04": {
       "reviewHistory": {
@@ -1338,11 +1580,15 @@
       "inStock": true,
       "price": 1180,
       "categoryId": 5014,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "フットケア用品",
+      "categoryPath": [
+        "コスメ、美容、ヘアケア",
+        "ボディケア用品",
+        "フットケア用品"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "baby-23-01-miton": {
       "reviewHistory": {
@@ -1362,11 +1608,16 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 1711,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "手袋、ミトン（ベビー用）",
+      "categoryPath": [
+        "ベビー、キッズ、マタニティ",
+        "ベビー服、シューズ",
+        "ベビー用ファッション小物",
+        "手袋、ミトン（ベビー用）"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "ih-23-13": {
       "reviewHistory": {
@@ -1386,11 +1637,15 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 3958,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "洗濯ネット",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "洗濯用品",
+        "洗濯ネット"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "foot-22-03-3set": {
       "reviewHistory": {
@@ -1410,11 +1665,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 68512,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "インソール",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "シューケア、革手入れ用品",
+        "インソール"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-23-06": {
       "reviewHistory": {
@@ -1434,11 +1693,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 48726,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "滑り止め用品（ベビー用）",
+      "categoryPath": [
+        "ベビー、キッズ、マタニティ",
+        "ベビー用セーフティグッズ",
+        "滑り止め用品（ベビー用）"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "ih-22-05": {
       "reviewHistory": {
@@ -1458,11 +1721,16 @@
       "inStock": true,
       "price": 1080,
       "categoryId": 69952,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "実験用ピンセット、実験用はさみ",
+      "categoryPath": [
+        "DIY、工具",
+        "研究、開発用品",
+        "研究、開発関連の道具、材料",
+        "実験用ピンセット、実験用はさみ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "sb-01": {
       "reviewHistory": {
@@ -1482,11 +1750,16 @@
       "inStock": true,
       "price": 1080,
       "categoryId": 22861,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "メンズショルダーバッグ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズバッグ",
+        "メンズショルダーバッグ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "ih-21-03a": {
       "reviewHistory": {
@@ -1506,11 +1779,15 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 5014,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "フットケア用品",
+      "categoryPath": [
+        "コスメ、美容、ヘアケア",
+        "ボディケア用品",
+        "フットケア用品"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-23-07a": {
       "reviewHistory": {
@@ -1530,11 +1807,16 @@
       "inStock": true,
       "price": 780,
       "categoryId": 68287,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ブラジャー、ニップレス",
+      "categoryPath": [
+        "ファッション",
+        "レディースファッション",
+        "レディース下着、靴下、部屋着",
+        "ブラジャー、ニップレス"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-sma-04-set1a": {
       "reviewHistory": {
@@ -1554,11 +1836,15 @@
       "inStock": true,
       "price": 1480,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-18-08": {
       "reviewHistory": {
@@ -1578,11 +1864,16 @@
       "inStock": true,
       "price": 1250,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "nt-19-01a": {
       "reviewHistory": {
@@ -1602,11 +1893,16 @@
       "inStock": true,
       "price": 720,
       "categoryId": 36725,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ワンタッチネクタイ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズネクタイ",
+        "ワンタッチネクタイ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "sb-04": {
       "reviewHistory": {
@@ -1626,11 +1922,16 @@
       "inStock": true,
       "price": 1080,
       "categoryId": 23549,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "レディースショルダーバッグ",
+      "categoryPath": [
+        "ファッション",
+        "レディースファッション",
+        "レディースバッグ",
+        "レディースショルダーバッグ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-23-02-00set": {
       "reviewHistory": {
@@ -1650,11 +1951,16 @@
       "inStock": true,
       "price": 1680,
       "categoryId": 47112,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ファイルスタンド",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "文具、ステーショナリー",
+        "机上アクセサリー",
+        "ファイルスタンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-23-01-00set": {
       "reviewHistory": {
@@ -1674,11 +1980,16 @@
       "inStock": true,
       "price": 780,
       "categoryId": 47112,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ファイルスタンド",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "文具、ステーショナリー",
+        "机上アクセサリー",
+        "ファイルスタンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-20-16-10": {
       "reviewHistory": {
@@ -1698,11 +2009,15 @@
       "inStock": true,
       "price": 650,
       "categoryId": 48725,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "コンセントガード（ベビー用）",
+      "categoryPath": [
+        "ベビー、キッズ、マタニティ",
+        "ベビー用セーフティグッズ",
+        "コンセントガード（ベビー用）"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-22-01": {
       "reviewHistory": {
@@ -1722,11 +2037,16 @@
       "inStock": true,
       "price": 680,
       "categoryId": 32686,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "その他ペット用お手入れ、トリミング用品",
+      "categoryPath": [
+        "ペット用品、生き物",
+        "犬用品",
+        "犬用お手入れ、トリミング用品",
+        "その他ペット用お手入れ、トリミング用品"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "cg-22-03-2set": {
       "reviewHistory": {
@@ -1746,11 +2066,16 @@
       "inStock": true,
       "price": 1180,
       "categoryId": 46694,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "排水口カバー、ネット",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "バス、洗面所用品",
+        "浴室用具",
+        "排水口カバー、ネット"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-23-12": {
       "reviewHistory": {
@@ -1770,11 +2095,16 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 43685,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ロープクライミングカラビナ",
+      "categoryPath": [
+        "アウトドア、釣り、旅行用品",
+        "アウトドア、キャンプ、登山",
+        "登山、クライミング用品",
+        "ロープクライミングカラビナ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-18-14": {
       "reviewHistory": {
@@ -1794,11 +2124,16 @@
       "inStock": true,
       "price": 1070,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "fel-22-01": {
       "reviewHistory": {
@@ -1818,11 +2153,15 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 48112,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "椅子カバー",
+      "categoryPath": [
+        "家具、インテリア用品",
+        "ファブリック、カバー類",
+        "椅子カバー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-sma-04-set1": {
       "reviewHistory": {
@@ -1842,11 +2181,15 @@
       "inStock": true,
       "price": 1480,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-sma-07": {
       "reviewHistory": {
@@ -1866,11 +2209,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-sma-03a": {
       "reviewHistory": {
@@ -1890,11 +2237,15 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bg-01-con-20set": {
       "reviewHistory": {
@@ -1914,11 +2265,15 @@
       "inStock": true,
       "price": 780,
       "categoryId": 48725,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "コンセントガード（ベビー用）",
+      "categoryPath": [
+        "ベビー、キッズ、マタニティ",
+        "ベビー用セーフティグッズ",
+        "コンセントガード（ベビー用）"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "eq-22-04-clear-mat": {
       "reviewHistory": {
@@ -1938,11 +2293,15 @@
       "inStock": true,
       "price": 1980,
       "categoryId": 4225,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "家具転倒防止用品",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "防災、防犯、セーフティ用品",
+        "家具転倒防止用品"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-sma-02": {
       "reviewHistory": {
@@ -1962,11 +2321,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-fb-21-03": {
       "reviewHistory": {
@@ -1986,11 +2349,15 @@
       "inStock": true,
       "price": 1680,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "cab-16-02-01": {
       "reviewHistory": {
@@ -2010,11 +2377,16 @@
       "inStock": true,
       "price": 718,
       "categoryId": 49491,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "イヤホンアクセサリー",
+      "categoryPath": [
+        "テレビ、オーディオ、カメラ",
+        "オーディオ機器",
+        "イヤホン、ヘッドホン",
+        "イヤホンアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "sb-02": {
       "reviewHistory": {
@@ -2034,11 +2406,16 @@
       "inStock": true,
       "price": 1080,
       "categoryId": 42072,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "バイク ショルダーバッグ",
+      "categoryPath": [
+        "車、バイク、自転車",
+        "バイク",
+        "バイク、ツーリング用バッグ",
+        "バイク ショルダーバッグ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-sma-04-set2": {
       "reviewHistory": {
@@ -2058,11 +2435,15 @@
       "inStock": true,
       "price": 1480,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-sma-02b": {
       "reviewHistory": {
@@ -2082,11 +2463,15 @@
       "inStock": true,
       "price": 980,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-20-16-05": {
       "reviewHistory": {
@@ -2106,11 +2491,15 @@
       "inStock": true,
       "price": 480,
       "categoryId": 48725,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "コンセントガード（ベビー用）",
+      "categoryPath": [
+        "ベビー、キッズ、マタニティ",
+        "ベビー用セーフティグッズ",
+        "コンセントガード（ベビー用）"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "fas-17-03": {
       "reviewHistory": {
@@ -2130,11 +2519,16 @@
       "inStock": true,
       "price": 2980,
       "categoryId": 5186,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ペアネックレス、ペンダント",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "ペアアクセサリー",
+        "ペアネックレス、ペンダント"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "car-02-03": {
       "reviewHistory": {
@@ -2154,11 +2548,16 @@
       "inStock": true,
       "price": 1480,
       "categoryId": 42954,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "自動車用ステッカー、デカール",
+      "categoryPath": [
+        "車、バイク、自転車",
+        "自動車",
+        "ドレスアップ用品",
+        "自動車用ステッカー、デカール"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-18-04-set": {
       "reviewHistory": {
@@ -2178,11 +2577,16 @@
       "inStock": true,
       "price": 1100,
       "categoryId": 14570,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用工具、メンテナンス用品",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用工具、メンテナンス用品"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-sma-03-0set1": {
       "reviewHistory": {
@@ -2202,11 +2606,15 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "foot-25-06": {
       "reviewHistory": {
@@ -2226,11 +2634,16 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 47009,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スポーツケア用品　指用サポーター",
+      "categoryPath": [
+        "スポーツ用品",
+        "スポーツケア用品",
+        "サポーター",
+        "スポーツケア用品　指用サポーター"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-23-11a": {
       "reviewHistory": {
@@ -2250,11 +2663,16 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 49145,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "耳、鼻毛カッター",
+      "categoryPath": [
+        "家電",
+        "美容家電",
+        "メンズグルーミング",
+        "耳、鼻毛カッター"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "sb-05": {
       "reviewHistory": {
@@ -2274,11 +2692,16 @@
       "inStock": true,
       "price": 1080,
       "categoryId": 23549,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "レディースショルダーバッグ",
+      "categoryPath": [
+        "ファッション",
+        "レディースファッション",
+        "レディースバッグ",
+        "レディースショルダーバッグ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-18-05": {
       "reviewHistory": {
@@ -2298,11 +2721,16 @@
       "inStock": true,
       "price": 980,
       "categoryId": 14570,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用工具、メンテナンス用品",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用工具、メンテナンス用品"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-sma-08": {
       "reviewHistory": {
@@ -2322,11 +2750,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "eq-22-02": {
       "reviewHistory": {
@@ -2346,11 +2778,15 @@
       "inStock": true,
       "price": 1480,
       "categoryId": 4235,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "その他防災、防犯、セーフティ",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "防災、防犯、セーフティ用品",
+        "その他防災、防犯、セーフティ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "ih-22-03-12set": {
       "reviewHistory": {
@@ -2370,11 +2806,16 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 49250,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ウォールフック",
+      "categoryPath": [
+        "家具、インテリア用品",
+        "インテリア雑貨",
+        "整理用品、小物入れ",
+        "ウォールフック"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "gar-feni-03": {
       "reviewHistory": {
@@ -2394,11 +2835,16 @@
       "inStock": true,
       "price": 1980,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-22-04a-set1": {
       "reviewHistory": {
@@ -2418,11 +2864,15 @@
       "inStock": true,
       "price": 780,
       "categoryId": 13713,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ヘアブラシ、くし",
+      "categoryPath": [
+        "コスメ、美容、ヘアケア",
+        "ヘアケア",
+        "ヘアブラシ、くし"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-22-03": {
       "reviewHistory": {
@@ -2442,11 +2892,16 @@
       "inStock": true,
       "price": 580,
       "categoryId": 46694,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "排水口カバー、ネット",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "バス、洗面所用品",
+        "浴室用具",
+        "排水口カバー、ネット"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-24-03": {
       "reviewHistory": {
@@ -2466,11 +2921,15 @@
       "inStock": true,
       "price": 1200,
       "categoryId": 46475,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "汗取りパッド",
+      "categoryPath": [
+        "コスメ、美容、ヘアケア",
+        "制汗剤、デオドラント",
+        "汗取りパッド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-18-22": {
       "reviewHistory": {
@@ -2490,11 +2949,16 @@
       "inStock": true,
       "price": 980,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "sb-06": {
       "reviewHistory": {
@@ -2514,11 +2978,16 @@
       "inStock": true,
       "price": 1080,
       "categoryId": 23549,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "レディースショルダーバッグ",
+      "categoryPath": [
+        "ファッション",
+        "レディースファッション",
+        "レディースバッグ",
+        "レディースショルダーバッグ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-sma-09": {
       "reviewHistory": {
@@ -2538,11 +3007,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-22-03-0set": {
       "reviewHistory": {
@@ -2562,11 +3035,16 @@
       "inStock": true,
       "price": 1080,
       "categoryId": 46694,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "排水口カバー、ネット",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "バス、洗面所用品",
+        "浴室用具",
+        "排水口カバー、ネット"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bg-06-kakon-10set": {
       "reviewHistory": {
@@ -2586,11 +3064,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 48722,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ドアストッパー、ドアロック（ベビー用）",
+      "categoryPath": [
+        "ベビー、キッズ、マタニティ",
+        "ベビー用セーフティグッズ",
+        "ドアストッパー、ドアロック（ベビー用）"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "fas-16-01-orange": {
       "reviewHistory": {
@@ -2610,11 +3092,16 @@
       "inStock": true,
       "price": 580,
       "categoryId": 36720,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ナロータイ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズネクタイ",
+        "ナロータイ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-18-07": {
       "reviewHistory": {
@@ -2634,11 +3121,16 @@
       "inStock": true,
       "price": 680,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-18-17-25": {
       "reviewHistory": {
@@ -2658,11 +3150,16 @@
       "inStock": true,
       "price": 1080,
       "categoryId": 22861,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "メンズショルダーバッグ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズバッグ",
+        "メンズショルダーバッグ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-18-05-set2": {
       "reviewHistory": {
@@ -2682,11 +3179,16 @@
       "inStock": true,
       "price": 990,
       "categoryId": 14570,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用工具、メンテナンス用品",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用工具、メンテナンス用品"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "cg-22-05": {
       "reviewHistory": {
@@ -2706,11 +3208,16 @@
       "inStock": true,
       "price": 1680,
       "categoryId": 46694,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "排水口カバー、ネット",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "バス、洗面所用品",
+        "浴室用具",
+        "排水口カバー、ネット"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "ih-21-01": {
       "reviewHistory": {
@@ -2730,11 +3237,15 @@
       "inStock": true,
       "price": 1380,
       "categoryId": 5014,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "フットケア用品",
+      "categoryPath": [
+        "コスメ、美容、ヘアケア",
+        "ボディケア用品",
+        "フットケア用品"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "eq-22-05-toilet": {
       "reviewHistory": {
@@ -2754,18 +3265,23 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 43688,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "自動車用　携帯トイレ",
+      "categoryPath": [
+        "車、バイク、自転車",
+        "自動車",
+        "自動車用セーフティー用品",
+        "自動車用　携帯トイレ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "cam-21-01": {
       "reviewHistory": {
         "2026-09-29": 2
       },
-      "name": "NDフィルター 減光フィルター 単品 ND2 ～ ND400 可変 37mm ～ 77mm レンズフィルター フィルター PKT2-4F",
-      "apiTitle": "NDフィルター 減光フィルター 単品 ND2 ～ ND400 可変 37mm ～ 77mm レンズフィルター フィルター PKT2-4F",
+      "name": "NDフィルター 減光フィルター 単品 ND2 〜 ND400 可変 37mm 〜 77mm レンズフィルター フィルター PKT2-4F",
+      "apiTitle": "NDフィルター 減光フィルター 単品 ND2 〜 ND400 可変 37mm 〜 77mm レンズフィルター フィルター PKT2-4F",
       "headline": "NDフィルター 減光フィルター 可変 レンズフィルター",
       "itemUrl": "https://store.shopping.yahoo.co.jp/yukaiya/cam-21-01.html",
       "reviewUrl": "https://shopping.yahoo.co.jp/review/item/list?store_id=yukaiya&page_key=cam-21-01",
@@ -2778,11 +3294,16 @@
       "inStock": true,
       "price": 1580,
       "categoryId": 36860,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "レンズフィルター本体",
+      "categoryPath": [
+        "テレビ、オーディオ、カメラ",
+        "カメラ",
+        "レンズフィルター",
+        "レンズフィルター本体"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-22-06": {
       "reviewHistory": {
@@ -2801,12 +3322,16 @@
       "reviewAvg": 3.87,
       "inStock": true,
       "price": 1380,
-      "categoryId": 2098,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryId": 20982,
+      "categoryName": "電磁波、静電気防止グッズ",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "PCサプライ、アクセサリー",
+        "電磁波、静電気防止グッズ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-18-04": {
       "reviewHistory": {
@@ -2826,11 +3351,16 @@
       "inStock": true,
       "price": 1090,
       "categoryId": 14570,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用工具、メンテナンス用品",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用工具、メンテナンス用品"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bg-10-usbc-osu-20set": {
       "reviewHistory": {
@@ -2850,11 +3380,15 @@
       "inStock": true,
       "price": 780,
       "categoryId": 4426,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "PCサプライ、アクセサリーその他",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "PCサプライ、アクセサリー",
+        "PCサプライ、アクセサリーその他"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-20-18-10": {
       "reviewHistory": {
@@ -2874,11 +3408,15 @@
       "inStock": true,
       "price": 480,
       "categoryId": 4426,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "PCサプライ、アクセサリーその他",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "PCサプライ、アクセサリー",
+        "PCサプライ、アクセサリーその他"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-24-01": {
       "reviewHistory": {
@@ -2898,11 +3436,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 76840,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "角度計、水平器、水準器",
+      "categoryPath": [
+        "DIY、工具",
+        "測量用品、測量機器",
+        "角度計、水平器、水準器"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-fb-12": {
       "reviewHistory": {
@@ -2922,11 +3464,16 @@
       "inStock": true,
       "price": 1480,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-22-06-brush": {
       "reviewHistory": {
@@ -2946,11 +3493,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 20982,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "電磁波、静電気防止グッズ",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "PCサプライ、アクセサリー",
+        "電磁波、静電気防止グッズ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-sma-02-0set": {
       "reviewHistory": {
@@ -2970,11 +3521,15 @@
       "inStock": true,
       "price": 980,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-fb-21-06": {
       "reviewHistory": {
@@ -2994,11 +3549,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "ih-21-01-set": {
       "reviewHistory": {
@@ -3018,11 +3577,15 @@
       "inStock": true,
       "price": 2280,
       "categoryId": 5014,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "フットケア用品",
+      "categoryPath": [
+        "コスメ、美容、ヘアケア",
+        "ボディケア用品",
+        "フットケア用品"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-18-07-05c": {
       "reviewHistory": {
@@ -3042,11 +3605,15 @@
       "inStock": true,
       "price": 550,
       "categoryId": 48722,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ドアストッパー、ドアロック（ベビー用）",
+      "categoryPath": [
+        "ベビー、キッズ、マタニティ",
+        "ベビー用セーフティグッズ",
+        "ドアストッパー、ドアロック（ベビー用）"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-sma-05": {
       "reviewHistory": {
@@ -3066,11 +3633,15 @@
       "inStock": true,
       "price": 1480,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-fb-21-00": {
       "reviewHistory": {
@@ -3090,11 +3661,15 @@
       "inStock": true,
       "price": 680,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "nt-19-01-00set": {
       "reviewHistory": {
@@ -3114,11 +3689,16 @@
       "inStock": true,
       "price": 1380,
       "categoryId": 36725,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ワンタッチネクタイ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズネクタイ",
+        "ワンタッチネクタイ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "tb-23-01-3set": {
       "reviewHistory": {
@@ -3138,11 +3718,16 @@
       "inStock": true,
       "price": 1660,
       "categoryId": 77059,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "電動歯ブラシ用替えブラシ",
+      "categoryPath": [
+        "家電",
+        "美容家電",
+        "オーラルケア家電",
+        "電動歯ブラシ用替えブラシ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "cg-22-04": {
       "reviewHistory": {
@@ -3162,11 +3747,16 @@
       "inStock": true,
       "price": 680,
       "categoryId": 46694,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "排水口カバー、ネット",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "バス、洗面所用品",
+        "浴室用具",
+        "排水口カバー、ネット"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-20-17-10": {
       "reviewHistory": {
@@ -3186,11 +3776,15 @@
       "inStock": true,
       "price": 480,
       "categoryId": 4426,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "PCサプライ、アクセサリーその他",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "PCサプライ、アクセサリー",
+        "PCサプライ、アクセサリーその他"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "sb-08": {
       "reviewHistory": {
@@ -3210,11 +3804,16 @@
       "inStock": true,
       "price": 1080,
       "categoryId": 23549,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "レディースショルダーバッグ",
+      "categoryPath": [
+        "ファッション",
+        "レディースファッション",
+        "レディースバッグ",
+        "レディースショルダーバッグ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "car-02-01-2set-hera": {
       "reviewHistory": {
@@ -3234,11 +3833,16 @@
       "inStock": true,
       "price": 2480,
       "categoryId": 42954,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "自動車用ステッカー、デカール",
+      "categoryPath": [
+        "車、バイク、自転車",
+        "自動車",
+        "ドレスアップ用品",
+        "自動車用ステッカー、デカール"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "fas-16-02-2set": {
       "reviewHistory": {
@@ -3258,11 +3862,16 @@
       "inStock": true,
       "price": 1080,
       "categoryId": 36723,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ボウタイ、紳士蝶ネクタイ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズネクタイ",
+        "ボウタイ、紳士蝶ネクタイ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "fas-16-02-red2": {
       "reviewHistory": {
@@ -3282,11 +3891,16 @@
       "inStock": true,
       "price": 580,
       "categoryId": 36723,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ボウタイ、紳士蝶ネクタイ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズネクタイ",
+        "ボウタイ、紳士蝶ネクタイ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-22-03-3set": {
       "reviewHistory": {
@@ -3306,11 +3920,16 @@
       "inStock": true,
       "price": 1580,
       "categoryId": 46694,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "排水口カバー、ネット",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "バス、洗面所用品",
+        "浴室用具",
+        "排水口カバー、ネット"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-01-24": {
       "reviewHistory": {
@@ -3330,11 +3949,16 @@
       "inStock": true,
       "price": 500,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bg-05-ori-5set": {
       "reviewHistory": {
@@ -3354,11 +3978,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 48722,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ドアストッパー、ドアロック（ベビー用）",
+      "categoryPath": [
+        "ベビー、キッズ、マタニティ",
+        "ベビー用セーフティグッズ",
+        "ドアストッパー、ドアロック（ベビー用）"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "fel-22-02-2set": {
       "reviewHistory": {
@@ -3378,11 +4006,15 @@
       "inStock": true,
       "price": 2380,
       "categoryId": 48112,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "椅子カバー",
+      "categoryPath": [
+        "家具、インテリア用品",
+        "ファブリック、カバー類",
+        "椅子カバー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-20-16-20": {
       "reviewHistory": {
@@ -3402,11 +4034,15 @@
       "inStock": true,
       "price": 980,
       "categoryId": 48725,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "コンセントガード（ベビー用）",
+      "categoryPath": [
+        "ベビー、キッズ、マタニティ",
+        "ベビー用セーフティグッズ",
+        "コンセントガード（ベビー用）"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-22-02": {
       "reviewHistory": {
@@ -3426,11 +4062,16 @@
       "inStock": true,
       "price": 780,
       "categoryId": 49549,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "その他AVケーブル",
+      "categoryPath": [
+        "テレビ、オーディオ、カメラ",
+        "テレビ、映像機器",
+        "AVケーブル",
+        "その他AVケーブル"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-18-11-10": {
       "reviewHistory": {
@@ -3450,11 +4091,15 @@
       "inStock": true,
       "price": 650,
       "categoryId": 48725,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "コンセントガード（ベビー用）",
+      "categoryPath": [
+        "ベビー、キッズ、マタニティ",
+        "ベビー用セーフティグッズ",
+        "コンセントガード（ベビー用）"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-18-14-set": {
       "reviewHistory": {
@@ -3474,11 +4119,16 @@
       "inStock": true,
       "price": 1080,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bg-02-con-hook-20set": {
       "reviewHistory": {
@@ -3498,11 +4148,15 @@
       "inStock": true,
       "price": 980,
       "categoryId": 48725,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "コンセントガード（ベビー用）",
+      "categoryPath": [
+        "ベビー、キッズ、マタニティ",
+        "ベビー用セーフティグッズ",
+        "コンセントガード（ベビー用）"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-20-18-05": {
       "reviewHistory": {
@@ -3522,11 +4176,15 @@
       "inStock": true,
       "price": 200,
       "categoryId": 4426,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "PCサプライ、アクセサリーその他",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "PCサプライ、アクセサリー",
+        "PCサプライ、アクセサリーその他"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "ih-22-01-2set": {
       "reviewHistory": {
@@ -3546,11 +4204,15 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 136,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "マウスパッド",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "PCサプライ、アクセサリー",
+        "マウスパッド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-02-2set": {
       "reviewHistory": {
@@ -3570,11 +4232,16 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "sb-02-2set": {
       "reviewHistory": {
@@ -3594,11 +4261,16 @@
       "inStock": true,
       "price": 1980,
       "categoryId": 42072,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "バイク ショルダーバッグ",
+      "categoryPath": [
+        "車、バイク、自転車",
+        "バイク",
+        "バイク、ツーリング用バッグ",
+        "バイク ショルダーバッグ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-20-16-50": {
       "reviewHistory": {
@@ -3618,11 +4290,15 @@
       "inStock": true,
       "price": 1380,
       "categoryId": 48725,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "コンセントガード（ベビー用）",
+      "categoryPath": [
+        "ベビー、キッズ、マタニティ",
+        "ベビー用セーフティグッズ",
+        "コンセントガード（ベビー用）"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "ih-22-04": {
       "reviewHistory": {
@@ -3642,11 +4318,16 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 76303,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "梱包用両面テープ",
+      "categoryPath": [
+        "DIY、工具",
+        "梱包、テープ",
+        "梱包用テープ",
+        "梱包用両面テープ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "neck-long-0set": {
       "reviewHistory": {
@@ -3666,11 +4347,16 @@
       "inStock": true,
       "price": 1780,
       "categoryId": 1617,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ネックレス、ペンダント",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "レディースアクセサリー",
+        "ネックレス、ペンダント"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "fas-16-02-yellow": {
       "reviewHistory": {
@@ -3690,11 +4376,16 @@
       "inStock": true,
       "price": 580,
       "categoryId": 36723,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ボウタイ、紳士蝶ネクタイ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズネクタイ",
+        "ボウタイ、紳士蝶ネクタイ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-01-18": {
       "reviewHistory": {
@@ -3714,11 +4405,16 @@
       "inStock": true,
       "price": 500,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "fas-16-01-navy": {
       "reviewHistory": {
@@ -3738,11 +4434,16 @@
       "inStock": true,
       "price": 580,
       "categoryId": 36720,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ナロータイ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズネクタイ",
+        "ナロータイ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-22-01-3set": {
       "reviewHistory": {
@@ -3762,11 +4463,16 @@
       "inStock": true,
       "price": 1580,
       "categoryId": 46694,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "排水口カバー、ネット",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "バス、洗面所用品",
+        "浴室用具",
+        "排水口カバー、ネット"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-18-07-20": {
       "reviewHistory": {
@@ -3786,11 +4492,15 @@
       "inStock": true,
       "price": 1400,
       "categoryId": 48722,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ドアストッパー、ドアロック（ベビー用）",
+      "categoryPath": [
+        "ベビー、キッズ、マタニティ",
+        "ベビー用セーフティグッズ",
+        "ドアストッパー、ドアロック（ベビー用）"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-18-07-10": {
       "reviewHistory": {
@@ -3810,11 +4520,15 @@
       "inStock": true,
       "price": 750,
       "categoryId": 48722,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ドアストッパー、ドアロック（ベビー用）",
+      "categoryPath": [
+        "ベビー、キッズ、マタニティ",
+        "ベビー用セーフティグッズ",
+        "ドアストッパー、ドアロック（ベビー用）"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "foot-23-04": {
       "reviewHistory": {
@@ -3834,11 +4548,15 @@
       "inStock": true,
       "price": 780,
       "categoryId": 68512,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "インソール",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "シューケア、革手入れ用品",
+        "インソール"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-fb-21-07": {
       "reviewHistory": {
@@ -3858,11 +4576,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-01-16": {
       "reviewHistory": {
@@ -3882,11 +4604,16 @@
       "inStock": true,
       "price": 500,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-fb-21-08": {
       "reviewHistory": {
@@ -3906,11 +4633,15 @@
       "inStock": true,
       "price": 1680,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-22-04-00set": {
       "reviewHistory": {
@@ -3930,11 +4661,15 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 13713,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ヘアブラシ、くし",
+      "categoryPath": [
+        "コスメ、美容、ヘアケア",
+        "ヘアケア",
+        "ヘアブラシ、くし"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-sma-05-0set": {
       "reviewHistory": {
@@ -3954,11 +4689,15 @@
       "inStock": true,
       "price": 1480,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bg-08-usb-osu-20set": {
       "reviewHistory": {
@@ -3978,11 +4717,15 @@
       "inStock": true,
       "price": 780,
       "categoryId": 4426,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "PCサプライ、アクセサリーその他",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "PCサプライ、アクセサリー",
+        "PCサプライ、アクセサリーその他"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-18-07-set": {
       "reviewHistory": {
@@ -4002,11 +4745,16 @@
       "inStock": true,
       "price": 990,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "fas-16-01-purple": {
       "reviewHistory": {
@@ -4026,11 +4774,16 @@
       "inStock": true,
       "price": 580,
       "categoryId": 36720,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ナロータイ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズネクタイ",
+        "ナロータイ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "fas-16-01-green": {
       "reviewHistory": {
@@ -4050,11 +4803,16 @@
       "inStock": true,
       "price": 580,
       "categoryId": 36720,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ナロータイ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズネクタイ",
+        "ナロータイ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bg-09-usbc-mesu-20set": {
       "reviewHistory": {
@@ -4074,18 +4832,22 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 4426,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "PCサプライ、アクセサリーその他",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "PCサプライ、アクセサリー",
+        "PCサプライ、アクセサリーその他"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "cam-21-01-2set": {
       "reviewHistory": {
         "2026-09-29": 0
       },
-      "name": "NDフィルター 減光フィルター 2個セット ND2 ～ ND400 可変 37mm ～ 77mm レンズフィルター フィルター 一眼レフ PKT2-4F",
-      "apiTitle": "NDフィルター 減光フィルター 2個セット ND2 ～ ND400 可変 37mm ～ 77mm レンズフィルター フィルター 一眼レフ PKT2-4F",
+      "name": "NDフィルター 減光フィルター 2個セット ND2 〜 ND400 可変 37mm 〜 77mm レンズフィルター フィルター 一眼レフ PKT2-4F",
+      "apiTitle": "NDフィルター 減光フィルター 2個セット ND2 〜 ND400 可変 37mm 〜 77mm レンズフィルター フィルター 一眼レフ PKT2-4F",
       "headline": "NDフィルター 減光フィルター 可変 レンズフィルター",
       "itemUrl": "https://store.shopping.yahoo.co.jp/yukaiya/cam-21-01-2set.html",
       "reviewUrl": "https://shopping.yahoo.co.jp/review/item/list?store_id=yukaiya&page_key=cam-21-01-2set",
@@ -4098,11 +4860,16 @@
       "inStock": true,
       "price": 2980,
       "categoryId": 2466,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "レンズフィルターアクセサリー",
+      "categoryPath": [
+        "テレビ、オーディオ、カメラ",
+        "カメラ",
+        "レンズフィルター",
+        "レンズフィルターアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "fas-16-01-2set": {
       "reviewHistory": {
@@ -4122,11 +4889,16 @@
       "inStock": true,
       "price": 1080,
       "categoryId": 36720,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ナロータイ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズネクタイ",
+        "ナロータイ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-18-11-05a": {
       "reviewHistory": {
@@ -4146,11 +4918,15 @@
       "inStock": true,
       "price": 480,
       "categoryId": 48725,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "コンセントガード（ベビー用）",
+      "categoryPath": [
+        "ベビー、キッズ、マタニティ",
+        "ベビー用セーフティグッズ",
+        "コンセントガード（ベビー用）"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-18-01": {
       "reviewHistory": {
@@ -4170,11 +4946,16 @@
       "inStock": true,
       "price": 200,
       "categoryId": 14570,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用工具、メンテナンス用品",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用工具、メンテナンス用品"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-01-26": {
       "reviewHistory": {
@@ -4194,11 +4975,16 @@
       "inStock": true,
       "price": 500,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-20-17-05": {
       "reviewHistory": {
@@ -4218,11 +5004,15 @@
       "inStock": true,
       "price": 200,
       "categoryId": 4426,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "PCサプライ、アクセサリーその他",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "PCサプライ、アクセサリー",
+        "PCサプライ、アクセサリーその他"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-01-22": {
       "reviewHistory": {
@@ -4242,11 +5032,16 @@
       "inStock": true,
       "price": 500,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "cam-21-02": {
       "reviewHistory": {
@@ -4266,11 +5061,16 @@
       "inStock": true,
       "price": 1080,
       "categoryId": 36860,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "レンズフィルター本体",
+      "categoryPath": [
+        "テレビ、オーディオ、カメラ",
+        "カメラ",
+        "レンズフィルター",
+        "レンズフィルター本体"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "foot-23-01-4set": {
       "reviewHistory": {
@@ -4290,11 +5090,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 68512,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "インソール",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "シューケア、革手入れ用品",
+        "インソール"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bg-07-usb-mesu-20set": {
       "reviewHistory": {
@@ -4314,11 +5118,15 @@
       "inStock": true,
       "price": 780,
       "categoryId": 4426,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "PCサプライ、アクセサリーその他",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "PCサプライ、アクセサリー",
+        "PCサプライ、アクセサリーその他"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-01-20": {
       "reviewHistory": {
@@ -4338,11 +5146,16 @@
       "inStock": true,
       "price": 500,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "tb-23-03": {
       "reviewHistory": {
@@ -4362,11 +5175,16 @@
       "inStock": true,
       "price": 780,
       "categoryId": 77059,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "電動歯ブラシ用替えブラシ",
+      "categoryPath": [
+        "家電",
+        "美容家電",
+        "オーラルケア家電",
+        "電動歯ブラシ用替えブラシ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-01-22-2set": {
       "reviewHistory": {
@@ -4386,11 +5204,16 @@
       "inStock": true,
       "price": 950,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-20-18-20": {
       "reviewHistory": {
@@ -4410,11 +5233,15 @@
       "inStock": true,
       "price": 880,
       "categoryId": 4426,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "PCサプライ、アクセサリーその他",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "PCサプライ、アクセサリー",
+        "PCサプライ、アクセサリーその他"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "cam-21-02-2set": {
       "reviewHistory": {
@@ -4434,11 +5261,16 @@
       "inStock": true,
       "price": 1980,
       "categoryId": 36860,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "レンズフィルター本体",
+      "categoryPath": [
+        "テレビ、オーディオ、カメラ",
+        "カメラ",
+        "レンズフィルター",
+        "レンズフィルター本体"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "fel-22-01-2set": {
       "reviewHistory": {
@@ -4458,11 +5290,15 @@
       "inStock": true,
       "price": 1980,
       "categoryId": 48112,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "椅子カバー",
+      "categoryPath": [
+        "家具、インテリア用品",
+        "ファブリック、カバー類",
+        "椅子カバー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-22-02-2set": {
       "reviewHistory": {
@@ -4482,11 +5318,16 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 49549,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "その他AVケーブル",
+      "categoryPath": [
+        "テレビ、オーディオ、カメラ",
+        "テレビ、映像機器",
+        "AVケーブル",
+        "その他AVケーブル"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "fas-16-02-orange": {
       "reviewHistory": {
@@ -4506,11 +5347,16 @@
       "inStock": true,
       "price": 580,
       "categoryId": 36723,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ボウタイ、紳士蝶ネクタイ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズネクタイ",
+        "ボウタイ、紳士蝶ネクタイ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "ca-02-01-hera": {
       "reviewHistory": {
@@ -4530,11 +5376,16 @@
       "inStock": true,
       "price": 1480,
       "categoryId": 42954,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "自動車用ステッカー、デカール",
+      "categoryPath": [
+        "車、バイク、自転車",
+        "自動車",
+        "ドレスアップ用品",
+        "自動車用ステッカー、デカール"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-18-11-50": {
       "reviewHistory": {
@@ -4554,11 +5405,15 @@
       "inStock": true,
       "price": 1980,
       "categoryId": 48725,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "コンセントガード（ベビー用）",
+      "categoryPath": [
+        "ベビー、キッズ、マタニティ",
+        "ベビー用セーフティグッズ",
+        "コンセントガード（ベビー用）"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-20-17-20": {
       "reviewHistory": {
@@ -4578,11 +5433,15 @@
       "inStock": true,
       "price": 880,
       "categoryId": 4426,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "PCサプライ、アクセサリーその他",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "PCサプライ、アクセサリー",
+        "PCサプライ、アクセサリーその他"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-01-30": {
       "reviewHistory": {
@@ -4602,11 +5461,16 @@
       "inStock": true,
       "price": 500,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "fas-16-01-brown": {
       "reviewHistory": {
@@ -4626,11 +5490,16 @@
       "inStock": true,
       "price": 580,
       "categoryId": 36720,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ナロータイ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズネクタイ",
+        "ナロータイ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "sb-01-2set": {
       "reviewHistory": {
@@ -4650,11 +5519,16 @@
       "inStock": true,
       "price": 1980,
       "categoryId": 4147,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "旅行かばん備品、小物",
+      "categoryPath": [
+        "アウトドア、釣り、旅行用品",
+        "旅行用品",
+        "旅行かばん、ポーチ、小分けバッグ",
+        "旅行かばん備品、小物"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "fas-16-01-gray": {
       "reviewHistory": {
@@ -4674,11 +5548,16 @@
       "inStock": true,
       "price": 580,
       "categoryId": 36720,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ナロータイ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズネクタイ",
+        "ナロータイ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-01-24-2set": {
       "reviewHistory": {
@@ -4698,11 +5577,16 @@
       "inStock": true,
       "price": 950,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "fas-16-01-blue": {
       "reviewHistory": {
@@ -4722,11 +5606,16 @@
       "inStock": true,
       "price": 580,
       "categoryId": 36720,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ナロータイ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズネクタイ",
+        "ナロータイ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "fas-16-02-purple": {
       "reviewHistory": {
@@ -4746,11 +5635,16 @@
       "inStock": true,
       "price": 580,
       "categoryId": 36723,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ボウタイ、紳士蝶ネクタイ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズネクタイ",
+        "ボウタイ、紳士蝶ネクタイ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-18-11-20": {
       "reviewHistory": {
@@ -4770,11 +5664,15 @@
       "inStock": true,
       "price": 1080,
       "categoryId": 48725,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "コンセントガード（ベビー用）",
+      "categoryPath": [
+        "ベビー、キッズ、マタニティ",
+        "ベビー用セーフティグッズ",
+        "コンセントガード（ベビー用）"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-01-20-2set": {
       "reviewHistory": {
@@ -4794,11 +5692,16 @@
       "inStock": true,
       "price": 950,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-26-08-6set": {
       "reviewHistory": {
@@ -4818,11 +5721,14 @@
       "inStock": true,
       "price": 3280,
       "categoryId": 4353,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "その他子ども服ベビー、キッズ、マタニティ用品",
+      "categoryPath": [
+        "ベビー、キッズ、マタニティ",
+        "その他子ども服ベビー、キッズ、マタニティ用品"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-01-28": {
       "reviewHistory": {
@@ -4842,11 +5748,16 @@
       "inStock": true,
       "price": 500,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-01-30-2set": {
       "reviewHistory": {
@@ -4866,11 +5777,16 @@
       "inStock": true,
       "price": 950,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "fas-16-02-navy": {
       "reviewHistory": {
@@ -4890,11 +5806,16 @@
       "inStock": true,
       "price": 580,
       "categoryId": 36723,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ボウタイ、紳士蝶ネクタイ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズネクタイ",
+        "ボウタイ、紳士蝶ネクタイ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "car-02-01-kougu": {
       "reviewHistory": {
@@ -4914,11 +5835,16 @@
       "inStock": true,
       "price": 1980,
       "categoryId": 42954,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "自動車用ステッカー、デカール",
+      "categoryPath": [
+        "車、バイク、自転車",
+        "自動車",
+        "ドレスアップ用品",
+        "自動車用ステッカー、デカール"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bg-04-nylon-10set": {
       "reviewHistory": {
@@ -4938,11 +5864,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 48722,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ドアストッパー、ドアロック（ベビー用）",
+      "categoryPath": [
+        "ベビー、キッズ、マタニティ",
+        "ベビー用セーフティグッズ",
+        "ドアストッパー、ドアロック（ベビー用）"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-20-18-50": {
       "reviewHistory": {
@@ -4962,11 +5892,15 @@
       "inStock": true,
       "price": 1680,
       "categoryId": 4426,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "PCサプライ、アクセサリーその他",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "PCサプライ、アクセサリー",
+        "PCサプライ、アクセサリーその他"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "cg-22-06": {
       "reviewHistory": {
@@ -4986,11 +5920,16 @@
       "inStock": true,
       "price": 680,
       "categoryId": 46694,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "排水口カバー、ネット",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "バス、洗面所用品",
+        "浴室用具",
+        "排水口カバー、ネット"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "cg-22-04-2set": {
       "reviewHistory": {
@@ -5010,11 +5949,16 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 46694,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "排水口カバー、ネット",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "バス、洗面所用品",
+        "浴室用具",
+        "排水口カバー、ネット"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-fb-21-01": {
       "reviewHistory": {
@@ -5034,11 +5978,15 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-fb-21-09": {
       "reviewHistory": {
@@ -5058,11 +6006,15 @@
       "inStock": true,
       "price": 1680,
       "categoryId": 36498,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スマートウォッチアクセサリー",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "スマートウォッチ、ウェアラブル端末",
+        "スマートウォッチアクセサリー"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "fas-16-02-green": {
       "reviewHistory": {
@@ -5082,11 +6034,16 @@
       "inStock": true,
       "price": 580,
       "categoryId": 36723,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ボウタイ、紳士蝶ネクタイ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズネクタイ",
+        "ボウタイ、紳士蝶ネクタイ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-24-02a": {
       "reviewHistory": {
@@ -5106,11 +6063,16 @@
       "inStock": true,
       "price": 1080,
       "categoryId": 32679,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ペット用爪切り、ネイルケア用品",
+      "categoryPath": [
+        "ペット用品、生き物",
+        "犬用品",
+        "犬用お手入れ、トリミング用品",
+        "ペット用爪切り、ネイルケア用品"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "si-23-10": {
       "reviewHistory": {
@@ -5130,11 +6092,16 @@
       "inStock": true,
       "price": 680,
       "categoryId": 4144,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スーツケースベルト",
+      "categoryPath": [
+        "アウトドア、釣り、旅行用品",
+        "旅行用品",
+        "旅行用品　スーツケース、キャリーバッグ",
+        "スーツケースベルト"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "baby-23-02": {
       "reviewHistory": {
@@ -5154,11 +6121,16 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 34946,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "介護用ソックス",
+      "categoryPath": [
+        "ダイエット、健康グッズ",
+        "介護用品",
+        "介護用衣料、寝巻き",
+        "介護用ソックス"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bg-03-con-mesu-30set": {
       "reviewHistory": {
@@ -5178,11 +6150,15 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 48725,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "コンセントガード（ベビー用）",
+      "categoryPath": [
+        "ベビー、キッズ、マタニティ",
+        "ベビー用セーフティグッズ",
+        "コンセントガード（ベビー用）"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "tb-23-03-4set": {
       "reviewHistory": {
@@ -5202,11 +6178,16 @@
       "inStock": true,
       "price": 2500,
       "categoryId": 77059,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "電動歯ブラシ用替えブラシ",
+      "categoryPath": [
+        "家電",
+        "美容家電",
+        "オーラルケア家電",
+        "電動歯ブラシ用替えブラシ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-01-14": {
       "reviewHistory": {
@@ -5226,11 +6207,16 @@
       "inStock": true,
       "price": 500,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-01-12": {
       "reviewHistory": {
@@ -5250,11 +6236,16 @@
       "inStock": true,
       "price": 500,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-01-12-2set": {
       "reviewHistory": {
@@ -5274,11 +6265,16 @@
       "inStock": true,
       "price": 950,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-01-14-2set": {
       "reviewHistory": {
@@ -5298,11 +6294,16 @@
       "inStock": true,
       "price": 950,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-01-16-2set": {
       "reviewHistory": {
@@ -5322,11 +6323,16 @@
       "inStock": true,
       "price": 950,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-01-18-2set": {
       "reviewHistory": {
@@ -5346,11 +6352,16 @@
       "inStock": true,
       "price": 950,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-01-26-2set": {
       "reviewHistory": {
@@ -5370,11 +6381,16 @@
       "inStock": true,
       "price": 950,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-01-28-2set": {
       "reviewHistory": {
@@ -5394,11 +6410,16 @@
       "inStock": true,
       "price": 950,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-18-07": {
       "reviewHistory": {
@@ -5418,11 +6439,15 @@
       "inStock": true,
       "price": 200,
       "categoryId": 48722,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ドアストッパー、ドアロック（ベビー用）",
+      "categoryPath": [
+        "ベビー、キッズ、マタニティ",
+        "ベビー用セーフティグッズ",
+        "ドアストッパー、ドアロック（ベビー用）"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-20-17-50": {
       "reviewHistory": {
@@ -5442,11 +6467,15 @@
       "inStock": true,
       "price": 1680,
       "categoryId": 4426,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "PCサプライ、アクセサリーその他",
+      "categoryPath": [
+        "スマホ、タブレット、パソコン",
+        "PCサプライ、アクセサリー",
+        "PCサプライ、アクセサリーその他"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "tb-23-03-2set": {
       "reviewHistory": {
@@ -5466,11 +6495,16 @@
       "inStock": true,
       "price": 1400,
       "categoryId": 77059,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "電動歯ブラシ用替えブラシ",
+      "categoryPath": [
+        "家電",
+        "美容家電",
+        "オーラルケア家電",
+        "電動歯ブラシ用替えブラシ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "tb-23-02-3set": {
       "reviewHistory": {
@@ -5490,11 +6524,16 @@
       "inStock": true,
       "price": 1660,
       "categoryId": 77059,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "電動歯ブラシ用替えブラシ",
+      "categoryPath": [
+        "家電",
+        "美容家電",
+        "オーラルケア家電",
+        "電動歯ブラシ用替えブラシ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "tb-23-03-3set": {
       "reviewHistory": {
@@ -5514,11 +6553,16 @@
       "inStock": true,
       "price": 1980,
       "categoryId": 77059,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "電動歯ブラシ用替えブラシ",
+      "categoryPath": [
+        "家電",
+        "美容家電",
+        "オーラルケア家電",
+        "電動歯ブラシ用替えブラシ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "car-02-01-2set-kougu": {
       "reviewHistory": {
@@ -5538,11 +6582,16 @@
       "inStock": true,
       "price": 2880,
       "categoryId": 42954,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "自動車用ステッカー、デカール",
+      "categoryPath": [
+        "車、バイク、自転車",
+        "自動車",
+        "ドレスアップ用品",
+        "自動車用ステッカー、デカール"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "foot-25-01": {
       "reviewHistory": {
@@ -5562,11 +6611,15 @@
       "inStock": true,
       "price": 1280,
       "categoryId": 68542,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "外反母趾対策用品",
+      "categoryPath": [
+        "キッチン、日用品、文具",
+        "シューケア、革手入れ用品",
+        "外反母趾対策用品"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "fing-25-02": {
       "reviewHistory": {
@@ -5586,11 +6639,16 @@
       "inStock": true,
       "price": 1000,
       "categoryId": 47009,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "スポーツケア用品　指用サポーター",
+      "categoryPath": [
+        "スポーツ用品",
+        "スポーツケア用品",
+        "サポーター",
+        "スポーツケア用品　指用サポーター"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-18-17-38": {
       "reviewHistory": {
@@ -5610,11 +6668,16 @@
       "inStock": false,
       "price": 1080,
       "categoryId": 22861,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "メンズショルダーバッグ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズバッグ",
+        "メンズショルダーバッグ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-18-17-50": {
       "reviewHistory": {
@@ -5634,11 +6697,16 @@
       "inStock": false,
       "price": 1080,
       "categoryId": 22861,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "メンズショルダーバッグ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズバッグ",
+        "メンズショルダーバッグ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "yoga-23-02-set": {
       "reviewHistory": {
@@ -5658,11 +6726,15 @@
       "inStock": false,
       "price": 1280,
       "categoryId": 47489,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ヨガ　ソックス",
+      "categoryPath": [
+        "スポーツ用品",
+        "ヨガ、ピラティス用品",
+        "ヨガ　ソックス"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "gar-fa-02": {
       "reviewHistory": {
@@ -5682,11 +6754,16 @@
       "inStock": false,
       "price": 1280,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "fas-16-01-yellow": {
       "reviewHistory": {
@@ -5706,11 +6783,16 @@
       "inStock": false,
       "price": 580,
       "categoryId": 36720,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "ナロータイ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズネクタイ",
+        "ナロータイ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "zak-18-17-32": {
       "reviewHistory": {
@@ -5730,11 +6812,16 @@
       "inStock": false,
       "price": 1080,
       "categoryId": 22861,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "メンズショルダーバッグ",
+      "categoryPath": [
+        "ファッション",
+        "メンズファッション",
+        "メンズバッグ",
+        "メンズショルダーバッグ"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "gar-fa-04": {
       "reviewHistory": {
@@ -5754,11 +6841,16 @@
       "inStock": false,
       "price": 1280,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "wat-fb-14": {
       "reviewHistory": {
@@ -5778,11 +6870,16 @@
       "inStock": false,
       "price": 659,
       "categoryId": 14570,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用工具、メンテナンス用品",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用工具、メンテナンス用品"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-01-10-2set": {
       "reviewHistory": {
@@ -5802,11 +6899,16 @@
       "inStock": false,
       "price": 950,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     },
     "bloop-18-01-10": {
       "reviewHistory": {
@@ -5826,11 +6928,16 @@
       "inStock": false,
       "price": 500,
       "categoryId": 1649,
-      "categoryName": "",
-      "categoryPath": [],
+      "categoryName": "腕時計用ベルト、バンド",
+      "categoryPath": [
+        "ファッション",
+        "腕時計、アクセサリー",
+        "腕時計用品",
+        "腕時計用ベルト、バンド"
+      ],
       "inApi": true,
-      "inCsv": true,
-      "lastFetched": "2026-09-29T07:57:59Z"
+      "inCsv": false,
+      "lastFetched": "2026-09-29T09:01:58Z"
     }
   },
   "storeReviewHistory": {
@@ -5840,19 +6947,19 @@
     "count": 2055,
     "rate": 4.6
   },
-  "version": "y0.1.0",
+  "version": "y0.1.1",
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-09-29T07:57:59Z",
-  "lastAutoFetch": "2026-09-29T07:57:59Z",
-  "lastCsvFile": "data202609291200.csv",
+  "savedAt": "2026-09-29T09:01:58Z",
+  "lastAutoFetch": "2026-09-29T09:01:58Z",
+  "lastCsvFile": null,
   "counts": {
     "products": 243,
     "api": 243,
-    "csv": 243,
-    "new": 243,
-    "updated": 0,
+    "csv": 0,
+    "new": 0,
+    "updated": 243,
     "csv_only": 0,
     "gone": 0
   }
