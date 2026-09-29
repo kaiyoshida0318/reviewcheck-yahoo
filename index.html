@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>reviewcheck Yahoo</title>
+<style>
+  :root {
+    --bg: #f5f6f8; --panel: #fff; --line: #dfe3e8; --text: #1f2933; --muted: #6b7480;
+    --accent: #ff0033; --accent-soft: #fff0f2; --ok: #2e9e5b; --ok-soft: #e6f6ec; --warn: #b7791f; --warn-soft: #fff6e0;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--text); font: 13px/1.5 -apple-system, "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif; }
+  a { color: #0b63ce; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  button, input, select { font: inherit; }
+  button { cursor: pointer; border: 1px solid var(--line); background: #fff; border-radius: 6px; padding: 4px 10px; }
+  button:hover { background: #f0f2f5; }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  button.primary:hover { filter: brightness(.95); }
+  input[type=text], input[type=password], input[type=search] { border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; background: #fff; }
+
+  header { position: sticky; top: 0; z-index: 20; background: var(--panel); border-bottom: 1px solid var(--line); padding: 8px 14px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  header h1 { font-size: 15px; margin: 0; display: flex; align-items: baseline; gap: 8px; }
+  header h1 .ver { font-size: 11px; color: var(--muted); font-weight: normal; }
+  header .shop { font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
+  header .meta { color: var(--muted); font-size: 12px; }
+  header .spacer { flex: 1; }
+  #status { font-size: 12px; color: var(--muted); min-width: 120px; text-align: right; }
+  #status.err { color: var(--accent); }
+  #status.ok { color: var(--ok); }
+
+  .toolbar { padding: 8px 14px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .toolbar .count { color: var(--muted); font-size: 12px; }
+
+  .wrap { padding: 0 14px 40px; overflow-x: auto; }
+  table { border-collapse: separate; border-spacing: 0; width: 100%; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  th, td { padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: middle; text-align: left; }
+  th { background: #f8f9fb; font-weight: 600; font-size: 12px; color: var(--muted); white-space: nowrap; user-select: none; cursor: pointer; }
+  th.sorted { color: var(--text); }
+  th .arrow { font-size: 10px; margin-left: 3px; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #fafbfc; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  td.code { font-family: ui-monospace, Consolas, monospace; white-space: nowrap; }
+  td.img img { width: 56px; height: 56px; object-fit: cover; border-radius: 4px; background: #eee; display: block; }
+  td.name { max-width: 520px; }
+  td.name .t { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  td.name .sub { color: var(--muted); font-size: 11px; }
+  td.memo input { width: 220px; }
+  td.memo input.saved { background: var(--ok-soft); transition: background .2s; }
+  .pill { display: inline-block; padding: 0 6px; border-radius: 999px; font-size: 11px; }
+  .pill.out { background: var(--warn-soft); color: var(--warn); }
+  .pill.gone { background: #eee; color: var(--muted); }
+  .stars { color: #f5a623; letter-spacing: -1px; }
+
+  dialog { border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; width: 420px; max-width: 95vw; }
+  dialog::backdrop { background: rgba(0,0,0,.25); }
+  dialog h2 { margin: 0 0 12px; font-size: 15px; }
+  dialog label { display: block; margin: 10px 0 4px; font-size: 12px; color: var(--muted); }
+  dialog input { width: 100%; }
+  dialog .row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
+  dialog .hint { font-size: 11px; color: var(--muted); }
+  .empty { padding: 40px; text-align: center; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>reviewcheck <span style="color:var(--accent)">Yahoo</span> <span class="ver" id="ver"></span></h1>
+  <span class="shop" id="shopName">–</span>
+  <span class="meta" id="metaFetch"></span>
+  <span class="meta" id="metaStore"></span>
+  <span class="spacer"></span>
+  <span id="status"></span>
+  <button id="btnReload" title="GitHubから読み直す">↻ 再読込</button>
+  <button id="btnSettings" title="GitHub PAT の設定">⚙</button>
+</header>
+
+<div class="toolbar">
+  <input type="search" id="q" placeholder="商品コード・商品名で絞り込み" style="width:280px">
+  <span class="count" id="count"></span>
+</div>
+
+<div class="wrap">
+  <table id="tbl">
+    <thead>
+      <tr>
+        <th data-k="images" style="cursor:default">画像</th>
+        <th data-k="code">商品コード</th>
+        <th data-k="name">商品名</th>
+        <th data-k="reviewCount" class="num">レビュー</th>
+        <th data-k="reviewAvg" class="num">平均</th>
+        <th data-k="price" class="num">価格</th>
+        <th data-k="inStock">状態</th>
+        <th data-k="memo">メモ</th>
+      </tr>
+    </thead>
+    <tbody id="rows"><tr><td colspan="8" class="empty">読み込み中…</td></tr></tbody>
+  </table>
+</div>
+
+<dialog id="dlg">
+  <h2>設定</h2>
+  <label>GitHub リポジトリ</label>
+  <input type="text" id="inRepo" placeholder="owner/repo">
+  <label>ブランチ</label>
+  <input type="text" id="inBranch" placeholder="main">
+  <label>GitHub Personal Access Token</label>
+  <input type="password" id="inPat" placeholder="github_pat_…" autocomplete="off">
+  <div class="hint">このブラウザの localStorage にだけ保存されます。ファイルには書きません。<br>Fine-grained PAT で、このリポジトリの Contents: Read and write を付けてください。</div>
+  <div class="row">
+    <button id="dlgCancel">閉じる</button>
+    <button id="dlgSave" class="primary">保存</button>
+  </div>
+</dialog>
+
+<script>
+'use strict';
+// ============================================================
+// reviewcheck Yahoo — フェーズ1
+//   取得は TimerRunner（yahoo_review_fetch.py）が行い、このページは
+//   data/{shopId}/review_data.json を GitHub Contents API で読み書きするだけ。
+// ============================================================
+const VERSION = 'y0.1.0';
+
+// ---- ショップ定義（seller_id は Yahoo! のストアID）----
+const SHOPS = [
+  { id: 'yukaiya', name: 'ゆかい屋', sellerId: 'yukaiya' },
+];
+const SHOP_ALIASES = { kairy: 'kairy', 'kai-ry': 'kairy', burariya: 'kairy' };
+
+const DEFAULT_REPO = 'kaiyoshida0318/reviewcheck-yahoo';
+const LS = { pat: 'rcy_pat', repo: 'rcy_repo', branch: 'rcy_branch', lastShop: 'rcy_last_shop', cache: (id) => `rcy_cache_${id}` };
+const SAVE_DEBOUNCE_MS = 3000;
+
+// ---- ショップはURLで決め、タブごとに固定する ----
+function resolveShop() {
+  const u = new URL(location.href);
+  let id = u.searchParams.get('shop') || sessionStorage.getItem('rcy_shop') || localStorage.getItem(LS.lastShop) || SHOPS[0].id;
+  id = SHOP_ALIASES[id] || id;
+  const shop = SHOPS.find(s => s.id === id) || SHOPS[0];
+  sessionStorage.setItem('rcy_shop', shop.id);
+  localStorage.setItem(LS.lastShop, shop.id);
+  return shop;
+}
+const SHOP = resolveShop();
+const DATA_PATH = `data/${SHOP.id}/review_data.json`;
+
+// ---- 状態 ----
+let store = null;      // review_data.json の中身
+let sha = null;        // GitHub 上のファイルの sha（PUT に必要）
+let sortKey = 'reviewCount', sortDir = -1;
+let query = '';
+let dirty = false;
+let saveTimer = null;
+let saving = false;
+
+// ---- 小物 ----
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const fmtDate = (iso) => { if (!iso) return '–'; const d = new Date(iso); return isNaN(d) ? iso : d.toLocaleString('ja-JP', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }); };
+const setStatus = (msg, cls = '') => { const el = $('#status'); el.textContent = msg; el.className = cls; };
+// ※ String.fromCharCode(...bytes) は数十KBで "Maximum call stack size exceeded" になるので分割する
+const utf8ToB64 = (s) => { const b = new TextEncoder().encode(s); let bin = ''; for (let i = 0; i < b.length; i += 0x8000) bin += String.fromCharCode.apply(null, b.subarray(i, i + 0x8000)); return btoa(bin); };
+const b64ToUtf8 = (b) => new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\n/g, '')), c => c.charCodeAt(0)));
+
+function ghConfig() {
+  return {
+    pat: localStorage.getItem(LS.pat) || '',
+    repo: localStorage.getItem(LS.repo) || DEFAULT_REPO,
+    branch: localStorage.getItem(LS.branch) || 'main',
+  };
+}
+
+// ---- GitHub Contents API ----
+async function ghGet() {
+  const { pat, repo, branch } = ghConfig();
+  if (!pat) throw new Error('PAT未設定');
+  const res = await fetch(`https://api.github.com/repos/${repo}/contents/${DATA_PATH}?ref=${encodeURIComponent(branch)}&t=${Date.now()}`, {
+    headers: { Authorization: `Bearer ${pat}`, Accept: 'application/vnd.github+json' },
+    cache: 'no-store',
+  });
+  if (res.status === 404) return { data: null, sha: null };
+  if (!res.ok) throw new Error(`GitHub GET ${res.status}`);
+  const j = await res.json();
+  return { data: JSON.parse(b64ToUtf8(j.content)), sha: j.sha };
+}
+
+async function ghPut(obj, prevSha) {
+  const { pat, repo, branch } = ghConfig();
+  const text = JSON.stringify(obj, null, 2) + '\n';
+  const b64 = utf8ToB64(text);
+  if (b64ToUtf8(b64) !== text) throw new Error('base64 round-trip mismatch');
+  const body = { message: `[edit] ${SHOP.id} ${new Date().toISOString()}`, content: b64, branch };
+  if (prevSha) body.sha = prevSha;
+  const res = await fetch(`https://api.github.com/repos/${repo}/contents/${DATA_PATH}`, {
+    method: 'PUT',
+    headers: { Authorization: `Bearer ${pat}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) { const e = new Error(`GitHub PUT ${res.status}`); e.status = res.status; throw e; }
+  const j = await res.json();
+  return j.content.sha;
+}
+
+// ---- 読込 ----
+async function load() {
+  setStatus('読み込み中…');
+  const { pat } = ghConfig();
+  try {
+    if (pat) {
+      const r = await ghGet();
+      store = r.data; sha = r.sha;
+      if (!store) { setStatus('データなし（TimerRunner未実行）', 'err'); store = { productCache: {} }; }
+      else setStatus(`読込 ${fmtDate(new Date().toISOString())}`, 'ok');
+    } else {
+      // PATが無ければ Pages 上の JSON を読むだけ（編集は保存されない）
+      const res = await fetch(`${DATA_PATH}?t=${Date.now()}`, { cache: 'no-store' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      store = await res.json(); sha = null;
+      setStatus('閲覧のみ（⚙でPATを設定すると保存できます）', 'err');
+    }
+    localStorage.setItem(LS.cache(SHOP.id), JSON.stringify(store));
+  } catch (e) {
+    const cached = localStorage.getItem(LS.cache(SHOP.id));
+    if (cached) { store = JSON.parse(cached); setStatus(`読込失敗、ローカルキャッシュ表示: ${e.message}`, 'err'); }
+    else { store = { productCache: {} }; setStatus(`読込失敗: ${e.message}`, 'err'); }
+  }
+  render();
+}
+
+// ---- 保存（入力 → ローカル即時 → 3秒後に GitHub）----
+function markDirty() {
+  dirty = true;
+  localStorage.setItem(LS.cache(SHOP.id), JSON.stringify(store));
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(flush, SAVE_DEBOUNCE_MS);
+  setStatus('未送信…');
+}
+
+async function flush() {
+  if (!dirty || saving) return;
+  const { pat } = ghConfig();
+  if (!pat) { setStatus('PAT未設定のため保存できません', 'err'); return; }
+  saving = true;
+  try {
+    store.savedAt = new Date().toISOString();
+    try {
+      sha = await ghPut(store, sha);
+    } catch (e) {
+      if (e.status !== 409 && e.status !== 422) throw e;
+      // 他のPC/TimerRunnerが先に書いた → 取り直して編集項目だけ乗せ直す
+      const latest = await ghGet();
+      mergeEditsInto(latest.data || { productCache: {} });
+      store = latest.data; sha = await ghPut(store, latest.sha);
+      render();
+    }
+    dirty = false;
+    setStatus(`保存 ${fmtDate(store.savedAt)}`, 'ok');
+  } catch (e) {
+    setStatus(`保存失敗: ${e.message}`, 'err');
+    saveTimer = setTimeout(flush, 10000);
+  } finally {
+    saving = false;
+  }
+}
+
+const EDITABLE = ['memo', 'status', 'tags', 'updatedAt'];
+function mergeEditsInto(target) {
+  const tc = target.productCache || (target.productCache = {});
+  for (const [code, p] of Object.entries(store.productCache || {})) {
+    const t = tc[code] || (tc[code] = { ...p });
+    for (const k of EDITABLE) if (k in p) t[k] = p[k];
+  }
+}
+
+window.addEventListener('beforeunload', (e) => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
+
+// ---- 描画 ----
+function rowsSorted() {
+  const list = Object.entries(store.productCache || {}).map(([code, p]) => ({ code, ...p }));
+  const q = query.trim().toLowerCase();
+  const filtered = q ? list.filter(p => (p.code + ' ' + (p.name || '')).toLowerCase().includes(q)) : list;
+  filtered.sort((a, b) => {
+    let x = a[sortKey], y = b[sortKey];
+    if (sortKey === 'inStock') { x = (a.inApi ? 1 : 0) + (a.inStock ? 1 : 0); y = (b.inApi ? 1 : 0) + (b.inStock ? 1 : 0); }
+    if (typeof x === 'string' || typeof y === 'string') return String(x ?? '').localeCompare(String(y ?? ''), 'ja') * sortDir;
+    return ((x ?? 0) - (y ?? 0)) * sortDir || a.code.localeCompare(b.code);
+  });
+  return { filtered, total: list.length };
+}
+
+function stateHtml(p) {
+  if (p.inApi === false && p.inCsv === false) return '<span class="pill gone">削除?</span>';
+  if (p.inApi === false) return '<span class="pill out">非公開/検索外</span>';
+  if (p.inStock === false) return '<span class="pill out">在庫切れ</span>';
+  return '';
+}
+
+function render() {
+  $('#ver').textContent = VERSION;
+  $('#shopName').textContent = SHOP.name;
+  $('#metaFetch').textContent = store.lastAutoFetch ? `最終取得 ${fmtDate(store.lastAutoFetch)}` : '';
+  $('#metaStore').textContent = store.storeReview ? `ストア評価 ${store.storeReview.rate} / ${store.storeReview.count.toLocaleString()}件` : '';
+
+  document.querySelectorAll('th[data-k]').forEach(th => {
+    const on = th.dataset.k === sortKey;
+    th.classList.toggle('sorted', on);
+    th.querySelector('.arrow')?.remove();
+    if (on) th.insertAdjacentHTML('beforeend', `<span class="arrow">${sortDir > 0 ? '▲' : '▼'}</span>`);
+  });
+
+  const { filtered, total } = rowsSorted();
+  $('#count').textContent = query ? `${filtered.length} / ${total} 件` : `${total} 件`;
+  if (!filtered.length) { $('#rows').innerHTML = '<tr><td colspan="8" class="empty">該当なし</td></tr>'; return; }
+
+  $('#rows').innerHTML = filtered.map(p => `
+    <tr data-code="${esc(p.code)}">
+      <td class="img">${p.images?.[0] ? `<a href="${esc(p.itemUrl)}" target="_blank" rel="noopener"><img src="${esc(p.images[0])}" loading="lazy" alt=""></a>` : ''}</td>
+      <td class="code"><a href="${esc(p.itemUrl)}" target="_blank" rel="noopener">${esc(p.code)}</a></td>
+      <td class="name"><div class="t" title="${esc(p.name)}">${esc(p.name)}</div>${p.categoryName ? `<div class="sub">${esc(p.categoryName)}</div>` : ''}</td>
+      <td class="num"><a href="${esc(p.reviewUrl)}" target="_blank" rel="noopener">${(p.reviewCount ?? 0).toLocaleString()}</a></td>
+      <td class="num"><span class="stars">${'★'.repeat(Math.round(p.reviewAvg || 0))}</span> ${p.reviewAvg ? p.reviewAvg.toFixed(1) : '–'}</td>
+      <td class="num">${p.price ? '¥' + p.price.toLocaleString() : ''}</td>
+      <td>${stateHtml(p)}</td>
+      <td class="memo"><input type="text" data-field="memo" value="${esc(p.memo || '')}" placeholder="メモ"></td>
+    </tr>`).join('');
+}
+
+// ---- イベント（onclick に値を埋めない。委譲で拾う）----
+$('#rows').addEventListener('input', (e) => {
+  const inp = e.target.closest('input[data-field]');
+  if (!inp) return;
+  const code = inp.closest('tr').dataset.code;
+  const p = store.productCache[code]; if (!p) return;
+  p[inp.dataset.field] = inp.value;
+  p.updatedAt = new Date().toISOString();
+  inp.classList.add('saved'); setTimeout(() => inp.classList.remove('saved'), 600);
+  markDirty();
+});
+document.querySelector('thead').addEventListener('click', (e) => {
+  const th = e.target.closest('th[data-k]'); if (!th || th.dataset.k === 'images') return;
+  if (sortKey === th.dataset.k) sortDir = -sortDir; else { sortKey = th.dataset.k; sortDir = th.dataset.k === 'reviewCount' || th.dataset.k === 'reviewAvg' || th.dataset.k === 'price' ? -1 : 1; }
+  render();
+});
+$('#q').addEventListener('input', (e) => { query = e.target.value; render(); });
+$('#btnReload').addEventListener('click', async () => { if (dirty) await flush(); load(); });
+
+// ---- 設定ダイアログ ----
+const dlg = $('#dlg');
+$('#btnSettings').addEventListener('click', () => {
+  const c = ghConfig();
+  $('#inRepo').value = c.repo; $('#inBranch').value = c.branch; $('#inPat').value = c.pat;
+  dlg.showModal();
+});
+$('#dlgCancel').addEventListener('click', () => dlg.close());
+$('#dlgSave').addEventListener('click', () => {
+  localStorage.setItem(LS.repo, $('#inRepo').value.trim() || DEFAULT_REPO);
+  localStorage.setItem(LS.branch, $('#inBranch').value.trim() || 'main');
+  localStorage.setItem(LS.pat, $('#inPat').value.trim());
+  dlg.close(); load();
+});
+
+load();
+</script>
+</body>
+</html>
