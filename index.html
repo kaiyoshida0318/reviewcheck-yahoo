@@ -304,7 +304,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'y0.3.1';
+const VERSION = 'v0.3.1';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -416,6 +416,9 @@ const setStatus = (msg, cls = '') => { const el = $('#status'); el.textContent =
 const pad2 = (n) => String(n).padStart(2, '0');
 function fmtShort(iso) { if (!iso) return ''; const d = new Date(iso); if (isNaN(d)) return ''; return `${d.getMonth() + 1}/${d.getDate()} ${pad2(d.getHours())}:${pad2(d.getMinutes())}`; }
 function fmtDate(iso) { if (!iso) return ''; const d = new Date(iso); if (isNaN(d)) return ''; return `${d.getFullYear()}/${pad2(d.getMonth() + 1)}/${pad2(d.getDate())}`; }
+// 版数は数字だけで比べる（'y0.2.0' / 'v0.3.1' のように頭の文字が違っても正しく比べられるように）
+function verNums(v) { return (String(v || '').match(/\d+/g) || []).map(Number); }
+function verLt(a, b) { const x = verNums(a), y = verNums(b); if (!x.length) return true; for (let i = 0; i < Math.max(x.length, y.length); i++) { const d = (x[i] || 0) - (y[i] || 0); if (d) return d < 0; } return false; }
 function daysAgo(iso) { const d = new Date(iso); return isNaN(d) ? Infinity : (Date.now() - d.getTime()) / 86400000; }
 function ymd(d) { return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`; }
 // ※ String.fromCharCode(...bytes) は数十KBで "Maximum call stack size exceeded" になるので分割する
@@ -525,8 +528,8 @@ async function load() {
 function migrate() {
   let changed = 0;
   if (!Object.keys(store.productCache || {}).length) return false;   // データがまだ無いストアでは何もしない（空ファイルを作らない）
-  // y0.3.0: name は「人が付ける短い商品名」になった。y0.2 まではジョブが CSV/API の長い名前を入れていた。
-  if (!store.nameMigrated && String(store.version || '') < 'y0.3.0') {
+  // v0.3.0: name は「人が付ける短い商品名」になった。y0.2 まではジョブが CSV/API の長い名前を入れていた。
+  if (!store.nameMigrated && verLt(store.version, '0.3.0')) {
     let n = 0;
     for (const p of Object.values(store.productCache)) {
       if ('name' in p) { if (!p.csvName) p.csvName = p.name; delete p.name; n++; }
