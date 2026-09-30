@@ -9314,7 +9314,8 @@
         null
       ],
       "firstStatus": "skip",
-      "updatedAt": "2026-09-30T06:37:48.499Z"
+      "updatedAt": "2026-09-30T06:56:05.442Z",
+      "status": "ignore"
     },
     "bloop-18-01-26-2set": {
       "reviewHistory": {
@@ -10173,7 +10174,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-09-30T06:47:59.922Z",
+  "savedAt": "2026-09-30T06:56:08.446Z",
   "lastAutoFetch": "2026-09-30T03:06:57Z",
   "lastCsvFile": "data202609291804.csv",
   "counts": {
