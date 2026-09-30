@@ -179,9 +179,11 @@
         "2024-06-04T15:06:09+09:00"
       ],
       "ranking": "【リアルタイム】オーラルケア＞電動歯ブラシ用替えブラシランキング（9/4 23:50）",
-      "updatedAt": "2026-09-30T09:13:53.302Z",
+      "updatedAt": "2026-09-30T09:17:24.672Z",
       "registeredAt": "2026-09-29",
-      "firstStatus": "ready"
+      "firstStatus": "ready",
+      "secondStatus": "changing",
+      "onScreenCount": 203
     },
     "foot-22-04-2set": {
       "reviewHistory": {
@@ -10613,7 +10615,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-09-30T09:17:15.282Z",
+  "savedAt": "2026-09-30T09:17:27.681Z",
   "lastAutoFetch": "2026-09-30T07:31:03Z",
   "lastCsvFile": "控え:data202609291804.csv",
   "counts": {
