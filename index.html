@@ -233,7 +233,12 @@
   .c-rank { min-width: 260px; }
   .c-rank .rk-dds { display: flex; gap: 6px; margin-bottom: 6px; }
   .c-rank .dd { width: 128px; }
-  .c-rank input { width: 100%; font-size: 12px; }
+  .c-rank textarea { width: 100%; font: inherit; font-size: 12px; line-height: 1.45; border: 1px solid var(--line2); border-radius: 6px; padding: 4px 8px; resize: vertical; min-height: 44px; }
+  .rk-fill { margin-top: 4px; font-size: 11px; padding: 2px 8px; }
+  #menu .mi.plain { background: #fff; color: var(--text); font-weight: 400; line-height: 1.5; }
+  #menu .mi.plain:hover { background: #f0f2f5; }
+  #menu .mi.plain b { font-weight: 700; }
+  #menu .mi.plain small { display: block; color: var(--muted); font-size: 11px; }
   .selband { display: none; margin-top: 4px; }
   body.mode-first .selband { display: block; }
   .selband button { font-size: 11px; padding: 2px 8px; border-radius: 999px; }
@@ -244,7 +249,12 @@
   .dnr-badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; white-space: nowrap; }
   .dnr-sub { display: block; font-size: 10px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
   .dnr-sub b { color: var(--text); }
-  .dnr-link { display: inline-block; margin-top: 4px; font-size: 11px; }
+  /* 伝令ちゃんのボタン。開く＝青の塗り / 登録＝オレンジの点線枠（ひと目で区別できるように） */
+  .dnr-btn { display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; white-space: nowrap; text-decoration: none !important; }
+  .dnr-btn.open { background: #1565c0; color: #fff; border: 1px solid #1565c0; }
+  .dnr-btn.open:hover { background: #0d47a1; }
+  .dnr-btn.add { background: #fff8e1; color: #e65100; border: 1px dashed #e65100; }
+  .dnr-btn.add:hover { background: #ffe0b2; }
   .c-make { width: 110px; text-align: center; }
   .c-make a.btn { display: inline-block; padding: 5px 10px; border: 1px solid var(--line2); border-radius: 6px; font-size: 12px; font-weight: 700; color: var(--text); background: #fff; white-space: nowrap; }
   .c-make a.btn:hover { background: #0d47a1; color: #fff; border-color: #0d47a1; text-decoration: none; }
@@ -408,7 +418,7 @@
     <tr><td>商品名</td><td><span class="tag man">手入力</span></td><td><b>自動では変わりません。</b>手で付けた名前を守るため、あえて上書きしていません。Yahoo! 側の名前を見たいときは、その下の小さい文字（現在のタイトル）を見てください。</td></tr>
     <tr><td>画面上件数</td><td><span class="tag man">手入力</span></td><td>2枚目用。今バナーに出している件数。</td></tr>
     <tr><td>1枚目変更・2枚目変更</td><td><span class="tag man">手入力</span></td><td>行のドロップダウン・一括変更。</td></tr>
-    <tr><td>ランキング詳細</td><td><span class="tag man">手入力</span></td><td>1枚目用。取ったランキングの中身（期間・順位・カテゴリ・日付など）。</td></tr>
+    <tr><td>ランキング詳細</td><td><span class="tag man">手入力</span><span class="tag">🔔 ボタン</span></td><td>1枚目用。手で書くか、「🔔 伝令ちゃんから」で伝令ちゃんの獲得記録から入れます（【期間】親＞カテゴリランキング（月/日 時:分））。入れた後は伝令ちゃんが変わっても自動では変わりません。</td></tr>
     <tr><td>証拠の画像（○ 選択）</td><td><span class="tag man">手入力</span></td><td>1枚目用。画像1〜3のどれか1枚。選んだ画像の右下が拡大表示されます。</td></tr>
     <tr><td>メモ・無視</td><td><span class="tag man">手入力</span></td><td></td></tr>
     <tr><td>項目設定</td><td><span class="tag man">手入力</span></td><td>選択肢の名前・色・並び順（↔ 項目設定）。</td></tr>
@@ -470,7 +480,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.7.1';
+const VERSION = 'v0.8.1';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -1060,9 +1070,11 @@ function numHtml(p) {
 }
 function selIdx(p) { return [1, 2, 3].includes(p.selectedImageIdx) ? p.selectedImageIdx : null; }
 function imgId(p, i) { return (p.imageIds || [])[i] || (i === 0 && p.imageId ? p.imageId : null); }
-function rankCell(p) {
+function rankCell(code, p) {
+  const n = denreiAchieved(code).length;
   return `<div class="rk-dds">${ddHtml('first', p)}</div>` +
-    `<input type="text" data-field="ranking" value="${esc(p.ranking || '')}" placeholder="ランキング詳細（例: デイリー1位 替えブラシ 9/30）" title="${esc(p.ranking || '')}">`;
+    `<textarea data-field="ranking" rows="2" placeholder="ランキング詳細（例: 【デイリー】親＞カテゴリランキング（9/30 10:00））　Enterで改行できます" title="${esc(p.ranking || '')}">${esc(p.ranking || '')}</textarea>` +
+    (n ? `<button class="rk-fill" data-act="rkFill" title="伝令ちゃんの獲得記録からランキング詳細を入れる${n > 1 ? `（${n}件から選ぶ）` : ''}">🔔 伝令ちゃんから${n > 1 ? `（${n}件）` : ''}</button>` : '');
 }
 function cropCell(p) {
   const i = selIdx(p);
@@ -1107,7 +1119,7 @@ function rowHtml(code, p) {
     <td class="c-num only-second"><input type="number" min="0" step="1" data-field="onScreenCount" value="${onScreen(p) ?? ''}" placeholder="—"></td>
     <td class="c-num only-second" data-cell="diff">${nh.diff}</td>
     <td class="c-num only-second" data-cell="rate">${nh.rate}</td>
-    <td class="c-rank only-first">${rankCell(p)}</td>
+    <td class="c-rank only-first" data-cell="rank">${rankCell(code, p)}</td>
     <td class="c-denrei only-first">${denreiCell(code)}</td>
     <td class="c-make only-first">${makeCell(code)}</td>
     <td class="c-tail only-tail" data-cell="tail">${tailCell(code, p)}</td>
@@ -1167,10 +1179,14 @@ function setMode(m) {
 // ============================================================
 let menuCtx = null;
 function openMenu(btn, g, onPick) {
-  const menu = $('#menu');
   const cur = btn.dataset.cur;
   const opts = defOptions(g);
-  menu.innerHTML = opts.map((d, i) => `<button class="mi ${d.key === cur ? 'cur' : ''}" data-key="${esc(d.key)}" style="background:${esc(d.bg)};color:${esc(d.fg)}">${esc(d.icon)} ${esc(d.label)}</button>${d.sep && i < opts.length - 1 ? '<div class="sep"></div>' : ''}`).join('');
+  showMenu(btn, opts.map((d, i) => `<button class="mi ${d.key === cur ? 'cur' : ''}" data-key="${esc(d.key)}" style="background:${esc(d.bg)};color:${esc(d.fg)}">${esc(d.icon)} ${esc(d.label)}</button>${d.sep && i < opts.length - 1 ? '<div class="sep"></div>' : ''}`).join(''), onPick);
+}
+// 中身（HTML）を渡して、ボタンの下（入らなければ上）に出す。項目は .mi[data-key]
+function showMenu(btn, html, onPick) {
+  const menu = $('#menu');
+  menu.innerHTML = html;
   menu.style.display = 'block';
   menu.style.maxHeight = '';
   const r = btn.getBoundingClientRect();
@@ -1189,7 +1205,7 @@ $('#menu').addEventListener('click', (e) => {
   const b = e.target.closest('.mi'); if (!b || !menuCtx) return;
   const fn = menuCtx.onPick; closeMenu(); fn(b.dataset.key);
 });
-document.addEventListener('mousedown', (e) => { if (menuCtx && !e.target.closest('#menu') && !e.target.closest('.dd')) closeMenu(); });
+document.addEventListener('mousedown', (e) => { if (menuCtx && !e.target.closest('#menu') && !e.target.closest('.dd') && !e.target.closest('.rk-fill')) closeMenu(); });
 window.addEventListener('scroll', () => { if (menuCtx) closeMenu(); }, true);
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
 
@@ -1231,6 +1247,20 @@ $('#rows').addEventListener('click', (e) => {
     e.preventDefault();
     const p = store.productCache[code];
     navigator.clipboard?.writeText(p.itemUrl || '').then(() => setStatus('URLをコピーしました', 'ok'), () => setStatus('コピーできませんでした', 'err'));
+  } else if (act.dataset.act === 'rkFill') {
+    if (menuCtx) { closeMenu(); return; }
+    const list = denreiAchieved(code);
+    const apply = (a) => {
+      const p = store.productCache[code];
+      p.ranking = rankingTextOf(a);
+      touch(code);
+      const tr = act.closest('tr'), inp = tr.querySelector('[data-field="ranking"]');
+      inp.value = p.ranking; inp.title = p.ranking;
+      const td = inp.closest('td'); td.classList.remove('flash'); void td.offsetWidth; td.classList.add('flash');
+      setStatus('ランキング詳細を伝令ちゃんから入れました', 'ok');
+    };
+    if (list.length === 1) { apply(list[0]); return; }
+    showMenu(act, list.map((a, i) => `<button class="mi plain" data-key="${i}"><b>${esc(PERIOD_LABEL[a.period] || a.period)}${a.rank ? ` ${esc(a.rank)}位` : ''}</b>　${esc(fmtShort(a.at))}<small>${esc(rankingTextOf(a))}</small></button>`).join(''), (k) => apply(list[+k]));
   } else if (act.dataset.act === 'tpreview') {
     openTailPreview(code);
   } else if (act.dataset.act === 'tcopy') {
@@ -1262,7 +1292,7 @@ $('#rows').addEventListener('click', (e) => {
   }
 });
 $('#rows').addEventListener('input', (e) => {
-  const inp = e.target.closest('input[data-field]'); if (!inp) return;
+  const inp = e.target.closest('input[data-field], textarea[data-field]'); if (!inp) return;
   const code = rowCode(inp), p = store.productCache[code]; if (!p) return;
   const f = inp.dataset.field;
   if (f === 'onScreenCount') {
@@ -1319,6 +1349,18 @@ $('#filters').addEventListener('click', (e) => {
   const fb = e.target.closest('[data-fg]');
   if (fb) { setFilter(fb.dataset.fg, fb.dataset.fk); return; }
   if (e.target.closest('[data-act="denreiReload"]')) { loadDenrei(true); return; }
+  if (e.target.closest('[data-act="rkFillAll"]')) {
+    let n = 0;
+    for (const [c, p] of baseRows()) {
+      if (String(p.ranking || '').trim()) continue;
+      const list = denreiAchieved(c); if (!list.length) continue;
+      p.ranking = rankingTextOf(list[0]);
+      touch(c); n++;
+    }
+    setStatus(`ランキング詳細を ${n}件 入れました（伝令ちゃんのいちばん新しい獲得記録）`, 'ok');
+    renderAll();
+    return;
+  }
   const rs = e.target.closest('[data-act="tcopyReset"]');
   if (rs) {
     // 確認ダイアログは出さず、2回押しで消す（元に戻せないので1回目は押せる状態にするだけ）
@@ -1672,6 +1714,25 @@ const DENREI_STATES = {
   unknown:    { label: '未取得',             bg: '#f5f6f8', fg: '#9aa1a9', order: 5 },
 };
 const PERIOD_LABEL = { realtime: 'リアルタイム', daily: 'デイリー', annual: '年間' };
+// その商品の「獲得」記録（新しい順）。伝令ちゃんが読めていないときは空
+function denreiAchieved(code) {
+  const d = denrei.state === 'ok' ? denrei.map[code] : null;
+  return d ? [...d.achieved].sort((x, y) => String(y.at || '').localeCompare(String(x.at || ''))) : [];
+}
+/*
+ * ランキング詳細の文。楽天版で使っていた書き方（親＞カテゴリランキング（月/日 時:分））に、
+ * Yahoo! は期間が3つあるので頭に【期間】を付ける。
+ *   例: 【リアルタイム】オーラルケア＞電動歯ブラシ用替えブラシランキング（9/4 23:50）
+ *   カテゴリは伝令ちゃんの「家電 > 美容家電 > オーラルケア > 電動歯ブラシ用替えブラシ」の最後の2段。
+ *   日時は伝令ちゃんが1位を見つけた時刻。書き方を変えたいときはここだけ直せばよい。
+ */
+function rankingTextOf(a) {
+  const cats = String(a.category || '').split(/\s*[>＞]\s*/).map(x => x.trim()).filter(Boolean);
+  const cat = cats.slice(-2).join('＞') || '総合';
+  const d = new Date(a.at);
+  const when = isNaN(d) ? '' : `（${d.getMonth() + 1}/${d.getDate()} ${pad2(d.getHours())}:${pad2(d.getMinutes())}）`;
+  return `【${PERIOD_LABEL[a.period] || a.period}】${cat}ランキング${when}`;
+}
 let denrei = { state: 'idle', map: {}, loadedAt: '', error: '', shopId: null };   // state: idle|loading|ok|error|noshop
 function denreiStateOf(code) {
   if (denrei.state !== 'ok') return 'unknown';
@@ -1719,8 +1780,8 @@ function denreiCell(code) {
   } else if (k === 'unknown') {
     sub = `<span class="dnr-sub">${denrei.state === 'loading' ? '読込中…' : denrei.state === 'noshop' ? '伝令ちゃんにこのストアがありません' : '取得できていません'}</span>`;
   }
-  const link = d ? `<a class="dnr-link" href="${esc(denreiPageUrl(code))}" target="_blank" rel="noopener">🔔 伝令ちゃんで開く</a>`
-    : (denrei.state === 'ok' ? `<a class="dnr-link" href="${esc(denreiAppUrl())}" target="_blank" rel="noopener">＋ 伝令ちゃんに登録</a>` : '');
+  const link = d ? `<a class="dnr-btn open" href="${esc(denreiPageUrl(code))}" target="_blank" rel="noopener" title="伝令ちゃんのこの商品のページを開く">🔔 伝令ちゃんで開く</a>`
+    : (denrei.state === 'ok' ? `<a class="dnr-btn add" href="${esc(denreiAppUrl())}" target="_blank" rel="noopener" title="まだ伝令ちゃんに登録されていません。伝令ちゃんを開いて商品を足してください">＋ 伝令ちゃんに登録</a>` : '');
   return `<span class="dnr-badge" style="background:${def.bg};color:${def.fg}">${esc(def.label)}</span>${sub}${link}`;
 }
 function makeCell(code) {
@@ -1749,7 +1810,10 @@ function denreiRowHtml() {
   } else {
     html += `</div><span class="dnr-msg">未取得</span>`;
   }
-  return html + ` <button class="fbtn" data-act="denreiReload" title="伝令ちゃん側の状態を取り直します">🔄 更新</button>`;
+  // 空欄のランキング詳細だけ、伝令ちゃんの最新の獲得記録で埋める（入力済みは上書きしない）
+  const fillable = denrei.state === 'ok' ? base.filter(([c, p]) => !String(p.ranking || '').trim() && denreiAchieved(c).length).length : 0;
+  const fillBtn = fillable ? ` <button class="fbtn" data-act="rkFillAll" title="ランキング詳細が空欄で、伝令ちゃんに獲得記録がある商品に、いちばん新しい獲得記録を入れます（入力済みの欄は変えません）">🔔 空欄のランキング詳細を入れる <span class="n">(${fillable})</span></button>` : '';
+  return html + ` <button class="fbtn" data-act="denreiReload" title="伝令ちゃん側の状態を取り直します">🔄 更新</button>` + fillBtn;
 }
 function renderDenreiParts() {
   if (mode === 'first') { renderFilters(); }
