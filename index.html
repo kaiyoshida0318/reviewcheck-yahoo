@@ -430,7 +430,7 @@
     <tr><td>レビュー件数・平均評価</td><td><span class="tag">①取得ボタン</span><span class="tag">②毎朝の自動取得</span></td><td>Yahoo! の API の値。</td></tr>
     <tr><td>商品画像（画像1〜3）</td><td><span class="tag">①</span><span class="tag">②</span></td><td>商品ページに出ている順の1〜3枚目。</td></tr>
     <tr><td>画像の差し替え日</td><td><span class="tag">①</span><span class="tag">②</span></td><td>画像の下の日付。7日以内は緑。下の注意も見てください。</td></tr>
-    <tr><td>現在のタイトル</td><td><span class="tag">①</span><span class="tag">②</span></td><td>商品名の欄の下に小さく出ている文字。Yahoo! に今出ている商品名。</td></tr>
+    <tr><td>現在のタイトル</td><td><span class="tag">①</span><span class="tag">②</span></td><td>Yahoo! に今出ている商品名。商品名の下の「✏ 詳細」で見られます（商品名の欄にマウスを乗せても出ます）。</td></tr>
     <tr><td>在庫切れ・非公開の印</td><td><span class="tag">①</span><span class="tag">②</span></td><td>商品コードの下の黄色い印。</td></tr>
     <tr><td>レビュー件数の履歴</td><td><span class="tag">①</span><span class="tag">②</span></td><td>「7日 +3」の元。1日1件（その日の最後に取った値）。</td></tr>
     <tr><td>新しく出品した商品</td><td><span class="tag">①</span><span class="tag">②</span></td><td>行が増えます。状態は「未着手 / 獲得前」から。</td></tr>
@@ -438,7 +438,7 @@
     <tr><td>伝令ちゃんへの登録</td><td><span class="tag man">＋ ボタン</span></td><td>1枚目用の「＋ 伝令ちゃんに登録」で、伝令ちゃんの「商品を追加」が商品URL・商品コード・画像1入りで開きます（ランキングURLは伝令ちゃんが取得）。保存したら、ここの「🔄 更新」で状態を読み直してください。</td></tr>
     <tr><td>伝令ちゃんの状態</td><td><span class="tag">画面を開いたとき</span><span class="tag">🔔 ボタン</span></td><td>1枚目用の「🔔 伝令ちゃん」列。伝令ちゃん側が持ち主なので GitHub には保存しません。順位そのものは TimerRunner の「Yahooランキング監視」が巡回して伝令ちゃんに記録します。</td></tr>
     <tr class="sec"><td colspan="3">手で入れるもの（取得を押しても変わりません）</td></tr>
-    <tr><td>商品名</td><td><span class="tag man">手入力</span></td><td><b>自動では変わりません。</b>手で付けた名前を守るため、あえて上書きしていません。Yahoo! 側の名前を見たいときは、その下の小さい文字（現在のタイトル）を見てください。</td></tr>
+    <tr><td>商品名</td><td><span class="tag man">手入力</span></td><td><b>自動では変わりません。</b>手で付けた名前を守るため、あえて上書きしていません。Yahoo! 側の名前を見たいときは、商品名の下の「✏ 詳細」を開いてください。</td></tr>
     <tr><td>画面上件数</td><td><span class="tag man">手入力</span></td><td>2枚目用。今バナーに出している件数。</td></tr>
     <tr><td>1枚目変更・2枚目変更</td><td><span class="tag man">手入力</span></td><td>行のドロップダウン・一括変更。</td></tr>
     <tr><td>ランキング詳細</td><td><span class="tag man">手入力</span><span class="tag">🔔 ボタン</span></td><td>1枚目用。手で書くか、「🔔 伝令ちゃんから」で伝令ちゃんの獲得記録から入れます（【期間】親＞カテゴリランキング（月/日 時:分））。入れた後は伝令ちゃんが変わっても自動では変わりません。</td></tr>
@@ -526,7 +526,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.7';
+const VERSION = 'v0.8.9';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -934,12 +934,12 @@ const COLS = [
   { key: 'updatedAt', cls: 'c-upd', label: '更新日時', sort: true },
   { key: 'code',     cls: 'c-code', label: '商品コード', sort: true },
   { key: 'name',     cls: 'c-name', label: '商品名', sort: true },
+  { key: 'rank',     cls: 'c-rank only-first', label: 'ランキング（1枚目変更）', sort: 'first' },
+  { key: 'denrei',   cls: 'c-denrei only-first', label: '🔔 伝令ちゃん', sort: 'denrei' },
   { key: 'rating',   cls: 'c-rate', label: '評価 / 件数', sort: 'reviewCount', alt: [['reviewAvg', '評価'], ['reviewCount', '件数'], ['weekGain', '7日']] },
   { key: 'onscreen', cls: 'c-num only-second', label: '画面上件数', sort: true },
   { key: 'diff',     cls: 'c-num only-second', label: '件数差異', sort: true },
   { key: 'rate',     cls: 'c-num only-second', label: '上昇率', sort: true },
-  { key: 'rank',     cls: 'c-rank only-first', label: 'ランキング（1枚目変更）', sort: 'first' },
-  { key: 'denrei',   cls: 'c-denrei only-first', label: '🔔 伝令ちゃん', sort: 'denrei' },
   { key: 'make',     cls: 'c-make only-first', label: '1枚目作成' },
   { key: 'tail',     cls: 'c-tail only-tail', html: () => `タイトル末尾変更<div class="tt-heads">${TTAIL_SLOTS.map(sl => { const k = 'tail_' + sl.key, on = sortKey === k; return `<span data-sort="${k}" class="${on ? 'sorted' : ''}" title="${esc(sl.hint)}">${esc(sl.label)}<span class="arrow">${on ? (sortDir > 0 ? '▲' : '▼') : '⇅'}</span></span>`; }).join('')}</div>` },
   { key: 'curt',     cls: 'c-curt only-tail', label: '現在のタイトル', sort: 'apiTitle' },
@@ -1157,21 +1157,20 @@ function rowHtml(code, p) {
     <td class="c-upd">${updHtml(p)}</td>
     <td class="c-code"><a class="code" href="${esc(p.itemUrl)}" target="_blank" rel="noopener">${esc(code)}</a><div class="stk">${stateBadge(p)}</div></td>
     <td class="c-name">
-      <input type="text" data-field="name" value="${esc(p.name || '')}" placeholder="商品名（短く）">
-      <div class="api" title="${esc(p.apiTitle || p.csvName || '')}">${esc(p.apiTitle || p.csvName || '')}</div>
+      <input type="text" data-field="name" value="${esc(p.name || '')}" placeholder="商品名（短く）" title="${esc(p.apiTitle || p.csvName || '')}">
       <div class="nm-btns">
         <a class="nm-btn" href="${esc(p.itemUrl)}" target="_blank" rel="noopener">🛒 商品ページを開く</a>
         <button class="nm-btn" data-act="copyUrl">📋 商品URLをコピー</button>
         <button class="nm-btn" data-act="detail" title="現在のタイトル・メモ・無視の切り替え">✏ 詳細${String(p.memo || '').trim() ? ' <span class="nm-memo" title="メモあり">📝</span>' : ''}</button>
       </div>
     </td>
+    <td class="c-rank only-first" data-cell="rank">${rankCell(code, p)}</td>
+    <td class="c-denrei only-first">${denreiCell(code)}</td>
     <td class="c-rate"><div class="stars">${stars}</div><span class="avg">${p.reviewAvg ? Number(p.reviewAvg).toFixed(2) : '—'}</span><span class="cnt"><a href="${esc(p.reviewUrl)}" target="_blank" rel="noopener">${(p.reviewCount || 0).toLocaleString()}</a></span><span class="unit">件</span>
       <div class="wk ${wg > 0 ? 'up' : ''}">${wg === null ? '' : `7日 ${wg > 0 ? '+' : ''}${wg}`}</div></td>
     <td class="c-num only-second"><input type="number" min="0" step="1" data-field="onScreenCount" value="${onScreen(p) ?? ''}" placeholder="—"></td>
     <td class="c-num only-second" data-cell="diff">${nh.diff}</td>
     <td class="c-num only-second" data-cell="rate">${nh.rate}</td>
-    <td class="c-rank only-first" data-cell="rank">${rankCell(code, p)}</td>
-    <td class="c-denrei only-first">${denreiCell(code)}</td>
     <td class="c-make only-first">${makeCell(code)}</td>
     <td class="c-tail only-tail" data-cell="tail">${tailCell(code, p)}</td>
     <td class="c-curt only-tail" data-cell="curt">${curTitleCell(p)}</td>
@@ -1851,16 +1850,17 @@ function denreiAddUrl(code) {
 }
 function denreiCell(code) {
   const k = denreiStateOf(code), def = DENREI_STATES[k], d = denrei.state === 'ok' ? denrei.map[code] : null;   // 読めていないときは前回の中身を出さない
-  let sub = '';
+  let sub = '', tip = '';
   if (d) {
-    sub = `<span class="dnr-sub">獲得 <b>${d.achieved.length}</b>/${d.targets}` +
-      d.achieved.map(a => `<br>${esc(PERIOD_LABEL[a.period] || a.period)}${a.rank ? ` <b>${esc(a.rank)}位</b>` : ''}${a.at ? ` ${esc(String(a.at).slice(5, 10).replace('-', '/'))}` : ''}`).join('') + '</span>';
+    // 「獲得 0/3」などの内訳は表には出さない（v0.8.9〜）。バッジにマウスを乗せたときだけ出す
+    tip = `獲得 ${d.achieved.length}/${d.targets}` +
+      d.achieved.map(a => `\n${PERIOD_LABEL[a.period] || a.period}${a.rank ? ` ${a.rank}位` : ''}${a.at ? ` ${String(a.at).slice(5, 10).replace('-', '/')}` : ''}`).join('');
   } else if (k === 'unknown') {
     sub = `<span class="dnr-sub">${denrei.state === 'loading' ? '読込中…' : denrei.state === 'noshop' ? '伝令ちゃんにこのストアがありません' : '取得できていません'}</span>`;
   }
   const link = d ? `<a class="dnr-btn open" href="${esc(denreiPageUrl(code))}" target="_blank" rel="noopener" title="伝令ちゃんのこの商品のページを開く">🔔 伝令ちゃんで開く</a>`
     : (denrei.state === 'ok' ? `<a class="dnr-btn add" href="${esc(denreiAddUrl(code))}" target="_blank" rel="noopener" title="伝令ちゃんの「商品を追加」を、この商品のURL・商品コード・サムネイル画像（画像1）を入れた状態で開きます。保存は伝令ちゃん側で押してください">＋ 伝令ちゃんに登録</a>` : '');
-  return `<span class="dnr-badge" style="background:${def.bg};color:${def.fg}">${esc(def.label)}</span>${sub}${link}`;
+  return `<span class="dnr-badge" style="background:${def.bg};color:${def.fg}"${tip ? ` title="${esc(tip)}"` : ''}>${esc(def.label)}</span>${sub}${link ? `<div>${link}</div>` : ''}`;
 }
 function makeCell(code) {
   // 1枚目（ランキングバッジ付き）は伝令ちゃんの商品ページで作る（楽天版の MAKE1_URL と同じ飛び先）
