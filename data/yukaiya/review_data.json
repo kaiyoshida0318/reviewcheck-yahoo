@@ -173,9 +173,9 @@
         "2024-06-04T15:06:09+09:00"
       ],
       "ranking": "【リアルタイム】オーラルケア＞電動歯ブラシ用替えブラシランキング（9/4 23:50）",
-      "updatedAt": "2026-09-30T09:13:17.460Z",
+      "updatedAt": "2026-09-30T09:13:38.351Z",
       "registeredAt": "2026-09-29",
-      "firstStatus": "ready"
+      "firstStatus": "pending"
     },
     "foot-22-04-2set": {
       "reviewHistory": {
@@ -865,9 +865,9 @@
         null
       ],
       "status": "normal",
-      "updatedAt": "2026-09-30T09:13:14.623Z",
+      "updatedAt": "2026-09-30T09:13:36.167Z",
       "registeredAt": "2026-09-29",
-      "firstStatus": "ready"
+      "firstStatus": "pending"
     },
     "ih-22-01": {
       "reviewHistory": {
@@ -1334,8 +1334,8 @@
         null
       ],
       "registeredAt": "2026-09-29",
-      "firstStatus": "ready",
-      "updatedAt": "2026-09-30T09:13:19.855Z"
+      "firstStatus": "pending",
+      "updatedAt": "2026-09-30T09:13:39.934Z"
     },
     "ih-24-05": {
       "reviewHistory": {
@@ -4887,8 +4887,8 @@
         "2025-01-27T16:51:34+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "firstStatus": "ready",
-      "updatedAt": "2026-09-30T09:13:15.930Z"
+      "firstStatus": "pending",
+      "updatedAt": "2026-09-30T09:13:37.405Z"
     },
     "eq-22-05-toilet": {
       "reviewHistory": {
@@ -10596,7 +10596,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-09-30T09:13:22.865Z",
+  "savedAt": "2026-09-30T09:13:42.945Z",
   "lastAutoFetch": "2026-09-30T07:31:03Z",
   "lastCsvFile": "控え:data202609291804.csv",
   "counts": {
