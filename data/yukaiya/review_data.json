@@ -700,9 +700,11 @@
         "2024-05-24T18:08:16+09:00"
       ],
       "ranking": "【リアルタイム】浴室用具＞排水口カバー、ネットランキング（9/5 01:57）",
-      "updatedAt": "2026-09-30T09:13:54.583Z",
+      "updatedAt": "2026-09-30T09:16:56.059Z",
       "registeredAt": "2026-09-29",
-      "firstStatus": "ready"
+      "firstStatus": "ready",
+      "secondStatus": "changing",
+      "onScreenCount": 126
     },
     "wat-sma-01b": {
       "reviewHistory": {
@@ -10609,7 +10611,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-09-30T09:15:59.807Z",
+  "savedAt": "2026-09-30T09:16:59.063Z",
   "lastAutoFetch": "2026-09-30T07:31:03Z",
   "lastCsvFile": "控え:data202609291804.csv",
   "counts": {
