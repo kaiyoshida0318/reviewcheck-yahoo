@@ -485,9 +485,11 @@
         "2024-05-29T16:19:28+09:00"
       ],
       "ranking": "【リアルタイム】ヨガ、ピラティス＞ヨガソックスランキング（9/6 18:13）",
-      "updatedAt": "2026-09-30T09:13:58.964Z",
+      "updatedAt": "2026-09-30T09:17:49.444Z",
       "registeredAt": "2026-09-29",
-      "firstStatus": "ready"
+      "firstStatus": "ready",
+      "secondStatus": "changing",
+      "onScreenCount": 68
     },
     "yoga-23-01-00set": {
       "reviewHistory": {
@@ -10617,7 +10619,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-09-30T09:17:41.468Z",
+  "savedAt": "2026-09-30T09:17:52.453Z",
   "lastAutoFetch": "2026-09-30T07:31:03Z",
   "lastCsvFile": "控え:data202609291804.csv",
   "counts": {
