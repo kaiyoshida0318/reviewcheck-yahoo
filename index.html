@@ -249,8 +249,8 @@
   <span class="meta" id="metaStore"></span>
   <span id="status"></span>
   <button id="btnDefs" title="1枚目変更・2枚目変更の選択肢を編集">↔ 項目設定</button>
-  <button id="btnUpdate" title="商品データの取得・読み直し">🔄 更新</button>
-  <button id="btnSettings" title="GitHub PAT の設定">⚙</button>
+  <button id="btnSettings" title="GitHub の接続設定（PAT・リポジトリ）">⚙ 設定</button>
+  <button id="btnUpdate" title="商品データの取得・読み直し">🔄 更新一覧</button>
 </div></header>
 
 <div class="layout">
@@ -287,7 +287,7 @@
 <div id="shopMenu"></div>
 
 <dialog id="dlgSettings">
-  <h2>設定</h2>
+  <h2>⚙ 設定</h2>
   <label>GitHub リポジトリ</label>
   <input type="text" id="inRepo" placeholder="owner/repo">
   <label>ブランチ</label>
@@ -302,7 +302,7 @@
 </dialog>
 
 <dialog id="dlgUpdate">
-  <h2>🔄 更新</h2>
+  <h2>🔄 更新一覧</h2>
   <div class="upd-line" id="updLine"></div>
   <div class="upd-btns">
     <button class="upd-btn main" id="btnFetch">
@@ -382,7 +382,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.4.1';
+const VERSION = 'v0.4.2';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -586,7 +586,7 @@ async function load() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       store = await res.json(); sha = null;
       defs = normalizeDefs(dres && dres.ok ? await dres.json() : null);
-      setStatus('閲覧のみ（⚙でPATを設定すると保存できます）', 'err');
+      setStatus('閲覧のみ（⚙ 設定 で PAT を入れると保存できます）', 'err');
     }
     cacheSet(store);
     lastLoadedAt = new Date().toISOString();
@@ -1304,7 +1304,7 @@ function renderFetchBtn() {
     t.textContent = '⏳ 依頼済み（TimerRunner の順番待ち）';
     chip.textContent = `依頼 ${mins > 0 ? mins + '分前' : 'たった今'}`;
     chip.title = `依頼 ${new Date(reqState.requestedAt).toLocaleString('ja-JP')}`;
-    hb.innerHTML = '⏳ 更新';
+    hb.innerHTML = '⏳ 更新一覧';
   } else if (reqState?.status === 'running') {
     b.classList.add('run'); hb.classList.add('run');
     t.innerHTML = '<span class="spin">🔄</span> 取得中…（画像まで取るので数分かかります）';
@@ -1320,7 +1320,7 @@ function renderFetchBtn() {
     } else {
       chip.textContent = 'まだ取得していません'; chip.classList.add('r');
     }
-    hb.innerHTML = `🔄 更新${lvl ? `<span class="dot ${lvl}" title="${lvl === 'r' ? '36時間以上取得していません' : '26時間以上取得していません'}"></span>` : ''}`;
+    hb.innerHTML = `🔄 更新一覧${lvl ? `<span class="dot ${lvl}" title="${lvl === 'r' ? '36時間以上取得していません' : '26時間以上取得していません'}"></span>` : ''}`;
   }
   const rc = $('#chipReload');
   rc.className = 'chip';
@@ -1356,7 +1356,7 @@ function watchReq() {
   }, REQ_POLL_MS);
 }
 $('#btnFetch').addEventListener('click', async () => {
-  if (!ghConfig().pat) { setStatus('⚙ で PAT を設定すると取得を依頼できます', 'err'); return; }
+  if (!ghConfig().pat) { setStatus('⚙ 設定 で PAT を入れると取得を依頼できます', 'err'); return; }
   const b = $('#btnFetch');
   if (reqPending(reqState)) {   // もう依頼中なら状態を読み直すだけ
     await readReq(); watchReq(); return;
