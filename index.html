@@ -6,104 +6,237 @@
 <title>reviewcheck Yahoo</title>
 <style>
   :root {
-    --bg: #f5f6f8; --panel: #fff; --line: #dfe3e8; --text: #1f2933; --muted: #6b7480;
-    --accent: #ff0033; --accent-soft: #fff0f2; --ok: #2e9e5b; --ok-soft: #e6f6ec; --warn: #b7791f; --warn-soft: #fff6e0;
+    --bg: #f5f6f8; --panel: #fff; --line: #e3e6ea; --line2: #d5d9de; --text: #1f2933; --muted: #6b7480; --faint: #9aa1a9;
+    --accent: #ff0033; --accent-soft: #fff0f2; --blue: #0b63ce; --ok: #2e9e5b; --ok-soft: #e6f6ec; --warn: #b7791f; --warn-soft: #fff6e0;
+    --hot: #c62828; --hot-soft: #fff0f0;
+    --hdr-h: 56px;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; background: var(--bg); color: var(--text); font: 13px/1.5 -apple-system, "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif; }
-  a { color: #0b63ce; text-decoration: none; }
+  a { color: var(--blue); text-decoration: none; }
   a:hover { text-decoration: underline; }
-  button, input, select { font: inherit; }
-  button { cursor: pointer; border: 1px solid var(--line); background: #fff; border-radius: 6px; padding: 4px 10px; }
+  button, input, select { font: inherit; color: inherit; }
+  button { cursor: pointer; border: 1px solid var(--line2); background: #fff; border-radius: 6px; padding: 4px 10px; }
   button:hover { background: #f0f2f5; }
+  button:disabled { cursor: default; opacity: .45; }
   button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-  button.primary:hover { filter: brightness(.95); }
-  input[type=text], input[type=password], input[type=search] { border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; background: #fff; }
+  button.primary:hover { filter: brightness(.95); background: var(--accent); }
+  input[type=text], input[type=password], input[type=search], input[type=number], select { border: 1px solid var(--line2); border-radius: 6px; padding: 4px 8px; background: #fff; }
+  .mono { font-family: ui-monospace, Consolas, monospace; }
 
-  header { position: sticky; top: 0; z-index: 20; background: var(--panel); border-bottom: 1px solid var(--line); padding: 8px 14px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-  header h1 { font-size: 15px; margin: 0; display: flex; align-items: baseline; gap: 8px; }
-  header h1 .ver { font-size: 11px; color: var(--muted); font-weight: normal; }
-  header .shops { display: flex; gap: 4px; }
-  header .shops a { font-weight: 600; padding: 2px 10px; border-radius: 999px; color: var(--muted); border: 1px solid transparent; }
-  header .shops a:hover { text-decoration: none; background: #f0f2f5; }
-  header .shops a.on { background: var(--accent-soft); color: var(--accent); border-color: #ffd0d8; }
-  header .meta { color: var(--muted); font-size: 12px; }
-  header .spacer { flex: 1; }
-  #status { font-size: 12px; color: var(--muted); min-width: 120px; text-align: right; }
+  /* ── header ─────────────────────────────── */
+  header { position: sticky; top: 0; left: 0; z-index: 30; background: var(--panel); border-bottom: 1px solid var(--line); padding: 8px 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .logo { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 17px; white-space: nowrap; }
+  .logo .mark { width: 30px; height: 30px; border-radius: 7px; background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 16px; }
+  .logo small { display: block; font-size: 9px; letter-spacing: .15em; color: var(--muted); font-weight: 600; margin-top: -3px; }
+  .shops { display: flex; gap: 4px; }
+  .shops a { font-weight: 600; padding: 3px 10px; border-radius: 999px; color: var(--muted); border: 1px solid transparent; }
+  .shops a:hover { text-decoration: none; background: #f0f2f5; }
+  .shops a.on { background: var(--accent-soft); color: var(--accent); border-color: #ffd0d8; }
+  .ver { font-size: 11px; color: var(--faint); }
+  .modes { display: flex; gap: 2px; background: #f0f2f5; border: 1px solid var(--line); border-radius: 8px; padding: 3px; }
+  .modes button { border: 1px solid transparent; background: transparent; padding: 4px 10px; border-radius: 6px; color: var(--muted); white-space: nowrap; }
+  .modes button.active { background: #fff; color: var(--text); border-color: var(--line2); font-weight: 700; box-shadow: 0 1px 2px rgba(0,0,0,.05); }
+  .modes button.has-work { color: var(--hot); border-color: #f5b5b5; background: var(--hot-soft); font-weight: 700; }
+  .modes button.active.has-work { background: #fff; }
+  .modes .badge { display: inline-block; min-width: 18px; padding: 0 5px; margin-left: 4px; border-radius: 999px; background: var(--hot); color: #fff; font-size: 11px; line-height: 17px; text-align: center; }
+  .spacer { flex: 1; }
+  .meta { color: var(--muted); font-size: 12px; white-space: nowrap; }
+  #status { font-size: 12px; color: var(--muted); white-space: nowrap; }
   #status.err { color: var(--accent); }
   #status.ok { color: var(--ok); }
 
-  .toolbar { padding: 8px 14px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-  .toolbar .count { color: var(--muted); font-size: 12px; }
+  /* ── layout ─────────────────────────────── */
+  .layout { display: flex; gap: 16px; padding: 16px; align-items: flex-start; }
+  aside { width: 200px; flex: 0 0 200px; position: sticky; top: calc(var(--hdr-h) + 16px); display: flex; flex-direction: column; gap: 12px; }
+  main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+  .card h3 { margin: 0 0 8px; font-size: 12px; color: var(--muted); font-weight: 600; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+  .side-list { display: flex; flex-direction: column; gap: 2px; }
+  .side-list button { display: flex; justify-content: space-between; align-items: center; border: none; background: transparent; padding: 5px 8px; border-radius: 6px; text-align: left; width: 100%; }
+  .side-list button:hover { background: #f5f6f8; }
+  .side-list button.on { background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+  .side-list .n { font-size: 11px; color: var(--faint); background: #f0f2f5; border-radius: 999px; padding: 0 7px; }
+  .side-list button.on .n { background: var(--accent); color: #fff; }
+  #q { width: 100%; }
+  .side-btns { display: flex; gap: 6px; }
+  .side-btns button { flex: 1; padding: 8px 4px; font-size: 12px; }
 
-  .wrap { padding: 0 14px 40px; overflow-x: auto; }
-  table { border-collapse: separate; border-spacing: 0; width: 100%; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
-  th, td { padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: middle; text-align: left; }
-  th { background: #f8f9fb; font-weight: 600; font-size: 12px; color: var(--muted); white-space: nowrap; user-select: none; cursor: pointer; }
-  th.sorted { color: var(--text); }
-  th .arrow { font-size: 10px; margin-left: 3px; }
+  /* ── filter panel ───────────────────────── */
+  .filters { display: flex; flex-direction: column; gap: 8px; }
+  .frow { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .frow .flabel { width: 92px; flex: 0 0 92px; color: var(--muted); font-size: 12px; }
+  .fgroup { display: flex; gap: 4px; flex-wrap: wrap; padding-right: 8px; margin-right: 4px; border-right: 1px solid var(--line); }
+  .fgroup:last-child { border-right: none; }
+  .fbtn { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 6px; border: 1px solid var(--line2); background: #fff; font-size: 12px; white-space: nowrap; }
+  .fbtn .n { font-size: 11px; opacity: .7; }
+  .fbtn.all.on { background: #1f2933; border-color: #1f2933; color: #fff; }
+  .fbtn.on { box-shadow: inset 0 0 0 2px currentColor; font-weight: 700; }
+  .fbtn.zero { opacity: .5; }
+  .fbtn.hot { color: var(--hot); background: var(--hot-soft); box-shadow: inset 0 0 0 2px var(--hot); font-weight: 700; }
+  .fbtn.hot.on { background: var(--hot); color: #fff; }
+  .fbtn.hot.zero { box-shadow: none; background: #fff; color: var(--faint); font-weight: 400; opacity: 1; }
+  .bulk { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; background: #fafbfc; }
+  .bulk .t { font-size: 12px; font-weight: 700; }
+  .bulk .cnt { background: #1f2933; color: #fff; border-radius: 999px; font-size: 11px; padding: 0 7px; }
+  .fpanel-foot { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .shown { color: var(--muted); font-size: 12px; margin-left: auto; }
+  .shown b { color: var(--text); }
+
+  /* ── table ──────────────────────────────── */
+  .tbl-wrap { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+  table { border-collapse: separate; border-spacing: 0; width: 100%; }
+  th, td { padding: 8px; border-bottom: 1px solid var(--line); vertical-align: middle; text-align: left; }
+  thead th { position: sticky; top: var(--hdr-h); z-index: 10; background: #f4f7fb; font-weight: 700; font-size: 12px; color: #4b5563; white-space: nowrap; user-select: none; border-bottom: 1px solid var(--line2); }
+  thead th:first-child { border-top-left-radius: 10px; }
+  thead th:last-child { border-top-right-radius: 10px; }
+  thead th.sortable { cursor: pointer; }
+  thead th.sortable:hover { color: var(--text); }
+  thead th .arrow { font-size: 10px; margin-left: 3px; color: var(--faint); }
+  thead th.sorted .arrow { color: var(--accent); }
+  tbody tr:hover td { background: #fbfcfd; }
+  tbody tr.sel td { background: #fff8e1; }
+  tbody tr.ignored td { opacity: .55; }
   tr:last-child td { border-bottom: none; }
-  tr:hover td { background: #fafbfc; }
-  td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  td.code { font-family: ui-monospace, Consolas, monospace; white-space: nowrap; }
-  td.img img { width: 56px; height: 56px; object-fit: cover; border-radius: 4px; background: #eee; display: block; }
-  td.name { max-width: 520px; }
-  td.name .t { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  td.name .sub { color: var(--muted); font-size: 11px; }
-  td.memo input { width: 220px; }
-  td.memo input.saved { background: var(--ok-soft); transition: background .2s; }
-  .pill { display: inline-block; padding: 0 6px; border-radius: 999px; font-size: 11px; }
+  .c-chk { width: 34px; text-align: center; }
+  .c-upd { width: 70px; text-align: center; color: var(--muted); font-size: 11px; line-height: 1.3; }
+  .c-upd b { display: block; color: var(--text); font-size: 12px; }
+  .c-code { white-space: nowrap; }
+  .c-code .code { font-family: ui-monospace, Consolas, monospace; font-size: 12px; }
+  .c-code .stk { margin-top: 3px; }
+  .c-name { min-width: 260px; max-width: 380px; }
+  .c-name input { width: 100%; font-weight: 600; }
+  .c-name .api { color: var(--muted); font-size: 11px; line-height: 1.4; margin-top: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .c-name .links { display: flex; gap: 10px; margin-top: 4px; font-size: 11px; }
+  .c-rate { white-space: nowrap; text-align: center; }
+  .c-rate .stars { color: #f5a623; letter-spacing: -1px; font-size: 12px; }
+  .c-rate .avg { font-size: 18px; font-weight: 800; color: #2477c9; font-family: ui-monospace, Consolas, monospace; }
+  .c-rate .cnt { font-size: 18px; font-weight: 800; margin-left: 6px; font-family: ui-monospace, Consolas, monospace; }
+  .c-rate .cnt a { color: var(--text); }
+  .c-rate .unit { font-size: 11px; color: var(--muted); }
+  .c-rate .wk { font-size: 11px; color: var(--muted); }
+  .c-rate .wk.up { color: var(--ok); font-weight: 700; }
+  .c-num { text-align: center; white-space: nowrap; }
+  .c-num input { width: 76px; text-align: right; }
+  .pill-num { display: inline-block; padding: 2px 8px; border-radius: 6px; font-weight: 800; font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+  .pill-num.pos { background: var(--ok-soft); color: var(--ok); }
+  .pill-num.big { background: var(--hot-soft); color: var(--hot); }
+  .pill-num.zero { color: var(--muted); }
+  .muted { color: var(--faint); font-size: 11px; }
+  .c-img { width: 104px; text-align: center; }
+  .c-img .ph { width: 88px; height: 88px; border-radius: 6px; background: #eef0f3; display: block; margin: 0 auto; overflow: hidden; }
+  .c-img img { width: 88px; height: 88px; object-fit: cover; display: block; }
+  .c-img .d { font-size: 10px; color: var(--faint); margin-top: 3px; font-family: ui-monospace, Consolas, monospace; }
+  .c-img .d.new { color: #fff; background: var(--ok); border-radius: 4px; padding: 0 4px; display: inline-block; }
+  .c-dd { width: 150px; }
+  .c-act { width: 120px; }
+  .c-act .acts { display: flex; flex-direction: column; gap: 4px; }
+  .c-act button { font-size: 11px; padding: 3px 6px; }
+  .c-act input { width: 100%; font-size: 11px; padding: 3px 6px; }
+  .pill { display: inline-block; padding: 0 6px; border-radius: 999px; font-size: 10px; }
   .pill.out { background: var(--warn-soft); color: var(--warn); }
   .pill.gone { background: #eee; color: var(--muted); }
-  .stars { color: #f5a623; letter-spacing: -1px; }
+  .flash { animation: flash .9s ease-out; }
+  @keyframes flash { 0% { background: #c8f2d4; } 100% { background: transparent; } }
+  td.flash { animation: flash .9s ease-out; }
 
-  dialog { border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; width: 420px; max-width: 95vw; }
-  dialog::backdrop { background: rgba(0,0,0,.25); }
+  /* モードごとの列の出し分け（JSで組み替えない） */
+  .only-basic, .only-second { display: none; }
+  body.mode-basic .only-basic { display: table-cell; }
+  body.mode-second .only-second { display: table-cell; }
+  .frow.only-basic, .frow.only-second { display: none; }
+  body.mode-basic .frow.only-basic, body.mode-second .frow.only-second { display: flex; }
+
+  /* ── dropdown (body 直下に出す) ─────────── */
+  .dd { display: inline-flex; align-items: center; justify-content: space-between; gap: 6px; width: 140px; padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(0,0,0,.08); font-size: 12px; font-weight: 700; text-align: left; }
+  .dd:hover { filter: brightness(.97); }
+  .dd .caret { font-size: 9px; opacity: .6; }
+  .dd select { display: none; }
+  #menu { position: fixed; z-index: 100; background: #fff; border: 1px solid var(--line2); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.14); padding: 4px; overflow-y: auto; min-width: 160px; display: none; }
+  #menu .mi { display: block; width: 100%; text-align: left; border: none; margin: 1px 0; padding: 5px 8px; border-radius: 5px; font-size: 12px; font-weight: 700; }
+  #menu .mi.cur { outline: 2px solid currentColor; outline-offset: -2px; }
+  #menu .sep { height: 1px; background: var(--line2); margin: 4px 2px; }
+
+  /* ── modal ──────────────────────────────── */
+  dialog { border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; max-width: 95vw; }
+  dialog::backdrop { background: rgba(0,0,0,.28); }
   dialog h2 { margin: 0 0 12px; font-size: 15px; }
   dialog label { display: block; margin: 10px 0 4px; font-size: 12px; color: var(--muted); }
-  dialog input { width: 100%; }
   dialog .row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
   dialog .hint { font-size: 11px; color: var(--muted); }
+  #dlgSettings { width: 440px; }
+  #dlgSettings input { width: 100%; }
+  #dlgDefs { width: 760px; }
+  .tabs { display: flex; gap: 4px; margin-bottom: 10px; }
+  .tabs button.on { background: #1f2933; color: #fff; border-color: #1f2933; }
+  .defs-list { display: flex; flex-direction: column; gap: 4px; max-height: 60vh; overflow-y: auto; }
+  .def-row { display: grid; grid-template-columns: 150px 44px 1fr 38px 38px 58px 70px; gap: 6px; align-items: center; padding: 4px; border-radius: 6px; }
+  .def-row.fixed { background: #fafafa; }
+  .def-row.sep-after { border-bottom: 2px solid var(--line2); padding-bottom: 8px; margin-bottom: 4px; }
+  .def-row input[type=text] { width: 100%; }
+  .def-row input[type=color] { width: 36px; height: 28px; padding: 0; border: 1px solid var(--line2); border-radius: 4px; background: #fff; }
+  .def-row .preview { padding: 3px 8px; border-radius: 6px; font-size: 12px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .def-row .ops { display: flex; gap: 2px; }
+  .def-row .ops button { padding: 2px 5px; font-size: 11px; }
+  .def-row .use { font-size: 10px; color: var(--muted); text-align: right; }
+  .def-head { display: grid; grid-template-columns: 150px 44px 1fr 38px 38px 58px 70px; gap: 6px; font-size: 11px; color: var(--muted); padding: 0 4px; }
   .empty { padding: 40px; text-align: center; color: var(--muted); }
 </style>
 </head>
-<body>
+<body class="mode-basic">
 
-<header>
-  <h1>reviewcheck <span style="color:var(--accent)">Yahoo</span> <span class="ver" id="ver"></span></h1>
+<header id="hdr">
+  <div class="logo"><div class="mark">★</div><div>ReviewCheck<small>FOR YAHOO!</small></div></div>
   <nav class="shops" id="shops"></nav>
+  <span class="ver" id="ver"></span>
+  <div class="modes" id="modes">
+    <button data-mode="first" disabled title="次の版で作ります">🏆 1枚目用</button>
+    <button data-mode="second">🔍 2枚目用</button>
+    <button data-mode="tail" disabled title="次の版で作ります">✏ タイトル末尾用</button>
+    <button data-mode="basic">📋 基本</button>
+  </div>
+  <span class="spacer"></span>
   <span class="meta" id="metaFetch"></span>
   <span class="meta" id="metaStore"></span>
-  <span class="spacer"></span>
   <span id="status"></span>
+  <button id="btnDefs" title="1枚目変更・2枚目変更の選択肢を編集">↔ 項目設定</button>
   <button id="btnReload" title="GitHubから読み直す">↻ 再読込</button>
   <button id="btnSettings" title="GitHub PAT の設定">⚙</button>
 </header>
 
-<div class="toolbar">
-  <input type="search" id="q" placeholder="商品コード・商品名で絞り込み" style="width:280px">
-  <span class="count" id="count"></span>
+<div class="layout">
+  <aside>
+    <div class="card">
+      <h3>🔍 検索</h3>
+      <input type="search" id="q" placeholder="商品コード・商品名">
+    </div>
+    <div class="card">
+      <h3>レビュー評価</h3>
+      <div class="side-list" id="rateList"></div>
+    </div>
+    <div class="card">
+      <h3>状態</h3>
+      <div class="side-list" id="statusList"></div>
+    </div>
+    <div class="side-btns">
+      <button id="btnClear">🔄<br>クリア</button>
+    </div>
+  </aside>
+
+  <main>
+    <div class="card filters" id="filters"></div>
+    <div class="tbl-wrap">
+      <table id="tbl">
+        <thead><tr id="thead"></tr></thead>
+        <tbody id="rows"><tr><td class="empty" colspan="20">読み込み中…</td></tr></tbody>
+      </table>
+    </div>
+  </main>
 </div>
 
-<div class="wrap">
-  <table id="tbl">
-    <thead>
-      <tr>
-        <th data-k="images" style="cursor:default">画像</th>
-        <th data-k="code">商品コード</th>
-        <th data-k="name">商品名</th>
-        <th data-k="reviewCount" class="num">レビュー</th>
-        <th data-k="reviewAvg" class="num">平均</th>
-        <th data-k="price" class="num">価格</th>
-        <th data-k="inStock">状態</th>
-        <th data-k="memo">メモ</th>
-      </tr>
-    </thead>
-    <tbody id="rows"><tr><td colspan="8" class="empty">読み込み中…</td></tr></tbody>
-  </table>
-</div>
+<div id="menu"></div>
 
-<dialog id="dlg">
+<dialog id="dlgSettings">
   <h2>設定</h2>
   <label>GitHub リポジトリ</label>
   <input type="text" id="inRepo" placeholder="owner/repo">
@@ -118,16 +251,27 @@
   </div>
 </dialog>
 
+<dialog id="dlgDefs">
+  <h2>↔ 項目設定 <span class="hint" id="defsShop"></span></h2>
+  <div class="tabs" id="defsTabs"></div>
+  <div class="def-head"><span>表示</span><span>アイコン</span><span>名前</span><span>背景</span><span>文字</span><span>区切り</span><span></span></div>
+  <div class="defs-list" id="defsList"></div>
+  <div class="row" style="justify-content:space-between">
+    <div><button id="defsAdd">＋ 項目を追加</button> <span class="hint">変更はすぐ保存されます（このショップの全PCで共有）。使用中の項目は削除できません。</span></div>
+    <button id="defsClose" class="primary">閉じる</button>
+  </div>
+</dialog>
+
 <script>
 'use strict';
 // ============================================================
-// reviewcheck Yahoo — フェーズ1
-//   取得は TimerRunner（yahoo_review_fetch.py）が行い、このページは
-//   data/{shopId}/review_data.json を GitHub Contents API で読み書きするだけ。
+// reviewcheck Yahoo
+//   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
+//   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'y0.2.0';
+const VERSION = 'y0.3.0';
 
-// ---- ショップ定義（seller_id は Yahoo! のストアID）----
+// ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 const SHOPS = [
   { id: 'yukaiya', name: 'ゆかい屋', sellerId: 'yukaiya' },
   { id: 'kairy',   name: 'KAIRY',   sellerId: 'burariya' },   // Yahoo! の店舗IDは楽天(kai-ry)と違う
@@ -135,235 +279,747 @@ const SHOPS = [
 const SHOP_ALIASES = { kairy: 'kairy', 'kai-ry': 'kairy', burariya: 'kairy' };
 
 const DEFAULT_REPO = 'kaiyoshida0318/reviewcheck-yahoo';
-const LS = { pat: 'rcy_pat', repo: 'rcy_repo', branch: 'rcy_branch', lastShop: 'rcy_last_shop', cache: (id) => `rcy_cache_${id}` };
+const LS = {
+  pat: 'rcy_pat', repo: 'rcy_repo', branch: 'rcy_branch', lastShop: 'rcy_last_shop', mode: 'rcy_mode',
+  cache: (id) => `rcy_cache_${id}`,
+};
 const SAVE_DEBOUNCE_MS = 3000;
+
+// TimerRunner が毎回上書きする項目。これ以外は全部「人が入れた項目」として扱う
+// （衝突したときに乗せ直す対象・保存時に守る対象）。
+const API_KEYS = new Set([
+  'csvName', 'apiTitle', 'headline', 'itemUrl', 'reviewUrl', 'imageId', 'imageIds', 'images', 'imageUpdatedAt',
+  'reviewCount', 'reviewAvg', 'inStock', 'price', 'categoryId', 'categoryName', 'categoryPath',
+  'inApi', 'inCsv', 'lastFetched', 'reviewHistory',
+]);
+
+// ============================================================
+// 項目定義（データ駆動）
+//   ここから「上部フィルタのボタン / 行のドロップダウン / 一括変更の選択肢」を全部作る。
+//   保存するのは key だけ。表示名・色を変えても既存データは壊れない。
+//   sep:true … その項目の後ろで区切る（フィルタではグループの切れ目）
+//   fixed:true … 絞り込み専用の内数（🔥）。表示はコードで固定し、保存済み設定で上書きさせない
+// ============================================================
+const DEF_GROUPS = {
+  first:  { label: '1枚目変更', icon: '🖼', field: 'firstStatus',  fallback: 'pending' },
+  second: { label: '2枚目変更', icon: '🖼', field: 'secondStatus', fallback: 'none' },
+};
+const DEFS_DEFAULT = {
+  first: [
+    { key: 'pending',  icon: '🎯', label: '未着手',       bg: '#fff9c4', fg: '#827717', sep: true },
+    { key: 'ready',    icon: '🆗', label: '作成可能',     bg: '#e1f5fe', fg: '#0277bd', sep: true },
+    { key: 'acquired', icon: '✅', label: '変更完了',     bg: '#e8f5e9', fg: '#2e7d32' },
+    { key: 'past',     icon: '📦', label: '昔のまま放置', bg: '#fbeeee', fg: '#a32d2d' },
+    { key: 'skip',     icon: '⏭', label: 'SKIP',         bg: '#e7f1fb', fg: '#1976d2' },
+  ],
+  second: [
+    { key: 'none',       icon: '✔', label: '獲得前',       bg: '#f5f4ee', fg: '#78716c', sep: true },
+    { key: '__hot3__',   fixed: true },
+    { key: '__hot200__', fixed: true },
+    { key: 'changing',   icon: '🛠', label: '変更中',       bg: '#fff3e0', fg: '#e65100', sep: true },
+    { key: 'changed',    icon: '✅', label: '変更完了',     bg: '#e8f5e9', fg: '#2e7d32' },
+    { key: 'stale',      icon: '📦', label: '昔のまま放置', bg: '#fbeeee', fg: '#a32d2d' },
+    { key: 'skip',       icon: '⏭', label: 'SKIP',         bg: '#e7f1fb', fg: '#1976d2' },
+    { key: 'enough',     icon: '👍', label: '十分な件数',   bg: '#e2f4f6', fg: '#00838f' },
+  ],
+};
+// 🔥 の内数。名前・色はここで固定（保存データで巻き戻らない）
+const FIXED_DEFS = {
+  __hot3__:   { key: '__hot3__',   icon: '🔥', label: '獲得前-3件以上',  bg: '#fff0f0', fg: '#c62828', fixed: true },
+  __hot200__: { key: '__hot200__', icon: '🔥', label: '獲得前-上昇200%', bg: '#fff0f0', fg: '#c62828', fixed: true },
+};
+// 削除できない key（既定値の受け皿・動作に組み込まれているもの）
+const PROTECTED_KEYS = { first: ['pending'], second: ['none', '__hot3__', '__hot200__'] };
 
 // ---- ショップはURLで決め、タブごとに固定する ----
 function resolveShop() {
   const u = new URL(location.href);
-  let id = u.searchParams.get('shop') || sessionStorage.getItem('rcy_shop') || localStorage.getItem(LS.lastShop) || SHOPS[0].id;
+  let id = u.searchParams.get('shop') || sessionStorage.getItem('rcy_shop') || lsGet(LS.lastShop) || SHOPS[0].id;
   id = SHOP_ALIASES[id] || id;
   const shop = SHOPS.find(s => s.id === id) || SHOPS[0];
   sessionStorage.setItem('rcy_shop', shop.id);
-  localStorage.setItem(LS.lastShop, shop.id);
+  lsSet(LS.lastShop, shop.id);
   return shop;
 }
-const SHOP = resolveShop();
-document.title = `${SHOP.name} - reviewcheck Yahoo`;
-const DATA_PATH = `data/${SHOP.id}/review_data.json`;
+function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+function lsSet(k, v) { try { localStorage.setItem(k, v); return true; } catch (e) { return false; } }
+function lsDel(k) { try { localStorage.removeItem(k); } catch (e) {} }
 
-// ---- 状態 ----
-let store = null;      // review_data.json の中身
-let sha = null;        // GitHub 上のファイルの sha（PUT に必要）
+const SHOP = resolveShop();
+const DATA_PATH = `data/${SHOP.id}/review_data.json`;
+const DEFS_PATH = `data/${SHOP.id}/defs.json`;
+document.title = `${SHOP.name} - reviewcheck Yahoo`;
+
+// ---- 状態（初期値は直書き。宣言前アクセスを避ける）----
+let store = { productCache: {} };
+let sha = null;
+let defs = { first: [], second: [] };
+let defsSha = null;
+let mode = 'basic';
 let sortKey = 'reviewCount', sortDir = -1;
 let query = '';
-let dirty = false;
-let saveTimer = null;
-let saving = false;
+let statusScope = 'normal';          // normal | ignore | all
+let filter = { kind: null, key: null };   // kind: 'first' | 'second' | 'rate'  （重ねがけしない）
+const selected = new Set();
+const dirtyCodes = new Set();
+let dirty = false, saveTimer = null, saving = false;
+let defsDirty = false, defsTimer = null;
 
 // ---- 小物 ----
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const fmtDate = (iso) => { if (!iso) return '–'; const d = new Date(iso); return isNaN(d) ? iso : d.toLocaleString('ja-JP', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }); };
 const setStatus = (msg, cls = '') => { const el = $('#status'); el.textContent = msg; el.className = cls; };
+const pad2 = (n) => String(n).padStart(2, '0');
+function fmtShort(iso) { if (!iso) return ''; const d = new Date(iso); if (isNaN(d)) return ''; return `${d.getMonth() + 1}/${d.getDate()} ${pad2(d.getHours())}:${pad2(d.getMinutes())}`; }
+function fmtDate(iso) { if (!iso) return ''; const d = new Date(iso); if (isNaN(d)) return ''; return `${d.getFullYear()}/${pad2(d.getMonth() + 1)}/${pad2(d.getDate())}`; }
+function daysAgo(iso) { const d = new Date(iso); return isNaN(d) ? Infinity : (Date.now() - d.getTime()) / 86400000; }
+function ymd(d) { return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`; }
 // ※ String.fromCharCode(...bytes) は数十KBで "Maximum call stack size exceeded" になるので分割する
 const utf8ToB64 = (s) => { const b = new TextEncoder().encode(s); let bin = ''; for (let i = 0; i < b.length; i += 0x8000) bin += String.fromCharCode.apply(null, b.subarray(i, i + 0x8000)); return btoa(bin); };
 const b64ToUtf8 = (b) => new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\n/g, '')), c => c.charCodeAt(0)));
+const imgThumb = (id) => `https://item-shopping.c.yimg.jp/i/j/${id}`;
+const imgLarge = (id) => `https://item-shopping.c.yimg.jp/i/n/${id}`;
 
-// localStorage は kaiyoshida0318.github.io の全プロジェクト（楽天版 reviewcheck / ADcheck 等）で
-// 共有される 5MB 枠。楽天版のキャッシュで埋まっていることがあるので、保存できなくても諦めるだけにする。
-function cacheSet(obj) {
-  try { localStorage.setItem(LS.cache(SHOP.id), JSON.stringify(obj)); }
-  catch (e) { try { localStorage.removeItem(LS.cache(SHOP.id)); } catch (_) {} }
-}
-function cacheGet() {
-  try { const c = localStorage.getItem(LS.cache(SHOP.id)); return c ? JSON.parse(c) : null; } catch (e) { return null; }
-}
+// localStorage は kaiyoshida0318.github.io の全プロジェクト（楽天版 reviewcheck 等）で共有する5MB枠。
+// 楽天版のキャッシュで埋まっていることがあるので、保存できなくても諦めるだけにする。
+function cacheSet(obj) { if (!lsSet(LS.cache(SHOP.id), JSON.stringify(obj))) lsDel(LS.cache(SHOP.id)); }
+function cacheGet() { try { const c = lsGet(LS.cache(SHOP.id)); return c ? JSON.parse(c) : null; } catch (e) { return null; } }
 
 function ghConfig() {
-  return {
-    pat: localStorage.getItem(LS.pat) || '',
-    repo: localStorage.getItem(LS.repo) || DEFAULT_REPO,
-    branch: localStorage.getItem(LS.branch) || 'main',
-  };
+  return { pat: lsGet(LS.pat) || '', repo: lsGet(LS.repo) || DEFAULT_REPO, branch: lsGet(LS.branch) || 'main' };
 }
 
-// ---- GitHub Contents API ----
-async function ghGet() {
+// ============================================================
+// GitHub Contents API
+// ============================================================
+async function ghGet(path) {
   const { pat, repo, branch } = ghConfig();
   if (!pat) throw new Error('PAT未設定');
-  const res = await fetch(`https://api.github.com/repos/${repo}/contents/${DATA_PATH}?ref=${encodeURIComponent(branch)}&t=${Date.now()}`, {
-    headers: { Authorization: `Bearer ${pat}`, Accept: 'application/vnd.github+json' },
-    cache: 'no-store',
-  });
+  const url = `https://api.github.com/repos/${repo}/contents/${path}?ref=${encodeURIComponent(branch)}&t=${Date.now()}`;
+  const hdr = { Authorization: `Bearer ${pat}`, Accept: 'application/vnd.github+json' };
+  const res = await fetch(url, { headers: hdr, cache: 'no-store' });
   if (res.status === 404) return { data: null, sha: null };
   if (!res.ok) throw new Error(`GitHub GET ${res.status}`);
   const j = await res.json();
-  return { data: JSON.parse(b64ToUtf8(j.content)), sha: j.sha };
+  let text;
+  if (j.content) text = b64ToUtf8(j.content);
+  else {
+    // 1MB を超えると content が空で返る。raw で取り直す
+    const r2 = await fetch(url, { headers: { ...hdr, Accept: 'application/vnd.github.raw' }, cache: 'no-store' });
+    if (!r2.ok) throw new Error(`GitHub GET(raw) ${r2.status}`);
+    text = await r2.text();
+  }
+  return { data: JSON.parse(text), sha: j.sha };
 }
 
-async function ghPut(obj, prevSha) {
+async function ghPut(path, obj, prevSha, message) {
   const { pat, repo, branch } = ghConfig();
   const text = JSON.stringify(obj, null, 2) + '\n';
   const b64 = utf8ToB64(text);
   if (b64ToUtf8(b64) !== text) throw new Error('base64 round-trip mismatch');
-  const body = { message: `[edit] ${SHOP.id} ${new Date().toISOString()}`, content: b64, branch };
+  const body = { message, content: b64, branch };
   if (prevSha) body.sha = prevSha;
-  const res = await fetch(`https://api.github.com/repos/${repo}/contents/${DATA_PATH}`, {
+  const res = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
     method: 'PUT',
     headers: { Authorization: `Bearer ${pat}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   });
   if (!res.ok) { const e = new Error(`GitHub PUT ${res.status}`); e.status = res.status; throw e; }
-  const j = await res.json();
-  return j.content.sha;
+  return (await res.json()).content.sha;
 }
 
-// ---- 読込 ----
+// ============================================================
+// 読込
+// ============================================================
 async function load() {
   setStatus('読み込み中…');
   const { pat } = ghConfig();
   try {
     if (pat) {
-      const r = await ghGet();
-      store = r.data; sha = r.sha;
-      if (!store) { setStatus('データなし（TimerRunner未実行）', 'err'); store = { productCache: {} }; }
-      else setStatus(`読込 ${fmtDate(new Date().toISOString())}`, 'ok');
+      const [r, d] = await Promise.all([ghGet(DATA_PATH), ghGet(DEFS_PATH).catch(() => ({ data: null, sha: null }))]);
+      store = r.data || { productCache: {} }; sha = r.sha;
+      defs = normalizeDefs(d.data); defsSha = d.sha;
+      setStatus(r.data ? `読込 ${fmtShort(new Date().toISOString())}` : 'データなし（TimerRunner未実行）', r.data ? 'ok' : 'err');
     } else {
       // PATが無ければ Pages 上の JSON を読むだけ（編集は保存されない）
-      const res = await fetch(`${DATA_PATH}?t=${Date.now()}`, { cache: 'no-store' });
+      const [res, dres] = await Promise.all([
+        fetch(`${DATA_PATH}?t=${Date.now()}`, { cache: 'no-store' }),
+        fetch(`${DEFS_PATH}?t=${Date.now()}`, { cache: 'no-store' }).catch(() => null),
+      ]);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       store = await res.json(); sha = null;
+      defs = normalizeDefs(dres && dres.ok ? await dres.json() : null);
       setStatus('閲覧のみ（⚙でPATを設定すると保存できます）', 'err');
     }
     cacheSet(store);
   } catch (e) {
     const cached = cacheGet();
-    if (cached) { store = cached; setStatus(`読込失敗、ローカルキャッシュ表示: ${e.message}`, 'err'); }
-    else { store = { productCache: {} }; setStatus(`読込失敗: ${e.message}`, 'err'); }
+    store = cached || { productCache: {} };
+    defs = normalizeDefs(null);
+    setStatus(cached ? `読込失敗、ローカルキャッシュ表示: ${e.message}` : `読込失敗: ${e.message}`, 'err');
   }
-  render();
+  store.productCache = store.productCache || {};
+  if (migrate()) { dirty = true; scheduleSave(); }
+  renderAll();
 }
 
-// ---- 保存（入力 → ローカル即時 → 3秒後に GitHub）----
-function markDirty() {
+// ============================================================
+// マイグレーション（起動時に走る。形式を変えるたびにここへ足す）
+//   「件数をログに出して、変わったら保存する」形に統一する。
+// ============================================================
+function migrate() {
+  let changed = 0;
+  // y0.3.0: name は「人が付ける短い商品名」になった。y0.2 まではジョブが CSV/API の長い名前を入れていた。
+  if (!store.nameMigrated && String(store.version || '') < 'y0.3.0') {
+    let n = 0;
+    for (const p of Object.values(store.productCache)) {
+      if ('name' in p) { if (!p.csvName) p.csvName = p.name; delete p.name; n++; }
+    }
+    store.nameMigrated = true;
+    if (n) console.log(`[migrate] 長い商品名 ${n} 件を name → csvName に移動`);
+    changed += n || 1;
+  }
+  return changed > 0;
+}
+
+// ============================================================
+// 項目定義
+// ============================================================
+function normalizeDefs(saved) {
+  const out = {};
+  for (const g of Object.keys(DEF_GROUPS)) {
+    let list = Array.isArray(saved?.[g]) && saved[g].length ? saved[g] : DEFS_DEFAULT[g];
+    list = list.filter(d => d && d.key).map(d => FIXED_DEFS[d.key] ? { ...FIXED_DEFS[d.key], sep: !!d.sep } : { ...d });
+    // 守る key が消えていたら既定から足し直す
+    for (const k of PROTECTED_KEYS[g]) {
+      if (!list.some(d => d.key === k)) {
+        const def = FIXED_DEFS[k] || DEFS_DEFAULT[g].find(d => d.key === k);
+        if (def) list.splice(k === DEF_GROUPS[g].fallback ? 0 : list.length, 0, { ...def });
+      }
+    }
+    out[g] = list;
+  }
+  return out;
+}
+const defList = (g) => defs[g] || [];
+const defOptions = (g) => defList(g).filter(d => !d.fixed);   // 行のドロップダウン・一括変更に出すもの
+function defOf(g, key) { return defList(g).find(d => d.key === key) || defList(g).find(d => d.key === DEF_GROUPS[g].fallback) || { key, icon: '', label: key, bg: '#eee', fg: '#333' }; }
+function statusOf(p, g) {
+  const k = p[DEF_GROUPS[g].field];
+  return k && defOptions(g).some(d => d.key === k) ? k : DEF_GROUPS[g].fallback;
+}
+function markDefsDirty() {
+  defsDirty = true;
+  clearTimeout(defsTimer);
+  defsTimer = setTimeout(flushDefs, 1500);
+}
+async function flushDefs() {
+  if (!defsDirty) return;
+  if (!ghConfig().pat) { setStatus('PAT未設定のため項目設定を保存できません', 'err'); return; }
+  const body = { version: VERSION, savedAt: new Date().toISOString() };
+  for (const g of Object.keys(DEF_GROUPS)) body[g] = defList(g).map(d => d.fixed ? { key: d.key, sep: !!d.sep } : d);
+  try {
+    try { defsSha = await ghPut(DEFS_PATH, body, defsSha, `[defs] ${SHOP.id}`); }
+    catch (e) {
+      if (e.status !== 409 && e.status !== 422) throw e;
+      const latest = await ghGet(DEFS_PATH); defsSha = latest.sha;
+      defsSha = await ghPut(DEFS_PATH, body, defsSha, `[defs] ${SHOP.id}`);
+    }
+    defsDirty = false;
+    setStatus(`項目設定を保存 ${fmtShort(new Date().toISOString())}`, 'ok');
+  } catch (e) { setStatus(`項目設定の保存失敗: ${e.message}`, 'err'); }
+}
+
+// ============================================================
+// 保存（入力 → ローカル即時 → 3秒後に GitHub）。保存ボタンは作らない
+// ============================================================
+function touch(code) {
+  const p = store.productCache[code];
+  if (!p) return;
+  p.updatedAt = new Date().toISOString();
+  dirtyCodes.add(code);
   dirty = true;
+  scheduleSave();
+  // 更新日時のセルはその場で書き換える（次の再描画を待たない）
+  const cell = document.querySelector(`tr[data-code="${cssEsc(code)}"] .c-upd`);
+  if (cell) { cell.innerHTML = updHtml(p); cell.classList.remove('flash'); void cell.offsetWidth; cell.classList.add('flash'); }
+}
+function scheduleSave() {
   cacheSet(store);
   clearTimeout(saveTimer);
   saveTimer = setTimeout(flush, SAVE_DEBOUNCE_MS);
   setStatus('未送信…');
 }
-
 async function flush() {
   if (!dirty || saving) return;
-  const { pat } = ghConfig();
-  if (!pat) { setStatus('PAT未設定のため保存できません', 'err'); return; }
+  if (!ghConfig().pat) { setStatus('PAT未設定のため保存できません', 'err'); return; }
   saving = true;
+  const codes = new Set(dirtyCodes);
   try {
     store.savedAt = new Date().toISOString();
     try {
-      sha = await ghPut(store, sha);
+      sha = await ghPut(DATA_PATH, store, sha, `[edit] ${SHOP.id} ${codes.size}件`);
     } catch (e) {
       if (e.status !== 409 && e.status !== 422) throw e;
-      // 他のPC/TimerRunnerが先に書いた → 取り直して編集項目だけ乗せ直す
-      const latest = await ghGet();
-      mergeEditsInto(latest.data || { productCache: {} });
-      store = latest.data; sha = await ghPut(store, latest.sha);
-      render();
+      // TimerRunner や他のPCが先に書いた → 取り直して、ここで編集した商品の「人の項目」だけ乗せ直す
+      const latest = await ghGet(DATA_PATH);
+      const merged = latest.data || { productCache: {} };
+      mergeEditsInto(merged, codes);
+      store = merged; migrate();
+      sha = await ghPut(DATA_PATH, store, latest.sha, `[edit] ${SHOP.id} ${codes.size}件 (merged)`);
+      renderAll();
     }
-    dirty = false;
-    setStatus(`保存 ${fmtDate(store.savedAt)}`, 'ok');
+    for (const c of codes) dirtyCodes.delete(c);
+    dirty = dirtyCodes.size > 0;
+    setStatus(`保存 ${fmtShort(store.savedAt)}`, 'ok');
+    if (dirty) scheduleSave();
   } catch (e) {
-    setStatus(`保存失敗: ${e.message}`, 'err');
+    setStatus(`保存失敗: ${e.message}（10秒後に再試行）`, 'err');
     saveTimer = setTimeout(flush, 10000);
   } finally {
     saving = false;
   }
 }
-
-const EDITABLE = ['memo', 'status', 'tags', 'updatedAt'];
-function mergeEditsInto(target) {
+function mergeEditsInto(target, codes) {
   const tc = target.productCache || (target.productCache = {});
-  for (const [code, p] of Object.entries(store.productCache || {})) {
-    const t = tc[code] || (tc[code] = { ...p });
-    for (const k of EDITABLE) if (k in p) t[k] = p[k];
+  if (store.nameMigrated) target.nameMigrated = true;
+  for (const code of codes) {
+    const p = store.productCache[code]; if (!p) continue;
+    const t = tc[code] || (tc[code] = {});
+    for (const k of Object.keys(p)) if (!API_KEYS.has(k)) t[k] = p[k];
   }
 }
+window.addEventListener('beforeunload', (e) => { if (dirty || defsDirty) { e.preventDefault(); e.returnValue = ''; } });
 
-window.addEventListener('beforeunload', (e) => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
+// ============================================================
+// 計算
+// ============================================================
+function onScreen(p) { const v = p.onScreenCount; return (v === null || v === undefined || v === '') ? null : Number(v); }
+function diffOf(p) { return (p.reviewCount || 0) - (onScreen(p) ?? 0); }
+function rateOf(p) { return diffOf(p) / Math.max(onScreen(p) ?? 0, 1) * 100; }   // 画面上件数0/未入力は1として計算
+// 🔥 は「レビュー件数そのもの」で判定する（楽天版 v8.20 の教訓：件数差異で判定すると未入力の商品が永久に出てこない）
+function isHot3(p)   { return statusOf(p, 'second') === 'none' && (p.reviewCount || 0) >= 3; }
+function isHot200(p) { return statusOf(p, 'second') === 'none' && rateOf(p) >= 200; }
+function weekGain(p) {
+  const h = p.reviewHistory || {}; const keys = Object.keys(h).sort();
+  if (keys.length < 2) return null;
+  const target = ymd(new Date(Date.now() - 7 * 86400000));
+  const base = keys.filter(k => k <= target).pop() || keys[0];
+  return (p.reviewCount || 0) - (h[base] || 0);
+}
+const RATE_BANDS = [
+  { key: 'all',  label: '全て' },
+  { key: 'r450', label: '★ 4.50-',      test: (a) => a >= 4.5 },
+  { key: 'r425', label: '★ 4.25-4.50',  test: (a) => a >= 4.25 && a < 4.5 },
+  { key: 'r400', label: '★ 4.00-4.25',  test: (a) => a >= 4.0 && a < 4.25 },
+  { key: 'rlow', label: '★ -4.00',      test: (a) => a > 0 && a < 4.0 },
+  { key: 'r0',   label: '未評価',       test: (a) => !a },
+];
+function isIgnored(p) { return p.status === 'ignore'; }
+function inScope(p) { return statusScope === 'all' || (statusScope === 'ignore' ? isIgnored(p) : !isIgnored(p)); }
+function matchQuery(code, p) {
+  if (!query) return true;
+  const q = query.toLowerCase();
+  return (code + ' ' + (p.name || '') + ' ' + (p.apiTitle || '') + ' ' + (p.csvName || '')).toLowerCase().includes(q);
+}
+function matchFilter(p) {
+  if (!filter.kind) return true;
+  if (filter.kind === 'rate') { const b = RATE_BANDS.find(x => x.key === filter.key); return !b || !b.test || b.test(p.reviewAvg || 0); }
+  if (filter.key === '__hot3__') return isHot3(p);
+  if (filter.key === '__hot200__') return isHot200(p);
+  return statusOf(p, filter.kind) === filter.key;
+}
+function entries() { return Object.entries(store.productCache || {}); }
+function baseRows() { return entries().filter(([c, p]) => inScope(p) && matchQuery(c, p)); }   // フィルタの件数の母数
 
-// ---- 描画 ----
-function rowsSorted() {
-  const list = Object.entries(store.productCache || {}).map(([code, p]) => ({ code, ...p }));
-  const q = query.trim().toLowerCase();
-  const filtered = q ? list.filter(p => (p.code + ' ' + (p.name || '')).toLowerCase().includes(q)) : list;
-  filtered.sort((a, b) => {
-    let x = a[sortKey], y = b[sortKey];
-    if (sortKey === 'inStock') { x = (a.inApi ? 1 : 0) + (a.inStock ? 1 : 0); y = (b.inApi ? 1 : 0) + (b.inStock ? 1 : 0); }
-    if (typeof x === 'string' || typeof y === 'string') return String(x ?? '').localeCompare(String(y ?? ''), 'ja') * sortDir;
-    return ((x ?? 0) - (y ?? 0)) * sortDir || a.code.localeCompare(b.code);
+// ============================================================
+// 描画
+// ============================================================
+const COLS = [
+  { key: 'chk',      cls: 'c-chk',  html: () => '<input type="checkbox" id="chkAll" title="表示中をすべて選択">' },
+  { key: 'updatedAt', cls: 'c-upd', label: '更新日時', sort: true },
+  { key: 'code',     cls: 'c-code', label: '商品コード', sort: true },
+  { key: 'name',     cls: 'c-name', label: '商品名', sort: true },
+  { key: 'rating',   cls: 'c-rate', label: '評価 / 件数', sort: 'reviewCount', alt: [['reviewAvg', '評価'], ['reviewCount', '件数'], ['weekGain', '7日']] },
+  { key: 'onscreen', cls: 'c-num only-second', label: '画面上件数', sort: true },
+  { key: 'diff',     cls: 'c-num only-second', label: '件数差異', sort: true },
+  { key: 'rate',     cls: 'c-num only-second', label: '上昇率', sort: true },
+  { key: 'img0',     cls: 'c-img',  label: '画像1', sort: 'img0' },
+  { key: 'img1',     cls: 'c-img',  label: '画像2', sort: 'img1' },
+  { key: 'img2',     cls: 'c-img',  label: '画像3', sort: 'img2' },
+  { key: 'first',    cls: 'c-dd only-basic', label: '1枚目変更', sort: true },
+  { key: 'second',   cls: 'c-dd',   label: '2枚目変更', sort: true },
+  { key: 'act',      cls: 'c-act',  label: '確認' },
+];
+function sortVal(code, p, k) {
+  switch (k) {
+    case 'updatedAt': return p.updatedAt || '';
+    case 'code': return code;
+    case 'name': return p.name || p.apiTitle || '';
+    case 'reviewCount': return p.reviewCount || 0;
+    case 'reviewAvg': return p.reviewAvg || 0;
+    case 'weekGain': return weekGain(p) ?? -1;
+    case 'onscreen': return onScreen(p);
+    case 'diff': return onScreen(p) === null ? null : diffOf(p);
+    case 'rate': return onScreen(p) === null ? null : rateOf(p);
+    case 'img0': case 'img1': case 'img2': { const u = (p.imageUpdatedAt || [])[+k.slice(3)]; return u || null; }
+    case 'first': return defList('first').findIndex(d => d.key === statusOf(p, 'first'));
+    case 'second': return defList('second').findIndex(d => d.key === statusOf(p, 'second'));
+    default: return null;
+  }
+}
+function visibleRows() {
+  const rows = baseRows().filter(([, p]) => matchFilter(p));
+  rows.sort(([ca, a], [cb, b]) => {
+    const x = sortVal(ca, a, sortKey), y = sortVal(cb, b, sortKey);
+    if (x === null && y === null) return ca.localeCompare(cb);
+    if (x === null) return 1;            // 空は常に末尾
+    if (y === null) return -1;
+    if (typeof x === 'string' || typeof y === 'string') return String(x).localeCompare(String(y), 'ja') * sortDir || ca.localeCompare(cb);
+    return (x - y) * sortDir || ca.localeCompare(cb);
   });
-  return { filtered, total: list.length };
+  return rows;
 }
 
-function stateHtml(p) {
+function renderAll() {
+  renderHeader();
+  renderSide();
+  renderFilters();
+  renderThead();
+  renderRows();
+  syncLayout();
+}
+
+function lastFetchInfo() {
+  // 「最後にいつ取れたか」は2か所から出して新しいほうを採る（楽天版 v8.14 の教訓）
+  let maxItem = '';
+  for (const [, p] of entries()) if (p.lastFetched && p.lastFetched > maxItem) maxItem = p.lastFetched;
+  const auto = store.lastAutoFetch || '';
+  if (!auto && !maxItem) return null;
+  return (new Date(maxItem) > new Date(auto || 0)) ? { at: maxItem, src: '商品' } : { at: auto, src: '自動' };
+}
+function renderHeader() {
+  $('#ver').textContent = VERSION;
+  $('#shops').innerHTML = SHOPS.map(sh => `<a href="?shop=${esc(sh.id)}" class="${sh.id === SHOP.id ? 'on' : ''}" title="seller_id: ${esc(sh.sellerId)}">${esc(sh.name)}</a>`).join('');
+  const lf = lastFetchInfo();
+  const stale = lf && daysAgo(lf.at) > 1.5;
+  $('#metaFetch').innerHTML = lf ? `最終取得 <span style="${stale ? 'color:var(--accent);font-weight:700' : ''}">${fmtShort(lf.at)}</span><span class="muted">(${lf.src})</span>` : '';
+  $('#metaStore').textContent = store.storeReview ? `ストア評価 ${store.storeReview.rate} / ${Number(store.storeReview.count).toLocaleString()}件` : '';
+  // モード切り替えボタンに「手をつける商品の件数」を出す。0件ならバッジも色も出さない
+  const scope = entries().filter(([, p]) => !isIgnored(p));
+  const work = { second: scope.filter(([, p]) => isHot3(p)).length };
+  document.querySelectorAll('#modes button').forEach(b => {
+    const m = b.dataset.mode;
+    b.classList.toggle('active', m === mode);
+    const n = work[m] || 0;
+    b.classList.toggle('has-work', n > 0);
+    b.querySelector('.badge')?.remove();
+    if (n > 0) b.insertAdjacentHTML('beforeend', `<span class="badge">${n}</span>`);
+  });
+  document.body.classList.remove('mode-basic', 'mode-second', 'mode-first', 'mode-tail');
+  document.body.classList.add('mode-' + mode);
+}
+
+function renderSide() {
+  const scoped = entries().filter(([c, p]) => inScope(p) && matchQuery(c, p));
+  $('#rateList').innerHTML = RATE_BANDS.map(b => {
+    const n = b.test ? scoped.filter(([, p]) => b.test(p.reviewAvg || 0)).length : scoped.length;
+    const on = b.key === 'all' ? filter.kind !== 'rate' : (filter.kind === 'rate' && filter.key === b.key);
+    return `<button data-rate="${b.key}" class="${on ? 'on' : ''}"><span>${esc(b.label)}</span><span class="n">${n}</span></button>`;
+  }).join('');
+  const all = entries().filter(([c, p]) => matchQuery(c, p));
+  const cnt = { normal: all.filter(([, p]) => !isIgnored(p)).length, ignore: all.filter(([, p]) => isIgnored(p)).length, all: all.length };
+  const st = [['normal', '👁 通常'], ['ignore', '🙈 無視（非表示）'], ['all', '🗂 全体']];
+  $('#statusList').innerHTML = st.map(([k, l]) => `<button data-scope="${k}" class="${statusScope === k ? 'on' : ''}"><span>${l}</span><span class="n">${cnt[k]}</span></button>`).join('');
+}
+
+function pillStyle(d) { return `background:${esc(d.bg)};color:${esc(d.fg)};border-color:${esc(d.fg)}33`; }
+function filterRowHtml(g) {
+  const base = baseRows();
+  const groups = [[]];
+  for (const d of defList(g)) { groups[groups.length - 1].push(d); if (d.sep) groups.push([]); }
+  const allOn = filter.kind !== g;
+  const btn = (d) => {
+    let n;
+    if (d.key === '__hot3__') n = base.filter(([, p]) => isHot3(p)).length;
+    else if (d.key === '__hot200__') n = base.filter(([, p]) => isHot200(p)).length;
+    else n = base.filter(([, p]) => statusOf(p, g) === d.key).length;
+    const on = filter.kind === g && filter.key === d.key;
+    if (d.fixed) return `<button class="fbtn hot ${on ? 'on' : ''} ${n ? '' : 'zero'}" data-fg="${g}" data-fk="${esc(d.key)}">${esc(d.icon)} ${esc(d.label)} <span class="n">(${n})</span></button>`;
+    return `<button class="fbtn ${on ? 'on' : ''} ${n ? '' : 'zero'}" style="${pillStyle(d)}" data-fg="${g}" data-fk="${esc(d.key)}">${esc(d.icon)} ${esc(d.label)} <span class="n">(${n})</span></button>`;
+  };
+  const html = groups.filter(x => x.length).map((grp, i) =>
+    `<div class="fgroup">${i === 0 ? `<button class="fbtn all ${allOn ? 'on' : ''}" data-fg="${g}" data-fk="">全体 <span class="n">(${base.length})</span></button>` : ''}${grp.map(btn).join('')}</div>`).join('');
+  return `<span class="flabel">${DEF_GROUPS[g].icon} ${DEF_GROUPS[g].label}:</span>${html}`;
+}
+function renderFilters() {
+  const rows = visibleRows();
+  const optHtml = (g) => `<option value="">${DEF_GROUPS[g].label}：変更しない</option>` + defOptions(g).map(d => `<option value="${esc(d.key)}">${esc(d.icon)} ${esc(d.label)}</option>`).join('');
+  $('#filters').innerHTML = `
+    <div class="frow">${filterRowHtml('first')}</div>
+    <div class="frow">${filterRowHtml('second')}</div>
+    <div class="fpanel-foot">
+      <div class="bulk">
+        <span class="t">✏ 選択商品を一括変更</span><span class="cnt" id="selCnt">${selected.size}</span>
+        <select id="bulkFirst">${optHtml('first')}</select>
+        <select id="bulkSecond">${optHtml('second')}</select>
+        <button id="bulkApply" class="primary" ${selected.size ? '' : 'disabled'}>→ 選択商品に適用</button>
+        <button id="bulkClear" ${selected.size ? '' : 'disabled'}>☐ 選択解除</button>
+      </div>
+      <span class="shown">表示中: <b>${rows.length}</b> / ${entries().length} 件</span>
+    </div>`;
+}
+
+function renderThead() {
+  $('#thead').innerHTML = COLS.map(c => {
+    if (c.html) return `<th class="${c.cls}">${c.html()}</th>`;
+    if (c.alt) {
+      return `<th class="${c.cls}">${c.alt.map(([k, l]) => `<span class="sortable ${sortKey === k ? 'sorted' : ''}" data-sort="${k}" style="cursor:pointer;margin:0 3px">${l}<span class="arrow">${sortKey === k ? (sortDir > 0 ? '▲' : '▼') : '⇅'}</span></span>`).join('')}</th>`;
+    }
+    const sk = c.sort === true ? c.key : c.sort;
+    if (!sk) return `<th class="${c.cls}">${c.label}</th>`;
+    const on = sortKey === sk;
+    return `<th class="${c.cls} sortable ${on ? 'sorted' : ''}" data-sort="${sk}">${c.label}<span class="arrow">${on ? (sortDir > 0 ? '▲' : '▼') : '⇅'}</span></th>`;
+  }).join('');
+  const rows = visibleRows();
+  const all = rows.length > 0 && rows.every(([c]) => selected.has(c));
+  const ca = $('#chkAll'); if (ca) ca.checked = all;
+}
+
+function updHtml(p) {
+  if (!p.updatedAt) return '<span class="muted">—</span>';
+  const d = new Date(p.updatedAt);
+  return `${d.getFullYear()}<b>${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}</b>${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
+}
+function ddHtml(g, p) {
+  const d = defOf(g, statusOf(p, g));
+  return `<button class="dd" data-dd="${g}" style="${pillStyle(d)}"><span>${esc(d.icon)} ${esc(d.label)}</span><span class="caret">▼</span></button>`;
+}
+function numHtml(p) {
+  const os = onScreen(p);
+  if (os === null) return { diff: '<span class="muted">未入力</span>', rate: '<span class="muted">—</span>' };
+  const d = diffOf(p), r = rateOf(p);
+  const cls = d > 0 ? (r >= 200 ? 'big' : 'pos') : 'zero';
+  return { diff: `<span class="pill-num ${cls}">${d > 0 ? '+' : ''}${d}</span>`, rate: `<span class="pill-num ${cls}">${d > 0 ? '+' : ''}${r.toFixed(1)}%</span>` };
+}
+function imgCell(p, i) {
+  const id = (p.imageIds || [])[i];
+  const url = id ? imgThumb(id) : (i === 0 ? (p.images || [])[0] : null);
+  if (!url) return '<span class="ph"></span><div class="d">–</div>';
+  const upd = (p.imageUpdatedAt || [])[i];
+  const recent = upd && daysAgo(upd) <= 7;
+  return `<a class="ph" href="${esc(id ? imgLarge(id) : url)}" target="_blank" rel="noopener"><img src="${esc(url)}" loading="lazy" alt=""></a>` +
+    `<div class="d ${recent ? 'new' : ''}" title="${upd ? '差し替え ' + esc(new Date(upd).toLocaleString('ja-JP')) : '差し替え日不明（古い画像）'}">${upd ? fmtDate(upd) : '–'}</div>`;
+}
+function stateBadge(p) {
   if (p.inApi === false && p.inCsv === false) return '<span class="pill gone">削除?</span>';
   if (p.inApi === false) return '<span class="pill out">非公開/検索外</span>';
   if (p.inStock === false) return '<span class="pill out">在庫切れ</span>';
   return '';
 }
-
-function render() {
-  $('#ver').textContent = VERSION;
-  $('#shops').innerHTML = SHOPS.map(sh => `<a href="?shop=${esc(sh.id)}" class="${sh.id === SHOP.id ? 'on' : ''}" title="seller_id: ${esc(sh.sellerId)}">${esc(sh.name)}</a>`).join('');
-  $('#metaFetch').textContent = store.lastAutoFetch ? `最終取得 ${fmtDate(store.lastAutoFetch)}` : '';
-  $('#metaStore').textContent = store.storeReview ? `ストア評価 ${store.storeReview.rate} / ${store.storeReview.count.toLocaleString()}件` : '';
-
-  document.querySelectorAll('th[data-k]').forEach(th => {
-    const on = th.dataset.k === sortKey;
-    th.classList.toggle('sorted', on);
-    th.querySelector('.arrow')?.remove();
-    if (on) th.insertAdjacentHTML('beforeend', `<span class="arrow">${sortDir > 0 ? '▲' : '▼'}</span>`);
-  });
-
-  const { filtered, total } = rowsSorted();
-  $('#count').textContent = query ? `${filtered.length} / ${total} 件` : `${total} 件`;
-  if (!filtered.length) { $('#rows').innerHTML = '<tr><td colspan="8" class="empty">該当なし</td></tr>'; return; }
-
-  $('#rows').innerHTML = filtered.map(p => `
-    <tr data-code="${esc(p.code)}">
-      <td class="img">${p.images?.[0] ? `<a href="${esc(p.itemUrl)}" target="_blank" rel="noopener"><img src="${esc(p.images[0])}" loading="lazy" alt=""></a>` : ''}</td>
-      <td class="code"><a href="${esc(p.itemUrl)}" target="_blank" rel="noopener">${esc(p.code)}</a></td>
-      <td class="name"><div class="t" title="${esc(p.name)}">${esc(p.name)}</div>${p.categoryName ? `<div class="sub">${esc(p.categoryName)}</div>` : ''}</td>
-      <td class="num"><a href="${esc(p.reviewUrl)}" target="_blank" rel="noopener">${(p.reviewCount ?? 0).toLocaleString()}</a></td>
-      <td class="num"><span class="stars">${'★'.repeat(Math.round(p.reviewAvg || 0))}</span> ${p.reviewAvg ? p.reviewAvg.toFixed(1) : '–'}</td>
-      <td class="num">${p.price ? '¥' + p.price.toLocaleString() : ''}</td>
-      <td>${stateHtml(p)}</td>
-      <td class="memo"><input type="text" data-field="memo" value="${esc(p.memo || '')}" placeholder="メモ"></td>
-    </tr>`).join('');
+function rowHtml(code, p) {
+  const nh = numHtml(p);
+  const wg = weekGain(p);
+  const stars = '★'.repeat(Math.round(p.reviewAvg || 0)) + '☆'.repeat(5 - Math.round(p.reviewAvg || 0));
+  const cls = [selected.has(code) ? 'sel' : '', isIgnored(p) ? 'ignored' : ''].join(' ');
+  return `<tr data-code="${esc(code)}" class="${cls}">
+    <td class="c-chk"><input type="checkbox" data-act="sel" ${selected.has(code) ? 'checked' : ''}></td>
+    <td class="c-upd">${updHtml(p)}</td>
+    <td class="c-code"><a class="code" href="${esc(p.itemUrl)}" target="_blank" rel="noopener">${esc(code)}</a><div class="stk">${stateBadge(p)}</div></td>
+    <td class="c-name">
+      <input type="text" data-field="name" value="${esc(p.name || '')}" placeholder="商品名（短く）">
+      <div class="api" title="${esc(p.apiTitle || p.csvName || '')}">${esc(p.apiTitle || p.csvName || '')}</div>
+      <div class="links"><a href="${esc(p.itemUrl)}" target="_blank" rel="noopener">🛒 商品ページ</a><a href="#" data-act="copyUrl">📋 URLコピー</a><a href="${esc(p.reviewUrl)}" target="_blank" rel="noopener">💬 レビュー</a></div>
+    </td>
+    <td class="c-rate"><div class="stars">${stars}</div><span class="avg">${p.reviewAvg ? Number(p.reviewAvg).toFixed(2) : '—'}</span><span class="cnt"><a href="${esc(p.reviewUrl)}" target="_blank" rel="noopener">${(p.reviewCount || 0).toLocaleString()}</a></span><span class="unit">件</span>
+      <div class="wk ${wg > 0 ? 'up' : ''}">${wg === null ? '' : `7日 ${wg > 0 ? '+' : ''}${wg}`}</div></td>
+    <td class="c-num only-second"><input type="number" min="0" step="1" data-field="onScreenCount" value="${onScreen(p) ?? ''}" placeholder="—"></td>
+    <td class="c-num only-second" data-cell="diff">${nh.diff}</td>
+    <td class="c-num only-second" data-cell="rate">${nh.rate}</td>
+    <td class="c-img">${imgCell(p, 0)}</td>
+    <td class="c-img">${imgCell(p, 1)}</td>
+    <td class="c-img">${imgCell(p, 2)}</td>
+    <td class="c-dd only-basic">${ddHtml('first', p)}</td>
+    <td class="c-dd">${ddHtml('second', p)}</td>
+    <td class="c-act"><div class="acts">
+      <button data-act="ignore">${isIgnored(p) ? '👁 通常に戻す' : '🙈 無視する'}</button>
+      <input type="text" data-field="memo" value="${esc(p.memo || '')}" placeholder="メモ">
+    </div></td>
+  </tr>`;
+}
+function renderRows() {
+  const rows = visibleRows();
+  $('#rows').innerHTML = rows.length ? rows.map(([c, p]) => rowHtml(c, p)).join('') : `<tr><td class="empty" colspan="${COLS.length}">該当なし</td></tr>`;
+  const ca = $('#chkAll'); if (ca) ca.checked = rows.length > 0 && rows.every(([c]) => selected.has(c));
 }
 
-// ---- イベント（onclick に値を埋めない。委譲で拾う）----
+// sticky まわり（楽天版の教訓）
+//  ・表ヘッダーの top はヘッダーの実際の高さに合わせる（折り返しで変わる）
+//  ・横に広い表のとき、ヘッダー帯が画面幅で切れないよう min-width を表の幅に合わせる（測る前にリセット）
+function syncLayout() {
+  const hdr = $('#hdr');
+  hdr.style.minWidth = '';
+  document.documentElement.style.setProperty('--hdr-h', hdr.offsetHeight + 'px');
+  const w = document.documentElement.scrollWidth;
+  if (w > window.innerWidth) hdr.style.minWidth = w + 'px';
+}
+window.addEventListener('resize', () => { closeMenu(); syncLayout(); });
+
+// ============================================================
+// 絞り込み（重ねがけしない。解除する対象はここに集約）
+// ============================================================
+function setFilter(kind, key) {
+  if (!kind || !key || (filter.kind === kind && filter.key === key)) filter = { kind: null, key: null };   // 同じボタンで解除
+  else filter = { kind, key };
+  renderAll();
+}
+function setMode(m) {
+  if (!['basic', 'second'].includes(m)) m = 'basic';
+  if (m === 'second' && mode !== 'second') { sortKey = 'onscreen'; sortDir = -1; }   // 2枚目用は画面上件数の降順から
+  if (m === 'basic' && mode !== 'basic') { sortKey = 'reviewCount'; sortDir = -1; }
+  if (m !== 'basic' && filter.kind === 'first') filter = { kind: null, key: null };
+  mode = m;
+  lsSet(LS.mode, m);
+  renderAll();
+}
+
+// ============================================================
+// ドロップダウン（document.body 直下に出す。sticky/overflow の親に潜らない）
+// ============================================================
+let menuCtx = null;
+function openMenu(btn, g, onPick) {
+  const menu = $('#menu');
+  const cur = btn.dataset.cur;
+  const opts = defOptions(g);
+  menu.innerHTML = opts.map((d, i) => `<button class="mi ${d.key === cur ? 'cur' : ''}" data-key="${esc(d.key)}" style="background:${esc(d.bg)};color:${esc(d.fg)}">${esc(d.icon)} ${esc(d.label)}</button>${d.sep && i < opts.length - 1 ? '<div class="sep"></div>' : ''}`).join('');
+  menu.style.display = 'block';
+  menu.style.maxHeight = '';
+  const r = btn.getBoundingClientRect();
+  const mh = menu.offsetHeight, mw = Math.max(menu.offsetWidth, r.width);
+  const below = window.innerHeight - r.bottom - 8, above = r.top - 8;
+  let top;
+  if (mh <= below || below >= above) { top = r.bottom + 2; if (mh > below) menu.style.maxHeight = below + 'px'; }
+  else { const h = Math.min(mh, above); top = r.top - h - 2; if (mh > above) menu.style.maxHeight = above + 'px'; }
+  menu.style.top = top + 'px';
+  menu.style.left = Math.min(r.left, window.innerWidth - mw - 8) + 'px';
+  menu.style.minWidth = r.width + 'px';
+  menuCtx = { onPick };
+}
+function closeMenu() { $('#menu').style.display = 'none'; menuCtx = null; }
+$('#menu').addEventListener('click', (e) => {
+  const b = e.target.closest('.mi'); if (!b || !menuCtx) return;
+  const fn = menuCtx.onPick; closeMenu(); fn(b.dataset.key);
+});
+document.addEventListener('mousedown', (e) => { if (menuCtx && !e.target.closest('#menu') && !e.target.closest('.dd')) closeMenu(); });
+window.addEventListener('scroll', () => { if (menuCtx) closeMenu(); }, true);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+
+// ============================================================
+// イベント（onclick に値を埋めない。委譲 + data-* で拾う）
+// ============================================================
+function cssEsc(s) { return (window.CSS && CSS.escape) ? CSS.escape(s) : String(s).replace(/["\\]/g, '\\$&'); }
+function rowCode(el) { return el.closest('tr[data-code]')?.dataset.code; }
+
+$('#rows').addEventListener('click', (e) => {
+  const t = e.target;
+  const dd = t.closest('.dd');
+  if (dd) {
+    const code = rowCode(dd), g = dd.dataset.dd, p = store.productCache[code];
+    dd.dataset.cur = statusOf(p, g);
+    if (menuCtx) { closeMenu(); return; }
+    openMenu(dd, g, (key) => {
+      p[DEF_GROUPS[g].field] = key;
+      touch(code);
+      const d = defOf(g, key);
+      dd.setAttribute('style', pillStyle(d));
+      dd.innerHTML = `<span>${esc(d.icon)} ${esc(d.label)}</span><span class="caret">▼</span>`;
+      dd.closest('td').classList.remove('flash'); void dd.offsetWidth; dd.closest('td').classList.add('flash');
+      renderHeader(); renderFilters();   // 件数だけ更新（行は並べ直さない＝押した行が逃げない）
+    });
+    return;
+  }
+  const act = t.closest('[data-act]');
+  if (!act) return;
+  const code = rowCode(act);
+  if (act.dataset.act === 'sel') {
+    if (act.checked) selected.add(code); else selected.delete(code);
+    act.closest('tr').classList.toggle('sel', act.checked);
+    renderFilters(); renderThead();
+  } else if (act.dataset.act === 'copyUrl') {
+    e.preventDefault();
+    const p = store.productCache[code];
+    navigator.clipboard?.writeText(p.itemUrl || '').then(() => setStatus('URLをコピーしました', 'ok'), () => setStatus('コピーできませんでした', 'err'));
+  } else if (act.dataset.act === 'ignore') {
+    const p = store.productCache[code];
+    p.status = isIgnored(p) ? 'normal' : 'ignore';
+    touch(code);
+    renderAll();
+  }
+});
 $('#rows').addEventListener('input', (e) => {
-  const inp = e.target.closest('input[data-field]');
-  if (!inp) return;
-  const code = inp.closest('tr').dataset.code;
-  const p = store.productCache[code]; if (!p) return;
-  p[inp.dataset.field] = inp.value;
-  p.updatedAt = new Date().toISOString();
-  inp.classList.add('saved'); setTimeout(() => inp.classList.remove('saved'), 600);
-  markDirty();
+  const inp = e.target.closest('input[data-field]'); if (!inp) return;
+  const code = rowCode(inp), p = store.productCache[code]; if (!p) return;
+  const f = inp.dataset.field;
+  if (f === 'onScreenCount') {
+    const v = inp.value.trim();
+    p.onScreenCount = v === '' ? null : Math.max(0, Math.floor(Number(v)));
+    const nh = numHtml(p), tr = inp.closest('tr');
+    tr.querySelector('[data-cell="diff"]').innerHTML = nh.diff;
+    tr.querySelector('[data-cell="rate"]').innerHTML = nh.rate;
+  } else {
+    p[f] = inp.value;
+  }
+  touch(code);
+  const td = inp.closest('td'); td.classList.remove('flash'); void td.offsetWidth; td.classList.add('flash');
 });
-document.querySelector('thead').addEventListener('click', (e) => {
-  const th = e.target.closest('th[data-k]'); if (!th || th.dataset.k === 'images') return;
-  if (sortKey === th.dataset.k) sortDir = -sortDir; else { sortKey = th.dataset.k; sortDir = th.dataset.k === 'reviewCount' || th.dataset.k === 'reviewAvg' || th.dataset.k === 'price' ? -1 : 1; }
-  render();
+$('#rows').addEventListener('change', (e) => {
+  if (e.target.closest('input[data-field="onScreenCount"]')) { renderHeader(); renderFilters(); }
 });
-$('#q').addEventListener('input', (e) => { query = e.target.value; render(); });
-$('#btnReload').addEventListener('click', async () => { if (dirty) await flush(); load(); });
+$('#thead').addEventListener('click', (e) => {
+  if (e.target.id === 'chkAll') {
+    const rows = visibleRows();
+    if (e.target.checked) rows.forEach(([c]) => selected.add(c)); else rows.forEach(([c]) => selected.delete(c));
+    renderFilters(); renderRows();
+    return;
+  }
+  const th = e.target.closest('[data-sort]'); if (!th) return;
+  const k = th.dataset.sort;
+  if (sortKey === k) sortDir = -sortDir;
+  else { sortKey = k; sortDir = ['code', 'name', 'first', 'second'].includes(k) ? 1 : -1; }
+  renderThead(); renderRows();
+});
+$('#filters').addEventListener('click', (e) => {
+  const fb = e.target.closest('[data-fg]');
+  if (fb) { setFilter(fb.dataset.fg, fb.dataset.fk); return; }
+  if (e.target.id === 'bulkApply') {
+    const f = $('#bulkFirst').value, s = $('#bulkSecond').value;
+    if (!f && !s) { setStatus('変更する項目を選んでください', 'err'); return; }
+    for (const code of selected) {
+      const p = store.productCache[code]; if (!p) continue;
+      if (f) p.firstStatus = f;
+      if (s) p.secondStatus = s;
+      touch(code);
+    }
+    setStatus(`${selected.size}件を一括変更しました`, 'ok');
+    selected.clear();
+    renderAll();
+  } else if (e.target.id === 'bulkClear') {
+    selected.clear(); renderAll();
+  }
+});
+$('#rateList').addEventListener('click', (e) => { const b = e.target.closest('[data-rate]'); if (b) setFilter(b.dataset.rate === 'all' ? null : 'rate', b.dataset.rate); });
+$('#statusList').addEventListener('click', (e) => { const b = e.target.closest('[data-scope]'); if (b) { statusScope = b.dataset.scope; renderAll(); } });
+$('#q').addEventListener('input', (e) => { query = e.target.value.trim(); renderAll(); });
+$('#btnClear').addEventListener('click', () => {
+  query = ''; $('#q').value = ''; statusScope = 'normal'; filter = { kind: null, key: null }; selected.clear();
+  sortKey = mode === 'second' ? 'onscreen' : 'reviewCount'; sortDir = -1;
+  renderAll();
+});
+$('#modes').addEventListener('click', (e) => { const b = e.target.closest('button[data-mode]'); if (b && !b.disabled) setMode(b.dataset.mode); });
+$('#btnReload').addEventListener('click', async () => { if (dirty) await flush(); if (defsDirty) await flushDefs(); load(); });
 
 // ---- 設定ダイアログ ----
-const dlg = $('#dlg');
+const dlg = $('#dlgSettings');
 $('#btnSettings').addEventListener('click', () => {
   const c = ghConfig();
   $('#inRepo').value = c.repo; $('#inBranch').value = c.branch; $('#inPat').value = c.pat;
@@ -371,12 +1027,73 @@ $('#btnSettings').addEventListener('click', () => {
 });
 $('#dlgCancel').addEventListener('click', () => dlg.close());
 $('#dlgSave').addEventListener('click', () => {
-  localStorage.setItem(LS.repo, $('#inRepo').value.trim() || DEFAULT_REPO);
-  localStorage.setItem(LS.branch, $('#inBranch').value.trim() || 'main');
-  localStorage.setItem(LS.pat, $('#inPat').value.trim());
+  lsSet(LS.repo, $('#inRepo').value.trim() || DEFAULT_REPO);
+  lsSet(LS.branch, $('#inBranch').value.trim() || 'main');
+  lsSet(LS.pat, $('#inPat').value.trim());
   dlg.close(); load();
 });
 
+// ============================================================
+// 項目設定モーダル
+// ============================================================
+let defsTab = 'second';
+function usageCount(g, key) { return entries().filter(([, p]) => p[DEF_GROUPS[g].field] === key).length; }
+function renderDefsEditor() {
+  $('#defsShop').textContent = `（${SHOP.name}）`;
+  $('#defsTabs').innerHTML = Object.entries(DEF_GROUPS).map(([g, v]) => `<button data-tab="${g}" class="${g === defsTab ? 'on' : ''}">${v.icon} ${v.label}</button>`).join('');
+  const list = defList(defsTab);
+  $('#defsList').innerHTML = list.map((d, i) => {
+    const prot = PROTECTED_KEYS[defsTab].includes(d.key);
+    const use = d.fixed ? '' : usageCount(defsTab, d.key);
+    const preview = `<div class="preview" style="background:${esc(d.bg)};color:${esc(d.fg)}">${esc(d.icon)} ${esc(d.label)}</div>`;
+    if (d.fixed) {
+      return `<div class="def-row fixed ${d.sep ? 'sep-after' : ''}" data-i="${i}">${preview}<span></span><span class="hint">絞り込み専用（名前・色は固定）</span><span></span><span></span>
+        <label style="margin:0"><input type="checkbox" data-k="sep" ${d.sep ? 'checked' : ''}> 下で区切る</label>
+        <div class="ops"><button data-op="up" ${i === 0 ? 'disabled' : ''}>↑</button><button data-op="down" ${i === list.length - 1 ? 'disabled' : ''}>↓</button></div></div>`;
+    }
+    return `<div class="def-row ${d.sep ? 'sep-after' : ''}" data-i="${i}">${preview}
+      <input type="text" data-k="icon" value="${esc(d.icon)}" style="text-align:center">
+      <input type="text" data-k="label" value="${esc(d.label)}">
+      <input type="color" data-k="bg" value="${esc(d.bg)}" title="背景色">
+      <input type="color" data-k="fg" value="${esc(d.fg)}" title="文字色">
+      <label style="margin:0"><input type="checkbox" data-k="sep" ${d.sep ? 'checked' : ''}> 下で区切る</label>
+      <div><div class="ops"><button data-op="up" ${i === 0 ? 'disabled' : ''}>↑</button><button data-op="down" ${i === list.length - 1 ? 'disabled' : ''}>↓</button><button data-op="del" ${prot || use ? 'disabled' : ''} title="${prot ? '削除できない項目' : use ? '使用中の商品があります' : '削除'}">🗑</button></div>
+      <div class="use">${prot ? '既定値' : use ? `使用中 ${use}件` : ''}</div></div></div>`;
+  }).join('');
+}
+function defsChanged() { markDefsDirty(); renderDefsEditor(); renderAll(); }
+$('#btnDefs').addEventListener('click', () => { renderDefsEditor(); $('#dlgDefs').showModal(); });
+$('#defsClose').addEventListener('click', () => { $('#dlgDefs').close(); flushDefs(); });
+$('#defsTabs').addEventListener('click', (e) => { const b = e.target.closest('[data-tab]'); if (b) { defsTab = b.dataset.tab; renderDefsEditor(); } });
+$('#defsAdd').addEventListener('click', () => {
+  defs[defsTab].push({ key: 'k' + Date.now().toString(36), icon: '🏷', label: '新しい項目', bg: '#f0f2f5', fg: '#374151' });
+  defsChanged();
+  $('#defsList').scrollTop = 1e6;
+});
+$('#defsList').addEventListener('input', (e) => {
+  const inp = e.target.closest('[data-k]'); if (!inp) return;
+  const i = +inp.closest('.def-row').dataset.i, d = defs[defsTab][i], k = inp.dataset.k;
+  if (k === 'sep') d.sep = inp.checked; else d[k] = inp.value;
+  markDefsDirty();
+  const pv = inp.closest('.def-row').querySelector('.preview');
+  pv.style.background = d.bg; pv.style.color = d.fg; pv.textContent = `${d.icon} ${d.label}`;
+  if (k === 'sep') inp.closest('.def-row').classList.toggle('sep-after', d.sep);
+  renderAll();
+});
+$('#defsList').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-op]'); if (!b || b.disabled) return;
+  const i = +b.closest('.def-row').dataset.i, list = defs[defsTab];
+  if (b.dataset.op === 'up' && i > 0) [list[i - 1], list[i]] = [list[i], list[i - 1]];
+  else if (b.dataset.op === 'down' && i < list.length - 1) [list[i + 1], list[i]] = [list[i], list[i + 1]];
+  else if (b.dataset.op === 'del') list.splice(i, 1);
+  defsChanged();
+});
+
+// ---- 起動 ----
+mode = ['basic', 'second'].includes(lsGet(LS.mode)) ? lsGet(LS.mode) : 'basic';
+if (mode === 'second') { sortKey = 'onscreen'; sortDir = -1; }
+defs = normalizeDefs(null);
+renderAll();
 load();
 </script>
 </body>
