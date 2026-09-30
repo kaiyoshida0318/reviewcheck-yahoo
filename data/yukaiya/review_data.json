@@ -1616,7 +1616,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "firstStatus": "skip",
+      "updatedAt": "2026-09-30T06:37:48.455Z"
     },
     "eq-22-01-clear-2set": {
       "reviewHistory": {
@@ -5769,7 +5771,9 @@
         null,
         null,
         "2023-11-20T14:38:41+09:00"
-      ]
+      ],
+      "firstStatus": "skip",
+      "updatedAt": "2026-09-30T06:37:48.519Z"
     },
     "bg-05-ori-5set": {
       "reviewHistory": {
@@ -6182,7 +6186,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "firstStatus": "skip",
+      "updatedAt": "2026-09-30T06:37:48.451Z"
     },
     "sb-02-2set": {
       "reviewHistory": {
@@ -6435,7 +6441,7 @@
         null
       ],
       "firstStatus": "skip",
-      "updatedAt": "2026-09-30T03:40:26.406Z"
+      "updatedAt": "2026-09-30T06:37:48.495Z"
     },
     "fas-16-01-navy": {
       "reviewHistory": {
@@ -6727,7 +6733,7 @@
         null
       ],
       "firstStatus": "skip",
-      "updatedAt": "2026-09-30T03:40:23.725Z"
+      "updatedAt": "2026-09-30T06:37:48.487Z"
     },
     "wat-fb-21-08": {
       "reviewHistory": {
@@ -7267,7 +7273,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "firstStatus": "skip",
+      "updatedAt": "2026-09-30T06:37:48.527Z"
     },
     "zak-20-17-05": {
       "reviewHistory": {
@@ -7350,7 +7358,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "firstStatus": "skip",
+      "updatedAt": "2026-09-30T06:37:48.510Z"
     },
     "cam-21-02": {
       "reviewHistory": {
@@ -7516,7 +7526,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "firstStatus": "skip",
+      "updatedAt": "2026-09-30T06:37:48.504Z"
     },
     "tb-23-03": {
       "reviewHistory": {
@@ -7600,7 +7612,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "firstStatus": "skip",
+      "updatedAt": "2026-09-30T06:37:48.514Z"
     },
     "zak-20-18-20": {
       "reviewHistory": {
@@ -7974,7 +7988,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "firstStatus": "skip",
+      "updatedAt": "2026-09-30T06:37:48.544Z"
     },
     "fas-16-01-brown": {
       "reviewHistory": {
@@ -8142,7 +8158,9 @@
         null,
         null,
         "2023-11-20T14:42:01+09:00"
-      ]
+      ],
+      "firstStatus": "skip",
+      "updatedAt": "2026-09-30T06:37:48.523Z"
     },
     "fas-16-01-blue": {
       "reviewHistory": {
@@ -8309,7 +8327,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "firstStatus": "skip",
+      "updatedAt": "2026-09-30T06:37:48.507Z"
     },
     "si-26-08-6set": {
       "reviewHistory": {
@@ -8391,7 +8411,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "firstStatus": "skip",
+      "updatedAt": "2026-09-30T06:37:48.536Z"
     },
     "bloop-18-01-30-2set": {
       "reviewHistory": {
@@ -8433,7 +8455,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "firstStatus": "skip",
+      "updatedAt": "2026-09-30T06:37:48.458Z"
     },
     "fas-16-02-navy": {
       "reviewHistory": {
@@ -9054,7 +9078,7 @@
         null
       ],
       "firstStatus": "skip",
-      "updatedAt": "2026-09-30T03:40:20.865Z"
+      "updatedAt": "2026-09-30T06:37:48.479Z"
     },
     "bloop-18-01-12": {
       "reviewHistory": {
@@ -9098,7 +9122,7 @@
         null
       ],
       "firstStatus": "skip",
-      "updatedAt": "2026-09-30T03:40:17.680Z"
+      "updatedAt": "2026-09-30T06:37:48.471Z"
     },
     "bloop-18-01-12-2set": {
       "reviewHistory": {
@@ -9142,7 +9166,7 @@
         null
       ],
       "firstStatus": "skip",
-      "updatedAt": "2026-09-30T03:40:19.217Z"
+      "updatedAt": "2026-09-30T06:37:48.474Z"
     },
     "bloop-18-01-14-2set": {
       "reviewHistory": {
@@ -9186,7 +9210,7 @@
         null
       ],
       "firstStatus": "skip",
-      "updatedAt": "2026-09-30T03:40:22.644Z"
+      "updatedAt": "2026-09-30T06:37:48.483Z"
     },
     "bloop-18-01-16-2set": {
       "reviewHistory": {
@@ -9230,7 +9254,7 @@
         null
       ],
       "firstStatus": "skip",
-      "updatedAt": "2026-09-30T03:40:25.174Z"
+      "updatedAt": "2026-09-30T06:37:48.491Z"
     },
     "bloop-18-01-18-2set": {
       "reviewHistory": {
@@ -9272,7 +9296,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "firstStatus": "skip",
+      "updatedAt": "2026-09-30T06:37:48.499Z"
     },
     "bloop-18-01-26-2set": {
       "reviewHistory": {
@@ -9314,7 +9340,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "firstStatus": "skip",
+      "updatedAt": "2026-09-30T06:37:48.530Z"
     },
     "bloop-18-01-28-2set": {
       "reviewHistory": {
@@ -9356,7 +9384,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "firstStatus": "skip",
+      "updatedAt": "2026-09-30T06:37:48.540Z"
     },
     "zak-18-07": {
       "reviewHistory": {
@@ -10068,7 +10098,7 @@
         null
       ],
       "firstStatus": "skip",
-      "updatedAt": "2026-09-30T03:40:15.634Z"
+      "updatedAt": "2026-09-30T06:37:48.467Z"
     },
     "bloop-18-01-10": {
       "reviewHistory": {
@@ -10112,7 +10142,7 @@
         null
       ],
       "firstStatus": "skip",
-      "updatedAt": "2026-09-30T03:40:12.847Z"
+      "updatedAt": "2026-09-30T06:37:48.462Z"
     }
   },
   "storeReviewHistory": {
@@ -10127,7 +10157,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-09-30T06:26:26.140Z",
+  "savedAt": "2026-09-30T06:37:51.548Z",
   "lastAutoFetch": "2026-09-30T03:06:57Z",
   "lastCsvFile": "data202609291804.csv",
   "counts": {
