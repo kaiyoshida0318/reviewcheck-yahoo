@@ -529,7 +529,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.11';
+const VERSION = 'v0.8.12';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -597,6 +597,11 @@ const FIXED_DEFS = {
   __hot3__:   { key: '__hot3__',   icon: '🔥', label: '獲得前-3件以上',  bg: '#fff0f0', fg: '#c62828', fixed: true },
   __hot200__: { key: '__hot200__', icon: '🔥', label: '獲得前-上昇200%', bg: '#fff0f0', fg: '#c62828', fixed: true },
 };
+// 「無視」（v0.8.12〜）。1枚目変更の選択肢の最後（SKIP の右）に必ず出す特別な項目。
+//   中身は今までの「🙈 無視する」と同じ（p.status = 'ignore'）。firstStatus は書き換えない（戻したとき元の状態が残る）。
+//   項目設定には出さない（名前・色は固定）。
+const IGNORE_KEY = '__ignore__';
+const IGNORE_DEF = { key: IGNORE_KEY, icon: '🙈', label: '無視', bg: '#eceff1', fg: '#546e7a' };
 // 削除できない key（既定値の受け皿・動作に組み込まれているもの）
 const PROTECTED_KEYS = { first: ['pending'], second: ['none', '__hot3__', '__hot200__'] };
 
@@ -795,7 +800,17 @@ function normalizeDefs(saved) {
   return out;
 }
 const defList = (g) => defs[g] || [];
-const defOptions = (g) => defList(g).filter(d => !d.fixed);   // 行のドロップダウン・一括変更に出すもの
+const defOptions = (g) => defList(g).filter(d => !d.fixed);   // 保存される選択肢
+const pickOptions = (g) => g === 'first' ? [...defOptions(g), IGNORE_DEF] : defOptions(g);   // 行のドロップダウン・一括変更に出すもの（1枚目変更は最後に「無視」）
+// 表示上の状態（無視中の商品の1枚目変更は「無視」と出す）
+function shownStatus(p, g) { return g === 'first' && isIgnored(p) ? IGNORE_KEY : statusOf(p, g); }
+function shownDef(p, g) { return g === 'first' && isIgnored(p) ? IGNORE_DEF : defOf(g, statusOf(p, g)); }
+// 選択肢を選んだときの書き込み（「無視」は status、それ以外は各項目。無視中に別の状態を選んだら通常に戻す）
+function applyPick(p, g, key) {
+  if (g === 'first' && key === IGNORE_KEY) { p.status = 'ignore'; return; }
+  p[DEF_GROUPS[g].field] = key;
+  if (g === 'first' && isIgnored(p)) p.status = 'normal';
+}
 function defOf(g, key) { return defList(g).find(d => d.key === key) || defList(g).find(d => d.key === DEF_GROUPS[g].fallback) || { key, icon: '', label: key, bg: '#eee', fg: '#333' }; }
 function statusOf(p, g) {
   const k = p[DEF_GROUPS[g].field];
@@ -915,8 +930,10 @@ function matchQuery(code, p) {
   const q = query.toLowerCase();
   return (code + ' ' + (p.name || '') + ' ' + (p.apiTitle || '') + ' ' + (p.csvName || '')).toLowerCase().includes(q);
 }
+const ignoreFilterOn = () => filter.kind === 'first' && filter.key === IGNORE_KEY;
 function matchFilter(code, p) {
   if (!filter.kind) return true;
+  if (ignoreFilterOn()) return isIgnored(p);
   if (filter.kind === 'denrei') return denreiStateOf(code) === filter.key;
   if (filter.kind === 'torder') return tailOrderValue(p) === filter.key;
   if (filter.kind === 'twork') return (p.tailWork || '') === (filter.key === '__none' ? '' : filter.key);
@@ -968,7 +985,7 @@ function sortVal(code, p, k) {
     case 'diff': return onScreen(p) === null ? null : diffOf(p);
     case 'rate': return onScreen(p) === null ? null : rateOf(p);
     case 'img0': case 'img1': case 'img2': { const u = (p.imageUpdatedAt || [])[+k.slice(3)]; return u || null; }
-    case 'first': return defList('first').findIndex(d => d.key === statusOf(p, 'first'));
+    case 'first': return isIgnored(p) ? 999 : defList('first').findIndex(d => d.key === statusOf(p, 'first'));
     case 'second': return defList('second').findIndex(d => d.key === statusOf(p, 'second'));
     case 'ranking': return p.ranking || null;
     case 'selimg': return selIdx(p) || null;
@@ -979,7 +996,8 @@ function sortVal(code, p, k) {
   }
 }
 function visibleRows() {
-  const rows = baseRows().filter(([c, p]) => matchFilter(c, p));
+  // 「無視」の絞り込み中は、左の「状態」が通常でも無視した商品を出す（普段は隠れているため）
+  const rows = ignoreFilterOn() ? entries().filter(([c, p]) => isIgnored(p) && matchQuery(c, p)) : baseRows().filter(([c, p]) => matchFilter(c, p));
   rows.sort(([ca, a], [cb, b]) => {
     const x = sortVal(ca, a, sortKey), y = sortVal(cb, b, sortKey);
     if (x === null && y === null) return ca.localeCompare(cb);
@@ -1056,20 +1074,26 @@ function filterRowHtml(g) {
   const allOn = filter.kind !== g;
   const btn = (d) => {
     let n;
-    if (d.key === '__hot3__') n = base.filter(([, p]) => isHot3(p)).length;
+    if (d.key === IGNORE_KEY) n = d._n;
+    else if (d.key === '__hot3__') n = base.filter(([, p]) => isHot3(p)).length;
     else if (d.key === '__hot200__') n = base.filter(([, p]) => isHot200(p)).length;
     else n = base.filter(([, p]) => statusOf(p, g) === d.key).length;
     const on = filter.kind === g && filter.key === d.key;
     if (d.fixed) return `<button class="fbtn hot ${on ? 'on' : ''} ${n ? '' : 'zero'}" data-fg="${g}" data-fk="${esc(d.key)}">${esc(d.icon)} ${esc(d.label)} <span class="n">(${n})</span></button>`;
     return `<button class="fbtn ${on ? 'on' : ''} ${n ? '' : 'zero'}" style="${pillStyle(d)}" data-fg="${g}" data-fk="${esc(d.key)}">${esc(d.icon)} ${esc(d.label)} <span class="n">(${n})</span></button>`;
   };
+  if (g === 'first') {
+    // 「無視」は SKIP の右（最後のグループの末尾）。件数は左の「状態」に関係なく無視中の全件
+    const n = entries().filter(([c, p]) => isIgnored(p) && matchQuery(c, p)).length;
+    groups.filter(x => x.length).slice(-1)[0]?.push({ ...IGNORE_DEF, _n: n });
+  }
   const html = groups.filter(x => x.length).map((grp, i) =>
     `<div class="fgroup">${i === 0 ? `<button class="fbtn all ${allOn ? 'on' : ''}" data-fg="${g}" data-fk="">全体 <span class="n">(${base.length})</span></button>` : ''}${grp.map(btn).join('')}</div>`).join('');
   return `<span class="flabel">${DEF_GROUPS[g].icon} ${DEF_GROUPS[g].label}:</span>${html}`;
 }
 function renderFilters() {
   const rows = visibleRows();
-  const optHtml = (g) => `<option value="">${DEF_GROUPS[g].label}：変更しない</option>` + defOptions(g).map(d => `<option value="${esc(d.key)}">${esc(d.icon)} ${esc(d.label)}</option>`).join('');
+  const optHtml = (g) => `<option value="">${DEF_GROUPS[g].label}：変更しない</option>` + pickOptions(g).map(d => `<option value="${esc(d.key)}">${esc(d.icon)} ${esc(d.label)}</option>`).join('');
   const groups = MODE_GROUPS[mode];
   $('#filters').innerHTML = `
     ${groups.map(g => `<div class="frow">${filterRowHtml(g)}</div>`).join('')}
@@ -1110,7 +1134,7 @@ function updHtml(p) {
   return `${d.getFullYear()}<b>${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}</b>${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
 }
 function ddHtml(g, p) {
-  const d = defOf(g, statusOf(p, g));
+  const d = shownDef(p, g);
   return `<button class="dd" data-dd="${g}" style="${pillStyle(d)}"><span>${esc(d.icon)} ${esc(d.label)}</span><span class="caret">▼</span></button>`;
 }
 function numHtml(p) {
@@ -1243,7 +1267,7 @@ function setMode(m) {
 let menuCtx = null;
 function openMenu(btn, g, onPick) {
   const cur = btn.dataset.cur;
-  const opts = defOptions(g);
+  const opts = pickOptions(g);
   showMenu(btn, opts.map((d, i) => `<button class="mi ${d.key === cur ? 'cur' : ''}" data-key="${esc(d.key)}" style="background:${esc(d.bg)};color:${esc(d.fg)}">${esc(d.icon)} ${esc(d.label)}</button>${d.sep && i < opts.length - 1 ? '<div class="sep"></div>' : ''}`).join(''), onPick);
 }
 // 中身（HTML）を渡して、ボタンの下（入らなければ上）に出す。項目は .mi[data-key]
@@ -1283,12 +1307,13 @@ $('#rows').addEventListener('click', (e) => {
   const dd = t.closest('.dd');
   if (dd) {
     const code = rowCode(dd), g = dd.dataset.dd, p = store.productCache[code];
-    dd.dataset.cur = statusOf(p, g);
+    dd.dataset.cur = shownStatus(p, g);
     if (menuCtx) { closeMenu(); return; }
     openMenu(dd, g, (key) => {
-      p[DEF_GROUPS[g].field] = key;
+      applyPick(p, g, key);
       touch(code);
-      const d = defOf(g, key);
+      const d = shownDef(p, g);
+      dd.closest('tr').classList.toggle('ignored', isIgnored(p));
       // 同じ項目のドロップダウンが1行に2つある（1枚目変更: 基本の列と1枚目用の列）ので両方書き換える
       dd.closest('tr').querySelectorAll(`.dd[data-dd="${g}"]`).forEach(x => {
         x.setAttribute('style', pillStyle(d));
@@ -1449,7 +1474,7 @@ $('#filters').addEventListener('click', (e) => {
       const p = store.productCache[code]; if (!p) continue;
       for (const [g, v] of picks) {
         if (g === '__tailWork') { if (v === '__none') delete p.tailWork; else p.tailWork = v; }
-        else p[DEF_GROUPS[g].field] = v;
+        else applyPick(p, g, v);
       }
       touch(code);
     }
