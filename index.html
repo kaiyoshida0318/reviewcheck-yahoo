@@ -161,8 +161,9 @@
   .c-rate .cnt { font-size: 18px; font-weight: 800; margin-left: 6px; font-family: ui-monospace, Consolas, monospace; }
   .c-rate .cnt a { color: var(--text); }
   .c-rate .unit { font-size: 11px; color: var(--muted); }
-  .c-rate .wk { font-size: 11px; color: var(--muted); }
-  .c-rate .wk.up { color: var(--ok); font-weight: 700; }
+  .c-rate .sl { margin-top: 2px; font-size: 12px; color: var(--muted); }
+  .c-rate .sl b { color: var(--text); font-size: 14px; font-family: ui-monospace, Consolas, monospace; }
+  thead th.c-rate .sortable[data-sort="sales"] { display: block; margin-top: 2px !important; }   /* 見出しも「評価 件数 / 売上」の2段 */
   .c-num { text-align: center; white-space: nowrap; }
   .c-num input { width: 76px; text-align: right; }
   .pill-num { display: inline-block; padding: 2px 8px; border-radius: 6px; font-weight: 800; font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
@@ -435,7 +436,8 @@
     <tr><td>画像の差し替え日</td><td><span class="tag">①</span><span class="tag">②</span></td><td>画像の下の日付。7日以内は緑。下の注意も見てください。</td></tr>
     <tr><td>現在のタイトル</td><td><span class="tag">①</span><span class="tag">②</span></td><td>Yahoo! に今出ている商品名。商品名の下の「✏ 詳細」で見られます（商品名の欄にマウスを乗せても出ます）。</td></tr>
     <tr><td>在庫切れ・非公開の印</td><td><span class="tag">①</span><span class="tag">②</span></td><td>商品コードの下の黄色い印。</td></tr>
-    <tr><td>レビュー件数の履歴</td><td><span class="tag">①</span><span class="tag">②</span></td><td>「7日 +3」の元。1日1件（その日の最後に取った値）。</td></tr>
+    <tr><td>レビュー件数の履歴</td><td><span class="tag">①</span><span class="tag">②</span></td><td>1日1件（その日の最後に取った値）を控えています。</td></tr>
+    <tr><td>売上</td><td><span class="tag">画面を開いたとき</span></td><td>評価・件数の下の金額。Y-check に入っている商品別売上のうち、<b>最後まで終わっている月</b>（今日が9月なら8月）の分です。Y-check 側が持ち主なのでここでは変えられません。Y-check にその月のデータが無い商品は「—」。</td></tr>
     <tr><td>新しく出品した商品</td><td><span class="tag">①</span><span class="tag">②</span></td><td>行が増えます。状態は「未着手 / 獲得前」から。</td></tr>
     <tr><td>ストア評価</td><td><span class="tag">①</span><span class="tag">②</span></td><td>右上のストア評価。</td></tr>
     <tr><td>伝令ちゃんへの登録</td><td><span class="tag man">＋ ボタン</span></td><td>1枚目用の「＋ 伝令ちゃんに登録」で、伝令ちゃんの「商品を追加」が商品URL・商品コード・画像1入りで開きます（ランキングURLは伝令ちゃんが取得）。保存したら、ここの「🔄 更新」で状態を読み直してください。</td></tr>
@@ -529,7 +531,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.14';
+const VERSION = 'v0.8.15';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -940,7 +942,7 @@ const COLS = [
   { key: 'name',     cls: 'c-name', label: '商品名', sort: true },
   { key: 'rank',     cls: 'c-rank only-first', label: 'ランキング（1枚目変更）', sort: 'first' },
   { key: 'denrei',   cls: 'c-denrei only-first', label: '🔔 伝令ちゃん', sort: 'denrei' },
-  { key: 'rating',   cls: 'c-rate', label: '評価 / 件数', sort: 'reviewCount', alt: [['reviewAvg', '評価'], ['reviewCount', '件数'], ['weekGain', '7日']] },
+  { key: 'rating',   cls: 'c-rate', label: '評価 / 件数', sort: 'reviewCount', alt: [['reviewAvg', '評価'], ['reviewCount', '件数'], ['sales', '売上']] },
   { key: 'onscreen', cls: 'c-num only-second', label: '画面上件数', sort: true },
   { key: 'diff',     cls: 'c-num only-second', label: '件数差異', sort: true },
   { key: 'rate',     cls: 'c-num only-second', label: '上昇率', sort: true },
@@ -963,7 +965,7 @@ function sortVal(code, p, k) {
     case 'name': return p.name || p.apiTitle || '';
     case 'reviewCount': return p.reviewCount || 0;
     case 'reviewAvg': return p.reviewAvg || 0;
-    case 'weekGain': return weekGain(p) ?? -1;
+    case 'sales': return salesOf(code);   // Y-check に無い商品は常に末尾
     case 'onscreen': return onScreen(p);
     case 'diff': return onScreen(p) === null ? null : diffOf(p);
     case 'rate': return onScreen(p) === null ? null : rateOf(p);
@@ -1171,7 +1173,6 @@ function stateBadge(p) {
 }
 function rowHtml(code, p) {
   const nh = numHtml(p);
-  const wg = weekGain(p);
   const stars = '★'.repeat(Math.round(p.reviewAvg || 0)) + '☆'.repeat(5 - Math.round(p.reviewAvg || 0));
   const cls = [selected.has(code) ? 'sel' : '', isIgnored(p) ? 'ignored' : ''].join(' ');
   return `<tr data-code="${esc(code)}" class="${cls}">
@@ -1189,7 +1190,7 @@ function rowHtml(code, p) {
     <td class="c-rank only-first" data-cell="rank">${rankCell(code, p)}</td>
     <td class="c-denrei only-first">${denreiCell(code)}</td>
     <td class="c-rate"><div class="stars">${stars}</div><span class="avg">${p.reviewAvg ? Number(p.reviewAvg).toFixed(2) : '—'}</span><span class="cnt"><a href="${esc(p.reviewUrl)}" target="_blank" rel="noopener">${(p.reviewCount || 0).toLocaleString()}</a></span><span class="unit">件</span>
-      <div class="wk ${wg > 0 ? 'up' : ''}">${wg === null ? '' : `7日 ${wg > 0 ? '+' : ''}${wg}`}</div></td>
+      <div class="sl">${salesHtml(code)}</div></td>
     <td class="c-num only-second"><input type="number" min="0" step="1" data-field="onScreenCount" value="${onScreen(p) ?? ''}" placeholder="—"></td>
     <td class="c-num only-second" data-cell="diff">${nh.diff}</td>
     <td class="c-num only-second" data-cell="rate">${nh.rate}</td>
@@ -2098,6 +2099,52 @@ $('#dlgSave').addEventListener('click', () => {
 });
 
 // ============================================================
+// 売上（v0.8.15〜）。別ツール Y-check（kaiyoshida0318/ycheck）の保存データを読むだけ。
+//   data/{shopId}/ycheck_data_v2.json の item: [{ code, month:'YYYY-MM', qty, revenue, orders }, …]
+//   出すのは「最後まで終わっている月」＝今日の前の月（9月なら8月）。その月のデータが1件も無ければ、
+//   今月より前でデータがあるいちばん新しい月。読めないときは何も出さない（画面は今までどおり動く）。
+// ============================================================
+const YCHECK_REPO = 'kaiyoshida0318/ycheck';
+let sales = { state: 'idle', month: '', map: {}, savedAt: '', error: '' };   // state: idle|loading|ok|error
+function salesTargetMonth(months, now = new Date()) {
+  const ym = (d) => `${d.getFullYear()}-${pad2(d.getMonth() + 1)}`;
+  const cur = ym(now), prev = ym(new Date(now.getFullYear(), now.getMonth() - 1, 1));
+  if (months.includes(prev)) return prev;
+  return months.filter(m => m < cur).sort().pop() || '';
+}
+async function loadSales() {
+  sales = { ...sales, state: 'loading', error: '' };
+  const path = `data/${SHOP.id}/ycheck_data_v2.json`, t = Math.floor(Date.now() / 600e3);   // 10分は同じURL（大きいファイルなので読み直しすぎない）
+  const urls = [`https://raw.githubusercontent.com/${YCHECK_REPO}/main/${path}?t=${t}`, `${location.origin}/ycheck/${path}?t=${t}`];
+  let lastErr = '';
+  for (const u of urls) {
+    try {
+      const res = await fetch(u);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const d = await res.json();
+      const items = Array.isArray(d.item) ? d.item.filter(r => r && r.code && /^\d{4}-\d{2}$/.test(String(r.month || ''))) : [];
+      const month = salesTargetMonth([...new Set(items.map(r => r.month))]);
+      const map = {};
+      for (const r of items) if (r.month === month) { const c = String(r.code).trim().toLowerCase(); map[c] = (map[c] || 0) + (Number(r.revenue) || 0); }
+      sales = { state: 'ok', month, map, savedAt: d.savedAt || '', error: '' };
+      renderAll();
+      return;
+    } catch (e) { lastErr = String(e?.message || e); }
+  }
+  sales = { state: 'error', month: '', map: {}, savedAt: '', error: lastErr };
+  renderAll();
+}
+function salesOf(code) { return sales.state === 'ok' && Object.prototype.hasOwnProperty.call(sales.map, code) ? sales.map[code] : null; }
+function salesHtml(code) {
+  if (sales.state === 'loading' || sales.state === 'idle') return '<span class="muted">売上 …</span>';
+  if (sales.state === 'error') return `<span class="muted" title="Y-check の売上を読めませんでした（${esc(sales.error)}）">売上 —</span>`;
+  if (!sales.month) return '<span class="muted" title="Y-check に終わった月の売上がまだありません">売上 —</span>';
+  const [y, m] = sales.month.split('-'), v = salesOf(code);
+  const tip = `Y-check の ${y}年${+m}月の売上` + (sales.savedAt ? `（Y-check 保存: ${fmtShort(sales.savedAt)}）` : '');
+  return v === null ? `<span class="muted" title="${esc(tip)}：この商品のデータなし">${+m}月 —</span>` : `<span title="${esc(tip)}">${+m}月 <b>¥${v.toLocaleString()}</b></span>`;
+}
+
+// ============================================================
 // 詳細モーダル（v0.8.7〜）：現在のタイトル・メモ・無視の切り替え。
 //   1枚目用は「確認」列を出さないので、無視・メモはここから行う（他のモードでも使える）
 // ============================================================
@@ -2314,7 +2361,7 @@ mode = MODES.includes(lsGet(LS.mode)) ? lsGet(LS.mode) : 'basic';
 if (mode === 'second') { sortKey = 'onscreen'; sortDir = -1; }
 defs = normalizeDefs(null);
 renderAll();
-loadShops().then(() => { loadDenrei(false); return load(); });
+loadShops().then(() => { loadDenrei(false); loadSales(); return load(); });
 </script>
 </body>
 </html>
