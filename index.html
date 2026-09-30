@@ -143,6 +143,8 @@
   .c-code { white-space: nowrap; }
   .c-code .code { font-family: ui-monospace, Consolas, monospace; font-size: 12px; }
   .c-code .stk { margin-top: 3px; }
+  thead th.c-code .sortable { display: block; margin: 1px 0 !important; }   /* 「商品コード」「発売日」を縦に並べて列を広げない */
+  .c-code .rel { margin-top: 3px; font-size: 11px; color: var(--muted); font-family: ui-monospace, Consolas, monospace; }
   .c-name { min-width: 260px; max-width: 380px; }
   .c-name input { width: 100%; font-weight: 600; }
   .c-name .api { color: var(--muted); font-size: 11px; line-height: 1.4; margin-top: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -427,6 +429,7 @@
   <table class="when">
     <tr><th>項目</th><th>いつ変わるか</th><th>補足</th></tr>
     <tr class="sec"><td colspan="3">自動で入るもの（取得すると上書きされる）</td></tr>
+    <tr><td>発売日</td><td><span class="tag">①</span><span class="tag">②</span></td><td>商品コードの下の日付。Yahoo! に登録されている発売日。登録が無い商品は「発売日 —」。</td></tr>
     <tr><td>レビュー件数・平均評価</td><td><span class="tag">①取得ボタン</span><span class="tag">②毎朝の自動取得</span></td><td>Yahoo! の API の値。</td></tr>
     <tr><td>商品画像（画像1〜3）</td><td><span class="tag">①</span><span class="tag">②</span></td><td>商品ページに出ている順の1〜3枚目。</td></tr>
     <tr><td>画像の差し替え日</td><td><span class="tag">①</span><span class="tag">②</span></td><td>画像の下の日付。7日以内は緑。下の注意も見てください。</td></tr>
@@ -441,7 +444,7 @@
     <tr><td>商品名</td><td><span class="tag man">手入力</span></td><td><b>自動では変わりません。</b>手で付けた名前を守るため、あえて上書きしていません。Yahoo! 側の名前を見たいときは、商品名の下の「✏ 詳細」を開いてください。</td></tr>
     <tr><td>画面上件数</td><td><span class="tag man">手入力</span></td><td>2枚目用。今バナーに出している件数。</td></tr>
     <tr><td>1枚目変更・2枚目変更</td><td><span class="tag man">手入力</span></td><td>行のドロップダウン・一括変更。</td></tr>
-    <tr><td>ランキング詳細</td><td><span class="tag man">手入力</span><span class="tag">🔔 ボタン</span></td><td>1枚目用。手で書くか、「🔔 伝令ちゃんから」で伝令ちゃんの獲得記録から入れます（【期間】親＞カテゴリランキング（月/日 時:分））。入れた後は伝令ちゃんが変わっても自動では変わりません。</td></tr>
+    <tr><td>ランキング詳細</td><td><span class="tag">自動</span><span class="tag man">手で直せる</span></td><td>1枚目用。伝令ちゃんに獲得記録が入ると、画面を開いたとき・「🔄 更新」を押したときに自動で入ります（【期間】親＞カテゴリランキング（月/日 時:分）。期間ごとに1行）。手で直した行はそのまま残ります。同じ【期間】の行が無くなると、また自動で入ります。</td></tr>
     <tr><td>証拠の画像（○ 選択）</td><td><span class="tag man">手入力</span></td><td>1枚目用。画像1〜3のどれか1枚。選んだ画像の右下が拡大表示されます。</td></tr>
     <tr><td>メモ・無視</td><td><span class="tag man">手入力</span></td><td>右端の「確認」列、または商品名の下の「✏ 詳細」から。1枚目用は「確認」列がないので「✏ 詳細」から。</td></tr>
     <tr><td>項目設定</td><td><span class="tag man">手入力</span></td><td>選択肢の名前・色・並び順（↔ 項目設定）。</td></tr>
@@ -526,7 +529,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.9';
+const VERSION = 'v0.8.11';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -551,7 +554,7 @@ const SAVE_DEBOUNCE_MS = 3000;
 const API_KEYS = new Set([
   'csvName', 'apiTitle', 'headline', 'itemUrl', 'reviewUrl', 'imageId', 'imageIds', 'images', 'imageUpdatedAt',
   'reviewCount', 'reviewAvg', 'inStock', 'price', 'categoryId', 'categoryName', 'categoryPath',
-  'inApi', 'inCsv', 'lastFetched', 'reviewHistory',
+  'inApi', 'inCsv', 'lastFetched', 'reviewHistory', 'releaseDate',
 ]);
 
 // ============================================================
@@ -723,7 +726,7 @@ async function load() {
   try {
     if (pat) {
       const [r, d] = await Promise.all([ghGet(DATA_PATH), ghGet(DEFS_PATH).catch(() => ({ data: null, sha: null }))]);
-      store = r.data || { productCache: {} }; sha = r.sha;
+      store = r.data || { productCache: {} }; sha = r.sha; storeFresh = true;
       defs = normalizeDefs(d.data); defsSha = d.sha;
       setStatus(r.data ? `読込 ${fmtShort(new Date().toISOString())}` : 'まだデータがありません（次の TimerRunner 実行で作られます）', r.data ? 'ok' : 'err');
     } else {
@@ -747,6 +750,7 @@ async function load() {
   }
   store.productCache = store.productCache || {};
   if (migrate()) { dirty = true; scheduleSave(); }
+  autoFillRanking();
   renderAll();
   if (pat && !reqWatching) readReq().then(watchReq);
 }
@@ -932,7 +936,7 @@ function baseRows() { return entries().filter(([c, p]) => inScope(p) && matchQue
 const COLS = [
   { key: 'chk',      cls: 'c-chk',  html: () => '<input type="checkbox" id="chkAll" title="表示中をすべて選択">' },
   { key: 'updatedAt', cls: 'c-upd', label: '更新日時', sort: true },
-  { key: 'code',     cls: 'c-code', label: '商品コード', sort: true },
+  { key: 'code',     cls: 'c-code', label: '商品コード', sort: 'code', alt: [['code', '商品コード'], ['releaseDate', '発売日']] },
   { key: 'name',     cls: 'c-name', label: '商品名', sort: true },
   { key: 'rank',     cls: 'c-rank only-first', label: 'ランキング（1枚目変更）', sort: 'first' },
   { key: 'denrei',   cls: 'c-denrei only-first', label: '🔔 伝令ちゃん', sort: 'denrei' },
@@ -955,6 +959,7 @@ function sortVal(code, p, k) {
   switch (k) {
     case 'updatedAt': return p.updatedAt || '';
     case 'code': return code;
+    case 'releaseDate': return relDate(p) || null;   // 空は常に末尾
     case 'name': return p.name || p.apiTitle || '';
     case 'reviewCount': return p.reviewCount || 0;
     case 'reviewAvg': return p.reviewAvg || 0;
@@ -1115,13 +1120,21 @@ function numHtml(p) {
   const cls = d > 0 ? (r >= 200 ? 'big' : 'pos') : 'zero';
   return { diff: `<span class="pill-num ${cls}">${d > 0 ? '+' : ''}${d}</span>`, rate: `<span class="pill-num ${cls}">${d > 0 ? '+' : ''}${r.toFixed(1)}%</span>` };
 }
+// 発売日（TimerRunner が releaseDate に入れる）。'YYYY-MM-DD' に揃えて返す。無ければ ''。
+//   文字列（2025-08-13 / 2025/08/13 / 20250813 / ISO）でも、数値（UNIX秒・ミリ秒）でも受ける
+function relDate(p) {
+  const v = p.releaseDate;
+  if (v === null || v === undefined || v === '' || v === 0) return '';
+  const jst = (ms) => { const d = new Date(ms + 9 * 3600e3); return isNaN(d) ? '' : `${d.getUTCFullYear()}-${pad2(d.getUTCMonth() + 1)}-${pad2(d.getUTCDate())}`; };
+  if (typeof v === 'number' || /^\d{9,13}$/.test(String(v))) { const n = +v; return jst(n < 1e11 ? n * 1000 : n); }
+  const m = String(v).match(/^(\d{4})[-\/]?(\d{1,2})[-\/]?(\d{1,2})/);
+  return m ? `${m[1]}-${pad2(+m[2])}-${pad2(+m[3])}` : '';
+}
 function selIdx(p) { return [1, 2, 3].includes(p.selectedImageIdx) ? p.selectedImageIdx : null; }
 function imgId(p, i) { return (p.imageIds || [])[i] || (i === 0 && p.imageId ? p.imageId : null); }
 function rankCell(code, p) {
-  const n = denreiAchieved(code).length;
   return `<div class="rk-dds">${ddHtml('first', p)}</div>` +
-    `<textarea data-field="ranking" rows="2" placeholder="ランキング詳細（例: 【デイリー】親＞カテゴリランキング（9/30 10:00））　Enterで改行できます" title="${esc(p.ranking || '')}">${esc(p.ranking || '')}</textarea>` +
-    (n ? `<button class="rk-fill" data-act="rkFill" title="伝令ちゃんの獲得記録からランキング詳細を入れる${n > 1 ? `（${n}件から選ぶ）` : ''}">🔔 伝令ちゃんから${n > 1 ? `（${n}件）` : ''}</button>` : '');
+    `<textarea data-field="ranking" rows="2" placeholder="ランキング詳細（例: 【デイリー】親＞カテゴリランキング（9/30 10:00））　Enterで改行できます" title="${esc(p.ranking || '')}">${esc(p.ranking || '')}</textarea>`;
 }
 function cropCell(p) {
   const i = selIdx(p);
@@ -1155,7 +1168,7 @@ function rowHtml(code, p) {
   return `<tr data-code="${esc(code)}" class="${cls}">
     <td class="c-chk"><input type="checkbox" data-act="sel" ${selected.has(code) ? 'checked' : ''}></td>
     <td class="c-upd">${updHtml(p)}</td>
-    <td class="c-code"><a class="code" href="${esc(p.itemUrl)}" target="_blank" rel="noopener">${esc(code)}</a><div class="stk">${stateBadge(p)}</div></td>
+    <td class="c-code"><a class="code" href="${esc(p.itemUrl)}" target="_blank" rel="noopener">${esc(code)}</a><div class="rel" title="発売日（Yahoo! に登録されている発売日）">${relDate(p) ? '発売 ' + esc(relDate(p).replace(/-/g, '/')) : '<span class="muted">発売日 —</span>'}</div><div class="stk">${stateBadge(p)}</div></td>
     <td class="c-name">
       <input type="text" data-field="name" value="${esc(p.name || '')}" placeholder="商品名（短く）" title="${esc(p.apiTitle || p.csvName || '')}">
       <div class="nm-btns">
@@ -1790,6 +1803,34 @@ function rankingTextOf(a) {
   const when = isNaN(d) ? '' : `（${d.getMonth() + 1}/${d.getDate()} ${pad2(d.getHours())}:${pad2(d.getMinutes())}）`;
   return `【${PERIOD_LABEL[a.period] || a.period}】${cat}ランキング${when}`;
 }
+/*
+ * ランキング詳細の自動入力（v0.8.11〜）。ボタンは無くし、伝令ちゃんに獲得記録が入ったら自動で書く。
+ *   ・動くのは「データを読んだとき」と「伝令ちゃんの状態を読んだとき」（画面を開く / 🔄 更新）。
+ *   ・獲得記録1件＝1行。期間（リアルタイム / デイリー / 年間）ごとに1行まで。
+ *   ・すでに同じ【期間】で始まる行があれば足さない（手で直した行を上書きしない・二重に書かない）。
+ *   ・新しい項目は増やさない（本文だけで判定するので TimerRunner 側の変更は不要）。
+ *   ・保存できないとき（PAT なし・読み込み失敗でキャッシュ表示中）は何もしない。
+ */
+let storeFresh = false;
+function autoFillRanking() {
+  if (denrei.state !== 'ok' || !storeFresh || !ghConfig().pat) return 0;
+  let n = 0;
+  for (const [code, p] of Object.entries(store.productCache || {})) {
+    const list = denreiAchieved(code); if (!list.length) continue;
+    const lines = String(p.ranking || '').split('\n').map(x => x.trim()).filter(Boolean);
+    const add = [];
+    for (const a of [...list].reverse()) {   // 古い順に足す
+      const head = `【${PERIOD_LABEL[a.period] || a.period}】`;
+      if (lines.some(l => l.startsWith(head)) || add.some(l => l.startsWith(head))) continue;
+      add.push(rankingTextOf(a));
+    }
+    if (!add.length) continue;
+    p.ranking = [...lines, ...add].join('\n');
+    touch(code); n++;
+  }
+  if (n) setStatus(`ランキング詳細を ${n}件 自動で入れました（伝令ちゃんの獲得記録）`, 'ok');
+  return n;
+}
 let denrei = { state: 'idle', map: {}, loadedAt: '', error: '', shopId: null };   // state: idle|loading|ok|error|noshop
 function denreiStateOf(code) {
   if (denrei.state !== 'ok') return 'unknown';
@@ -1824,6 +1865,7 @@ async function loadDenrei(manual) {
     denrei = { ...denrei, state: 'error', error: String(e?.message || e) };
     if (manual) setStatus('伝令ちゃんの状態を取得できませんでした', 'err');
   }
+  autoFillRanking();
   renderAll();
 }
 function denreiPageUrl(code) { return denrei.shopId ? `${DENREI_BASE}/${encodeURIComponent(denrei.shopId)}/${encodeURIComponent(code)}` : ''; }
@@ -1888,10 +1930,7 @@ function denreiRowHtml() {
   } else {
     html += `</div><span class="dnr-msg">未取得</span>`;
   }
-  // 空欄のランキング詳細だけ、伝令ちゃんの最新の獲得記録で埋める（入力済みは上書きしない）
-  const fillable = denrei.state === 'ok' ? base.filter(([c, p]) => !String(p.ranking || '').trim() && denreiAchieved(c).length).length : 0;
-  const fillBtn = fillable ? ` <button class="fbtn" data-act="rkFillAll" title="ランキング詳細が空欄で、伝令ちゃんに獲得記録がある商品に、いちばん新しい獲得記録を入れます（入力済みの欄は変えません）">🔔 空欄のランキング詳細を入れる <span class="n">(${fillable})</span></button>` : '';
-  return html + ` <button class="fbtn" data-act="denreiReload" title="伝令ちゃん側の状態を取り直します">🔄 更新</button>` + fillBtn;
+  return html + ` <button class="fbtn" data-act="denreiReload" title="伝令ちゃん側の状態を取り直します">🔄 更新</button>`;
 }
 function renderDenreiParts() {
   if (mode === 'first') { renderFilters(); }
