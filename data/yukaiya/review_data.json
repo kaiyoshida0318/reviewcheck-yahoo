@@ -42,8 +42,9 @@
         "2025-08-13T18:13:11+09:00"
       ],
       "ranking": "【リアルタイム】メガネ備品＞その他メガネ備品ランキング（9/5 09:06）\n【デイリー】メガネ備品＞その他メガネ備品ランキング（9/4 16:23）",
-      "updatedAt": "2026-09-30T06:47:56.902Z",
-      "registeredAt": "2026-09-29"
+      "updatedAt": "2026-09-30T09:13:56.724Z",
+      "registeredAt": "2026-09-29",
+      "firstStatus": "ready"
     },
     "wat-sma-10": {
       "reviewHistory": {
@@ -128,8 +129,9 @@
         "2025-06-18T18:20:42+09:00"
       ],
       "ranking": "【リアルタイム】シューケア、革手入れ用品＞外反母趾対策用品ランキング（9/20 08:40）",
-      "updatedAt": "2026-09-30T06:43:27.245Z",
-      "registeredAt": "2026-09-29"
+      "updatedAt": "2026-09-30T09:14:02.279Z",
+      "registeredAt": "2026-09-29",
+      "firstStatus": "ready"
     },
     "tb-23-01": {
       "reviewHistory": {
@@ -173,9 +175,9 @@
         "2024-06-04T15:06:09+09:00"
       ],
       "ranking": "【リアルタイム】オーラルケア＞電動歯ブラシ用替えブラシランキング（9/4 23:50）",
-      "updatedAt": "2026-09-30T09:13:38.351Z",
+      "updatedAt": "2026-09-30T09:13:53.302Z",
       "registeredAt": "2026-09-29",
-      "firstStatus": "pending"
+      "firstStatus": "ready"
     },
     "foot-22-04-2set": {
       "reviewHistory": {
@@ -344,8 +346,9 @@
         "2024-09-05T16:39:47+09:00"
       ],
       "ranking": "【リアルタイム】防災、防犯、セーフティ＞家具転倒防止用品ランキング（9/5 15:36）\n【デイリー】防災、防犯、セーフティ＞家具転倒防止用品ランキング（9/19 07:22）",
-      "updatedAt": "2026-09-30T06:47:56.904Z",
-      "registeredAt": "2026-09-29"
+      "updatedAt": "2026-09-30T09:14:00.453Z",
+      "registeredAt": "2026-09-29",
+      "firstStatus": "ready"
     },
     "wat-fb-21-02": {
       "reviewHistory": {
@@ -474,8 +477,9 @@
         "2024-05-29T16:19:28+09:00"
       ],
       "ranking": "【リアルタイム】ヨガ、ピラティス＞ヨガソックスランキング（9/6 18:13）",
-      "updatedAt": "2026-09-30T06:43:21.239Z",
-      "registeredAt": "2026-09-29"
+      "updatedAt": "2026-09-30T09:13:58.964Z",
+      "registeredAt": "2026-09-29",
+      "firstStatus": "ready"
     },
     "yoga-23-01-00set": {
       "reviewHistory": {
@@ -518,8 +522,9 @@
         "2024-03-19T13:58:04+09:00"
       ],
       "ranking": "【リアルタイム】ヨガ、ピラティス＞ヨガソックスランキング（9/7 19:44）",
-      "updatedAt": "2026-09-30T06:43:17.608Z",
-      "registeredAt": "2026-09-29"
+      "updatedAt": "2026-09-30T09:13:57.541Z",
+      "registeredAt": "2026-09-29",
+      "firstStatus": "ready"
     },
     "si-22-11-00set": {
       "reviewHistory": {
@@ -691,8 +696,9 @@
         "2024-05-24T18:08:16+09:00"
       ],
       "ranking": "【リアルタイム】浴室用具＞排水口カバー、ネットランキング（9/5 01:57）",
-      "updatedAt": "2026-09-30T06:43:14.352Z",
-      "registeredAt": "2026-09-29"
+      "updatedAt": "2026-09-30T09:13:54.583Z",
+      "registeredAt": "2026-09-29",
+      "firstStatus": "ready"
     },
     "wat-sma-01b": {
       "reviewHistory": {
@@ -821,8 +827,9 @@
         null
       ],
       "ranking": "【リアルタイム】浴室用具＞排水口カバー、ネットランキング（9/9 12:08）",
-      "updatedAt": "2026-09-30T06:43:15.565Z",
-      "registeredAt": "2026-09-29"
+      "updatedAt": "2026-09-30T09:13:55.834Z",
+      "registeredAt": "2026-09-29",
+      "firstStatus": "ready"
     },
     "wat-sma-01": {
       "reviewHistory": {
@@ -10596,7 +10603,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-09-30T09:13:42.945Z",
+  "savedAt": "2026-09-30T09:14:05.283Z",
   "lastAutoFetch": "2026-09-30T07:31:03Z",
   "lastCsvFile": "控え:data202609291804.csv",
   "counts": {
