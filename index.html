@@ -146,7 +146,13 @@
   .c-name { min-width: 260px; max-width: 380px; }
   .c-name input { width: 100%; font-weight: 600; }
   .c-name .api { color: var(--muted); font-size: 11px; line-height: 1.4; margin-top: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  .c-name .links { display: flex; gap: 10px; margin-top: 4px; font-size: 11px; }
+  .c-name .nm-btns { display: flex; flex-direction: column; gap: 4px; margin-top: 6px; }
+  .nm-btn { display: block; width: 100%; text-align: center; border: 1px solid var(--line2); background: #fff; border-radius: 6px; padding: 4px 8px; font-size: 12px; font-weight: 700; color: #374151; line-height: 1.4; text-decoration: none !important; cursor: pointer; }
+  .nm-btn:hover { background: #f0f4fa; border-color: #9cc0f0; color: var(--text); }
+  #dlgDetail { width: 560px; }
+  #dlgDetail .dt-title { border: 1px solid var(--line2); border-radius: 8px; padding: 8px 10px; font-size: 13px; line-height: 1.6; background: #fafbfc; }
+  #dlgDetail .dt-links { display: flex; gap: 14px; margin-top: 8px; font-size: 12px; }
+  #dlgDetail textarea { width: 100%; font: inherit; font-size: 13px; border: 1px solid var(--line2); border-radius: 6px; padding: 6px 8px; min-height: 70px; resize: vertical; }
   .c-rate { white-space: nowrap; text-align: center; }
   .c-rate .stars { color: #f5a623; letter-spacing: -1px; font-size: 12px; }
   .c-rate .avg { font-size: 18px; font-weight: 800; color: #2477c9; font-family: ui-monospace, Consolas, monospace; }
@@ -437,7 +443,7 @@
     <tr><td>1枚目変更・2枚目変更</td><td><span class="tag man">手入力</span></td><td>行のドロップダウン・一括変更。</td></tr>
     <tr><td>ランキング詳細</td><td><span class="tag man">手入力</span><span class="tag">🔔 ボタン</span></td><td>1枚目用。手で書くか、「🔔 伝令ちゃんから」で伝令ちゃんの獲得記録から入れます（【期間】親＞カテゴリランキング（月/日 時:分））。入れた後は伝令ちゃんが変わっても自動では変わりません。</td></tr>
     <tr><td>証拠の画像（○ 選択）</td><td><span class="tag man">手入力</span></td><td>1枚目用。画像1〜3のどれか1枚。選んだ画像の右下が拡大表示されます。</td></tr>
-    <tr><td>メモ・無視</td><td><span class="tag man">手入力</span></td><td></td></tr>
+    <tr><td>メモ・無視</td><td><span class="tag man">手入力</span></td><td>右端の「確認」列、または商品名の下の「✏ 詳細」から。1枚目用は「確認」列がないので「✏ 詳細」から。</td></tr>
     <tr><td>項目設定</td><td><span class="tag man">手入力</span></td><td>選択肢の名前・色・並び順（↔ 項目設定）。</td></tr>
     <tr><td>タイトル末尾の型番</td><td><span class="tag">①</span><span class="tag">②</span><span class="tag man">手で直せる</span></td><td>タイトル末尾用の4つの欄。現在のタイトルの末尾から自動で拾い、タイトルが変われば追従します。手で打ち替えた欄（黄色）はタイトルに追従しません（自動と同じ値に戻すと追従に戻ります）。</td></tr>
     <tr><td>並び順・対応・コピー履歴</td><td><span class="tag man">手入力</span></td><td>タイトル末尾用。並び順は自動判定（手で選び直すと点線の枠）。コピー履歴は消すまで残ります。</td></tr>
@@ -450,6 +456,19 @@
     <li>①の取得は TimerRunner が起動しているPCが必要です。12分たっても始まらないときは、TimerRunner を確認してください。</li>
   </ul>
   <div class="row"><button id="updClose">閉じる</button></div>
+</dialog>
+
+<dialog id="dlgDetail">
+  <h2>✏ 詳細 <span class="hint" id="dtCode"></span></h2>
+  <label>現在のタイトル（Yahoo! に今出ている商品名）</label>
+  <div class="dt-title" id="dtTitle"></div>
+  <div class="dt-links" id="dtLinks"></div>
+  <label for="dtMemo">メモ</label>
+  <textarea id="dtMemo" placeholder="メモ（入力するとすぐ保存されます）"></textarea>
+  <div class="row" style="justify-content:space-between">
+    <button id="dtIgnore"></button>
+    <button id="dtClose" class="primary">閉じる</button>
+  </div>
 </dialog>
 
 <dialog id="dlgTail">
@@ -507,7 +526,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.6';
+const VERSION = 'v0.8.7';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -930,7 +949,7 @@ const COLS = [
   { key: 'crop',     cls: 'c-crop only-first', label: '選択画像の右下（拡大）', sort: 'selimg' },
   { key: 'first',    cls: 'c-dd only-basic', label: '1枚目変更', sort: true },
   { key: 'second',   cls: 'c-dd only-basic only-second', label: '2枚目変更', sort: true },
-  { key: 'act',      cls: 'c-act',  label: '確認' },
+  { key: 'act',      cls: 'c-act only-basic only-second only-tail',  label: '確認' },   // 1枚目用では出さない（無視・メモは「詳細」から）
 ];
 function sortVal(code, p, k) {
   switch (k) {
@@ -1140,7 +1159,11 @@ function rowHtml(code, p) {
     <td class="c-name">
       <input type="text" data-field="name" value="${esc(p.name || '')}" placeholder="商品名（短く）">
       <div class="api" title="${esc(p.apiTitle || p.csvName || '')}">${esc(p.apiTitle || p.csvName || '')}</div>
-      <div class="links"><a href="${esc(p.itemUrl)}" target="_blank" rel="noopener">🛒 商品ページ</a><a href="#" data-act="copyUrl">📋 URLコピー</a><a href="${esc(p.reviewUrl)}" target="_blank" rel="noopener">💬 レビュー</a></div>
+      <div class="nm-btns">
+        <a class="nm-btn" href="${esc(p.itemUrl)}" target="_blank" rel="noopener">🛒 商品ページを開く</a>
+        <button class="nm-btn" data-act="copyUrl">📋 商品URLをコピー</button>
+        <button class="nm-btn" data-act="detail" title="現在のタイトル・メモ・無視の切り替え">✏ 詳細${String(p.memo || '').trim() ? ' <span class="nm-memo" title="メモあり">📝</span>' : ''}</button>
+      </div>
     </td>
     <td class="c-rate"><div class="stars">${stars}</div><span class="avg">${p.reviewAvg ? Number(p.reviewAvg).toFixed(2) : '—'}</span><span class="cnt"><a href="${esc(p.reviewUrl)}" target="_blank" rel="noopener">${(p.reviewCount || 0).toLocaleString()}</a></span><span class="unit">件</span>
       <div class="wk ${wg > 0 ? 'up' : ''}">${wg === null ? '' : `7日 ${wg > 0 ? '+' : ''}${wg}`}</div></td>
@@ -1158,7 +1181,7 @@ function rowHtml(code, p) {
     <td class="c-crop only-first" data-cell="crop">${cropCell(p)}</td>
     <td class="c-dd only-basic">${ddHtml('first', p)}</td>
     <td class="c-dd only-basic only-second">${ddHtml('second', p)}</td>
-    <td class="c-act"><div class="acts">
+    <td class="c-act only-basic only-second only-tail"><div class="acts">
       <button data-act="ignore">${isIgnored(p) ? '👁 通常に戻す' : '🙈 無視する'}</button>
       <input type="text" data-field="memo" value="${esc(p.memo || '')}" placeholder="メモ">
     </div></td>
@@ -1275,6 +1298,8 @@ $('#rows').addEventListener('click', (e) => {
     e.preventDefault();
     const p = store.productCache[code];
     navigator.clipboard?.writeText(p.itemUrl || '').then(() => setStatus('URLをコピーしました', 'ok'), () => setStatus('コピーできませんでした', 'err'));
+  } else if (act.dataset.act === 'detail') {
+    openDetail(code);
   } else if (act.dataset.act === 'rkFill') {
     if (menuCtx) { closeMenu(); return; }
     const list = denreiAchieved(code);
@@ -2015,6 +2040,36 @@ $('#dlgSave').addEventListener('click', () => {
   lsSet(LS.pat, $('#inPat').value.trim());
   dlg.close(); load();
 });
+
+// ============================================================
+// 詳細モーダル（v0.8.7〜）：現在のタイトル・メモ・無視の切り替え。
+//   1枚目用は「確認」列を出さないので、無視・メモはここから行う（他のモードでも使える）
+// ============================================================
+let detailCode = null;
+function renderDetail() {
+  const p = store.productCache[detailCode]; if (!p) return;
+  $('#dtCode').textContent = `（${detailCode}）`;
+  $('#dtTitle').textContent = p.apiTitle || p.csvName || '—';
+  $('#dtLinks').innerHTML = `<a href="${esc(p.itemUrl)}" target="_blank" rel="noopener">🛒 商品ページ</a>` + (p.reviewUrl ? `<a href="${esc(p.reviewUrl)}" target="_blank" rel="noopener">💬 レビュー</a>` : '');
+  $('#dtIgnore').textContent = isIgnored(p) ? '👁 通常に戻す' : '🙈 無視する';
+}
+function openDetail(code) {
+  detailCode = code;
+  renderDetail();
+  $('#dtMemo').value = store.productCache[code].memo || '';
+  $('#dlgDetail').showModal();
+}
+$('#dtMemo').addEventListener('input', (e) => {
+  const p = store.productCache[detailCode]; if (!p) return;
+  p.memo = e.target.value; touch(detailCode);
+});
+$('#dtIgnore').addEventListener('click', () => {
+  const p = store.productCache[detailCode]; if (!p) return;
+  p.status = isIgnored(p) ? 'normal' : 'ignore';
+  touch(detailCode); renderDetail();
+});
+$('#dtClose').addEventListener('click', () => $('#dlgDetail').close());
+$('#dlgDetail').addEventListener('close', () => { detailCode = null; renderAll(); });   // Esc で閉じても表に反映
 
 // ============================================================
 // 列幅設定（v0.8.5〜）
