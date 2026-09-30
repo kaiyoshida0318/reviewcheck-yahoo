@@ -4192,8 +4192,8 @@
         null
       ],
       "registeredAt": "2026-09-29",
-      "status": "ignore",
-      "updatedAt": "2026-09-30T07:46:01.123Z"
+      "status": "normal",
+      "updatedAt": "2026-09-30T07:47:03.123Z"
     },
     "ih-22-03-12set": {
       "reviewHistory": {
@@ -9319,8 +9319,8 @@
         "2024-05-31T14:55:28+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "status": "ignore",
-      "updatedAt": "2026-09-30T07:46:01.399Z"
+      "status": "normal",
+      "updatedAt": "2026-09-30T07:47:03.118Z"
     },
     "bg-03-con-mesu-30set": {
       "reviewHistory": {
@@ -10590,7 +10590,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-09-30T07:46:04.573Z",
+  "savedAt": "2026-09-30T07:47:06.132Z",
   "lastAutoFetch": "2026-09-30T07:31:03Z",
   "lastCsvFile": "控え:data202609291804.csv",
   "counts": {
