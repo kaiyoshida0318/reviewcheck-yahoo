@@ -308,6 +308,16 @@
   .def-row .ops { display: flex; gap: 2px; }
   .def-row .ops button { padding: 2px 5px; font-size: 11px; }
   .def-row .use { font-size: 10px; color: var(--muted); text-align: right; }
+  #dlgColw { width: 640px; }
+  .cw-list { max-height: 60vh; overflow: auto; margin-top: 8px; }
+  .cw-row { display: grid; grid-template-columns: 170px 1fr 74px 20px 92px; gap: 8px; align-items: center; padding: 5px 4px; border-bottom: 1px solid var(--line); }
+  .cw-row .nm { font-size: 13px; font-weight: 600; }
+  .cw-row .nm small { display: block; font-weight: 400; font-size: 10px; color: var(--muted); min-height: 14px; }
+  .cw-row .nm small.warn { color: var(--warn); }
+  .cw-row input[type=range] { width: 100%; }
+  .cw-row input[type=number] { width: 100%; text-align: right; }
+  .cw-row button { font-size: 11px; padding: 3px 6px; white-space: nowrap; }
+  .cw-row.set .nm { color: var(--blue); }
   .def-head { display: grid; grid-template-columns: 150px 44px 1fr 38px 38px 96px 78px; gap: 6px; font-size: 11px; color: var(--muted); padding: 0 4px; }
   .empty { padding: 40px; text-align: center; color: var(--muted); }
 </style>
@@ -328,6 +338,7 @@
   <span class="meta" id="metaStore"></span>
   <span id="status"></span>
   <button id="btnDefs" title="1枚目変更・2枚目変更の選択肢を編集">↔ 項目設定</button>
+  <button id="btnColw" title="表の列の幅を調整（モードごと・このPCに保存）">📏 列幅設定</button>
   <button id="btnSettings" title="GitHub の接続設定（PAT・リポジトリ）">⚙ 設定</button>
   <button id="btnUpdate" title="商品データの取得・読み直し">🔄 更新一覧</button>
 </div></header>
@@ -463,6 +474,16 @@
   </div>
 </dialog>
 
+<dialog id="dlgColw">
+  <h2>📏 列幅設定 <span class="hint" id="colwMode"></span></h2>
+  <div class="hint">スライダーか数字（px）で幅を変えると、すぐ表に反映されます。幅はモードごとに別々に、このPCに覚えます。空欄＝自動。</div>
+  <div class="cw-list" id="colwList"></div>
+  <div class="row" style="justify-content:space-between">
+    <button id="colwReset">このモードをすべて自動に戻す</button>
+    <button id="colwClose" class="primary">閉じる</button>
+  </div>
+</dialog>
+
 <dialog id="dlgDefs">
   <h2>↔ 項目設定 <span class="hint" id="defsShop"></span></h2>
   <div class="tabs" id="defsTabs"></div>
@@ -481,7 +502,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.2';
+const VERSION = 'v0.8.5';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -496,7 +517,7 @@ let shopsSha = null;
 
 const DEFAULT_REPO = 'kaiyoshida0318/reviewcheck-yahoo';
 const LS = {
-  pat: 'rcy_pat', repo: 'rcy_repo', branch: 'rcy_branch', lastShop: 'rcy_last_shop', mode: 'rcy_mode',
+  pat: 'rcy_pat', repo: 'rcy_repo', branch: 'rcy_branch', lastShop: 'rcy_last_shop', mode: 'rcy_mode', colw: 'rcy_colw',
   cache: (id) => `rcy_cache_${id}`,
 };
 const SAVE_DEBOUNCE_MS = 3000;
@@ -1781,11 +1802,19 @@ function denreiAppUrl() { return `${DENREI_BASE}/?shop=${encodeURIComponent(denr
  *   伝令ちゃん v0.8.2 以上は、受け取った値を入れてから「情報を取得」を自動で押す
  *   （ランキングURL 3期間・サムネイルまで埋まる）。それより前の版は空の「商品を追加」が開くだけ。
  *   商品名は、こちらで付けた短い名前があるときだけ渡す（無ければ伝令ちゃんが商品ページから取る）。
+ *   サムネイル画像（img）は必ず画像1（「○ 選択」とは関係なし。v0.8.4〜）。
+ *   伝令ちゃん v0.8.3 以上は、渡した画像をサムネイルに使う（それより前の版は img を無視して自分で取る）。
  */
+function denreiImgUrl(p) {
+  const id = imgId(p, 0);
+  return id ? imgThumb(id) : ((p.images || [])[0] || '');
+}
 function denreiAddUrl(code) {
   const p = store.productCache[code] || {};
   const q = new URLSearchParams({ shop: denrei.shopId || SHOP.id, modal: 'add', url: p.itemUrl || `https://store.shopping.yahoo.co.jp/${SHOP.sellerId}/${code}.html`, code });
   if (p.name && String(p.name).trim()) q.set('name', String(p.name).trim());
+  const img = denreiImgUrl(p);
+  if (img) q.set('img', img);
   return `${DENREI_BASE}/?${q.toString()}`;
 }
 function denreiCell(code) {
@@ -1798,7 +1827,7 @@ function denreiCell(code) {
     sub = `<span class="dnr-sub">${denrei.state === 'loading' ? '読込中…' : denrei.state === 'noshop' ? '伝令ちゃんにこのストアがありません' : '取得できていません'}</span>`;
   }
   const link = d ? `<a class="dnr-btn open" href="${esc(denreiPageUrl(code))}" target="_blank" rel="noopener" title="伝令ちゃんのこの商品のページを開く">🔔 伝令ちゃんで開く</a>`
-    : (denrei.state === 'ok' ? `<a class="dnr-btn add" href="${esc(denreiAddUrl(code))}" target="_blank" rel="noopener" title="伝令ちゃんの「商品を追加」を、この商品のURL・商品コードを入れた状態で開きます。保存は伝令ちゃん側で押してください">＋ 伝令ちゃんに登録</a>` : '');
+    : (denrei.state === 'ok' ? `<a class="dnr-btn add" href="${esc(denreiAddUrl(code))}" target="_blank" rel="noopener" title="伝令ちゃんの「商品を追加」を、この商品のURL・商品コード・サムネイル画像（画像1）を入れた状態で開きます。保存は伝令ちゃん側で押してください">＋ 伝令ちゃんに登録</a>` : '');
   return `<span class="dnr-badge" style="background:${def.bg};color:${def.fg}">${esc(def.label)}</span>${sub}${link}`;
 }
 function makeCell(code) {
@@ -1979,6 +2008,97 @@ $('#dlgSave').addEventListener('click', () => {
   lsSet(LS.pat, $('#inPat').value.trim());
   dlg.close(); load();
 });
+
+// ============================================================
+// 列幅設定（v0.8.5〜）
+//   モードごと・列ごとの幅(px)を localStorage に持つ（画面の広さはPCごとに違うので GitHub には保存しない）。
+//   反映は <style> を1枚差し替えるだけ（行を描き直さない）。列は並び順(nth-child)で指す。
+// ============================================================
+const COLW_MIN = 40, COLW_MAX = 800;
+const COLW_MODE_LABEL = { first: '🏆 1枚目用', second: '🔍 2枚目用', tail: '✏ タイトル末尾用', basic: '📋 基本' };
+const COLW_LABEL = { tail: 'タイトル末尾変更' };
+let colw = {};
+try { const j = JSON.parse(lsGet(LS.colw) || '{}'); if (j && typeof j === 'object') colw = j; } catch (e) {}
+function colwCols(m) {
+  return COLS.map((c, i) => ({ c, n: i + 1 })).filter(({ c }) => c.key !== 'chk' && (!/\bonly-/.test(c.cls) || c.cls.split(/\s+/).includes('only-' + m)));
+}
+function colwClamp(v) { v = Math.round(+v); return Number.isFinite(v) && v > 0 ? Math.min(COLW_MAX, Math.max(COLW_MIN, v)) : null; }
+function applyColw() {
+  let css = '';
+  for (const m of Object.keys(COLW_MODE_LABEL)) {
+    const set = colw[m] || {};
+    for (const { c, n } of colwCols(m)) {
+      const w = colwClamp(set[c.key]); if (!w) continue;
+      const th = `body.mode-${m} #thead th:nth-child(${n})`, td = `body.mode-${m} #rows td:nth-child(${n})`;
+      css += `${th}, ${td} { width: ${w}px; min-width: ${w}px; max-width: ${w}px; white-space: normal; overflow-wrap: anywhere; }\n`;
+      if (c.cls.includes('c-img')) { const iw = Math.max(24, w - 16); css += `${td} .ph, ${td} .ph img { width: ${iw}px; height: ${iw}px; }\n`; }
+    }
+  }
+  let el = document.getElementById('colwStyle');
+  if (!el) { el = document.createElement('style'); el.id = 'colwStyle'; document.head.appendChild(el); }
+  el.textContent = css;
+  syncLayout();
+}
+function saveColw() { lsSet(LS.colw, JSON.stringify(colw)); }
+function colwActual(n) { const th = $(`#thead th:nth-child(${n})`); return th ? Math.round(th.getBoundingClientRect().width) : 0; }
+function colwNotes() {
+  const set = colw[mode] || {};
+  document.querySelectorAll('#colwList .cw-row').forEach(row => {
+    const n = +row.dataset.n, w = colwClamp(set[row.dataset.key]), act = colwActual(n);
+    const sm = row.querySelector('small');
+    row.classList.toggle('set', !!w);
+    if (!w) { sm.textContent = `自動（いま ${act}px）`; sm.className = ''; row.querySelector('input[type=number]').placeholder = act; row.querySelector('input[type=range]').value = act; }
+    else if (Math.abs(act - w) > 2) { sm.textContent = `中身の都合で ${act}px になっています`; sm.className = 'warn'; }
+    else { sm.textContent = '指定中'; sm.className = ''; }
+  });
+}
+function renderColwEditor() {
+  $('#colwMode').textContent = `（${COLW_MODE_LABEL[mode]} モードの列）`;
+  const set = colw[mode] || {};
+  $('#colwList').innerHTML = colwCols(mode).map(({ c, n }) => {
+    const w = colwClamp(set[c.key]), act = colwActual(n);
+    return `<div class="cw-row" data-key="${c.key}" data-n="${n}">
+      <div class="nm">${esc(COLW_LABEL[c.key] || c.label)}<small></small></div>
+      <input type="range" min="${COLW_MIN}" max="${COLW_MAX}" step="2" value="${w || act}" aria-label="幅">
+      <input type="number" min="${COLW_MIN}" max="${COLW_MAX}" step="1" value="${w || ''}" placeholder="${act}">
+      <span class="hint">px</span>
+      <button data-op="auto">自動に戻す</button></div>`;
+  }).join('');
+  colwNotes();
+}
+function setColw(key, v) {
+  const w = colwClamp(v);
+  if (!colw[mode]) colw[mode] = {};
+  if (w) colw[mode][key] = w; else delete colw[mode][key];
+  saveColw(); applyColw(); colwNotes();
+}
+$('#btnColw').addEventListener('click', () => { renderColwEditor(); $('#dlgColw').showModal(); });
+$('#colwClose').addEventListener('click', () => $('#dlgColw').close());
+$('#colwReset').addEventListener('click', () => { delete colw[mode]; saveColw(); applyColw(); renderColwEditor(); });
+$('#colwList').addEventListener('input', (e) => {
+  const row = e.target.closest('.cw-row'); if (!row) return;
+  const num = row.querySelector('input[type=number]');
+  if (e.target.type === 'range') { num.value = e.target.value; setColw(row.dataset.key, e.target.value); }
+  else if (e.target.type === 'number') {
+    // 打っている途中（「2」「26」…）で小さい値に飛ばないよう、範囲内の数字になったときだけ反映。空欄は自動
+    const v = +e.target.value;
+    if (e.target.value === '') setColw(row.dataset.key, null);
+    else if (v >= COLW_MIN && v <= COLW_MAX) { row.querySelector('input[type=range]').value = v; setColw(row.dataset.key, v); }
+  }
+});
+$('#colwList').addEventListener('change', (e) => {
+  if (e.target.type !== 'number' || e.target.value === '') return;
+  const row = e.target.closest('.cw-row'), w = colwClamp(e.target.value);
+  e.target.value = w || ''; if (w) row.querySelector('input[type=range]').value = w;
+  setColw(row.dataset.key, w);
+});
+$('#colwList').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-op="auto"]'); if (!b) return;
+  const row = b.closest('.cw-row');
+  row.querySelector('input[type=number]').value = '';
+  setColw(row.dataset.key, null);
+});
+applyColw();
 
 // ============================================================
 // 項目設定モーダル
