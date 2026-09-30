@@ -828,8 +828,8 @@
         null,
         null
       ],
-      "status": "ignore",
-      "updatedAt": "2026-09-30T06:26:04.610Z"
+      "status": "normal",
+      "updatedAt": "2026-09-30T06:26:23.135Z"
     },
     "ih-22-01": {
       "reviewHistory": {
@@ -10127,7 +10127,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-09-30T06:26:07.623Z",
+  "savedAt": "2026-09-30T06:26:26.140Z",
   "lastAutoFetch": "2026-09-30T03:06:57Z",
   "lastCsvFile": "data202609291804.csv",
   "counts": {
