@@ -87,6 +87,11 @@
 
   /* ── layout ─────────────────────────────── */
   .layout { display: flex; gap: 16px; padding: 16px; align-items: flex-start; }
+  .sl-month { font-weight: 400; color: var(--muted); font-size: 11px; }
+  .sl-range { display: grid; grid-template-columns: 1fr auto; gap: 4px 4px; align-items: center; font-size: 11px; color: var(--muted); }
+  .sl-range input { width: 100%; min-width: 0; text-align: right; padding: 4px 6px; }
+  .sl-range input.on { border-color: var(--accent); background: var(--accent-soft); }
+  .sl-note { font-size: 10px; color: var(--muted); margin-top: 6px; line-height: 1.5; min-height: 15px; }
   aside { width: 200px; flex: 0 0 200px; position: sticky; top: calc(var(--hdr-h) + 16px); display: flex; flex-direction: column; gap: 12px; }
   main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
   .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
@@ -143,7 +148,7 @@
   .c-code { white-space: nowrap; }
   .c-code .code { font-family: ui-monospace, Consolas, monospace; font-size: 12px; }
   .c-code .stk { margin-top: 3px; }
-  thead th.c-code .sortable { display: block; margin: 1px 0 !important; }   /* 「商品コード」「発売日」を縦に並べて列を広げない */
+  thead th.c-code .sortable { display: block; margin: 1px 0 !important; }   /* 「商品コード」「登録日」を縦に並べて列を広げない */
   .c-code .rel { margin-top: 3px; font-size: 11px; color: var(--muted); font-family: ui-monospace, Consolas, monospace; }
   .c-name { min-width: 260px; max-width: 380px; }
   .c-name input { width: 100%; font-weight: 600; }
@@ -368,6 +373,14 @@
       <div class="side-list" id="rateList"></div>
     </div>
     <div class="card">
+      <h3>売上 <span class="sl-month" id="salesMonth"></span></h3>
+      <div class="sl-range">
+        <input type="number" id="salesMin" min="0" step="1000" placeholder="0" aria-label="売上の下限（円）"><span>円 〜</span>
+        <input type="number" id="salesMax" min="0" step="1000" placeholder="上限なし" aria-label="売上の上限（円）"><span>円</span>
+      </div>
+      <div class="sl-note" id="salesNote"></div>
+    </div>
+    <div class="card">
       <h3>状態</h3>
       <div class="side-list" id="statusList"></div>
     </div>
@@ -430,7 +443,7 @@
   <table class="when">
     <tr><th>項目</th><th>いつ変わるか</th><th>補足</th></tr>
     <tr class="sec"><td colspan="3">自動で入るもの（取得すると上書きされる）</td></tr>
-    <tr><td>発売日</td><td><span class="tag">①</span><span class="tag">②</span></td><td>商品コードの下の日付。Yahoo! に登録されている発売日。登録が無い商品は「発売日 —」。</td></tr>
+    <tr><td>登録日</td><td><span class="tag">自動</span></td><td>商品コードの下の日付。その商品がこのツールに初めて入った日（最初にデータを取得した日）。一度入ったら変わりません。ツールを使い始める前からあった商品は、使い始めた日になります。</td></tr>
     <tr><td>レビュー件数・平均評価</td><td><span class="tag">①取得ボタン</span><span class="tag">②毎朝の自動取得</span></td><td>Yahoo! の API の値。</td></tr>
     <tr><td>商品画像（画像1〜3）</td><td><span class="tag">①</span><span class="tag">②</span></td><td>商品ページに出ている順の1〜3枚目。</td></tr>
     <tr><td>画像の差し替え日</td><td><span class="tag">①</span><span class="tag">②</span></td><td>画像の下の日付。7日以内は緑。下の注意も見てください。</td></tr>
@@ -531,7 +544,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.15';
+const VERSION = 'v0.8.17';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -556,7 +569,7 @@ const SAVE_DEBOUNCE_MS = 3000;
 const API_KEYS = new Set([
   'csvName', 'apiTitle', 'headline', 'itemUrl', 'reviewUrl', 'imageId', 'imageIds', 'images', 'imageUpdatedAt',
   'reviewCount', 'reviewAvg', 'inStock', 'price', 'categoryId', 'categoryName', 'categoryPath',
-  'inApi', 'inCsv', 'lastFetched', 'reviewHistory', 'releaseDate',
+  'inApi', 'inCsv', 'lastFetched', 'reviewHistory',
 ]);
 
 // ============================================================
@@ -753,6 +766,7 @@ async function load() {
   store.productCache = store.productCache || {};
   if (migrate()) { dirty = true; scheduleSave(); }
   autoFillRanking();
+  fillRegisteredAt();
   renderAll();
   if (pat && !reqWatching) readReq().then(watchReq);
 }
@@ -912,7 +926,18 @@ const RATE_BANDS = [
 ];
 function isIgnored(p) { return p.status === 'ignore'; }
 function inScope(p) { return statusScope === 'all' || (statusScope === 'ignore' ? isIgnored(p) : !isIgnored(p)); }
+// 売上の絞り込み（左カラム。v0.8.16〜）。検索と同じ扱いで、ほかの絞り込みと重ねて効く。
+//   Y-check にその月のデータが無い商品は 0円 として扱う（「0円〜0円」で売れていない商品を出せるように）。
+//   売上を読めていない間は絞り込まない。
+let salesRange = { min: null, max: null };
+function salesRangeOn() { return sales.state === 'ok' && !!sales.month && (salesRange.min !== null || salesRange.max !== null); }
+function matchSales(code) {
+  if (!salesRangeOn()) return true;
+  const v = salesOf(code) ?? 0;
+  return (salesRange.min === null || v >= salesRange.min) && (salesRange.max === null || v <= salesRange.max);
+}
 function matchQuery(code, p) {
+  if (!matchSales(code)) return false;
   if (!query) return true;
   const q = query.toLowerCase();
   return (code + ' ' + (p.name || '') + ' ' + (p.apiTitle || '') + ' ' + (p.csvName || '')).toLowerCase().includes(q);
@@ -938,7 +963,7 @@ function baseRows() { return entries().filter(([c, p]) => inScope(p) && matchQue
 const COLS = [
   { key: 'chk',      cls: 'c-chk',  html: () => '<input type="checkbox" id="chkAll" title="表示中をすべて選択">' },
   { key: 'updatedAt', cls: 'c-upd', label: '更新日時', sort: true },
-  { key: 'code',     cls: 'c-code', label: '商品コード', sort: 'code', alt: [['code', '商品コード'], ['releaseDate', '発売日']] },
+  { key: 'code',     cls: 'c-code', label: '商品コード', sort: 'code', alt: [['code', '商品コード'], ['registeredAt', '登録日']] },
   { key: 'name',     cls: 'c-name', label: '商品名', sort: true },
   { key: 'rank',     cls: 'c-rank only-first', label: 'ランキング（1枚目変更）', sort: 'first' },
   { key: 'denrei',   cls: 'c-denrei only-first', label: '🔔 伝令ちゃん', sort: 'denrei' },
@@ -961,7 +986,7 @@ function sortVal(code, p, k) {
   switch (k) {
     case 'updatedAt': return p.updatedAt || '';
     case 'code': return code;
-    case 'releaseDate': return relDate(p) || null;   // 空は常に末尾
+    case 'registeredAt': return regDate(p) || null;   // 空は常に末尾
     case 'name': return p.name || p.apiTitle || '';
     case 'reviewCount': return p.reviewCount || 0;
     case 'reviewAvg': return p.reviewAvg || 0;
@@ -1037,7 +1062,14 @@ function renderHeader() {
   document.body.classList.add('mode-' + mode);
 }
 
+function renderSalesSide() {
+  const ok = sales.state === 'ok' && !!sales.month;
+  $('#salesMonth').textContent = ok ? `（${+sales.month.split('-')[1]}月・Y-check）` : '';
+  for (const [id, k] of [['salesMin', 'min'], ['salesMax', 'max']]) { const el = $('#' + id); el.disabled = !ok; el.classList.toggle('on', ok && salesRange[k] !== null); }
+  $('#salesNote').textContent = sales.state === 'loading' || sales.state === 'idle' ? '読込中…' : !ok ? 'Y-check の売上を読めていません' : salesRangeOn() ? '絞り込み中（データなしの商品は0円扱い）' : '';
+}
 function renderSide() {
+  renderSalesSide();
   const scoped = entries().filter(([c, p]) => inScope(p) && matchQuery(c, p));
   $('#rateList').innerHTML = RATE_BANDS.map(b => {
     const n = b.test ? scoped.filter(([, p]) => b.test(p.reviewAvg || 0)).length : scoped.length;
@@ -1131,15 +1163,31 @@ function numHtml(p) {
   const cls = d > 0 ? (r >= 200 ? 'big' : 'pos') : 'zero';
   return { diff: `<span class="pill-num ${cls}">${d > 0 ? '+' : ''}${d}</span>`, rate: `<span class="pill-num ${cls}">${d > 0 ? '+' : ''}${r.toFixed(1)}%</span>` };
 }
-// 発売日（TimerRunner が releaseDate に入れる）。'YYYY-MM-DD' に揃えて返す。無ければ ''。
-//   文字列（2025-08-13 / 2025/08/13 / 20250813 / ISO）でも、数値（UNIX秒・ミリ秒）でも受ける
-function relDate(p) {
-  const v = p.releaseDate;
-  if (v === null || v === undefined || v === '' || v === 0) return '';
-  const jst = (ms) => { const d = new Date(ms + 9 * 3600e3); return isNaN(d) ? '' : `${d.getUTCFullYear()}-${pad2(d.getUTCMonth() + 1)}-${pad2(d.getUTCDate())}`; };
-  if (typeof v === 'number' || /^\d{9,13}$/.test(String(v))) { const n = +v; return jst(n < 1e11 ? n * 1000 : n); }
-  const m = String(v).match(/^(\d{4})[-\/]?(\d{1,2})[-\/]?(\d{1,2})/);
-  return m ? `${m[1]}-${pad2(+m[2])}-${pad2(+m[3])}` : '';
+// 登録日（v0.8.17〜）＝その商品がこのツールに初めて入った日。'YYYY-MM-DD'。
+//   ・保存済みの registeredAt があればそれ。
+//   ・無ければ、レビュー件数の履歴（TimerRunner が1日1件ためている）のいちばん古い日。
+//   ・履歴も無ければ空（次の取得で履歴ができてから決まる）。
+//   fillRegisteredAt() が読み込みのたびに、まだ入っていない商品へ書き込んで保存する
+//   （履歴が将来古い分から消されても日付が動かないように。人の項目なので TimerRunner は上書きしない）。
+function regDateDerived(p) {
+  const days = Object.keys(p.reviewHistory || {}).filter(k => /^\d{4}-\d{2}-\d{2}$/.test(k)).sort();
+  return days[0] || '';
+}
+function regDate(p) {
+  const v = String(p.registeredAt || '');
+  return /^\d{4}-\d{2}-\d{2}/.test(v) ? v.slice(0, 10) : regDateDerived(p);
+}
+function fillRegisteredAt() {
+  if (!storeFresh || !ghConfig().pat) return 0;
+  let n = 0;
+  for (const [code, p] of Object.entries(store.productCache || {})) {
+    if (/^\d{4}-\d{2}-\d{2}/.test(String(p.registeredAt || ''))) continue;
+    const d = regDateDerived(p); if (!d) continue;
+    p.registeredAt = d;
+    dirtyCodes.add(code); n++;   // touch() は使わない（更新日時＝人が触った時刻 を変えないため）
+  }
+  if (n) { dirty = true; scheduleSave(); }
+  return n;
 }
 function selIdx(p) { return [1, 2, 3].includes(p.selectedImageIdx) ? p.selectedImageIdx : null; }
 function imgId(p, i) { return (p.imageIds || [])[i] || (i === 0 && p.imageId ? p.imageId : null); }
@@ -1178,7 +1226,7 @@ function rowHtml(code, p) {
   return `<tr data-code="${esc(code)}" class="${cls}">
     <td class="c-chk"><input type="checkbox" data-act="sel" ${selected.has(code) ? 'checked' : ''}></td>
     <td class="c-upd">${updHtml(p)}</td>
-    <td class="c-code"><a class="code" href="${esc(p.itemUrl)}" target="_blank" rel="noopener">${esc(code)}</a><div class="rel" title="発売日（Yahoo! に登録されている発売日）">${relDate(p) ? '発売 ' + esc(relDate(p).replace(/-/g, '/')) : '<span class="muted">発売日 —</span>'}</div><div class="stk">${stateBadge(p)}</div></td>
+    <td class="c-code"><a class="code" href="${esc(p.itemUrl)}" target="_blank" rel="noopener">${esc(code)}</a><div class="rel" title="登録日（この商品がこのツールに初めて入った日）">${regDate(p) ? '登録 ' + esc(regDate(p).replace(/-/g, '/')) : '<span class="muted">登録日 —</span>'}</div><div class="stk">${stateBadge(p)}</div></td>
     <td class="c-name">
       <input type="text" data-field="name" value="${esc(p.name || '')}" placeholder="商品名（短く）" title="${esc(p.apiTitle || p.csvName || '')}">
       <div class="nm-btns">
@@ -1476,10 +1524,18 @@ $('#rateList').addEventListener('click', (e) => { const b = e.target.closest('[d
 $('#statusList').addEventListener('click', (e) => { const b = e.target.closest('[data-scope]'); if (b) { statusScope = b.dataset.scope; renderAll(); } });
 $('#q').addEventListener('input', (e) => { query = e.target.value.trim(); renderAll(); });
 $('#btnClear').addEventListener('click', () => {
+  salesRange = { min: null, max: null }; $('#salesMin').value = ''; $('#salesMax').value = '';
   query = ''; $('#q').value = ''; statusScope = 'normal'; filter = { kind: null, key: null }; selected.clear();
   sortKey = mode === 'second' ? 'onscreen' : 'reviewCount'; sortDir = -1;
   renderAll();
 });
+for (const [id, k] of [['salesMin', 'min'], ['salesMax', 'max']]) {
+  $('#' + id).addEventListener('input', (e) => {
+    const t = e.target.value.trim(), v = Number(t);
+    salesRange[k] = t === '' || !Number.isFinite(v) || v < 0 ? null : Math.floor(v);
+    renderAll();
+  });
+}
 $('#filters').addEventListener('change', (e) => {
   const sel = e.target.closest('.bulk-sel'); if (!sel) return;
   if (sel.value) bulkPick[sel.dataset.g] = sel.value; else delete bulkPick[sel.dataset.g];
