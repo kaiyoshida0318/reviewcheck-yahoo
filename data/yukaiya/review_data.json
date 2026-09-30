@@ -164,7 +164,9 @@
         null,
         "2024-06-04T14:59:35+09:00",
         "2024-06-04T15:06:09+09:00"
-      ]
+      ],
+      "ranking": "",
+      "updatedAt": "2026-09-30T06:42:53.121Z"
     },
     "foot-22-04-2set": {
       "reviewHistory": {
@@ -10157,7 +10159,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-09-30T06:37:51.548Z",
+  "savedAt": "2026-09-30T06:42:56.129Z",
   "lastAutoFetch": "2026-09-30T03:06:57Z",
   "lastCsvFile": "data202609291804.csv",
   "counts": {
