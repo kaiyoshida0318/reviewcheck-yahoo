@@ -50,11 +50,40 @@
   #status { font-size: 12px; color: var(--muted); white-space: nowrap; }
   #status.err { color: var(--accent); }
   #status.ok { color: var(--ok); }
-  #btnFetch { font-weight: 700; white-space: nowrap; }
-  #btnFetch.wait { background: #fff6e0; border-color: #f0c36d; color: #8a5a00; }
-  #btnFetch.run { background: #e8f1fd; border-color: #9cc0f0; color: var(--blue); }
-  #btnFetch.run .spin { display: inline-block; animation: spin 1.2s linear infinite; }
+  #btnUpdate { font-weight: 700; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
+  #btnUpdate .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  #btnUpdate .dot.y { background: #e0a800; }
+  #btnUpdate .dot.r { background: var(--accent); }
+  #btnUpdate.wait { background: #fff6e0; border-color: #f0c36d; color: #8a5a00; }
+  #btnUpdate.run { background: #e8f1fd; border-color: #9cc0f0; color: var(--blue); }
+  .spin { display: inline-block; animation: spin 1.2s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
+  #dlgUpdate { width: 760px; }
+  .upd-line { font-size: 12px; color: var(--muted); background: #f5f6f8; border-radius: 8px; padding: 8px 12px; display: flex; gap: 18px; flex-wrap: wrap; }
+  .upd-line b { color: var(--text); }
+  .upd-btns { display: flex; flex-direction: column; gap: 8px; margin: 12px 0 4px; }
+  .upd-btn { display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto; column-gap: 12px; text-align: left; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line2); background: #fff; }
+  .upd-btn:hover { background: #f7f9fc; }
+  .upd-btn .t { font-weight: 700; font-size: 14px; }
+  .upd-btn .d { grid-column: 1; font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .upd-btn .chip { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-size: 11px; padding: 3px 10px; border-radius: 999px; background: #f0f2f5; color: var(--muted); white-space: nowrap; }
+  .upd-btn .chip.y { background: #fff6e0; color: #8a5a00; font-weight: 700; }
+  .upd-btn .chip.r { background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+  .upd-btn.main { border-color: #ffc2cc; }
+  .upd-btn.main .t { color: var(--accent); }
+  .upd-btn.wait { background: #fff6e0; border-color: #f0c36d; }
+  .upd-btn.wait .t { color: #8a5a00; }
+  .upd-btn.run { background: #e8f1fd; border-color: #9cc0f0; }
+  .upd-btn.run .t { color: var(--blue); }
+  #dlgUpdate h3 { font-size: 13px; margin: 18px 0 6px; }
+  .when { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .when th, .when td { border-bottom: 1px solid var(--line); padding: 6px 8px; vertical-align: top; text-align: left; position: static; background: none; }
+  .when th { color: var(--muted); font-weight: 600; white-space: nowrap; }
+  .when td:first-child { white-space: nowrap; font-weight: 600; }
+  .when .tag { display: inline-block; font-size: 10px; padding: 0 6px; border-radius: 4px; background: #e6f6ec; color: var(--ok); margin-right: 3px; white-space: nowrap; }
+  .when .tag.man { background: #f0f2f5; color: var(--muted); }
+  .when tr.sec td { background: #fafbfc; font-weight: 700; color: var(--text); }
+  .upd-notes { font-size: 11px; color: var(--muted); line-height: 1.8; margin: 10px 0 0; padding-left: 18px; }
 
   /* ── layout ─────────────────────────────── */
   .layout { display: flex; gap: 16px; padding: 16px; align-items: flex-start; }
@@ -217,12 +246,10 @@
     <button data-mode="basic">📋 基本</button>
   </div>
   <span class="spacer"></span>
-  <span class="meta" id="metaFetch"></span>
   <span class="meta" id="metaStore"></span>
   <span id="status"></span>
   <button id="btnDefs" title="1枚目変更・2枚目変更の選択肢を編集">↔ 項目設定</button>
-  <button id="btnFetch" class="primary" title="TimerRunner に今すぐ取得してもらう（数分おきに依頼を見に来ます）">📥 商品データ取得</button>
-  <button id="btnReload" title="GitHubから読み直す">↻ 再読込</button>
+  <button id="btnUpdate" title="商品データの取得・読み直し">🔄 更新</button>
   <button id="btnSettings" title="GitHub PAT の設定">⚙</button>
 </div></header>
 
@@ -274,6 +301,51 @@
   </div>
 </dialog>
 
+<dialog id="dlgUpdate">
+  <h2>🔄 更新</h2>
+  <div class="upd-line" id="updLine"></div>
+  <div class="upd-btns">
+    <button class="upd-btn main" id="btnFetch">
+      <span class="t">📥 商品データ取得</span>
+      <span class="d">Yahoo! からレビュー件数・画像などを取り直します。TimerRunner に頼んで取ってもらうので、5分以内に始まり、画像まで取るので終わるまで数分かかります。終わると自動で読み直します。</span>
+      <span class="chip" id="chipFetch"></span>
+    </button>
+    <button class="upd-btn" id="btnReload">
+      <span class="t">☁ GitHubから読み直す</span>
+      <span class="d">他のPCで入力した内容や、TimerRunner が取得した最新のデータを取り込みます（数秒）。</span>
+      <span class="chip" id="chipReload"></span>
+    </button>
+  </div>
+
+  <h3>何が・いつ反映されるか</h3>
+  <table class="when">
+    <tr><th>項目</th><th>いつ変わるか</th><th>補足</th></tr>
+    <tr class="sec"><td colspan="3">自動で入るもの（取得すると上書きされる）</td></tr>
+    <tr><td>レビュー件数・平均評価</td><td><span class="tag">①取得ボタン</span><span class="tag">②毎朝の自動取得</span></td><td>Yahoo! の API の値。</td></tr>
+    <tr><td>商品画像（画像1〜3）</td><td><span class="tag">①</span><span class="tag">②</span></td><td>商品ページに出ている順の1〜3枚目。</td></tr>
+    <tr><td>画像の差し替え日</td><td><span class="tag">①</span><span class="tag">②</span></td><td>画像の下の日付。7日以内は緑。下の注意も見てください。</td></tr>
+    <tr><td>現在のタイトル</td><td><span class="tag">①</span><span class="tag">②</span></td><td>商品名の欄の下に小さく出ている文字。Yahoo! に今出ている商品名。</td></tr>
+    <tr><td>在庫切れ・非公開の印</td><td><span class="tag">①</span><span class="tag">②</span></td><td>商品コードの下の黄色い印。</td></tr>
+    <tr><td>レビュー件数の履歴</td><td><span class="tag">①</span><span class="tag">②</span></td><td>「7日 +3」の元。1日1件（その日の最後に取った値）。</td></tr>
+    <tr><td>新しく出品した商品</td><td><span class="tag">①</span><span class="tag">②</span></td><td>行が増えます。状態は「未着手 / 獲得前」から。</td></tr>
+    <tr><td>ストア評価</td><td><span class="tag">①</span><span class="tag">②</span></td><td>右上のストア評価。</td></tr>
+    <tr class="sec"><td colspan="3">手で入れるもの（取得を押しても変わりません）</td></tr>
+    <tr><td>商品名</td><td><span class="tag man">手入力</span></td><td><b>自動では変わりません。</b>手で付けた名前を守るため、あえて上書きしていません。Yahoo! 側の名前を見たいときは、その下の小さい文字（現在のタイトル）を見てください。</td></tr>
+    <tr><td>画面上件数</td><td><span class="tag man">手入力</span></td><td>2枚目用。今バナーに出している件数。</td></tr>
+    <tr><td>1枚目変更・2枚目変更</td><td><span class="tag man">手入力</span></td><td>行のドロップダウン・一括変更。</td></tr>
+    <tr><td>メモ・無視</td><td><span class="tag man">手入力</span></td><td></td></tr>
+    <tr><td>項目設定</td><td><span class="tag man">手入力</span></td><td>選択肢の名前・色・並び順（↔ 項目設定）。</td></tr>
+  </table>
+  <ul class="upd-notes">
+    <li><b>②毎朝の自動取得</b>は、TimerRunner のフロー「YahooレポートDL（ログイン付き）」の最後に走ります（10時半すぎ）。</li>
+    <li><b>差し替え日</b>：新しくアップした画像は、Yahoo! が付けるアップロード日時がそのまま入ります。昔からある画像（Yahoo! が日時を付けていないもの）は、差し替わったのを①②で見つけた時刻が入ります。見つけるまでは「–」です。</li>
+    <li><b>Yahoo! から消えた商品は自動では消えません。</b>「削除?」の印が付きます。</li>
+    <li><b>取得しても、手で入れた内容は消えません。</b>取得中に入力していても、取り直して乗せ直します。</li>
+    <li>①の取得は TimerRunner が起動しているPCが必要です。12分たっても始まらないときは、TimerRunner を確認してください。</li>
+  </ul>
+  <div class="row"><button id="updClose">閉じる</button></div>
+</dialog>
+
 <dialog id="dlgShops">
   <h2>🏪 ストア管理</h2>
   <div class="shop-head"><span>表示名</span><span>ID（URL・フォルダ名）</span><span>Yahoo! ストアID（seller_id）</span><span></span></div>
@@ -310,7 +382,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.4.0';
+const VERSION = 'v0.4.1';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -517,6 +589,7 @@ async function load() {
       setStatus('閲覧のみ（⚙でPATを設定すると保存できます）', 'err');
     }
     cacheSet(store);
+    lastLoadedAt = new Date().toISOString();
   } catch (e) {
     const cached = cacheGet();
     store = cached || { productCache: {} };
@@ -768,9 +841,7 @@ function lastFetchInfo() {
 function renderHeader() {
   $('#ver').textContent = VERSION;
   $('#shopBtn').innerHTML = `🏪 ${esc(SHOP.name)} <span class="caret">▼</span>`;
-  const lf = lastFetchInfo();
-  const stale = lf && daysAgo(lf.at) > 1.5;
-  $('#metaFetch').innerHTML = lf ? `最終取得 <span style="${stale ? 'color:var(--accent);font-weight:700' : ''}">${fmtShort(lf.at)}</span><span class="muted">(${lf.src})</span>` : '';
+  renderFetchBtn();
   $('#metaStore').textContent = store.storeReview ? `ストア評価 ${store.storeReview.rate} / ${Number(store.storeReview.count).toLocaleString()}件` : '';
   // モード切り替えボタンに「手をつける商品の件数」を出す。0件ならバッジも色も出さない
   const scope = entries().filter(([, p]) => !isIgnored(p));
@@ -1084,22 +1155,32 @@ $('#btnClear').addEventListener('click', () => {
   renderAll();
 });
 $('#modes').addEventListener('click', (e) => { const b = e.target.closest('button[data-mode]'); if (b && !b.disabled) setMode(b.dataset.mode); });
-$('#btnReload').addEventListener('click', async () => { if (dirty) await flush(); if (defsDirty) await flushDefs(); load(); });
+$('#btnReload').addEventListener('click', async () => {
+  if (dirty) await flush();
+  if (defsDirty) await flushDefs();
+  await load();
+  $('#dlgUpdate').close();
+});
 
 // ============================================================
 // ストア切替（ドロップダウン）とストア管理
 //   切替はリンク（?shop=）なので、中クリック／Ctrl+クリックで別タブに開ける＝タブごとに固定
 // ============================================================
+function placeShopMenu() {
+  const m = $('#shopMenu'); if (m.style.display !== 'block') return;
+  const r = $('#shopBtn').getBoundingClientRect();
+  if (r.bottom < 0 || r.top > window.innerHeight) { closeShopMenu(); return; }
+  m.style.top = (r.bottom + 4) + 'px';
+  m.style.left = Math.max(8, Math.min(r.left, window.innerWidth - m.offsetWidth - 8)) + 'px';
+}
 function openShopMenu() {
   const m = $('#shopMenu');
   if (m.style.display === 'block') { m.style.display = 'none'; return; }
   m.innerHTML = SHOPS.map(sh => `<a class="mi ${sh.id === SHOP.id ? 'cur' : ''}" href="?shop=${encodeURIComponent(sh.id)}"><span class="chk">${sh.id === SHOP.id ? '✓' : ''}</span>${esc(sh.name)}<small>${esc(sh.sellerId)}</small></a>`).join('') +
     `<div class="sep"></div><button class="mi" data-act="manage"><span class="chk">⚙</span>ストアを管理…</button>`;
   m.style.display = 'block';
-  const r = $('#shopBtn').getBoundingClientRect();
-  m.style.top = (r.bottom + 4) + 'px';
-  m.style.left = Math.min(r.left, window.innerWidth - m.offsetWidth - 8) + 'px';
-  m.style.minWidth = Math.max(220, r.width) + 'px';
+  m.style.minWidth = Math.max(220, $('#shopBtn').getBoundingClientRect().width) + 'px';
+  placeShopMenu();
 }
 function closeShopMenu() { $('#shopMenu').style.display = 'none'; }
 $('#shopBtn').addEventListener('click', (e) => { e.stopPropagation(); closeMenu(); openShopMenu(); });
@@ -1107,8 +1188,10 @@ $('#shopMenu').addEventListener('click', (e) => {
   if (e.target.closest('[data-act="manage"]')) { closeShopMenu(); openShopsDialog(); }
 });
 document.addEventListener('mousedown', (e) => { if (!e.target.closest('#shopMenu') && !e.target.closest('#shopBtn')) closeShopMenu(); });
-window.addEventListener('scroll', closeShopMenu, true);
-window.addEventListener('resize', closeShopMenu);
+// 画面が動いたら閉じるのではなく置き直す（楽天版 v8.22：横スクロール中に開いた直後のレイアウト変化で
+// scroll が発火し、自分で閉じて一度も開けなかった）
+window.addEventListener('scroll', placeShopMenu, true);
+window.addEventListener('resize', placeShopMenu);
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeShopMenu(); });
 
 let shopDraft = [];
@@ -1195,23 +1278,57 @@ const REQ_POLL_MS = 15000;
 const REQ_SLOW_MIN = 12;   // 依頼してからこれだけ経っても始まらなければ「TimerRunner が止まっているかも」
 let reqState = null, reqSha = null, reqTimer = null, reqWatching = false;
 function reqPending(r) { return r && (r.status === 'requested' || r.status === 'running'); }
+// 「約3時間前」「1日前」。日付だけだと古いのか分からないので必ず添える
+function relTime(iso) {
+  const m = Math.floor(daysAgo(iso) * 1440);
+  if (!isFinite(m)) return '';
+  if (m < 1) return 'たった今';
+  if (m < 60) return `約${m}分前`;
+  if (m < 24 * 60) return `約${Math.floor(m / 60)}時間前`;
+  return `${Math.floor(m / 1440)}日前`;
+}
+function fmtFull(iso) { const d = new Date(iso); return isNaN(d) ? '' : `${fmtDate(iso)} ${pad2(d.getHours())}:${pad2(d.getMinutes())}`; }
+// 毎朝1回の自動取得が前提なので、26時間あくと黄、36時間で赤
+function staleLevel(iso) { const h = daysAgo(iso) * 24; return !isFinite(h) ? 'r' : h >= 36 ? 'r' : h >= 26 ? 'y' : ''; }
+let lastLoadedAt = null;
 function renderFetchBtn() {
-  const b = $('#btnFetch'); if (!b) return;
-  b.classList.remove('wait', 'run', 'primary');
+  const b = $('#btnFetch'), hb = $('#btnUpdate'); if (!b || !hb) return;
+  const lf = lastFetchInfo();
+  const lvl = lf ? staleLevel(lf.at) : 'r';
+  b.classList.remove('wait', 'run'); hb.classList.remove('wait', 'run');
+  const t = b.querySelector('.t'), chip = $('#chipFetch');
+  chip.className = 'chip';
   if (reqState?.status === 'requested') {
     const mins = Math.floor(daysAgo(reqState.requestedAt) * 1440);
-    b.classList.add('wait'); b.disabled = false;
-    b.innerHTML = `⏳ 依頼済み <span class="muted">${mins > 0 ? mins + '分前' : 'たった今'}</span>`;
-    b.title = `TimerRunner の順番待ち（数分おきに見に来ます）\n依頼 ${new Date(reqState.requestedAt).toLocaleString('ja-JP')}`;
+    b.classList.add('wait'); hb.classList.add('wait');
+    t.textContent = '⏳ 依頼済み（TimerRunner の順番待ち）';
+    chip.textContent = `依頼 ${mins > 0 ? mins + '分前' : 'たった今'}`;
+    chip.title = `依頼 ${new Date(reqState.requestedAt).toLocaleString('ja-JP')}`;
+    hb.innerHTML = '⏳ 更新';
   } else if (reqState?.status === 'running') {
-    b.classList.add('run'); b.disabled = false;
-    b.innerHTML = `<span class="spin">🔄</span> 取得中… <span class="muted">${fmtShort(reqState.startedAt).split(' ')[1] || ''}〜</span>`;
-    b.title = `TimerRunner（${reqState.runner || '?'}）が取得中。画像まで取るので数分かかります`;
+    b.classList.add('run'); hb.classList.add('run');
+    t.innerHTML = '<span class="spin">🔄</span> 取得中…（画像まで取るので数分かかります）';
+    chip.textContent = `${fmtShort(reqState.startedAt).split(' ')[1] || ''} 開始`;
+    chip.title = `TimerRunner（${reqState.runner || '?'}）が取得中`;
+    hb.innerHTML = '<span class="spin">🔄</span> 取得中…';
   } else {
-    b.classList.add('primary'); b.disabled = false;
-    b.innerHTML = '📥 商品データ取得';
-    b.title = reqState?.finishedAt ? `前回: ${new Date(reqState.finishedAt).toLocaleString('ja-JP')} ${reqState.status === 'error' ? '失敗' : '完了'} ${reqState.message || ''}` : 'TimerRunner に今すぐ取得してもらう（数分おきに依頼を見に来ます）';
+    t.textContent = '📥 商品データ取得';
+    if (lf) {
+      chip.textContent = `最終取得: ${fmtFull(lf.at)}（${relTime(lf.at)}）`;
+      chip.title = `${new Date(lf.at).toLocaleString('ja-JP')}（${lf.src === '自動' ? '取得の記録' : '商品ごとの取得時刻の最新'}）` + (reqState?.status === 'error' ? `\n前回の依頼は失敗: ${reqState.message || ''}` : '');
+      if (lvl) chip.classList.add(lvl);
+    } else {
+      chip.textContent = 'まだ取得していません'; chip.classList.add('r');
+    }
+    hb.innerHTML = `🔄 更新${lvl ? `<span class="dot ${lvl}" title="${lvl === 'r' ? '36時間以上取得していません' : '26時間以上取得していません'}"></span>` : ''}`;
   }
+  const rc = $('#chipReload');
+  rc.className = 'chip';
+  rc.textContent = lastLoadedAt ? `最終読込: ${fmtFull(lastLoadedAt)}（${relTime(lastLoadedAt)}）` : 'まだ読み込んでいません';
+  rc.title = lastLoadedAt ? new Date(lastLoadedAt).toLocaleString('ja-JP') : '';
+  const saved = store.savedAt;
+  $('#updLine').innerHTML = `<span>ストア <b>${esc(SHOP.name)}</b></span><span>商品 <b>${entries().length.toLocaleString()}</b> 件</span>` +
+    `<span title="${saved ? esc(new Date(saved).toLocaleString('ja-JP')) : ''}">GitHub上の最終保存 <b>${saved ? `${fmtFull(saved)}（${relTime(saved)}）` : '—'}</b></span>`;
 }
 async function readReq() {
   try { const r = await ghGet(REQ_PATH); reqState = r.data; reqSha = r.sha; }
@@ -1266,7 +1383,9 @@ $('#btnFetch').addEventListener('click', async () => {
     watchReq();
   }
 });
-setInterval(() => { if (reqPending(reqState)) renderFetchBtn(); }, 30000);   // 「N分前」を進める
+setInterval(renderFetchBtn, 30000);   // 「N分前」を進める
+$('#btnUpdate').addEventListener('click', () => { renderFetchBtn(); $('#dlgUpdate').showModal(); if (ghConfig().pat) readReq(); });
+$('#updClose').addEventListener('click', () => $('#dlgUpdate').close());
 
 // ---- 設定ダイアログ ----
 const dlg = $('#dlgSettings');
