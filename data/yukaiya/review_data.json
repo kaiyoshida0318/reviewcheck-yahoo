@@ -4541,7 +4541,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "status": "ignore",
+      "updatedAt": "2026-09-30T07:07:58.781Z"
     },
     "wat-18-07": {
       "reviewHistory": {
@@ -5662,7 +5664,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "status": "ignore",
+      "updatedAt": "2026-09-30T07:07:58.793Z"
     },
     "fas-16-02-red2": {
       "reviewHistory": {
@@ -5704,7 +5708,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "status": "ignore",
+      "updatedAt": "2026-09-30T07:07:58.812Z"
     },
     "si-22-03-3set": {
       "reviewHistory": {
@@ -6416,7 +6422,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "status": "ignore",
+      "updatedAt": "2026-09-30T07:07:58.816Z"
     },
     "bloop-18-01-18": {
       "reviewHistory": {
@@ -6503,7 +6511,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "status": "ignore",
+      "updatedAt": "2026-09-30T07:07:58.777Z"
     },
     "si-22-01-3set": {
       "reviewHistory": {
@@ -7002,7 +7012,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "status": "ignore",
+      "updatedAt": "2026-09-30T07:07:58.785Z"
     },
     "fas-16-01-green": {
       "reviewHistory": {
@@ -7044,7 +7056,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "status": "ignore",
+      "updatedAt": "2026-09-30T07:07:58.771Z"
     },
     "bg-09-usbc-mesu-20set": {
       "reviewHistory": {
@@ -7169,7 +7183,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "status": "ignore",
+      "updatedAt": "2026-09-30T07:07:58.756Z"
     },
     "zak-18-11-05a": {
       "reviewHistory": {
@@ -7847,7 +7863,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "status": "ignore",
+      "updatedAt": "2026-09-30T07:07:58.803Z"
     },
     "ca-02-01-hera": {
       "reviewHistory": {
@@ -8058,7 +8076,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "status": "ignore",
+      "updatedAt": "2026-09-30T07:07:58.763Z"
     },
     "sb-01-2set": {
       "reviewHistory": {
@@ -8142,7 +8162,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "status": "ignore",
+      "updatedAt": "2026-09-30T07:07:58.768Z"
     },
     "bloop-18-01-24-2set": {
       "reviewHistory": {
@@ -8229,7 +8251,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "status": "ignore",
+      "updatedAt": "2026-09-30T07:07:58.760Z"
     },
     "fas-16-02-purple": {
       "reviewHistory": {
@@ -8271,7 +8295,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "status": "ignore",
+      "updatedAt": "2026-09-30T07:07:58.808Z"
     },
     "zak-18-11-20": {
       "reviewHistory": {
@@ -8529,7 +8555,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "status": "ignore",
+      "updatedAt": "2026-09-30T07:07:58.800Z"
     },
     "car-02-01-kougu": {
       "reviewHistory": {
@@ -8855,7 +8883,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "status": "ignore",
+      "updatedAt": "2026-09-30T07:07:58.796Z"
     },
     "si-24-02a": {
       "reviewHistory": {
@@ -9966,7 +9996,9 @@
         null,
         null,
         null
-      ]
+      ],
+      "status": "ignore",
+      "updatedAt": "2026-09-30T07:07:58.788Z"
     },
     "zak-18-17-32": {
       "reviewHistory": {
@@ -10197,7 +10229,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-09-30T06:56:14.191Z",
+  "savedAt": "2026-09-30T07:08:01.822Z",
   "lastAutoFetch": "2026-09-30T03:06:57Z",
   "lastCsvFile": "data202609291804.csv",
   "counts": {
