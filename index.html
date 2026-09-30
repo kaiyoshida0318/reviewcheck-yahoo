@@ -529,7 +529,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.12';
+const VERSION = 'v0.8.13';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -1091,9 +1091,16 @@ function filterRowHtml(g) {
     `<div class="fgroup">${i === 0 ? `<button class="fbtn all ${allOn ? 'on' : ''}" data-fg="${g}" data-fk="">全体 <span class="n">(${base.length})</span></button>` : ''}${grp.map(btn).join('')}</div>`).join('');
   return `<span class="flabel">${DEF_GROUPS[g].icon} ${DEF_GROUPS[g].label}:</span>${html}`;
 }
+// 一括変更で選んだ値（描き直しても消えないように持つ。適用したら消す）。
+// 「→ 選択商品に適用」は、商品を選び、かつ変更する項目を選んだときだけ赤くする（v0.8.13〜）
+const bulkPick = {};
+function bulkReady() {
+  const gs = [...MODE_GROUPS[mode], ...(mode === 'tail' ? ['__tailWork'] : [])];
+  return selected.size > 0 && gs.some(g => bulkPick[g]);
+}
 function renderFilters() {
   const rows = visibleRows();
-  const optHtml = (g) => `<option value="">${DEF_GROUPS[g].label}：変更しない</option>` + pickOptions(g).map(d => `<option value="${esc(d.key)}">${esc(d.icon)} ${esc(d.label)}</option>`).join('');
+  const optHtml = (g) => `<option value="">${DEF_GROUPS[g].label}：変更しない</option>` + pickOptions(g).map(d => `<option value="${esc(d.key)}" ${bulkPick[g] === d.key ? 'selected' : ''}>${esc(d.icon)} ${esc(d.label)}</option>`).join('');
   const groups = MODE_GROUPS[mode];
   $('#filters').innerHTML = `
     ${groups.map(g => `<div class="frow">${filterRowHtml(g)}</div>`).join('')}
@@ -1103,8 +1110,8 @@ function renderFilters() {
       <div class="bulk">
         <span class="t">✏ 選択商品を一括変更</span><span class="cnt" id="selCnt">${selected.size}</span>
         ${groups.map(g => `<select class="bulk-sel" data-g="${g}">${optHtml(g)}</select>`).join('')}
-        ${mode === 'tail' ? `<select class="bulk-sel" data-g="__tailWork"><option value="">対応：変更しない</option>${TTAIL_WORK_OPTS.map(o => `<option value="${o.key || '__none'}">${esc(o.label)}</option>`).join('')}</select>` : ''}
-        <button id="bulkApply" class="primary" ${selected.size ? '' : 'disabled'}>→ 選択商品に適用</button>
+        ${mode === 'tail' ? `<select class="bulk-sel" data-g="__tailWork"><option value="">対応：変更しない</option>${TTAIL_WORK_OPTS.map(o => `<option value="${o.key || '__none'}" ${bulkPick.__tailWork === (o.key || '__none') ? 'selected' : ''}>${esc(o.label)}</option>`).join('')}</select>` : ''}
+        <button id="bulkApply" class="${bulkReady() ? 'primary' : ''}" ${bulkReady() ? '' : 'disabled'} title="${bulkReady() ? '' : '商品にチェックを入れ、変更する項目を選ぶと押せます'}">→ 選択商品に適用</button>
         <button id="bulkClear" ${selected.size ? '' : 'disabled'}>☐ 選択解除</button>
       </div>
       <span class="shown">表示中: <b>${rows.length}</b> / ${entries().length} 件</span>
@@ -1469,6 +1476,7 @@ $('#filters').addEventListener('click', (e) => {
   }
   if (e.target.id === 'bulkApply') {
     const picks = [...document.querySelectorAll('#filters .bulk-sel')].filter(x => x.value).map(x => [x.dataset.g, x.value]);
+    for (const k of Object.keys(bulkPick)) delete bulkPick[k];
     if (!picks.length) { setStatus('変更する項目を選んでください', 'err'); return; }
     for (const code of selected) {
       const p = store.productCache[code]; if (!p) continue;
@@ -1492,6 +1500,12 @@ $('#btnClear').addEventListener('click', () => {
   query = ''; $('#q').value = ''; statusScope = 'normal'; filter = { kind: null, key: null }; selected.clear();
   sortKey = mode === 'second' ? 'onscreen' : 'reviewCount'; sortDir = -1;
   renderAll();
+});
+$('#filters').addEventListener('change', (e) => {
+  const sel = e.target.closest('.bulk-sel'); if (!sel) return;
+  if (sel.value) bulkPick[sel.dataset.g] = sel.value; else delete bulkPick[sel.dataset.g];
+  const b = $('#bulkApply'), ok = bulkReady();
+  b.classList.toggle('primary', ok); b.disabled = !ok; b.title = ok ? '' : '商品にチェックを入れ、変更する項目を選ぶと押せます';
 });
 $('#modes').addEventListener('click', (e) => { const b = e.target.closest('button[data-mode]'); if (b && !b.disabled) setMode(b.dataset.mode); });
 $('#btnReload').addEventListener('click', async () => {
