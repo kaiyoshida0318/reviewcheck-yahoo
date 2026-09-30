@@ -42,9 +42,11 @@
         "2025-08-13T18:13:11+09:00"
       ],
       "ranking": "【リアルタイム】メガネ備品＞その他メガネ備品ランキング（9/5 09:06）\n【デイリー】メガネ備品＞その他メガネ備品ランキング（9/4 16:23）",
-      "updatedAt": "2026-09-30T09:13:56.724Z",
+      "updatedAt": "2026-09-30T09:17:12.276Z",
       "registeredAt": "2026-09-29",
-      "firstStatus": "ready"
+      "firstStatus": "ready",
+      "secondStatus": "changing",
+      "onScreenCount": 115
     },
     "wat-sma-10": {
       "reviewHistory": {
@@ -10611,7 +10613,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-09-30T09:16:59.063Z",
+  "savedAt": "2026-09-30T09:17:15.282Z",
   "lastAutoFetch": "2026-09-30T07:31:03Z",
   "lastCsvFile": "控え:data202609291804.csv",
   "counts": {
