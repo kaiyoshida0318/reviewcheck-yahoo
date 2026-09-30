@@ -185,6 +185,49 @@
   body.mode-basic .only-basic { display: table-cell; }
   body.mode-second .only-second { display: table-cell; }
   body.mode-first .only-first { display: table-cell; }
+  .only-tail { display: none; }
+  body.mode-tail .only-tail { display: table-cell; }
+  body.mode-tail .c-name .api { display: none; }   /* 右の「現在のタイトル」と同じなので隠す */
+  body.mode-tail .c-name { min-width: 200px; max-width: 260px; }
+
+  /* タイトル末尾用 */
+  .c-tail { min-width: 430px; }
+  .c-curt { min-width: 300px; max-width: 460px; }
+  .tt-inputs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+  .tt-inputs input { width: 100%; font-family: ui-monospace, Consolas, monospace; font-size: 12px; text-transform: uppercase; }
+  .tt-inputs input.manual { background: #fff8e1; border-color: #f0c36d; }
+  .tt-inputs input.nocopy { color: var(--muted); }
+  .tt-btns { display: flex; gap: 6px; margin-top: 6px; }
+  .tt-btns button { font-size: 12px; padding: 3px 10px; }
+  .tt-btns button.copy { font-weight: 700; }
+  .tt-copied { margin-top: 4px; font-size: 11px; min-height: 18px; }
+  .tt-copied .badge { background: var(--ok-soft); color: var(--ok); border-radius: 4px; padding: 1px 6px; font-weight: 700; }
+  .tt-copied .x { border: none; background: none; color: var(--faint); padding: 0 4px; font-size: 12px; }
+  .tt-copied .x:hover { color: var(--accent); }
+  .tt-sels { display: flex; gap: 6px; margin-top: 4px; }
+  .tt-sels select { font-size: 12px; padding: 2px 6px; font-weight: 700; }
+  .tt-sels select.manual { outline: 2px dashed #f0c36d; outline-offset: 1px; }
+  .to-none { background: #f5f6f8; color: var(--muted); }
+  .to-ok { background: var(--ok-soft); color: var(--ok); }
+  .to-ng { background: var(--hot-soft); color: var(--hot); }
+  .tw-none { background: #fff; color: var(--muted); }
+  .tw-wip { background: #fff3e0; color: #e65100; }
+  .tt-empty { font-size: 11px; color: var(--faint); margin-top: 4px; }
+  .curt { font-size: 12px; line-height: 1.5; }
+  .curt .tail-hl { background: #fff3e0; border-radius: 3px; padding: 0 2px; }
+  .curt-foot { margin-top: 4px; }
+  .curt-foot button { font-size: 11px; padding: 2px 8px; }
+  th .tt-heads { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 3px; font-weight: 600; font-size: 11px; }
+  th .tt-heads span { cursor: pointer; }
+  .tcg { font-size: 11px; color: var(--muted); margin: 0 2px 0 6px; }
+  #dlgTail { width: 720px; }
+  .tpv-label { font-size: 12px; color: var(--muted); margin: 8px 0 4px; }
+  .tpv-box { border: 1px solid var(--line2); border-radius: 8px; padding: 10px 12px; font-size: 13px; line-height: 1.6; background: #fafbfc; }
+  .tpv-box.after { background: #fff; border-color: #9cc0f0; }
+  .tpv-removed { text-decoration: line-through; color: var(--hot); background: var(--hot-soft); padding: 0 2px; border-radius: 3px; }
+  .tpv-added { color: var(--ok); background: var(--ok-soft); font-weight: 700; padding: 0 2px; border-radius: 3px; }
+  .tpv-arrow { text-align: center; color: var(--faint); margin: 4px 0; }
+  .tpv-note { font-size: 11px; color: var(--muted); margin-top: 10px; }
 
   /* 1枚目用 */
   .c-rank { min-width: 260px; }
@@ -268,7 +311,7 @@
   <div class="modes" id="modes">
     <button data-mode="first">🏆 1枚目用</button>
     <button data-mode="second">🔍 2枚目用</button>
-    <button data-mode="tail" disabled title="次の版で作ります">✏ タイトル末尾用</button>
+    <button data-mode="tail">✏ タイトル末尾用</button>
     <button data-mode="basic">📋 基本</button>
   </div>
   <span class="spacer"></span>
@@ -365,10 +408,12 @@
     <tr><td>商品名</td><td><span class="tag man">手入力</span></td><td><b>自動では変わりません。</b>手で付けた名前を守るため、あえて上書きしていません。Yahoo! 側の名前を見たいときは、その下の小さい文字（現在のタイトル）を見てください。</td></tr>
     <tr><td>画面上件数</td><td><span class="tag man">手入力</span></td><td>2枚目用。今バナーに出している件数。</td></tr>
     <tr><td>1枚目変更・2枚目変更</td><td><span class="tag man">手入力</span></td><td>行のドロップダウン・一括変更。</td></tr>
-    <tr><td>ランクタイプ・ランキング詳細</td><td><span class="tag man">手入力</span></td><td>1枚目用。取ったランキングの種類と、その中身（期間・順位・カテゴリ・日付など）。</td></tr>
+    <tr><td>ランキング詳細</td><td><span class="tag man">手入力</span></td><td>1枚目用。取ったランキングの中身（期間・順位・カテゴリ・日付など）。</td></tr>
     <tr><td>証拠の画像（○ 選択）</td><td><span class="tag man">手入力</span></td><td>1枚目用。画像1〜3のどれか1枚。選んだ画像の右下が拡大表示されます。</td></tr>
     <tr><td>メモ・無視</td><td><span class="tag man">手入力</span></td><td></td></tr>
     <tr><td>項目設定</td><td><span class="tag man">手入力</span></td><td>選択肢の名前・色・並び順（↔ 項目設定）。</td></tr>
+    <tr><td>タイトル末尾の型番</td><td><span class="tag">①</span><span class="tag">②</span><span class="tag man">手で直せる</span></td><td>タイトル末尾用の4つの欄。現在のタイトルの末尾から自動で拾い、タイトルが変われば追従します。手で打ち替えた欄（黄色）はタイトルに追従しません（自動と同じ値に戻すと追従に戻ります）。</td></tr>
+    <tr><td>並び順・対応・コピー履歴</td><td><span class="tag man">手入力</span></td><td>タイトル末尾用。並び順は自動判定（手で選び直すと点線の枠）。コピー履歴は消すまで残ります。</td></tr>
   </table>
   <ul class="upd-notes">
     <li><b>②毎朝の自動取得</b>は、TimerRunner のフロー「YahooレポートDL（ログイン付き）」の最後に走ります（10時半すぎ）。</li>
@@ -378,6 +423,15 @@
     <li>①の取得は TimerRunner が起動しているPCが必要です。12分たっても始まらないときは、TimerRunner を確認してください。</li>
   </ul>
   <div class="row"><button id="updClose">閉じる</button></div>
+</dialog>
+
+<dialog id="dlgTail">
+  <h2>👁 見た目確認 <span class="hint" id="tpvCode"></span></h2>
+  <div id="tpvBody"></div>
+  <div class="row">
+    <button id="tpvClose">閉じる</button>
+    <button id="tpvCopy" class="primary">📋 変更後のタイトルをコピー</button>
+  </div>
 </dialog>
 
 <dialog id="dlgShops">
@@ -416,7 +470,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.6.0';
+const VERSION = 'v0.7.1';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -454,11 +508,12 @@ const API_KEYS = new Set([
 const DEF_GROUPS = {
   first:  { label: '1枚目変更', icon: '🖼', field: 'firstStatus',  fallback: 'pending' },
   second: { label: '2枚目変更', icon: '🖼', field: 'secondStatus', fallback: 'none' },
-  rankKind: { label: 'ランクタイプ', icon: '🏆', field: 'rankKind', fallback: 'unset' },
 };
 // モードごとに出す項目グループ（上部フィルタの行・一括変更の選択肢）
-const MODE_GROUPS = { first: ['first', 'rankKind'], second: ['first', 'second'], basic: ['first', 'second'] };
-const MODES = ['first', 'second', 'basic'];
+const MODE_GROUPS = { first: ['first'], second: ['first', 'second'], basic: ['first', 'second'], tail: [] };
+const MODES = ['first', 'second', 'tail', 'basic'];
+// モードごとに使える絞り込みの種類（これ以外はモードを移ったときに外す）
+const MODE_FILTER_KINDS = { first: ['first', 'denrei'], second: ['first', 'second'], basic: ['first', 'second'], tail: ['torder', 'twork', 'tcode', 'tcopy'] };
 const DEFS_DEFAULT = {
   first: [
     { key: 'pending',  icon: '🎯', label: '未着手',       bg: '#fff9c4', fg: '#827717', sep: true },
@@ -477,16 +532,6 @@ const DEFS_DEFAULT = {
     { key: 'skip',       icon: '⏭', label: 'SKIP',         bg: '#e7f1fb', fg: '#1976d2' },
     { key: 'enough',     icon: '👍', label: '十分な件数',   bg: '#e2f4f6', fg: '#00838f' },
   ],
-  // Yahoo! のランキングは リアルタイム / デイリー / 年間（楽天のウィークリーは無い。伝令ちゃんYahoo版と同じ）
-  rankKind: [
-    { key: 'unset',      icon: '—',  label: '未設定',       bg: '#f5f6f8', fg: '#6b7480', sep: true },
-    { key: 'realtime',   icon: '🔥', label: 'リアルタイム', bg: '#fff0f0', fg: '#c62828' },
-    { key: 'daily',      icon: '⚡', label: 'デイリー',     bg: '#e3f2fd', fg: '#1565c0' },
-    { key: 'annual',     icon: '📅', label: '年間',         bg: '#ede7f6', fg: '#5e35b1' },
-    { key: 'crown2',     icon: '👑', label: '2冠',          bg: '#fff8e1', fg: '#f9a825' },
-    { key: 'crown3',     icon: '👑', label: '3冠',          bg: '#ffecb3', fg: '#ff6f00', sep: true },
-    { key: 'not_needed', icon: '🚫', label: '不要',         bg: '#eceff1', fg: '#546e7a' },
-  ],
 };
 // 🔥 の内数。名前・色はここで固定（保存データで巻き戻らない）
 const FIXED_DEFS = {
@@ -494,7 +539,7 @@ const FIXED_DEFS = {
   __hot200__: { key: '__hot200__', icon: '🔥', label: '獲得前-上昇200%', bg: '#fff0f0', fg: '#c62828', fixed: true },
 };
 // 削除できない key（既定値の受け皿・動作に組み込まれているもの）
-const PROTECTED_KEYS = { first: ['pending'], second: ['none', '__hot3__', '__hot200__'], rankKind: ['unset'] };
+const PROTECTED_KEYS = { first: ['pending'], second: ['none', '__hot3__', '__hot200__'] };
 
 // ---- ショップはURLで決め、タブごとに固定する ----
 function resolveShop(persist) {
@@ -813,6 +858,10 @@ function matchQuery(code, p) {
 function matchFilter(code, p) {
   if (!filter.kind) return true;
   if (filter.kind === 'denrei') return denreiStateOf(code) === filter.key;
+  if (filter.kind === 'torder') return tailOrderValue(p) === filter.key;
+  if (filter.kind === 'twork') return (p.tailWork || '') === (filter.key === '__none' ? '' : filter.key);
+  if (filter.kind === 'tcopy') return filter.key === 'done' ? !!p.tailCopiedAt : !p.tailCopiedAt;
+  if (filter.kind === 'tcode') { const [slot, v] = filter.key.split(':'); return tailCodeHit(p, slot, v); }
   if (filter.kind === 'rate') { const b = RATE_BANDS.find(x => x.key === filter.key); return !b || !b.test || b.test(p.reviewAvg || 0); }
   if (filter.key === '__hot3__') return isHot3(p);
   if (filter.key === '__hot200__') return isHot200(p);
@@ -836,9 +885,11 @@ const COLS = [
   { key: 'rank',     cls: 'c-rank only-first', label: 'ランキング（1枚目変更）', sort: 'first' },
   { key: 'denrei',   cls: 'c-denrei only-first', label: '🔔 伝令ちゃん', sort: 'denrei' },
   { key: 'make',     cls: 'c-make only-first', label: '1枚目作成' },
-  { key: 'img0',     cls: 'c-img',  label: '画像1', sort: 'img0' },
-  { key: 'img1',     cls: 'c-img',  label: '画像2', sort: 'img1' },
-  { key: 'img2',     cls: 'c-img',  label: '画像3', sort: 'img2' },
+  { key: 'tail',     cls: 'c-tail only-tail', html: () => `タイトル末尾変更<div class="tt-heads">${TTAIL_SLOTS.map(sl => { const k = 'tail_' + sl.key, on = sortKey === k; return `<span data-sort="${k}" class="${on ? 'sorted' : ''}" title="${esc(sl.hint)}">${esc(sl.label)}<span class="arrow">${on ? (sortDir > 0 ? '▲' : '▼') : '⇅'}</span></span>`; }).join('')}</div>` },
+  { key: 'curt',     cls: 'c-curt only-tail', label: '現在のタイトル', sort: 'apiTitle' },
+  { key: 'img0',     cls: 'c-img only-basic only-second only-first',  label: '画像1', sort: 'img0' },
+  { key: 'img1',     cls: 'c-img only-basic only-second only-first',  label: '画像2', sort: 'img1' },
+  { key: 'img2',     cls: 'c-img only-basic only-second only-first',  label: '画像3', sort: 'img2' },
   { key: 'crop',     cls: 'c-crop only-first', label: '選択画像の右下（拡大）', sort: 'selimg' },
   { key: 'first',    cls: 'c-dd only-basic', label: '1枚目変更', sort: true },
   { key: 'second',   cls: 'c-dd only-basic only-second', label: '2枚目変更', sort: true },
@@ -858,10 +909,11 @@ function sortVal(code, p, k) {
     case 'img0': case 'img1': case 'img2': { const u = (p.imageUpdatedAt || [])[+k.slice(3)]; return u || null; }
     case 'first': return defList('first').findIndex(d => d.key === statusOf(p, 'first'));
     case 'second': return defList('second').findIndex(d => d.key === statusOf(p, 'second'));
-    case 'rankKind': return defList('rankKind').findIndex(d => d.key === statusOf(p, 'rankKind'));
     case 'ranking': return p.ranking || null;
     case 'selimg': return selIdx(p) || null;
     case 'denrei': return denrei.state === 'ok' ? DENREI_STATES[denreiStateOf(code)].order : null;
+    case 'apiTitle': return p.apiTitle || null;
+    case 'tail_a': case 'tail_b': case 'tail_m': case 'tail_c': return tailSlotValue(p, k.slice(5)) || null;   // 空は常に末尾
     default: return null;
   }
 }
@@ -904,6 +956,7 @@ function renderHeader() {
   const scope = entries().filter(([, p]) => !isIgnored(p));
   const work = {
     second: scope.filter(([, p]) => isHot3(p)).length,
+    tail: scope.filter(([, p]) => tailOrderValue(p) === 'ng' && p.tailWork !== 'wip').length,   // 順番問題有りで、まだ手を付けていないもの
     // 伝令ちゃんが読めていれば「獲得済-登録可能」（楽天版と同じ）。読めないときは「作成可能」の件数
     first: denrei.state === 'ok'
       ? scope.filter(([c]) => denreiStateOf(c) === 'ready').length
@@ -960,10 +1013,12 @@ function renderFilters() {
   $('#filters').innerHTML = `
     ${groups.map(g => `<div class="frow">${filterRowHtml(g)}</div>`).join('')}
     ${mode === 'first' ? `<div class="frow">${denreiRowHtml()}</div>` : ''}
+    ${mode === 'tail' ? tailFilterRowsHtml() : ''}
     <div class="fpanel-foot">
       <div class="bulk">
         <span class="t">✏ 選択商品を一括変更</span><span class="cnt" id="selCnt">${selected.size}</span>
         ${groups.map(g => `<select class="bulk-sel" data-g="${g}">${optHtml(g)}</select>`).join('')}
+        ${mode === 'tail' ? `<select class="bulk-sel" data-g="__tailWork"><option value="">対応：変更しない</option>${TTAIL_WORK_OPTS.map(o => `<option value="${o.key || '__none'}">${esc(o.label)}</option>`).join('')}</select>` : ''}
         <button id="bulkApply" class="primary" ${selected.size ? '' : 'disabled'}>→ 選択商品に適用</button>
         <button id="bulkClear" ${selected.size ? '' : 'disabled'}>☐ 選択解除</button>
       </div>
@@ -1006,7 +1061,7 @@ function numHtml(p) {
 function selIdx(p) { return [1, 2, 3].includes(p.selectedImageIdx) ? p.selectedImageIdx : null; }
 function imgId(p, i) { return (p.imageIds || [])[i] || (i === 0 && p.imageId ? p.imageId : null); }
 function rankCell(p) {
-  return `<div class="rk-dds">${ddHtml('first', p)}${ddHtml('rankKind', p)}</div>` +
+  return `<div class="rk-dds">${ddHtml('first', p)}</div>` +
     `<input type="text" data-field="ranking" value="${esc(p.ranking || '')}" placeholder="ランキング詳細（例: デイリー1位 替えブラシ 9/30）" title="${esc(p.ranking || '')}">`;
 }
 function cropCell(p) {
@@ -1055,9 +1110,11 @@ function rowHtml(code, p) {
     <td class="c-rank only-first">${rankCell(p)}</td>
     <td class="c-denrei only-first">${denreiCell(code)}</td>
     <td class="c-make only-first">${makeCell(code)}</td>
-    <td class="c-img ${selIdx(p) === 1 ? 'picked' : ''}">${imgCell(p, 0)}</td>
-    <td class="c-img ${selIdx(p) === 2 ? 'picked' : ''}">${imgCell(p, 1)}</td>
-    <td class="c-img ${selIdx(p) === 3 ? 'picked' : ''}">${imgCell(p, 2)}</td>
+    <td class="c-tail only-tail" data-cell="tail">${tailCell(code, p)}</td>
+    <td class="c-curt only-tail" data-cell="curt">${curTitleCell(p)}</td>
+    <td class="c-img only-basic only-second only-first ${selIdx(p) === 1 ? 'picked' : ''}">${imgCell(p, 0)}</td>
+    <td class="c-img only-basic only-second only-first ${selIdx(p) === 2 ? 'picked' : ''}">${imgCell(p, 1)}</td>
+    <td class="c-img only-basic only-second only-first ${selIdx(p) === 3 ? 'picked' : ''}">${imgCell(p, 2)}</td>
     <td class="c-crop only-first" data-cell="crop">${cropCell(p)}</td>
     <td class="c-dd only-basic">${ddHtml('first', p)}</td>
     <td class="c-dd only-basic only-second">${ddHtml('second', p)}</td>
@@ -1099,7 +1156,7 @@ function setMode(m) {
   if (m === 'second' && mode !== 'second') { sortKey = 'onscreen'; sortDir = -1; }   // 2枚目用は画面上件数の降順から
   if (m !== 'second' && mode !== m) { sortKey = 'reviewCount'; sortDir = -1; }
   // そのモードに出ていない項目の絞り込みは解除する（見えない条件で絞られたままにしない）
-  if (filter.kind && filter.kind !== 'rate' && !(filter.kind === 'denrei' ? m === 'first' : MODE_GROUPS[m].includes(filter.kind))) filter = { kind: null, key: null };
+  if (filter.kind && filter.kind !== 'rate' && !MODE_FILTER_KINDS[m].includes(filter.kind)) filter = { kind: null, key: null };
   mode = m;
   lsSet(LS.mode, m);
   renderAll();
@@ -1174,6 +1231,16 @@ $('#rows').addEventListener('click', (e) => {
     e.preventDefault();
     const p = store.productCache[code];
     navigator.clipboard?.writeText(p.itemUrl || '').then(() => setStatus('URLをコピーしました', 'ok'), () => setStatus('コピーできませんでした', 'err'));
+  } else if (act.dataset.act === 'tpreview') {
+    openTailPreview(code);
+  } else if (act.dataset.act === 'tcopy') {
+    copyFixedTitle(code, act);
+  } else if (act.dataset.act === 'tcopyClear') {
+    const p = store.productCache[code]; delete p.tailCopiedAt; delete p.tailCopiedText; touch(code);
+    refreshTailRow(code); renderFilters();
+  } else if (act.dataset.act === 'curtCopy') {
+    const p = store.productCache[code];
+    navigator.clipboard?.writeText(p.apiTitle || '').then(() => setStatus('現在のタイトルをコピーしました', 'ok'), () => setStatus('コピーできませんでした', 'err'));
   } else if (act.dataset.act === 'pick') {
     // ラジオ式：商品ごとに1枚だけ。同じものをもう一度押すと外す
     const p = store.productCache[code], i = +act.dataset.i;
@@ -1211,7 +1278,29 @@ $('#rows').addEventListener('input', (e) => {
   const td = inp.closest('td'); td.classList.remove('flash'); void td.offsetWidth; td.classList.add('flash');
 });
 $('#rows').addEventListener('change', (e) => {
-  if (e.target.closest('input[data-field="onScreenCount"]')) { renderHeader(); renderFilters(); }
+  if (e.target.closest('input[data-field="onScreenCount"]')) { renderHeader(); renderFilters(); return; }
+  const ti = e.target.closest('input[data-tslot]');
+  if (ti) {
+    const code = rowCode(ti), p = store.productCache[code], key = ti.dataset.tslot;
+    const val = _toHalf(ti.value).trim().toUpperCase();
+    ti.value = val;
+    const auto = tailAutoSlots(p)[key] || '';
+    p.tailCodes = { ...(p.tailCodes || {}) };
+    if (val === auto) delete p.tailCodes[key]; else p.tailCodes[key] = val;   // 自動と同じ値に戻したら追従に戻す
+    if (!Object.keys(p.tailCodes).length) delete p.tailCodes;
+    touch(code);
+    refreshTailRow(code);
+    return;
+  }
+  const sel = e.target.closest('select[data-tsel]');
+  if (sel) {
+    const code = rowCode(sel), p = store.productCache[code];
+    if (sel.dataset.tsel === 'order') { if (sel.value === tailOrderAuto(p)) delete p.tailOrder; else p.tailOrder = sel.value; }
+    else { if (!sel.value) delete p.tailWork; else p.tailWork = sel.value; }
+    touch(code);
+    refreshTailRow(code);
+    renderHeader(); renderFilters();
+  }
 });
 $('#thead').addEventListener('click', (e) => {
   if (e.target.id === 'chkAll') {
@@ -1223,19 +1312,33 @@ $('#thead').addEventListener('click', (e) => {
   const th = e.target.closest('[data-sort]'); if (!th) return;
   const k = th.dataset.sort;
   if (sortKey === k) sortDir = -sortDir;
-  else { sortKey = k; sortDir = ['code', 'name', 'first', 'second', 'rankKind', 'ranking', 'denrei'].includes(k) ? 1 : -1; }
+  else { sortKey = k; sortDir = (['code', 'name', 'first', 'second', 'ranking', 'denrei', 'apiTitle'].includes(k) || k.startsWith('tail_')) ? 1 : -1; }
   renderThead(); renderRows();
 });
 $('#filters').addEventListener('click', (e) => {
   const fb = e.target.closest('[data-fg]');
   if (fb) { setFilter(fb.dataset.fg, fb.dataset.fk); return; }
   if (e.target.closest('[data-act="denreiReload"]')) { loadDenrei(true); return; }
+  const rs = e.target.closest('[data-act="tcopyReset"]');
+  if (rs) {
+    // 確認ダイアログは出さず、2回押しで消す（元に戻せないので1回目は押せる状態にするだけ）
+    const codes = entries().filter(([, p]) => p.tailCopiedAt).map(([c]) => c);
+    if (!codes.length) { setStatus('消すコピー履歴はありません', 'ok'); return; }
+    if (!rs.classList.contains('armed')) { rs.classList.add('armed'); rs.textContent = `もう一度押すと ${codes.length}件 消します`; return; }
+    for (const c of codes) { const p = store.productCache[c]; delete p.tailCopiedAt; delete p.tailCopiedText; touch(c); }
+    setStatus(`コピー履歴 ${codes.length}件 を消しました`, 'ok');
+    renderAll();
+    return;
+  }
   if (e.target.id === 'bulkApply') {
     const picks = [...document.querySelectorAll('#filters .bulk-sel')].filter(x => x.value).map(x => [x.dataset.g, x.value]);
     if (!picks.length) { setStatus('変更する項目を選んでください', 'err'); return; }
     for (const code of selected) {
       const p = store.productCache[code]; if (!p) continue;
-      for (const [g, v] of picks) p[DEF_GROUPS[g].field] = v;
+      for (const [g, v] of picks) {
+        if (g === '__tailWork') { if (v === '__none') delete p.tailWork; else p.tailWork = v; }
+        else p[DEF_GROUPS[g].field] = v;
+      }
       touch(code);
     }
     setStatus(`${selected.size}件を一括変更しました`, 'ok');
@@ -1365,6 +1468,189 @@ $('#shopSave').addEventListener('click', async () => {
     setStatus(`ストア一覧の保存失敗: ${e.message}`, 'err');
   } finally { btn.disabled = false; }
 });
+
+// ============================================================
+// ✏ タイトル末尾用（楽天版 v7.94〜v8.06 と同じ考え方）
+//   現在のタイトル（API の name）の末尾から「型番らしい語」を拾い、4つの欄へ振り分ける。
+//   欄を増やす・条件を変えるときは TTAIL_SLOTS だけ直せばよい
+//   （入力欄・見出しの並べ替え・絞り込み・コピーは全部ここから作る）。
+// ============================================================
+const TTAIL_CODE_RE = /^-?[A-Z]{2,}[0-9]{0,3}(?:-[A-Z0-9]{1,5})*-?$/;   // PKT1-4F / RPR / RP2 / -MN- …
+const TTAIL_MAX_CODES = 5;
+const TTAIL_STOP_WORDS = ['SALE', 'OFF', 'NEW', 'SET', 'FREE', 'GIFT', 'POINT', 'LIMITED', 'MADE', 'JAPAN', 'ONLY', 'BEST', 'AND', 'FOR', 'THE', 'WITH', 'XS', 'SS', 'LL', 'XL', 'XXL'];
+const TTAIL_SLOTS = [
+  { key: 'a', label: 'RPR',        ph: 'RPR',  hint: 'RPR・RPP など（RP+英字）',     test: t => /^RP[A-Z]+$/.test(t) },
+  { key: 'b', label: 'プレ内容',   ph: 'RP1',  hint: 'RP1〜RP7 など（RP+数字）',     test: t => /^RP[0-9]+$/.test(t) },
+  { key: 'm', label: 'マニュアル', ph: '-MN-', hint: '-MN- などハイフンで始まる語', test: t => /^-/.test(t) },
+  { key: 'c', label: '配送法',     ph: 'PKT2', hint: 'TAK・PKT・NP で始まる型番（タイトルには載せない）', test: t => /^(TAK|PK|NP)/.test(t), noCopy: true },
+];
+// 型番の絞り込みボタン。auto=実際に入っている値から作る / exact=一致 / prefix=前方一致
+const TTAIL_CODE_FILTERS = [
+  { slot: 'a', mode: 'auto',   items: [] },
+  { slot: 'b', mode: 'exact',  items: ['RP1', 'RP2', 'RP3', 'RP4', 'RP5', 'RP6', 'RP7'] },
+  { slot: 'm', mode: 'auto',   items: [] },
+  { slot: 'c', mode: 'prefix', items: ['TAK', 'PKT', 'NP'] },
+];
+const TTAIL_CODE_AUTO_MAX = 8;
+const TTAIL_ORDER_OPTS = [
+  { key: 'none', label: 'なし',         cls: 'to-none' },
+  { key: 'ok',   label: '順番問題なし', cls: 'to-ok' },
+  { key: 'ng',   label: '順番問題有り', cls: 'to-ng' },
+];
+const TTAIL_WORK_OPTS = [
+  { key: '',    label: '対応なし', cls: 'tw-none' },
+  { key: 'wip', label: '対応中',   cls: 'tw-wip' },
+];
+const _toHalf = (v) => String(v || '').replace(/[Ａ-Ｚａ-ｚ０-９－]/g, ch => ch === '－' ? '-' : String.fromCharCode(ch.charCodeAt(0) - 0xFEE0));
+const _titleToks = (t) => String(t || '').trim().split(/[\s\u3000]+/).filter(Boolean);
+function isTailCode(tok) { const t = _toHalf(tok); return TTAIL_CODE_RE.test(t) && !TTAIL_STOP_WORDS.includes(t); }
+const slotOf = (code) => TTAIL_SLOTS.find(sl => sl.test(code));
+// 末尾から型番らしい語を拾う（型番でない語に当たったら止める）
+function titleTailList(title) {
+  const toks = _titleToks(title), out = [];
+  for (let i = toks.length - 1; i >= 0 && out.length < TTAIL_MAX_CODES; i--) {
+    if (!isTailCode(toks[i])) break;
+    out.unshift(_toHalf(toks[i]));
+  }
+  return out;
+}
+function tailAutoSlots(p) {
+  const out = {}; TTAIL_SLOTS.forEach(sl => { out[sl.key] = ''; });
+  for (const code of titleTailList(p && p.apiTitle)) {
+    const sl = TTAIL_SLOTS.find(x => !out[x.key] && x.test(code));
+    if (sl) out[sl.key] = code;
+  }
+  return out;
+}
+function tailSlotValue(p, key) {
+  const ov = p && p.tailCodes && typeof p.tailCodes[key] === 'string' ? p.tailCodes[key] : null;
+  return ov !== null ? ov : (tailAutoSlots(p)[key] || '');
+}
+function tailOrderAuto(p) {
+  const vals = TTAIL_SLOTS.map(sl => tailSlotValue(p, sl.key)).filter(Boolean);
+  if (!vals.length) return 'none';
+  const toks = _titleToks(p && p.apiTitle).map(_toHalf);
+  let prev = -1;
+  for (const v of vals) {
+    const at = toks.indexOf(v);
+    if (at < 0 || at <= prev) return 'ng';   // タイトルに無い / 左の欄より前にある
+    prev = at;
+  }
+  return 'ok';
+}
+function tailOrderValue(p) { return TTAIL_ORDER_OPTS.some(o => o.key === p.tailOrder) ? p.tailOrder : tailOrderAuto(p); }
+function tailCodeHit(p, slot, k) {
+  const v = tailSlotValue(p, slot); if (!v) return false;
+  const g = TTAIL_CODE_FILTERS.find(x => x.slot === slot);
+  return g && g.mode === 'prefix' ? v.startsWith(k) : v === k;
+}
+/*
+ * 取り除く末尾：うしろから1語ずつ見て、4つの欄のどれかに当てはまる型番のあいだだけ削る。
+ *   楽天版は「型番らしい語」を全部削っていたが、Yahoo! には機種名で終わるタイトル
+ *   （… DW-5600 PKT1-4F など）があり、機種名まで消えてしまうため、欄に入る語だけにした。
+ */
+function stripTailCodes(title) {
+  let t = String(title || '').replace(/[\s\u3000]+$/, '');
+  for (let guard = 0; guard < 20; guard++) {
+    const m = /[\s\u3000]+([^\s\u3000]+)$/.exec(t);
+    if (!m || !isTailCode(m[1]) || !slotOf(_toHalf(m[1]))) break;
+    t = t.slice(0, m.index).replace(/[\s\u3000]+$/, '');
+  }
+  return t;
+}
+function tailCodesText(p) { return TTAIL_SLOTS.filter(sl => !sl.noCopy).map(sl => tailSlotValue(p, sl.key)).filter(Boolean).join(' '); }
+// 適切なタイトル = 欄に入る型番を取り除いたタイトル + 配送法以外の欄（左から順）
+function fixedTitle(p) {
+  const base = stripTailCodes(p.apiTitle || ''), codes = tailCodesText(p);
+  return base ? (codes ? `${base} ${codes}` : base) : codes;
+}
+function tailCell(code, p) {
+  let h = '<div class="tt-inputs">' + TTAIL_SLOTS.map(sl => {
+    const manual = !!(p.tailCodes && typeof p.tailCodes[sl.key] === 'string');
+    return `<input type="text" data-tslot="${sl.key}" value="${esc(tailSlotValue(p, sl.key))}" placeholder="${esc(sl.ph)}" class="${manual ? 'manual' : ''} ${sl.noCopy ? 'nocopy' : ''}" title="${esc(sl.label + '：' + sl.hint + (manual ? '（手で直した値）' : ''))}">`;
+  }).join('') + '</div>';
+  if (!p.apiTitle) h += '<div class="tt-empty">タイトル未取得（次の商品データ取得で入ります）</div>';
+  h += `<div class="tt-btns"><button data-act="tpreview" title="元のタイトルと、型番を付け直したあとを見比べる">👁 見た目確認</button><button data-act="tcopy" class="copy" title="型番を付け直したタイトルを、そのままコピー">📋 適切なタイトルでコピー</button></div>`;
+  h += `<div class="tt-copied">${tailCopiedHtml(p)}</div>`;
+  const ok = tailOrderValue(p), wk = p.tailWork || '';
+  const ocls = TTAIL_ORDER_OPTS.find(o => o.key === ok).cls, wcls = (TTAIL_WORK_OPTS.find(o => o.key === wk) || TTAIL_WORK_OPTS[0]).cls;
+  h += `<div class="tt-sels"><select data-tsel="order" class="${ocls} ${typeof p.tailOrder === 'string' ? 'manual' : ''}" title="欄の型番が、左からの順番どおりにタイトルへ並んでいるか（自動判定。選び直すと手動）">${TTAIL_ORDER_OPTS.map(o => `<option value="${o.key}" ${o.key === ok ? 'selected' : ''}>${o.label}</option>`).join('')}</select>` +
+    `<select data-tsel="work" class="${wcls}" title="対応状況（手で付ける印）">${TTAIL_WORK_OPTS.map(o => `<option value="${o.key}" ${o.key === wk ? 'selected' : ''}>${o.label}</option>`).join('')}</select></div>`;
+  return h;
+}
+function tailCopiedHtml(p) {
+  if (!p.tailCopiedAt) return '';
+  return `<span class="badge" title="${esc(p.tailCopiedText || '')}">✓ コピー済 ${esc(fmtShort(p.tailCopiedAt))}</span><button class="x" data-act="tcopyClear" title="この商品のコピー履歴を消す">✕</button>`;
+}
+function curTitleCell(p) {
+  const api = p.apiTitle || '';
+  if (!api) return '<span class="muted">—（次の商品データ取得で入ります）</span>';
+  const base = stripTailCodes(api), rest = api.slice(base.length);
+  return `<div class="curt" title="${esc(api)}">${esc(base)}${rest ? `<span class="tail-hl">${esc(rest)}</span>` : ''}</div>` +
+    `<div class="curt-foot"><button data-act="curtCopy" title="このタイトルをそのままコピー">📋 コピー</button></div>`;
+}
+// 入力中のフォーカスを飛ばさないよう、行の中だけ描き直す
+function refreshTailRow(code) {
+  const tr = document.querySelector(`tr[data-code="${cssEsc(code)}"]`); if (!tr) return;
+  const p = store.productCache[code];
+  tr.querySelector('[data-cell="tail"]').innerHTML = tailCell(code, p);
+  tr.querySelector('[data-cell="curt"]').innerHTML = curTitleCell(p);
+}
+async function copyFixedTitle(code, btn) {
+  const p = store.productCache[code];
+  const t = fixedTitle(p);
+  if (!t) { setStatus('タイトルが取得できていません', 'err'); return; }
+  try {
+    await navigator.clipboard.writeText(t);
+    p.tailCopiedAt = new Date().toISOString();
+    p.tailCopiedText = t;
+    touch(code);
+    refreshTailRow(code);
+    renderFilters();
+    setStatus('変更後のタイトルをコピーしました', 'ok');
+  } catch (e) { setStatus('コピーできませんでした（ブラウザがクリップボードを許可していません）', 'err'); }
+}
+let tpvCode = null;
+function openTailPreview(code) {
+  const p = store.productCache[code]; tpvCode = code;
+  const raw = String(p.apiTitle || '').trim(), base = stripTailCodes(raw), removed = raw.slice(base.length).trim();
+  const codes = tailCodesText(p), after = fixedTitle(p);
+  $('#tpvCode').textContent = code;
+  $('#tpvBody').innerHTML =
+    `<div class="tpv-label">元のタイトル</div><div class="tpv-box">${raw ? `${esc(base)}${removed ? ` <span class="tpv-removed">${esc(removed)}</span>` : ''}` : '（まだ取得できていません）'}</div>` +
+    `<div class="tpv-arrow">↓</div>` +
+    `<div class="tpv-label">変更後のタイトル</div><div class="tpv-box after">${after ? `${esc(base)}${codes ? ` <span class="tpv-added">${esc(codes)}</span>` : ''}` : '（中身がありません）'}</div>` +
+    `<div class="tpv-note">${TTAIL_SLOTS.map(sl => `${esc(sl.label)}：${esc(tailSlotValue(p, sl.key) || '—')}${sl.noCopy ? '（タイトルには入れません）' : ''}`).join(' ／ ')}</div>`;
+  $('#dlgTail').showModal();
+}
+$('#tpvClose').addEventListener('click', () => $('#dlgTail').close());
+$('#tpvCopy').addEventListener('click', async () => { if (tpvCode) { await copyFixedTitle(tpvCode, null); $('#dlgTail').close(); } });
+function tailFilterRowsHtml() {
+  const base = baseRows();
+  const btn = (kind, key, label, n, cls = '') => `<button class="fbtn ${cls} ${filter.kind === kind && filter.key === key ? 'on' : ''} ${n ? '' : 'zero'}" data-fg="${kind}" data-fk="${esc(key)}">${esc(label)} <span class="n">(${n})</span></button>`;
+  const all = (kind) => `<button class="fbtn all ${filter.kind !== kind ? 'on' : ''}" data-fg="${kind}" data-fk="">全体 <span class="n">(${base.length})</span></button>`;
+  const cnt = (fn) => base.filter(([, p]) => fn(p)).length;
+  const order = TTAIL_ORDER_OPTS.map(o => btn('torder', o.key, o.label, cnt(p => tailOrderValue(p) === o.key), o.cls)).join('');
+  const work = TTAIL_WORK_OPTS.map(o => btn('twork', o.key, o.label, cnt(p => (p.tailWork || '') === o.key), o.cls)).join('');
+  // 対応なし の key は空文字なので、絞り込みでは '__none' に置き換えて扱う
+  const workFixed = work.replace('data-fg="twork" data-fk=""', 'data-fg="twork" data-fk="__none"');
+  let codes = '';
+  for (const g of TTAIL_CODE_FILTERS) {
+    const sl = TTAIL_SLOTS.find(x => x.key === g.slot);
+    let items = g.items;
+    if (g.mode === 'auto') {
+      const vals = {}; for (const [, p] of base) { const v = tailSlotValue(p, g.slot); if (v) vals[v] = (vals[v] || 0) + 1; }
+      items = Object.keys(vals).sort((x, y) => x.localeCompare(y, 'en', { numeric: true })).slice(0, TTAIL_CODE_AUTO_MAX);
+    }
+    codes += `<span class="tcg">${esc(sl.label)}</span>` + (items.length ? items.map(k => btn('tcode', `${g.slot}:${k}`, k, cnt(p => tailCodeHit(p, g.slot, k)))).join('') : '<span class="muted">なし</span>');
+  }
+  const done = cnt(p => !!p.tailCopiedAt);
+  return `<div class="frow"><span class="flabel">🔢 並び順:</span><div class="fgroup">${all('torder')}${order}</div></div>` +
+    `<div class="frow"><span class="flabel">🛠 対応:</span><div class="fgroup">${all('twork')}${workFixed}</div></div>` +
+    `<div class="frow"><span class="flabel">🏷 型番:</span><div class="fgroup">${all('tcode')}${codes}</div></div>` +
+    `<div class="frow"><span class="flabel">📋 コピー履歴:</span><div class="fgroup">${all('tcopy')}${btn('tcopy', 'done', 'コピー済', done)}${btn('tcopy', 'todo', '未コピー', base.length - done)}</div>` +
+    `<button class="fbtn" data-act="tcopyReset" title="コピー履歴をすべて消します（元に戻せません）">🗑 履歴をリセット</button></div>`;
+}
 
 // ============================================================
 // 🔔 ランキング伝令ちゃん（Yahoo版）の状態を読む（楽天版 v8.07〜 と同じ考え方）
