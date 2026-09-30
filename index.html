@@ -25,14 +25,19 @@
   .mono { font-family: ui-monospace, Consolas, monospace; }
 
   /* ── header ─────────────────────────────── */
-  header { position: sticky; top: 0; left: 0; z-index: 30; background: var(--panel); border-bottom: 1px solid var(--line); padding: 8px 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  /* 帯（header）は表の幅まで伸ばし、中身（#hdrIn）は横スクロールしても画面の左端に張り付かせる */
+  header { position: sticky; top: 0; z-index: 30; background: var(--panel); border-bottom: 1px solid var(--line); }
+  #hdrIn { position: sticky; left: 0; padding: 8px 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   .logo { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 17px; white-space: nowrap; }
   .logo .mark { width: 30px; height: 30px; border-radius: 7px; background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 16px; }
   .logo small { display: block; font-size: 9px; letter-spacing: .15em; color: var(--muted); font-weight: 600; margin-top: -3px; }
-  .shops { display: flex; gap: 4px; }
-  .shops a { font-weight: 600; padding: 3px 10px; border-radius: 999px; color: var(--muted); border: 1px solid transparent; }
-  .shops a:hover { text-decoration: none; background: #f0f2f5; }
-  .shops a.on { background: var(--accent-soft); color: var(--accent); border-color: #ffd0d8; }
+  #shopBtn { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; padding: 5px 12px; border-radius: 8px; }
+  #shopBtn .caret { font-size: 9px; color: var(--muted); }
+  #shopMenu .mi { display: flex; align-items: center; gap: 8px; color: var(--text); font-weight: 600; text-decoration: none; background: transparent; }
+  #shopMenu .mi:hover { background: #f0f2f5; }
+  #shopMenu .mi .chk { width: 14px; color: var(--accent); }
+  #shopMenu .mi small { color: var(--faint); font-weight: 400; margin-left: auto; font-family: ui-monospace, Consolas, monospace; }
+  #shopMenu .mi.cur { color: var(--accent); outline: none; }
   .ver { font-size: 11px; color: var(--faint); }
   .modes { display: flex; gap: 2px; background: #f0f2f5; border: 1px solid var(--line); border-radius: 8px; padding: 3px; }
   .modes button { border: 1px solid transparent; background: transparent; padding: 4px 10px; border-radius: 6px; color: var(--muted); white-space: nowrap; }
@@ -84,7 +89,7 @@
   .shown b { color: var(--text); }
 
   /* ── table ──────────────────────────────── */
-  .tbl-wrap { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+  .tbl-wrap { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; width: max-content; min-width: 100%; }
   table { border-collapse: separate; border-spacing: 0; width: 100%; }
   th, td { padding: 8px; border-bottom: 1px solid var(--line); vertical-align: middle; text-align: left; }
   thead th { position: sticky; top: var(--hdr-h); z-index: 10; background: #f4f7fb; font-weight: 700; font-size: 12px; color: #4b5563; white-space: nowrap; user-select: none; border-bottom: 1px solid var(--line2); }
@@ -129,7 +134,8 @@
   .c-img .d { font-size: 10px; color: var(--faint); margin-top: 3px; font-family: ui-monospace, Consolas, monospace; }
   .c-img .d.new { color: #fff; background: var(--ok); border-radius: 4px; padding: 0 4px; display: inline-block; }
   .c-dd { width: 150px; }
-  .c-act { width: 120px; }
+  .c-act { width: 130px; min-width: 130px; }
+  .c-act button { white-space: nowrap; }
   .c-act .acts { display: flex; flex-direction: column; gap: 4px; }
   .c-act button { font-size: 11px; padding: 3px 6px; }
   .c-act input { width: 100%; font-size: 11px; padding: 3px 6px; }
@@ -152,10 +158,10 @@
   .dd:hover { filter: brightness(.97); }
   .dd .caret { font-size: 9px; opacity: .6; }
   .dd select { display: none; }
-  #menu { position: fixed; z-index: 100; background: #fff; border: 1px solid var(--line2); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.14); padding: 4px; overflow-y: auto; min-width: 160px; display: none; }
-  #menu .mi { display: block; width: 100%; text-align: left; border: none; margin: 1px 0; padding: 5px 8px; border-radius: 5px; font-size: 12px; font-weight: 700; }
+  #menu, #shopMenu { position: fixed; z-index: 100; background: #fff; border: 1px solid var(--line2); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.14); padding: 4px; overflow-y: auto; min-width: 160px; display: none; }
+  #menu .mi, #shopMenu .mi { display: block; width: 100%; text-align: left; border: none; margin: 1px 0; padding: 5px 8px; border-radius: 5px; font-size: 12px; font-weight: 700; }
   #menu .mi.cur { outline: 2px solid currentColor; outline-offset: -2px; }
-  #menu .sep { height: 1px; background: var(--line2); margin: 4px 2px; }
+  #menu .sep, #shopMenu .sep { height: 1px; background: var(--line2); margin: 4px 2px; }
 
   /* ── modal ──────────────────────────────── */
   dialog { border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; max-width: 95vw; }
@@ -165,29 +171,39 @@
   dialog .row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
   dialog .hint { font-size: 11px; color: var(--muted); }
   #dlgSettings { width: 440px; }
+  #dlgShops { width: 640px; }
+  .shop-head, .shop-row { display: grid; grid-template-columns: 1fr 140px 150px 118px; gap: 8px; align-items: center; }
+  .shop-head { font-size: 11px; color: var(--muted); padding: 0 2px 4px; }
+  .shop-row { padding: 4px 2px; border-top: 1px solid var(--line); }
+  .shop-row input { width: 100%; }
+  .shop-row input[readonly] { background: #f5f6f8; color: var(--muted); }
+  .shop-row .err { grid-column: 1 / -1; color: var(--accent); font-size: 11px; }
+  .shop-row button { white-space: nowrap; }
+  .shop-row button.danger { color: var(--accent); border-color: #ffc2cc; }
   #dlgSettings input { width: 100%; }
   #dlgDefs { width: 760px; }
   .tabs { display: flex; gap: 4px; margin-bottom: 10px; }
   .tabs button.on { background: #1f2933; color: #fff; border-color: #1f2933; }
   .defs-list { display: flex; flex-direction: column; gap: 4px; max-height: 60vh; overflow-y: auto; }
-  .def-row { display: grid; grid-template-columns: 150px 44px 1fr 38px 38px 58px 70px; gap: 6px; align-items: center; padding: 4px; border-radius: 6px; }
+  .def-row { display: grid; grid-template-columns: 150px 44px 1fr 38px 38px 96px 78px; gap: 6px; align-items: center; padding: 4px; border-radius: 6px; }
   .def-row.fixed { background: #fafafa; }
   .def-row.sep-after { border-bottom: 2px solid var(--line2); padding-bottom: 8px; margin-bottom: 4px; }
   .def-row input[type=text] { width: 100%; }
   .def-row input[type=color] { width: 36px; height: 28px; padding: 0; border: 1px solid var(--line2); border-radius: 4px; background: #fff; }
+  .def-row label { white-space: nowrap; font-size: 12px; color: var(--muted); }
   .def-row .preview { padding: 3px 8px; border-radius: 6px; font-size: 12px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .def-row .ops { display: flex; gap: 2px; }
   .def-row .ops button { padding: 2px 5px; font-size: 11px; }
   .def-row .use { font-size: 10px; color: var(--muted); text-align: right; }
-  .def-head { display: grid; grid-template-columns: 150px 44px 1fr 38px 38px 58px 70px; gap: 6px; font-size: 11px; color: var(--muted); padding: 0 4px; }
+  .def-head { display: grid; grid-template-columns: 150px 44px 1fr 38px 38px 96px 78px; gap: 6px; font-size: 11px; color: var(--muted); padding: 0 4px; }
   .empty { padding: 40px; text-align: center; color: var(--muted); }
 </style>
 </head>
 <body class="mode-basic">
 
-<header id="hdr">
+<header id="hdr"><div id="hdrIn">
   <div class="logo"><div class="mark">★</div><div>ReviewCheck<small>FOR YAHOO!</small></div></div>
-  <nav class="shops" id="shops"></nav>
+  <button id="shopBtn" title="ストアを切り替え"></button>
   <span class="ver" id="ver"></span>
   <div class="modes" id="modes">
     <button data-mode="first" disabled title="次の版で作ります">🏆 1枚目用</button>
@@ -202,7 +218,7 @@
   <button id="btnDefs" title="1枚目変更・2枚目変更の選択肢を編集">↔ 項目設定</button>
   <button id="btnReload" title="GitHubから読み直す">↻ 再読込</button>
   <button id="btnSettings" title="GitHub PAT の設定">⚙</button>
-</header>
+</div></header>
 
 <div class="layout">
   <aside>
@@ -235,6 +251,7 @@
 </div>
 
 <div id="menu"></div>
+<div id="shopMenu"></div>
 
 <dialog id="dlgSettings">
   <h2>設定</h2>
@@ -248,6 +265,24 @@
   <div class="row">
     <button id="dlgCancel">閉じる</button>
     <button id="dlgSave" class="primary">保存</button>
+  </div>
+</dialog>
+
+<dialog id="dlgShops">
+  <h2>🏪 ストア管理</h2>
+  <div class="shop-head"><span>表示名</span><span>ID（URL・フォルダ名）</span><span>Yahoo! ストアID（seller_id）</span><span></span></div>
+  <div id="shopRows"></div>
+  <div style="margin-top:8px"><button id="shopAdd">＋ ストアを追加</button></div>
+  <div class="hint" style="margin-top:12px;line-height:1.7">
+    ・一覧は <code>data/shops.json</code> に保存され、全PCと TimerRunner で共有されます。<br>
+    ・追加したストアのデータは、次に TimerRunner の「Yahooレビュー取得」が走ったときに作られます（毎朝のフロー、または手動実行）。<br>
+    ・ID は英小文字・数字・ハイフン。作った後は変えられません（データのフォルダ名になるため）。<br>
+    ・Yahoo! ストアID は <code>store.shopping.yahoo.co.jp/<b>ここ</b>/</code> の部分です。<br>
+    ・一覧から外してもデータ（<code>data/ID/</code>）は消えません。
+  </div>
+  <div class="row">
+    <button id="shopCancel">閉じる</button>
+    <button id="shopSave" class="primary">保存</button>
   </div>
 </dialog>
 
@@ -269,14 +304,18 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'y0.3.0';
+const VERSION = 'y0.3.1';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
-const SHOPS = [
+// data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
+const SHOPS_DEFAULT = [
   { id: 'yukaiya', name: 'ゆかい屋', sellerId: 'yukaiya' },
   { id: 'kairy',   name: 'KAIRY',   sellerId: 'burariya' },   // Yahoo! の店舗IDは楽天(kai-ry)と違う
 ];
-const SHOP_ALIASES = { kairy: 'kairy', 'kai-ry': 'kairy', burariya: 'kairy' };
+const SHOP_ALIASES = { 'kai-ry': 'kairy' };   // 楽天側の呼び名で開かれたとき用。seller_id でも開ける
+const SHOPS_PATH = 'data/shops.json';
+let SHOPS = SHOPS_DEFAULT.map(s => ({ ...s }));
+let shopsSha = null;
 
 const DEFAULT_REPO = 'kaiyoshida0318/reviewcheck-yahoo';
 const LS = {
@@ -332,23 +371,28 @@ const FIXED_DEFS = {
 const PROTECTED_KEYS = { first: ['pending'], second: ['none', '__hot3__', '__hot200__'] };
 
 // ---- ショップはURLで決め、タブごとに固定する ----
-function resolveShop() {
+function resolveShop(persist) {
   const u = new URL(location.href);
   let id = u.searchParams.get('shop') || sessionStorage.getItem('rcy_shop') || lsGet(LS.lastShop) || SHOPS[0].id;
   id = SHOP_ALIASES[id] || id;
-  const shop = SHOPS.find(s => s.id === id) || SHOPS[0];
-  sessionStorage.setItem('rcy_shop', shop.id);
-  lsSet(LS.lastShop, shop.id);
+  const shop = SHOPS.find(s => s.id === id) || SHOPS.find(s => s.sellerId === id) || SHOPS[0];   // 未登録は既定へ（エラーにしない）
+  if (persist) { try { sessionStorage.setItem('rcy_shop', shop.id); } catch (e) {} lsSet(LS.lastShop, shop.id); }
   return shop;
 }
 function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
 function lsSet(k, v) { try { localStorage.setItem(k, v); return true; } catch (e) { return false; } }
 function lsDel(k) { try { localStorage.removeItem(k); } catch (e) {} }
 
-const SHOP = resolveShop();
-const DATA_PATH = `data/${SHOP.id}/review_data.json`;
-const DEFS_PATH = `data/${SHOP.id}/defs.json`;
-document.title = `${SHOP.name} - reviewcheck Yahoo`;
+// 現在のストアはURLで決め、このタブでは以後変えない（shops.json を読んだ後にもう一度だけ解決し直す）
+let SHOP = resolveShop(false);
+let DATA_PATH = '', DEFS_PATH = '';
+function applyShop(persist) {
+  SHOP = resolveShop(persist);
+  DATA_PATH = `data/${SHOP.id}/review_data.json`;
+  DEFS_PATH = `data/${SHOP.id}/defs.json`;
+  document.title = `${SHOP.name} - reviewcheck Yahoo`;
+}
+applyShop(false);
 
 // ---- 状態（初期値は直書き。宣言前アクセスを避ける）----
 let store = { productCache: {} };
@@ -431,6 +475,17 @@ async function ghPut(path, obj, prevSha, message) {
 // ============================================================
 // 読込
 // ============================================================
+async function loadShops() {
+  try {
+    let data = null;
+    if (ghConfig().pat) { const r = await ghGet(SHOPS_PATH); data = r.data; shopsSha = r.sha; }
+    else { const res = await fetch(`${SHOPS_PATH}?t=${Date.now()}`, { cache: 'no-store' }); if (res.ok) data = await res.json(); }
+    const list = Array.isArray(data?.shops) ? data.shops.filter(s => s && s.id && s.sellerId) : null;
+    if (list && list.length) SHOPS = list.map(s => ({ id: s.id, name: s.name || s.id, sellerId: s.sellerId }));
+  } catch (e) { console.warn('[shops] 読込失敗。既定の一覧を使う', e); }
+  applyShop(true);
+}
+
 async function load() {
   setStatus('読み込み中…');
   const { pat } = ghConfig();
@@ -439,7 +494,7 @@ async function load() {
       const [r, d] = await Promise.all([ghGet(DATA_PATH), ghGet(DEFS_PATH).catch(() => ({ data: null, sha: null }))]);
       store = r.data || { productCache: {} }; sha = r.sha;
       defs = normalizeDefs(d.data); defsSha = d.sha;
-      setStatus(r.data ? `読込 ${fmtShort(new Date().toISOString())}` : 'データなし（TimerRunner未実行）', r.data ? 'ok' : 'err');
+      setStatus(r.data ? `読込 ${fmtShort(new Date().toISOString())}` : 'まだデータがありません（次の TimerRunner 実行で作られます）', r.data ? 'ok' : 'err');
     } else {
       // PATが無ければ Pages 上の JSON を読むだけ（編集は保存されない）
       const [res, dres] = await Promise.all([
@@ -469,6 +524,7 @@ async function load() {
 // ============================================================
 function migrate() {
   let changed = 0;
+  if (!Object.keys(store.productCache || {}).length) return false;   // データがまだ無いストアでは何もしない（空ファイルを作らない）
   // y0.3.0: name は「人が付ける短い商品名」になった。y0.2 まではジョブが CSV/API の長い名前を入れていた。
   if (!store.nameMigrated && String(store.version || '') < 'y0.3.0') {
     let n = 0;
@@ -700,7 +756,7 @@ function lastFetchInfo() {
 }
 function renderHeader() {
   $('#ver').textContent = VERSION;
-  $('#shops').innerHTML = SHOPS.map(sh => `<a href="?shop=${esc(sh.id)}" class="${sh.id === SHOP.id ? 'on' : ''}" title="seller_id: ${esc(sh.sellerId)}">${esc(sh.name)}</a>`).join('');
+  $('#shopBtn').innerHTML = `🏪 ${esc(SHOP.name)} <span class="caret">▼</span>`;
   const lf = lastFetchInfo();
   const stale = lf && daysAgo(lf.at) > 1.5;
   $('#metaFetch').innerHTML = lf ? `最終取得 <span style="${stale ? 'color:var(--accent);font-weight:700' : ''}">${fmtShort(lf.at)}</span><span class="muted">(${lf.src})</span>` : '';
@@ -857,11 +913,12 @@ function renderRows() {
 //  ・表ヘッダーの top はヘッダーの実際の高さに合わせる（折り返しで変わる）
 //  ・横に広い表のとき、ヘッダー帯が画面幅で切れないよう min-width を表の幅に合わせる（測る前にリセット）
 function syncLayout() {
-  const hdr = $('#hdr');
+  const hdr = $('#hdr'), inner = $('#hdrIn');
   hdr.style.minWidth = '';
+  inner.style.width = document.documentElement.clientWidth + 'px';   // 中身は常に見えている幅に収める
   document.documentElement.style.setProperty('--hdr-h', hdr.offsetHeight + 'px');
   const w = document.documentElement.scrollWidth;
-  if (w > window.innerWidth) hdr.style.minWidth = w + 'px';
+  if (w > document.documentElement.clientWidth) hdr.style.minWidth = w + 'px';   // 帯は表の右端まで
 }
 window.addEventListener('resize', () => { closeMenu(); syncLayout(); });
 
@@ -1018,6 +1075,104 @@ $('#btnClear').addEventListener('click', () => {
 $('#modes').addEventListener('click', (e) => { const b = e.target.closest('button[data-mode]'); if (b && !b.disabled) setMode(b.dataset.mode); });
 $('#btnReload').addEventListener('click', async () => { if (dirty) await flush(); if (defsDirty) await flushDefs(); load(); });
 
+// ============================================================
+// ストア切替（ドロップダウン）とストア管理
+//   切替はリンク（?shop=）なので、中クリック／Ctrl+クリックで別タブに開ける＝タブごとに固定
+// ============================================================
+function openShopMenu() {
+  const m = $('#shopMenu');
+  if (m.style.display === 'block') { m.style.display = 'none'; return; }
+  m.innerHTML = SHOPS.map(sh => `<a class="mi ${sh.id === SHOP.id ? 'cur' : ''}" href="?shop=${encodeURIComponent(sh.id)}"><span class="chk">${sh.id === SHOP.id ? '✓' : ''}</span>${esc(sh.name)}<small>${esc(sh.sellerId)}</small></a>`).join('') +
+    `<div class="sep"></div><button class="mi" data-act="manage"><span class="chk">⚙</span>ストアを管理…</button>`;
+  m.style.display = 'block';
+  const r = $('#shopBtn').getBoundingClientRect();
+  m.style.top = (r.bottom + 4) + 'px';
+  m.style.left = Math.min(r.left, window.innerWidth - m.offsetWidth - 8) + 'px';
+  m.style.minWidth = Math.max(220, r.width) + 'px';
+}
+function closeShopMenu() { $('#shopMenu').style.display = 'none'; }
+$('#shopBtn').addEventListener('click', (e) => { e.stopPropagation(); closeMenu(); openShopMenu(); });
+$('#shopMenu').addEventListener('click', (e) => {
+  if (e.target.closest('[data-act="manage"]')) { closeShopMenu(); openShopsDialog(); }
+});
+document.addEventListener('mousedown', (e) => { if (!e.target.closest('#shopMenu') && !e.target.closest('#shopBtn')) closeShopMenu(); });
+window.addEventListener('scroll', closeShopMenu, true);
+window.addEventListener('resize', closeShopMenu);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeShopMenu(); });
+
+let shopDraft = [];
+function openShopsDialog() {
+  shopDraft = SHOPS.map(s => ({ ...s, isNew: false, delArmed: false }));
+  renderShopRows();
+  $('#dlgShops').showModal();
+}
+function shopErrors(s, i) {
+  const errs = [];
+  if (!s.name.trim()) errs.push('表示名を入れてください');
+  if (!/^[a-z0-9][a-z0-9-]{0,30}$/.test(s.id)) errs.push('ID は英小文字・数字・ハイフン（先頭は英数字）');
+  else if (shopDraft.some((x, j) => j !== i && x.id === s.id)) errs.push('ID が重複しています');
+  if (!/^[A-Za-z0-9_-]+$/.test(s.sellerId)) errs.push('Yahoo! ストアID は英数字・ハイフン・アンダーバー');
+  return errs;
+}
+function renderShopRows() {
+  $('#shopRows').innerHTML = shopDraft.map((s, i) => {
+    const errs = shopErrors(s, i), cur = !s.isNew && s.id === SHOP.id;
+    return `<div class="shop-row" data-i="${i}">
+      <input type="text" data-k="name" value="${esc(s.name)}" placeholder="例: ゆかい屋">
+      <input type="text" data-k="id" value="${esc(s.id)}" placeholder="例: yukaiya" ${s.isNew ? '' : 'readonly title="作成後は変えられません"'}>
+      <input type="text" data-k="sellerId" value="${esc(s.sellerId)}" placeholder="例: yukaiya">
+      <button data-op="del" class="${s.delArmed ? 'danger' : ''}" ${cur ? 'disabled title="表示中のストアは外せません"' : ''}>${s.delArmed ? 'もう一度で外す' : '一覧から外す'}</button>
+      ${errs.length && (s.touched || !s.isNew) ? `<div class="err">${esc(errs.join(' / '))}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+$('#shopRows').addEventListener('input', (e) => {
+  const inp = e.target.closest('[data-k]'); if (!inp) return;
+  const row = inp.closest('.shop-row'), s = shopDraft[+row.dataset.i];
+  s[inp.dataset.k] = inp.dataset.k === 'id' ? inp.value.trim().toLowerCase() : inp.value.trim();
+  s.touched = true;
+  // 入力中のカーソルを保ったまま、エラー表示だけ差し替える
+  row.querySelector('.err')?.remove();
+  const errs = shopErrors(s, +row.dataset.i);
+  if (errs.length) row.insertAdjacentHTML('beforeend', `<div class="err">${esc(errs.join(' / '))}</div>`);
+});
+$('#shopRows').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-op="del"]'); if (!b || b.disabled) return;
+  const i = +b.closest('.shop-row').dataset.i, s = shopDraft[i];
+  if (s.isNew || s.delArmed) shopDraft.splice(i, 1);   // 確認ダイアログは出さず、2回押しで外す
+  else { shopDraft.forEach(x => x.delArmed = false); s.delArmed = true; }
+  renderShopRows();
+});
+$('#shopAdd').addEventListener('click', () => {
+  shopDraft.push({ id: '', name: '', sellerId: '', isNew: true, delArmed: false });
+  renderShopRows();
+  $('#shopRows .shop-row:last-child input[data-k="name"]').focus();
+});
+$('#shopCancel').addEventListener('click', () => $('#dlgShops').close());
+$('#shopSave').addEventListener('click', async () => {
+  shopDraft.forEach(s => s.touched = true);
+  if (shopDraft.some((s, i) => shopErrors(s, i).length)) { renderShopRows(); return; }
+  if (!ghConfig().pat) { setStatus('PAT未設定のため保存できません', 'err'); return; }
+  const body = { version: VERSION, savedAt: new Date().toISOString(), shops: shopDraft.map(s => ({ id: s.id, name: s.name, sellerId: s.sellerId })) };
+  const btn = $('#shopSave'); btn.disabled = true;
+  try {
+    try { shopsSha = await ghPut(SHOPS_PATH, body, shopsSha, '[shops] ストア一覧を更新'); }
+    catch (e) {
+      if (e.status !== 409 && e.status !== 422) throw e;
+      shopsSha = (await ghGet(SHOPS_PATH)).sha;
+      shopsSha = await ghPut(SHOPS_PATH, body, shopsSha, '[shops] ストア一覧を更新');
+    }
+    SHOPS = body.shops.map(s => ({ ...s }));
+    SHOP = SHOPS.find(s => s.id === SHOP.id) || SHOP;   // 表示名の変更だけ反映（表示中のストアは変えない）
+    document.title = `${SHOP.name} - reviewcheck Yahoo`;
+    $('#dlgShops').close();
+    renderHeader();
+    setStatus('ストア一覧を保存しました', 'ok');
+  } catch (e) {
+    setStatus(`ストア一覧の保存失敗: ${e.message}`, 'err');
+  } finally { btn.disabled = false; }
+});
+
 // ---- 設定ダイアログ ----
 const dlg = $('#dlgSettings');
 $('#btnSettings').addEventListener('click', () => {
@@ -1094,7 +1249,7 @@ mode = ['basic', 'second'].includes(lsGet(LS.mode)) ? lsGet(LS.mode) : 'basic';
 if (mode === 'second') { sortKey = 'onscreen'; sortDir = -1; }
 defs = normalizeDefs(null);
 renderAll();
-load();
+loadShops().then(load);
 </script>
 </body>
 </html>
