@@ -308,6 +308,11 @@
   .def-row .ops { display: flex; gap: 2px; }
   .def-row .ops button { padding: 2px 5px; font-size: 11px; }
   .def-row .use { font-size: 10px; color: var(--muted); text-align: right; }
+  /* 列の境目をドラッグして幅を変えるつまみ（見出しの右端） */
+  .cw-grip { position: absolute; top: 0; right: 0; bottom: 0; width: 9px; cursor: col-resize; z-index: 2; touch-action: none; }
+  .cw-grip::after { content: ''; position: absolute; top: 20%; bottom: 20%; right: 0; width: 1px; background: var(--line2); }
+  .cw-grip:hover::after, .cw-grip.drag::after { top: 0; bottom: 0; right: 0; width: 3px; background: var(--blue); }
+  body.cw-dragging, body.cw-dragging * { cursor: col-resize !important; user-select: none !important; }
   #dlgColw { width: 640px; }
   .cw-list { max-height: 60vh; overflow: auto; margin-top: 8px; }
   .cw-row { display: grid; grid-template-columns: 170px 1fr 74px 20px 92px; gap: 8px; align-items: center; padding: 5px 4px; border-bottom: 1px solid var(--line); }
@@ -424,7 +429,7 @@
     <tr><td>レビュー件数の履歴</td><td><span class="tag">①</span><span class="tag">②</span></td><td>「7日 +3」の元。1日1件（その日の最後に取った値）。</td></tr>
     <tr><td>新しく出品した商品</td><td><span class="tag">①</span><span class="tag">②</span></td><td>行が増えます。状態は「未着手 / 獲得前」から。</td></tr>
     <tr><td>ストア評価</td><td><span class="tag">①</span><span class="tag">②</span></td><td>右上のストア評価。</td></tr>
-    <tr><td>伝令ちゃんへの登録</td><td><span class="tag man">＋ ボタン</span></td><td>1枚目用の「＋ 伝令ちゃんに登録」で、伝令ちゃんの「商品を追加」が商品URL・商品コード入りで開きます（画像・ランキングURLは伝令ちゃんが取得）。保存したら、ここの「🔄 更新」で状態を読み直してください。</td></tr>
+    <tr><td>伝令ちゃんへの登録</td><td><span class="tag man">＋ ボタン</span></td><td>1枚目用の「＋ 伝令ちゃんに登録」で、伝令ちゃんの「商品を追加」が商品URL・商品コード・画像1入りで開きます（ランキングURLは伝令ちゃんが取得）。保存したら、ここの「🔄 更新」で状態を読み直してください。</td></tr>
     <tr><td>伝令ちゃんの状態</td><td><span class="tag">画面を開いたとき</span><span class="tag">🔔 ボタン</span></td><td>1枚目用の「🔔 伝令ちゃん」列。伝令ちゃん側が持ち主なので GitHub には保存しません。順位そのものは TimerRunner の「Yahooランキング監視」が巡回して伝令ちゃんに記録します。</td></tr>
     <tr class="sec"><td colspan="3">手で入れるもの（取得を押しても変わりません）</td></tr>
     <tr><td>商品名</td><td><span class="tag man">手入力</span></td><td><b>自動では変わりません。</b>手で付けた名前を守るため、あえて上書きしていません。Yahoo! 側の名前を見たいときは、その下の小さい文字（現在のタイトル）を見てください。</td></tr>
@@ -476,7 +481,7 @@
 
 <dialog id="dlgColw">
   <h2>📏 列幅設定 <span class="hint" id="colwMode"></span></h2>
-  <div class="hint">スライダーか数字（px）で幅を変えると、すぐ表に反映されます。幅はモードごとに別々に、このPCに覚えます。空欄＝自動。</div>
+  <div class="hint">スライダーか数字（px）で幅を変えると、すぐ表に反映されます。幅はモードごとに別々に、このPCに覚えます。空欄＝自動。<br>表の見出しの境目を直接ドラッグしても変えられます（境目をダブルクリックで自動に戻る）。</div>
   <div class="cw-list" id="colwList"></div>
   <div class="row" style="justify-content:space-between">
     <button id="colwReset">このモードをすべて自動に戻す</button>
@@ -502,7 +507,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.5';
+const VERSION = 'v0.8.6';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -1059,15 +1064,16 @@ function renderFilters() {
 }
 
 function renderThead() {
+  const grip = (c) => c.key === 'chk' ? '' : `<span class="cw-grip" data-colkey="${c.key}" title="ドラッグで列幅を変更（ダブルクリックで自動に戻す）"></span>`;
   $('#thead').innerHTML = COLS.map(c => {
-    if (c.html) return `<th class="${c.cls}">${c.html()}</th>`;
+    if (c.html) return `<th class="${c.cls}">${c.html()}${grip(c)}</th>`;
     if (c.alt) {
-      return `<th class="${c.cls}">${c.alt.map(([k, l]) => `<span class="sortable ${sortKey === k ? 'sorted' : ''}" data-sort="${k}" style="cursor:pointer;margin:0 3px">${l}<span class="arrow">${sortKey === k ? (sortDir > 0 ? '▲' : '▼') : '⇅'}</span></span>`).join('')}</th>`;
+      return `<th class="${c.cls}">${c.alt.map(([k, l]) => `<span class="sortable ${sortKey === k ? 'sorted' : ''}" data-sort="${k}" style="cursor:pointer;margin:0 3px">${l}<span class="arrow">${sortKey === k ? (sortDir > 0 ? '▲' : '▼') : '⇅'}</span></span>`).join('')}${grip(c)}</th>`;
     }
     const sk = c.sort === true ? c.key : c.sort;
-    if (!sk) return `<th class="${c.cls}">${c.label}</th>`;
+    if (!sk) return `<th class="${c.cls}">${c.label}${grip(c)}</th>`;
     const on = sortKey === sk;
-    return `<th class="${c.cls} sortable ${on ? 'sorted' : ''}" data-sort="${sk}">${c.label}<span class="arrow">${on ? (sortDir > 0 ? '▲' : '▼') : '⇅'}</span></th>`;
+    return `<th class="${c.cls} sortable ${on ? 'sorted' : ''}" data-sort="${sk}">${c.label}<span class="arrow">${on ? (sortDir > 0 ? '▲' : '▼') : '⇅'}</span>${grip(c)}</th>`;
   }).join('');
   const rows = visibleRows();
   const all = rows.length > 0 && rows.every(([c]) => selected.has(c));
@@ -1359,6 +1365,7 @@ $('#rows').addEventListener('change', (e) => {
   }
 });
 $('#thead').addEventListener('click', (e) => {
+  if (e.target.closest('.cw-grip')) return;   // 列幅のつまみは並び替えにしない
   if (e.target.id === 'chkAll') {
     const rows = visibleRows();
     if (e.target.checked) rows.forEach(([c]) => selected.add(c)); else rows.forEach(([c]) => selected.delete(c));
@@ -2099,6 +2106,41 @@ $('#colwList').addEventListener('click', (e) => {
   setColw(row.dataset.key, null);
 });
 applyColw();
+
+// 見出しの境目をドラッグして幅を変える（v0.8.6〜）。動かしている間は <style> だけ差し替え、離したときに保存する
+let colwDrag = null;
+$('#thead').addEventListener('pointerdown', (e) => {
+  const g = e.target.closest('.cw-grip'); if (!g || e.button !== 0) return;
+  e.preventDefault();
+  const n = COLS.findIndex(c => c.key === g.dataset.colkey) + 1;
+  colwDrag = { key: g.dataset.colkey, x: e.clientX, w: colwActual(n), moved: false };
+  g.classList.add('drag');
+  document.body.classList.add('cw-dragging');
+});
+window.addEventListener('pointermove', (e) => {
+  if (!colwDrag) return;
+  const dx = e.clientX - colwDrag.x;
+  if (!colwDrag.moved && Math.abs(dx) < 3) return;   // ただのクリックでは幅を固定しない
+  colwDrag.moved = true;
+  if (!colw[mode]) colw[mode] = {};
+  colw[mode][colwDrag.key] = colwClamp(colwDrag.w + dx);
+  applyColw();
+});
+function colwDragEnd() {
+  if (!colwDrag) return;
+  const moved = colwDrag.moved;
+  colwDrag = null;
+  document.body.classList.remove('cw-dragging');
+  document.querySelectorAll('.cw-grip.drag').forEach(g => g.classList.remove('drag'));
+  if (moved) { saveColw(); if ($('#dlgColw').open) renderColwEditor(); }
+}
+window.addEventListener('pointerup', colwDragEnd);
+window.addEventListener('pointercancel', colwDragEnd);
+$('#thead').addEventListener('dblclick', (e) => {
+  const g = e.target.closest('.cw-grip'); if (!g) return;
+  if (colw[mode]) delete colw[mode][g.dataset.colkey];
+  saveColw(); applyColw();
+});
 
 // ============================================================
 // 項目設定モーダル
