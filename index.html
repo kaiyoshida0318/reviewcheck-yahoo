@@ -104,7 +104,7 @@
   /* ── filter panel ───────────────────────── */
   .filters { display: flex; flex-direction: column; gap: 8px; }
   .frow { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-  .frow .flabel { width: 92px; flex: 0 0 92px; color: var(--muted); font-size: 12px; }
+  .frow .flabel { width: 116px; flex: 0 0 116px; white-space: nowrap; color: var(--muted); font-size: 12px; }
   .fgroup { display: flex; gap: 4px; flex-wrap: wrap; padding-right: 8px; margin-right: 4px; border-right: 1px solid var(--line); }
   .fgroup:last-child { border-right: none; }
   .fbtn { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 6px; border: 1px solid var(--line2); background: #fff; font-size: 12px; white-space: nowrap; }
@@ -181,11 +181,37 @@
   td.flash { animation: flash .9s ease-out; }
 
   /* モードごとの列の出し分け（JSで組み替えない） */
-  .only-basic, .only-second { display: none; }
+  .only-basic, .only-second, .only-first { display: none; }
   body.mode-basic .only-basic { display: table-cell; }
   body.mode-second .only-second { display: table-cell; }
-  .frow.only-basic, .frow.only-second { display: none; }
-  body.mode-basic .frow.only-basic, body.mode-second .frow.only-second { display: flex; }
+  body.mode-first .only-first { display: table-cell; }
+
+  /* 1枚目用 */
+  .c-rank { min-width: 260px; }
+  .c-rank .rk-dds { display: flex; gap: 6px; margin-bottom: 6px; }
+  .c-rank .dd { width: 128px; }
+  .c-rank input { width: 100%; font-size: 12px; }
+  .selband { display: none; margin-top: 4px; }
+  body.mode-first .selband { display: block; }
+  .selband button { font-size: 11px; padding: 2px 8px; border-radius: 999px; }
+  .selband button.on { background: #6a1b9a; border-color: #6a1b9a; color: #fff; font-weight: 700; }
+  .c-img.picked .ph { outline: 3px solid #6a1b9a; outline-offset: 1px; }
+  .c-crop { width: 290px; min-width: 240px; }
+  .c-denrei { width: 170px; min-width: 150px; }
+  .dnr-badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+  .dnr-sub { display: block; font-size: 10px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
+  .dnr-sub b { color: var(--text); }
+  .dnr-link { display: inline-block; margin-top: 4px; font-size: 11px; }
+  .c-make { width: 110px; text-align: center; }
+  .c-make a.btn { display: inline-block; padding: 5px 10px; border: 1px solid var(--line2); border-radius: 6px; font-size: 12px; font-weight: 700; color: var(--text); background: #fff; white-space: nowrap; }
+  .c-make a.btn:hover { background: #0d47a1; color: #fff; border-color: #0d47a1; text-decoration: none; }
+  .fbtn.urgent { color: var(--hot); background: var(--hot-soft); box-shadow: inset 0 0 0 2px var(--hot); font-weight: 700; }
+  .fbtn.urgent.on { background: var(--hot); color: #fff; }
+  .dnr-msg { font-size: 11px; color: var(--muted); }
+  .dnr-msg.err { color: var(--accent); }
+  .crop-box { width: 100%; aspect-ratio: 268 / 88; border: 2px solid #0d47a1; border-radius: 6px; overflow: hidden; background: #000; }
+  .crop-inner { width: 100%; height: 100%; background-repeat: no-repeat; background-size: 370% auto; background-position: right bottom; }
+  .crop-hint { margin-top: 3px; font-size: 10px; font-weight: 600; color: var(--faint); }
 
   /* ── dropdown (body 直下に出す) ─────────── */
   .dd { display: inline-flex; align-items: center; justify-content: space-between; gap: 6px; width: 140px; padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(0,0,0,.08); font-size: 12px; font-weight: 700; text-align: left; }
@@ -240,7 +266,7 @@
   <button id="shopBtn" title="ストアを切り替え"></button>
   <span class="ver" id="ver"></span>
   <div class="modes" id="modes">
-    <button data-mode="first" disabled title="次の版で作ります">🏆 1枚目用</button>
+    <button data-mode="first">🏆 1枚目用</button>
     <button data-mode="second">🔍 2枚目用</button>
     <button data-mode="tail" disabled title="次の版で作ります">✏ タイトル末尾用</button>
     <button data-mode="basic">📋 基本</button>
@@ -310,6 +336,11 @@
       <span class="d">Yahoo! からレビュー件数・画像などを取り直します。TimerRunner に頼んで取ってもらうので、5分以内に始まり、画像まで取るので終わるまで数分かかります。終わると自動で読み直します。</span>
       <span class="chip" id="chipFetch"></span>
     </button>
+    <button class="upd-btn" id="btnDenrei">
+      <span class="t">🔔 伝令ちゃんの状態を取り直す</span>
+      <span class="d">ランキング伝令ちゃん（Yahoo版）から「獲得前 / 獲得済-登録可能 / 登録済」を読み直します（数秒）。画面を開いたときにも自動で読みます。</span>
+      <span class="chip" id="chipDenrei"></span>
+    </button>
     <button class="upd-btn" id="btnReload">
       <span class="t">☁ GitHubから読み直す</span>
       <span class="d">他のPCで入力した内容や、TimerRunner が取得した最新のデータを取り込みます（数秒）。</span>
@@ -329,10 +360,13 @@
     <tr><td>レビュー件数の履歴</td><td><span class="tag">①</span><span class="tag">②</span></td><td>「7日 +3」の元。1日1件（その日の最後に取った値）。</td></tr>
     <tr><td>新しく出品した商品</td><td><span class="tag">①</span><span class="tag">②</span></td><td>行が増えます。状態は「未着手 / 獲得前」から。</td></tr>
     <tr><td>ストア評価</td><td><span class="tag">①</span><span class="tag">②</span></td><td>右上のストア評価。</td></tr>
+    <tr><td>伝令ちゃんの状態</td><td><span class="tag">画面を開いたとき</span><span class="tag">🔔 ボタン</span></td><td>1枚目用の「🔔 伝令ちゃん」列。伝令ちゃん側が持ち主なので GitHub には保存しません。順位そのものは TimerRunner の「Yahooランキング監視」が巡回して伝令ちゃんに記録します。</td></tr>
     <tr class="sec"><td colspan="3">手で入れるもの（取得を押しても変わりません）</td></tr>
     <tr><td>商品名</td><td><span class="tag man">手入力</span></td><td><b>自動では変わりません。</b>手で付けた名前を守るため、あえて上書きしていません。Yahoo! 側の名前を見たいときは、その下の小さい文字（現在のタイトル）を見てください。</td></tr>
     <tr><td>画面上件数</td><td><span class="tag man">手入力</span></td><td>2枚目用。今バナーに出している件数。</td></tr>
     <tr><td>1枚目変更・2枚目変更</td><td><span class="tag man">手入力</span></td><td>行のドロップダウン・一括変更。</td></tr>
+    <tr><td>ランクタイプ・ランキング詳細</td><td><span class="tag man">手入力</span></td><td>1枚目用。取ったランキングの種類と、その中身（期間・順位・カテゴリ・日付など）。</td></tr>
+    <tr><td>証拠の画像（○ 選択）</td><td><span class="tag man">手入力</span></td><td>1枚目用。画像1〜3のどれか1枚。選んだ画像の右下が拡大表示されます。</td></tr>
     <tr><td>メモ・無視</td><td><span class="tag man">手入力</span></td><td></td></tr>
     <tr><td>項目設定</td><td><span class="tag man">手入力</span></td><td>選択肢の名前・色・並び順（↔ 項目設定）。</td></tr>
   </table>
@@ -382,7 +416,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.4.2';
+const VERSION = 'v0.6.0';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -420,7 +454,11 @@ const API_KEYS = new Set([
 const DEF_GROUPS = {
   first:  { label: '1枚目変更', icon: '🖼', field: 'firstStatus',  fallback: 'pending' },
   second: { label: '2枚目変更', icon: '🖼', field: 'secondStatus', fallback: 'none' },
+  rankKind: { label: 'ランクタイプ', icon: '🏆', field: 'rankKind', fallback: 'unset' },
 };
+// モードごとに出す項目グループ（上部フィルタの行・一括変更の選択肢）
+const MODE_GROUPS = { first: ['first', 'rankKind'], second: ['first', 'second'], basic: ['first', 'second'] };
+const MODES = ['first', 'second', 'basic'];
 const DEFS_DEFAULT = {
   first: [
     { key: 'pending',  icon: '🎯', label: '未着手',       bg: '#fff9c4', fg: '#827717', sep: true },
@@ -439,6 +477,16 @@ const DEFS_DEFAULT = {
     { key: 'skip',       icon: '⏭', label: 'SKIP',         bg: '#e7f1fb', fg: '#1976d2' },
     { key: 'enough',     icon: '👍', label: '十分な件数',   bg: '#e2f4f6', fg: '#00838f' },
   ],
+  // Yahoo! のランキングは リアルタイム / デイリー / 年間（楽天のウィークリーは無い。伝令ちゃんYahoo版と同じ）
+  rankKind: [
+    { key: 'unset',      icon: '—',  label: '未設定',       bg: '#f5f6f8', fg: '#6b7480', sep: true },
+    { key: 'realtime',   icon: '🔥', label: 'リアルタイム', bg: '#fff0f0', fg: '#c62828' },
+    { key: 'daily',      icon: '⚡', label: 'デイリー',     bg: '#e3f2fd', fg: '#1565c0' },
+    { key: 'annual',     icon: '📅', label: '年間',         bg: '#ede7f6', fg: '#5e35b1' },
+    { key: 'crown2',     icon: '👑', label: '2冠',          bg: '#fff8e1', fg: '#f9a825' },
+    { key: 'crown3',     icon: '👑', label: '3冠',          bg: '#ffecb3', fg: '#ff6f00', sep: true },
+    { key: 'not_needed', icon: '🚫', label: '不要',         bg: '#eceff1', fg: '#546e7a' },
+  ],
 };
 // 🔥 の内数。名前・色はここで固定（保存データで巻き戻らない）
 const FIXED_DEFS = {
@@ -446,7 +494,7 @@ const FIXED_DEFS = {
   __hot200__: { key: '__hot200__', icon: '🔥', label: '獲得前-上昇200%', bg: '#fff0f0', fg: '#c62828', fixed: true },
 };
 // 削除できない key（既定値の受け皿・動作に組み込まれているもの）
-const PROTECTED_KEYS = { first: ['pending'], second: ['none', '__hot3__', '__hot200__'] };
+const PROTECTED_KEYS = { first: ['pending'], second: ['none', '__hot3__', '__hot200__'], rankKind: ['unset'] };
 
 // ---- ショップはURLで決め、タブごとに固定する ----
 function resolveShop(persist) {
@@ -762,8 +810,9 @@ function matchQuery(code, p) {
   const q = query.toLowerCase();
   return (code + ' ' + (p.name || '') + ' ' + (p.apiTitle || '') + ' ' + (p.csvName || '')).toLowerCase().includes(q);
 }
-function matchFilter(p) {
+function matchFilter(code, p) {
   if (!filter.kind) return true;
+  if (filter.kind === 'denrei') return denreiStateOf(code) === filter.key;
   if (filter.kind === 'rate') { const b = RATE_BANDS.find(x => x.key === filter.key); return !b || !b.test || b.test(p.reviewAvg || 0); }
   if (filter.key === '__hot3__') return isHot3(p);
   if (filter.key === '__hot200__') return isHot200(p);
@@ -784,11 +833,15 @@ const COLS = [
   { key: 'onscreen', cls: 'c-num only-second', label: '画面上件数', sort: true },
   { key: 'diff',     cls: 'c-num only-second', label: '件数差異', sort: true },
   { key: 'rate',     cls: 'c-num only-second', label: '上昇率', sort: true },
+  { key: 'rank',     cls: 'c-rank only-first', label: 'ランキング（1枚目変更）', sort: 'first' },
+  { key: 'denrei',   cls: 'c-denrei only-first', label: '🔔 伝令ちゃん', sort: 'denrei' },
+  { key: 'make',     cls: 'c-make only-first', label: '1枚目作成' },
   { key: 'img0',     cls: 'c-img',  label: '画像1', sort: 'img0' },
   { key: 'img1',     cls: 'c-img',  label: '画像2', sort: 'img1' },
   { key: 'img2',     cls: 'c-img',  label: '画像3', sort: 'img2' },
+  { key: 'crop',     cls: 'c-crop only-first', label: '選択画像の右下（拡大）', sort: 'selimg' },
   { key: 'first',    cls: 'c-dd only-basic', label: '1枚目変更', sort: true },
-  { key: 'second',   cls: 'c-dd',   label: '2枚目変更', sort: true },
+  { key: 'second',   cls: 'c-dd only-basic only-second', label: '2枚目変更', sort: true },
   { key: 'act',      cls: 'c-act',  label: '確認' },
 ];
 function sortVal(code, p, k) {
@@ -805,11 +858,15 @@ function sortVal(code, p, k) {
     case 'img0': case 'img1': case 'img2': { const u = (p.imageUpdatedAt || [])[+k.slice(3)]; return u || null; }
     case 'first': return defList('first').findIndex(d => d.key === statusOf(p, 'first'));
     case 'second': return defList('second').findIndex(d => d.key === statusOf(p, 'second'));
+    case 'rankKind': return defList('rankKind').findIndex(d => d.key === statusOf(p, 'rankKind'));
+    case 'ranking': return p.ranking || null;
+    case 'selimg': return selIdx(p) || null;
+    case 'denrei': return denrei.state === 'ok' ? DENREI_STATES[denreiStateOf(code)].order : null;
     default: return null;
   }
 }
 function visibleRows() {
-  const rows = baseRows().filter(([, p]) => matchFilter(p));
+  const rows = baseRows().filter(([c, p]) => matchFilter(c, p));
   rows.sort(([ca, a], [cb, b]) => {
     const x = sortVal(ca, a, sortKey), y = sortVal(cb, b, sortKey);
     if (x === null && y === null) return ca.localeCompare(cb);
@@ -845,7 +902,13 @@ function renderHeader() {
   $('#metaStore').textContent = store.storeReview ? `ストア評価 ${store.storeReview.rate} / ${Number(store.storeReview.count).toLocaleString()}件` : '';
   // モード切り替えボタンに「手をつける商品の件数」を出す。0件ならバッジも色も出さない
   const scope = entries().filter(([, p]) => !isIgnored(p));
-  const work = { second: scope.filter(([, p]) => isHot3(p)).length };
+  const work = {
+    second: scope.filter(([, p]) => isHot3(p)).length,
+    // 伝令ちゃんが読めていれば「獲得済-登録可能」（楽天版と同じ）。読めないときは「作成可能」の件数
+    first: denrei.state === 'ok'
+      ? scope.filter(([c]) => denreiStateOf(c) === 'ready').length
+      : scope.filter(([, p]) => statusOf(p, 'first') === 'ready').length,
+  };
   document.querySelectorAll('#modes button').forEach(b => {
     const m = b.dataset.mode;
     b.classList.toggle('active', m === mode);
@@ -893,14 +956,14 @@ function filterRowHtml(g) {
 function renderFilters() {
   const rows = visibleRows();
   const optHtml = (g) => `<option value="">${DEF_GROUPS[g].label}：変更しない</option>` + defOptions(g).map(d => `<option value="${esc(d.key)}">${esc(d.icon)} ${esc(d.label)}</option>`).join('');
+  const groups = MODE_GROUPS[mode];
   $('#filters').innerHTML = `
-    <div class="frow">${filterRowHtml('first')}</div>
-    <div class="frow">${filterRowHtml('second')}</div>
+    ${groups.map(g => `<div class="frow">${filterRowHtml(g)}</div>`).join('')}
+    ${mode === 'first' ? `<div class="frow">${denreiRowHtml()}</div>` : ''}
     <div class="fpanel-foot">
       <div class="bulk">
         <span class="t">✏ 選択商品を一括変更</span><span class="cnt" id="selCnt">${selected.size}</span>
-        <select id="bulkFirst">${optHtml('first')}</select>
-        <select id="bulkSecond">${optHtml('second')}</select>
+        ${groups.map(g => `<select class="bulk-sel" data-g="${g}">${optHtml(g)}</select>`).join('')}
         <button id="bulkApply" class="primary" ${selected.size ? '' : 'disabled'}>→ 選択商品に適用</button>
         <button id="bulkClear" ${selected.size ? '' : 'disabled'}>☐ 選択解除</button>
       </div>
@@ -940,14 +1003,29 @@ function numHtml(p) {
   const cls = d > 0 ? (r >= 200 ? 'big' : 'pos') : 'zero';
   return { diff: `<span class="pill-num ${cls}">${d > 0 ? '+' : ''}${d}</span>`, rate: `<span class="pill-num ${cls}">${d > 0 ? '+' : ''}${r.toFixed(1)}%</span>` };
 }
+function selIdx(p) { return [1, 2, 3].includes(p.selectedImageIdx) ? p.selectedImageIdx : null; }
+function imgId(p, i) { return (p.imageIds || [])[i] || (i === 0 && p.imageId ? p.imageId : null); }
+function rankCell(p) {
+  return `<div class="rk-dds">${ddHtml('first', p)}${ddHtml('rankKind', p)}</div>` +
+    `<input type="text" data-field="ranking" value="${esc(p.ranking || '')}" placeholder="ランキング詳細（例: デイリー1位 替えブラシ 9/30）" title="${esc(p.ranking || '')}">`;
+}
+function cropCell(p) {
+  const i = selIdx(p);
+  const id = i ? imgId(p, i - 1) : null;
+  if (!id) return '<span class="muted">未選択（画像の下の「○ 選択」で1枚選ぶ）</span>';
+  const u = esc(imgLarge(id));
+  return `<a href="${u}" target="_blank" rel="noopener" title="クリックで元画像"><div class="crop-box"><div class="crop-inner" style="background-image:url('${u}')"></div></div></a><div class="crop-hint">画像${i} の右下（バッジの日付を確認）</div>`;
+}
 function imgCell(p, i) {
   const id = (p.imageIds || [])[i];
   const url = id ? imgThumb(id) : (i === 0 ? (p.images || [])[0] : null);
   if (!url) return '<span class="ph"></span><div class="d">–</div>';
   const upd = (p.imageUpdatedAt || [])[i];
   const recent = upd && daysAgo(upd) <= 7;
+  const on = selIdx(p) === i + 1;
   return `<a class="ph" href="${esc(id ? imgLarge(id) : url)}" target="_blank" rel="noopener"><img src="${esc(url)}" loading="lazy" alt=""></a>` +
-    `<div class="d ${recent ? 'new' : ''}" title="${upd ? '差し替え ' + esc(new Date(upd).toLocaleString('ja-JP')) : '差し替え日不明（古い画像）'}">${upd ? fmtDate(upd) : '–'}</div>`;
+    `<div class="d ${recent ? 'new' : ''}" title="${upd ? '差し替え ' + esc(new Date(upd).toLocaleString('ja-JP')) : '差し替え日不明（古い画像）'}">${upd ? fmtDate(upd) : '–'}</div>` +
+    `<div class="selband"><button data-act="pick" data-i="${i + 1}" class="${on ? 'on' : ''}" title="証拠に使う画像を1枚だけ選ぶ（もう一度押すと外す）">${on ? '● ✓ 選択済' : '○ 選択'}</button></div>`;
 }
 function stateBadge(p) {
   if (p.inApi === false && p.inCsv === false) return '<span class="pill gone">削除?</span>';
@@ -974,11 +1052,15 @@ function rowHtml(code, p) {
     <td class="c-num only-second"><input type="number" min="0" step="1" data-field="onScreenCount" value="${onScreen(p) ?? ''}" placeholder="—"></td>
     <td class="c-num only-second" data-cell="diff">${nh.diff}</td>
     <td class="c-num only-second" data-cell="rate">${nh.rate}</td>
-    <td class="c-img">${imgCell(p, 0)}</td>
-    <td class="c-img">${imgCell(p, 1)}</td>
-    <td class="c-img">${imgCell(p, 2)}</td>
+    <td class="c-rank only-first">${rankCell(p)}</td>
+    <td class="c-denrei only-first">${denreiCell(code)}</td>
+    <td class="c-make only-first">${makeCell(code)}</td>
+    <td class="c-img ${selIdx(p) === 1 ? 'picked' : ''}">${imgCell(p, 0)}</td>
+    <td class="c-img ${selIdx(p) === 2 ? 'picked' : ''}">${imgCell(p, 1)}</td>
+    <td class="c-img ${selIdx(p) === 3 ? 'picked' : ''}">${imgCell(p, 2)}</td>
+    <td class="c-crop only-first" data-cell="crop">${cropCell(p)}</td>
     <td class="c-dd only-basic">${ddHtml('first', p)}</td>
-    <td class="c-dd">${ddHtml('second', p)}</td>
+    <td class="c-dd only-basic only-second">${ddHtml('second', p)}</td>
     <td class="c-act"><div class="acts">
       <button data-act="ignore">${isIgnored(p) ? '👁 通常に戻す' : '🙈 無視する'}</button>
       <input type="text" data-field="memo" value="${esc(p.memo || '')}" placeholder="メモ">
@@ -1013,10 +1095,11 @@ function setFilter(kind, key) {
   renderAll();
 }
 function setMode(m) {
-  if (!['basic', 'second'].includes(m)) m = 'basic';
+  if (!MODES.includes(m)) m = 'basic';
   if (m === 'second' && mode !== 'second') { sortKey = 'onscreen'; sortDir = -1; }   // 2枚目用は画面上件数の降順から
-  if (m === 'basic' && mode !== 'basic') { sortKey = 'reviewCount'; sortDir = -1; }
-  if (m !== 'basic' && filter.kind === 'first') filter = { kind: null, key: null };
+  if (m !== 'second' && mode !== m) { sortKey = 'reviewCount'; sortDir = -1; }
+  // そのモードに出ていない項目の絞り込みは解除する（見えない条件で絞られたままにしない）
+  if (filter.kind && filter.kind !== 'rate' && !(filter.kind === 'denrei' ? m === 'first' : MODE_GROUPS[m].includes(filter.kind))) filter = { kind: null, key: null };
   mode = m;
   lsSet(LS.mode, m);
   renderAll();
@@ -1070,8 +1153,11 @@ $('#rows').addEventListener('click', (e) => {
       p[DEF_GROUPS[g].field] = key;
       touch(code);
       const d = defOf(g, key);
-      dd.setAttribute('style', pillStyle(d));
-      dd.innerHTML = `<span>${esc(d.icon)} ${esc(d.label)}</span><span class="caret">▼</span>`;
+      // 同じ項目のドロップダウンが1行に2つある（1枚目変更: 基本の列と1枚目用の列）ので両方書き換える
+      dd.closest('tr').querySelectorAll(`.dd[data-dd="${g}"]`).forEach(x => {
+        x.setAttribute('style', pillStyle(d));
+        x.innerHTML = `<span>${esc(d.icon)} ${esc(d.label)}</span><span class="caret">▼</span>`;
+      });
       dd.closest('td').classList.remove('flash'); void dd.offsetWidth; dd.closest('td').classList.add('flash');
       renderHeader(); renderFilters();   // 件数だけ更新（行は並べ直さない＝押した行が逃げない）
     });
@@ -1088,6 +1174,19 @@ $('#rows').addEventListener('click', (e) => {
     e.preventDefault();
     const p = store.productCache[code];
     navigator.clipboard?.writeText(p.itemUrl || '').then(() => setStatus('URLをコピーしました', 'ok'), () => setStatus('コピーできませんでした', 'err'));
+  } else if (act.dataset.act === 'pick') {
+    // ラジオ式：商品ごとに1枚だけ。同じものをもう一度押すと外す
+    const p = store.productCache[code], i = +act.dataset.i;
+    p.selectedImageIdx = selIdx(p) === i ? null : i;
+    touch(code);
+    const tr = act.closest('tr');
+    tr.querySelectorAll('.c-img').forEach((td, k) => {
+      const on = selIdx(p) === k + 1;
+      td.classList.toggle('picked', on);
+      const b = td.querySelector('[data-act="pick"]');
+      if (b) { b.classList.toggle('on', on); b.textContent = on ? '● ✓ 選択済' : '○ 選択'; }
+    });
+    tr.querySelector('[data-cell="crop"]').innerHTML = cropCell(p);
   } else if (act.dataset.act === 'ignore') {
     const p = store.productCache[code];
     p.status = isIgnored(p) ? 'normal' : 'ignore';
@@ -1124,19 +1223,19 @@ $('#thead').addEventListener('click', (e) => {
   const th = e.target.closest('[data-sort]'); if (!th) return;
   const k = th.dataset.sort;
   if (sortKey === k) sortDir = -sortDir;
-  else { sortKey = k; sortDir = ['code', 'name', 'first', 'second'].includes(k) ? 1 : -1; }
+  else { sortKey = k; sortDir = ['code', 'name', 'first', 'second', 'rankKind', 'ranking', 'denrei'].includes(k) ? 1 : -1; }
   renderThead(); renderRows();
 });
 $('#filters').addEventListener('click', (e) => {
   const fb = e.target.closest('[data-fg]');
   if (fb) { setFilter(fb.dataset.fg, fb.dataset.fk); return; }
+  if (e.target.closest('[data-act="denreiReload"]')) { loadDenrei(true); return; }
   if (e.target.id === 'bulkApply') {
-    const f = $('#bulkFirst').value, s = $('#bulkSecond').value;
-    if (!f && !s) { setStatus('変更する項目を選んでください', 'err'); return; }
+    const picks = [...document.querySelectorAll('#filters .bulk-sel')].filter(x => x.value).map(x => [x.dataset.g, x.value]);
+    if (!picks.length) { setStatus('変更する項目を選んでください', 'err'); return; }
     for (const code of selected) {
       const p = store.productCache[code]; if (!p) continue;
-      if (f) p.firstStatus = f;
-      if (s) p.secondStatus = s;
+      for (const [g, v] of picks) p[DEF_GROUPS[g].field] = v;
       touch(code);
     }
     setStatus(`${selected.size}件を一括変更しました`, 'ok');
@@ -1268,6 +1367,110 @@ $('#shopSave').addEventListener('click', async () => {
 });
 
 // ============================================================
+// 🔔 ランキング伝令ちゃん（Yahoo版）の状態を読む（楽天版 v8.07〜 と同じ考え方）
+//   伝令ちゃんの /api/shops で「このストア（seller_id）の伝令ちゃん側のID」を調べ、
+//   /api/products を1回読んで商品コードで突き合わせる。取ってくるのは状態だけ。
+//     ranking_registered が真            → ランキング登録済
+//     偽で achieved の期間が1つでもある  → 獲得済-登録可能
+//     偽で achieved が1つもない          → ランキング獲得前
+//     伝令ちゃんに居ない商品             → 伝令ちゃん未登録
+//   読んだ内容は画面の中だけに置く（GitHubには保存しない）。伝令ちゃん側が本当の持ち主なので。
+//   別サイトからの読み取りになるので、伝令ちゃん v0.8.1 以上（CORS 許可）が必要。
+// ============================================================
+const DENREI_BASE = 'https://ranking-denrei-chan-yahoo.kaiyoshida0318.workers.dev';
+const DENREI_STATES = {
+  before:     { label: 'ランキング獲得前',   bg: '#f5f4ee', fg: '#78716c', order: 1 },
+  ready:      { label: '獲得済-登録可能',    bg: '#fff0f0', fg: '#c62828', order: 2 },
+  registered: { label: 'ランキング登録済',   bg: '#e8f5e9', fg: '#2e7d32', order: 3 },
+  none:       { label: '伝令ちゃん未登録',   bg: '#eceff1', fg: '#546e7a', order: 4 },
+  unknown:    { label: '未取得',             bg: '#f5f6f8', fg: '#9aa1a9', order: 5 },
+};
+const PERIOD_LABEL = { realtime: 'リアルタイム', daily: 'デイリー', annual: '年間' };
+let denrei = { state: 'idle', map: {}, loadedAt: '', error: '', shopId: null };   // state: idle|loading|ok|error|noshop
+function denreiStateOf(code) {
+  if (denrei.state !== 'ok') return 'unknown';
+  return denrei.map[code] ? denrei.map[code].state : 'none';
+}
+async function loadDenrei(manual) {
+  if (denrei.state === 'loading') return;
+  denrei = { ...denrei, state: 'loading', error: '' };
+  renderDenreiParts();
+  try {
+    const sres = await fetch(`${DENREI_BASE}/api/shops`, { cache: 'no-store' });
+    if (!sres.ok) throw new Error(`HTTP ${sres.status}`);
+    const shops = (await sres.json()).shops || [];
+    // 伝令ちゃんは未登録のショップIDを既定ショップに読み替えるので、ID ではなく Yahoo! のストアIDで突き合わせる
+    const ds = shops.find(x => x.store_id === SHOP.sellerId) || shops.find(x => x.id === SHOP.id && !x.store_id);
+    if (!ds) { denrei = { ...denrei, state: 'noshop', map: {}, shopId: null, loadedAt: new Date().toISOString() }; renderAll(); return; }
+    const res = await fetch(`${DENREI_BASE}/api/products?shop=${encodeURIComponent(ds.id)}`, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const items = (await res.json()).items || [];
+    const map = {};
+    for (const it of items) {
+      const code = String(it.product_code || '').trim().toLowerCase();
+      if (!code) continue;
+      const list = Array.isArray(it.ranking_status) ? it.ranking_status : [];
+      const achieved = list.filter(x => x && x.status === 'achieved');
+      const state = (it.ranking_registered === true || it.ranking_registered === 1) ? 'registered' : achieved.length ? 'ready' : 'before';
+      map[code] = { state, targets: list.length, achieved: achieved.map(x => ({ period: x.period, rank: x.best_rank, category: x.category_label || '', at: x.achieved_at_jst || '' })) };
+    }
+    denrei = { state: 'ok', map, loadedAt: new Date().toISOString(), error: '', shopId: ds.id };
+    if (manual) setStatus(`伝令ちゃんの状態を取得しました（${items.length}件）`, 'ok');
+  } catch (e) {
+    denrei = { ...denrei, state: 'error', error: String(e?.message || e) };
+    if (manual) setStatus('伝令ちゃんの状態を取得できませんでした', 'err');
+  }
+  renderAll();
+}
+function denreiPageUrl(code) { return denrei.shopId ? `${DENREI_BASE}/${encodeURIComponent(denrei.shopId)}/${encodeURIComponent(code)}` : ''; }
+function denreiAppUrl() { return `${DENREI_BASE}/?shop=${encodeURIComponent(denrei.shopId || SHOP.id)}`; }
+function denreiCell(code) {
+  const k = denreiStateOf(code), def = DENREI_STATES[k], d = denrei.state === 'ok' ? denrei.map[code] : null;   // 読めていないときは前回の中身を出さない
+  let sub = '';
+  if (d) {
+    sub = `<span class="dnr-sub">獲得 <b>${d.achieved.length}</b>/${d.targets}` +
+      d.achieved.map(a => `<br>${esc(PERIOD_LABEL[a.period] || a.period)}${a.rank ? ` <b>${esc(a.rank)}位</b>` : ''}${a.at ? ` ${esc(String(a.at).slice(5, 10).replace('-', '/'))}` : ''}`).join('') + '</span>';
+  } else if (k === 'unknown') {
+    sub = `<span class="dnr-sub">${denrei.state === 'loading' ? '読込中…' : denrei.state === 'noshop' ? '伝令ちゃんにこのストアがありません' : '取得できていません'}</span>`;
+  }
+  const link = d ? `<a class="dnr-link" href="${esc(denreiPageUrl(code))}" target="_blank" rel="noopener">🔔 伝令ちゃんで開く</a>`
+    : (denrei.state === 'ok' ? `<a class="dnr-link" href="${esc(denreiAppUrl())}" target="_blank" rel="noopener">＋ 伝令ちゃんに登録</a>` : '');
+  return `<span class="dnr-badge" style="background:${def.bg};color:${def.fg}">${esc(def.label)}</span>${sub}${link}`;
+}
+function makeCell(code) {
+  // 1枚目（ランキングバッジ付き）は伝令ちゃんの商品ページで作る（楽天版の MAKE1_URL と同じ飛び先）
+  const url = denrei.state === 'ok' && denrei.map[code] ? denreiPageUrl(code) : '';
+  return url ? `<a class="btn" href="${esc(url)}" target="_blank" rel="noopener" title="伝令ちゃんのこの商品のページを開く">🖼 1枚目作成</a>`
+    : `<span class="muted" title="伝令ちゃんに登録されている商品だけ作れます">${denrei.state === 'ok' ? '伝令ちゃん未登録' : '—'}</span>`;
+}
+function denreiRowHtml() {
+  const base = baseRows();
+  const on = (k) => filter.kind === 'denrei' && filter.key === k;
+  let html = `<span class="flabel">🔔 伝令ちゃん:</span><div class="fgroup"><button class="fbtn all ${filter.kind !== 'denrei' ? 'on' : ''}" data-fg="denrei" data-fk="">全体 <span class="n">(${base.length})</span></button>`;
+  if (denrei.state === 'ok') {
+    for (const k of ['before', 'ready', 'registered', 'none']) {
+      const def = DENREI_STATES[k], n = base.filter(([c]) => denreiStateOf(c) === k).length;
+      const urgent = k === 'ready' && n > 0;   // 登録できる状態で待っている商品がいれば派手にする
+      html += `<button class="fbtn ${urgent ? 'urgent' : ''} ${on(k) ? 'on' : ''} ${n ? '' : 'zero'}" ${urgent ? '' : `style="background:${def.bg};color:${def.fg};border-color:${def.fg}33"`} data-fg="denrei" data-fk="${k}">${esc(def.label)} <span class="n">(${n})</span></button>`;
+    }
+    html += `</div><span class="dnr-msg">${esc(relTime(denrei.loadedAt))} 時点</span>`;
+  } else if (denrei.state === 'loading') {
+    html += `</div><span class="dnr-msg">読込中…</span>`;
+  } else if (denrei.state === 'noshop') {
+    html += `</div><span class="dnr-msg err">伝令ちゃんに「${esc(SHOP.name)}」（ストアID ${esc(SHOP.sellerId)}）がありません。伝令ちゃん側にショップを足すと出ます。</span>`;
+  } else if (denrei.state === 'error') {
+    html += `</div><span class="dnr-msg err">取得できませんでした（${esc(denrei.error)}）。伝令ちゃんが v0.8.1 より前だと、別サイトからの読み取りが許可されていないため読めません。</span>`;
+  } else {
+    html += `</div><span class="dnr-msg">未取得</span>`;
+  }
+  return html + ` <button class="fbtn" data-act="denreiReload" title="伝令ちゃん側の状態を取り直します">🔄 更新</button>`;
+}
+function renderDenreiParts() {
+  if (mode === 'first') { renderFilters(); }
+  renderFetchBtn();
+}
+
+// ============================================================
 // 📥 商品データ取得
 //   このページは Yahoo! の API を直接叩けない（CORS）ので、取得は TimerRunner に頼む。
 //   data/{shop}/fetch_request.json に "requested" を書く → TimerRunner の
@@ -1322,6 +1525,13 @@ function renderFetchBtn() {
     }
     hb.innerHTML = `🔄 更新一覧${lvl ? `<span class="dot ${lvl}" title="${lvl === 'r' ? '36時間以上取得していません' : '26時間以上取得していません'}"></span>` : ''}`;
   }
+  const dc = $('#chipDenrei');
+  dc.className = 'chip';
+  if (denrei.state === 'ok') { dc.textContent = `最終取得: ${fmtFull(denrei.loadedAt)}（${relTime(denrei.loadedAt)}）`; dc.title = new Date(denrei.loadedAt).toLocaleString('ja-JP'); }
+  else if (denrei.state === 'loading') { dc.textContent = '読込中…'; }
+  else if (denrei.state === 'noshop') { dc.textContent = '伝令ちゃんにこのストアがありません'; dc.classList.add('y'); }
+  else if (denrei.state === 'error') { dc.textContent = '取得できませんでした'; dc.classList.add('r'); dc.title = denrei.error; }
+  else { dc.textContent = 'まだ読み込んでいません'; }
   const rc = $('#chipReload');
   rc.className = 'chip';
   rc.textContent = lastLoadedAt ? `最終読込: ${fmtFull(lastLoadedAt)}（${relTime(lastLoadedAt)}）` : 'まだ読み込んでいません';
@@ -1386,6 +1596,7 @@ $('#btnFetch').addEventListener('click', async () => {
 setInterval(renderFetchBtn, 30000);   // 「N分前」を進める
 $('#btnUpdate').addEventListener('click', () => { renderFetchBtn(); $('#dlgUpdate').showModal(); if (ghConfig().pat) readReq(); });
 $('#updClose').addEventListener('click', () => $('#dlgUpdate').close());
+$('#btnDenrei').addEventListener('click', () => loadDenrei(true));
 
 // ---- 設定ダイアログ ----
 const dlg = $('#dlgSettings');
@@ -1459,11 +1670,11 @@ $('#defsList').addEventListener('click', (e) => {
 });
 
 // ---- 起動 ----
-mode = ['basic', 'second'].includes(lsGet(LS.mode)) ? lsGet(LS.mode) : 'basic';
+mode = MODES.includes(lsGet(LS.mode)) ? lsGet(LS.mode) : 'basic';
 if (mode === 'second') { sortKey = 'onscreen'; sortDir = -1; }
 defs = normalizeDefs(null);
 renderAll();
-loadShops().then(load);
+loadShops().then(() => { loadDenrei(false); return load(); });
 </script>
 </body>
 </html>
