@@ -413,6 +413,7 @@
     <tr><td>レビュー件数の履歴</td><td><span class="tag">①</span><span class="tag">②</span></td><td>「7日 +3」の元。1日1件（その日の最後に取った値）。</td></tr>
     <tr><td>新しく出品した商品</td><td><span class="tag">①</span><span class="tag">②</span></td><td>行が増えます。状態は「未着手 / 獲得前」から。</td></tr>
     <tr><td>ストア評価</td><td><span class="tag">①</span><span class="tag">②</span></td><td>右上のストア評価。</td></tr>
+    <tr><td>伝令ちゃんへの登録</td><td><span class="tag man">＋ ボタン</span></td><td>1枚目用の「＋ 伝令ちゃんに登録」で、伝令ちゃんの「商品を追加」が商品URL・商品コード入りで開きます（画像・ランキングURLは伝令ちゃんが取得）。保存したら、ここの「🔄 更新」で状態を読み直してください。</td></tr>
     <tr><td>伝令ちゃんの状態</td><td><span class="tag">画面を開いたとき</span><span class="tag">🔔 ボタン</span></td><td>1枚目用の「🔔 伝令ちゃん」列。伝令ちゃん側が持ち主なので GitHub には保存しません。順位そのものは TimerRunner の「Yahooランキング監視」が巡回して伝令ちゃんに記録します。</td></tr>
     <tr class="sec"><td colspan="3">手で入れるもの（取得を押しても変わりません）</td></tr>
     <tr><td>商品名</td><td><span class="tag man">手入力</span></td><td><b>自動では変わりません。</b>手で付けた名前を守るため、あえて上書きしていません。Yahoo! 側の名前を見たいときは、その下の小さい文字（現在のタイトル）を見てください。</td></tr>
@@ -480,7 +481,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.1';
+const VERSION = 'v0.8.2';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -1291,6 +1292,10 @@ $('#rows').addEventListener('click', (e) => {
     renderAll();
   }
 });
+// 「＋ 伝令ちゃんに登録」は押した瞬間の値（直前に入れた商品名など）でリンクを作り直す。中クリックにも効くよう mousedown で
+$('#rows').addEventListener('mousedown', (e) => {
+  const a = e.target.closest('a.dnr-btn.add'); if (a) a.href = denreiAddUrl(rowCode(a));
+});
 $('#rows').addEventListener('input', (e) => {
   const inp = e.target.closest('input[data-field], textarea[data-field]'); if (!inp) return;
   const code = rowCode(inp), p = store.productCache[code]; if (!p) return;
@@ -1771,6 +1776,18 @@ async function loadDenrei(manual) {
 }
 function denreiPageUrl(code) { return denrei.shopId ? `${DENREI_BASE}/${encodeURIComponent(denrei.shopId)}/${encodeURIComponent(code)}` : ''; }
 function denreiAppUrl() { return `${DENREI_BASE}/?shop=${encodeURIComponent(denrei.shopId || SHOP.id)}`; }
+/*
+ * 「＋ 伝令ちゃんに登録」の飛び先。伝令ちゃんの「商品を追加」を開き、商品URL・商品コード・商品名を渡す。
+ *   伝令ちゃん v0.8.2 以上は、受け取った値を入れてから「情報を取得」を自動で押す
+ *   （ランキングURL 3期間・サムネイルまで埋まる）。それより前の版は空の「商品を追加」が開くだけ。
+ *   商品名は、こちらで付けた短い名前があるときだけ渡す（無ければ伝令ちゃんが商品ページから取る）。
+ */
+function denreiAddUrl(code) {
+  const p = store.productCache[code] || {};
+  const q = new URLSearchParams({ shop: denrei.shopId || SHOP.id, modal: 'add', url: p.itemUrl || `https://store.shopping.yahoo.co.jp/${SHOP.sellerId}/${code}.html`, code });
+  if (p.name && String(p.name).trim()) q.set('name', String(p.name).trim());
+  return `${DENREI_BASE}/?${q.toString()}`;
+}
 function denreiCell(code) {
   const k = denreiStateOf(code), def = DENREI_STATES[k], d = denrei.state === 'ok' ? denrei.map[code] : null;   // 読めていないときは前回の中身を出さない
   let sub = '';
@@ -1781,7 +1798,7 @@ function denreiCell(code) {
     sub = `<span class="dnr-sub">${denrei.state === 'loading' ? '読込中…' : denrei.state === 'noshop' ? '伝令ちゃんにこのストアがありません' : '取得できていません'}</span>`;
   }
   const link = d ? `<a class="dnr-btn open" href="${esc(denreiPageUrl(code))}" target="_blank" rel="noopener" title="伝令ちゃんのこの商品のページを開く">🔔 伝令ちゃんで開く</a>`
-    : (denrei.state === 'ok' ? `<a class="dnr-btn add" href="${esc(denreiAppUrl())}" target="_blank" rel="noopener" title="まだ伝令ちゃんに登録されていません。伝令ちゃんを開いて商品を足してください">＋ 伝令ちゃんに登録</a>` : '');
+    : (denrei.state === 'ok' ? `<a class="dnr-btn add" href="${esc(denreiAddUrl(code))}" target="_blank" rel="noopener" title="伝令ちゃんの「商品を追加」を、この商品のURL・商品コードを入れた状態で開きます。保存は伝令ちゃん側で押してください">＋ 伝令ちゃんに登録</a>` : '');
   return `<span class="dnr-badge" style="background:${def.bg};color:${def.fg}">${esc(def.label)}</span>${sub}${link}`;
 }
 function makeCell(code) {
