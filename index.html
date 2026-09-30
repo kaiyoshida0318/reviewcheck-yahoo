@@ -166,9 +166,11 @@
   .c-rate .cnt { font-size: 18px; font-weight: 800; margin-left: 6px; font-family: ui-monospace, Consolas, monospace; }
   .c-rate .cnt a { color: var(--text); }
   .c-rate .unit { font-size: 11px; color: var(--muted); }
-  .c-rate .sl { margin-top: 2px; font-size: 12px; color: var(--muted); }
-  .c-rate .sl b { color: var(--text); font-size: 14px; font-family: ui-monospace, Consolas, monospace; }
-  thead th.c-rate .sortable[data-sort="sales"] { display: block; margin-top: 2px !important; }   /* 見出しも「評価 件数 / 売上」の2段 */
+  .c-sales { text-align: center; white-space: nowrap; }
+  .c-sales .amt { font-size: 16px; font-weight: 800; font-family: ui-monospace, Consolas, monospace; color: var(--text); }
+  .c-sales .sub { font-size: 11px; color: var(--faint); font-family: ui-monospace, Consolas, monospace; margin-top: 2px; }
+  thead th.c-sales { text-align: center; }
+  thead th.c-sales .sl-m { font-weight: 400; font-size: 10px; color: var(--faint); }
   .c-num { text-align: center; white-space: nowrap; }
   .c-num input { width: 76px; text-align: right; }
   .pill-num { display: inline-block; padding: 2px 8px; border-radius: 6px; font-weight: 800; font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
@@ -452,7 +454,7 @@
     <tr><td>現在のタイトル</td><td><span class="tag">①</span><span class="tag">②</span></td><td>Yahoo! に今出ている商品名。商品名の下の「✏ 詳細」で見られます（商品名の欄にマウスを乗せても出ます）。</td></tr>
     <tr><td>在庫切れ・非公開の印</td><td><span class="tag">①</span><span class="tag">②</span></td><td>商品コードの下の黄色い印。</td></tr>
     <tr><td>レビュー件数の履歴</td><td><span class="tag">①</span><span class="tag">②</span></td><td>1日1件（その日の最後に取った値）を控えています。</td></tr>
-    <tr><td>売上</td><td><span class="tag">画面を開いたとき</span></td><td>評価・件数の下の金額。Y-check に入っている商品別売上のうち、<b>最後まで終わっている月</b>（今日が9月なら8月）の分です。Y-check 側が持ち主なのでここでは変えられません。Y-check にその月のデータが無い商品は「—」。</td></tr>
+    <tr><td>売上</td><td><span class="tag">画面を開いたとき</span></td><td>評価・件数の左の「売上」列（金額と、その下に 個数 / 注文件数）。Y-check に入っている商品別売上のうち、<b>最後まで終わっている月</b>（今日が9月なら8月）の分です。Y-check 側が持ち主なのでここでは変えられません。Y-check にその月のデータが無い商品は「—」。</td></tr>
     <tr><td>新しく出品した商品</td><td><span class="tag">①</span><span class="tag">②</span></td><td>行が増えます。状態は「未着手 / 獲得前」から。</td></tr>
     <tr><td>ストア評価</td><td><span class="tag">①</span><span class="tag">②</span></td><td>右上のストア評価。</td></tr>
     <tr><td>伝令ちゃんへの登録</td><td><span class="tag man">＋ ボタン</span></td><td>1枚目用の「＋ 伝令ちゃんに登録」で、伝令ちゃんの「商品を追加」が商品URL・商品コード・画像1入りで開きます（ランキングURLは伝令ちゃんが取得）。保存したら、ここの「🔄 更新」で状態を読み直してください。</td></tr>
@@ -546,7 +548,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.18';
+const VERSION = 'v0.8.19';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -969,7 +971,8 @@ const COLS = [
   { key: 'name',     cls: 'c-name', label: '商品名', sort: true },
   { key: 'rank',     cls: 'c-rank only-first', label: 'ランキング（1枚目変更）', sort: 'first' },
   { key: 'denrei',   cls: 'c-denrei only-first', label: '🔔 伝令ちゃん', sort: 'denrei' },
-  { key: 'rating',   cls: 'c-rate', label: '評価 / 件数', sort: 'reviewCount', alt: [['reviewAvg', '評価'], ['reviewCount', '件数'], ['sales', '売上']] },
+  { key: 'sales',    cls: 'c-sales', html: () => { const on = sortKey === 'sales'; return `<span class="sortable ${on ? 'sorted' : ''}" data-sort="sales" style="cursor:pointer">売上<span class="arrow">${on ? (sortDir > 0 ? '▲' : '▼') : '⇅'}</span></span>${sales.state === 'ok' && sales.month ? `<div class="sl-m" title="Y-check の ${sales.month.replace('-', '年')}月の売上">${+sales.month.split('-')[1]}月</div>` : ''}`; } },
+  { key: 'rating',   cls: 'c-rate', label: '評価 / 件数', sort: 'reviewCount', alt: [['reviewAvg', '評価'], ['reviewCount', '件数']] },
   { key: 'onscreen', cls: 'c-num only-second', label: '画面上件数', sort: true },
   { key: 'diff',     cls: 'c-num only-second', label: '件数差異', sort: true },
   { key: 'rate',     cls: 'c-num only-second', label: '上昇率', sort: true },
@@ -1239,8 +1242,8 @@ function rowHtml(code, p) {
     </td>
     <td class="c-rank only-first" data-cell="rank">${rankCell(code, p)}</td>
     <td class="c-denrei only-first">${denreiCell(code)}</td>
-    <td class="c-rate"><div class="stars">${stars}</div><span class="avg">${p.reviewAvg ? Number(p.reviewAvg).toFixed(2) : '—'}</span><span class="cnt"><a href="${esc(p.reviewUrl)}" target="_blank" rel="noopener">${(p.reviewCount || 0).toLocaleString()}</a></span><span class="unit">件</span>
-      <div class="sl">${salesHtml(code)}</div></td>
+    <td class="c-sales">${salesHtml(code)}</td>
+    <td class="c-rate"><div class="stars">${stars}</div><span class="avg">${p.reviewAvg ? Number(p.reviewAvg).toFixed(2) : '—'}</span><span class="cnt"><a href="${esc(p.reviewUrl)}" target="_blank" rel="noopener">${(p.reviewCount || 0).toLocaleString()}</a></span><span class="unit">件</span></td>
     <td class="c-num only-second"><input type="number" min="0" step="1" data-field="onScreenCount" value="${onScreen(p) ?? ''}" placeholder="—"></td>
     <td class="c-num only-second" data-cell="diff">${nh.diff}</td>
     <td class="c-num only-second" data-cell="rate">${nh.rate}</td>
@@ -2185,7 +2188,10 @@ async function loadSales() {
       const items = Array.isArray(d.item) ? d.item.filter(r => r && r.code && /^\d{4}-\d{2}$/.test(String(r.month || ''))) : [];
       const month = salesTargetMonth([...new Set(items.map(r => r.month))]);
       const map = {};
-      for (const r of items) if (r.month === month) { const c = String(r.code).trim().toLowerCase(); map[c] = (map[c] || 0) + (Number(r.revenue) || 0); }
+      for (const r of items) if (r.month === month) {
+        const c = String(r.code).trim().toLowerCase(), m = map[c] || (map[c] = { rev: 0, qty: 0, orders: 0 });
+        m.rev += Number(r.revenue) || 0; m.qty += Number(r.qty) || 0; m.orders += Number(r.orders) || 0;
+      }
       sales = { state: 'ok', month, map, savedAt: d.savedAt || '', error: '' };
       renderAll();
       return;
@@ -2194,14 +2200,16 @@ async function loadSales() {
   sales = { state: 'error', month: '', map: {}, savedAt: '', error: lastErr };
   renderAll();
 }
-function salesOf(code) { return sales.state === 'ok' && Object.prototype.hasOwnProperty.call(sales.map, code) ? sales.map[code] : null; }
+function salesRec(code) { return sales.state === 'ok' && Object.prototype.hasOwnProperty.call(sales.map, code) ? sales.map[code] : null; }
+function salesOf(code) { const r = salesRec(code); return r ? r.rev : null; }
 function salesHtml(code) {
-  if (sales.state === 'loading' || sales.state === 'idle') return '<span class="muted">売上 …</span>';
-  if (sales.state === 'error') return `<span class="muted" title="Y-check の売上を読めませんでした（${esc(sales.error)}）">売上 —</span>`;
-  if (!sales.month) return '<span class="muted" title="Y-check に終わった月の売上がまだありません">売上 —</span>';
-  const [y, m] = sales.month.split('-'), v = salesOf(code);
+  if (sales.state === 'loading' || sales.state === 'idle') return '<span class="muted">…</span>';
+  if (sales.state === 'error') return `<span class="muted" title="Y-check の売上を読めませんでした（${esc(sales.error)}）">—</span>`;
+  if (!sales.month) return '<span class="muted" title="Y-check に終わった月の売上がまだありません">—</span>';
+  const [y, m] = sales.month.split('-'), r = salesRec(code);
   const tip = `Y-check の ${y}年${+m}月の売上` + (sales.savedAt ? `（Y-check 保存: ${fmtShort(sales.savedAt)}）` : '');
-  return v === null ? `<span class="muted" title="${esc(tip)}：この商品のデータなし">${+m}月 —</span>` : `<span title="${esc(tip)}">${+m}月 <b>¥${v.toLocaleString()}</b></span>`;
+  if (!r) return `<span class="muted" title="${esc(tip)}：この商品のデータなし">—</span>`;
+  return `<div class="amt" title="${esc(tip)}">¥${r.rev.toLocaleString()}</div><div class="sub" title="販売個数 / 注文件数">${r.qty.toLocaleString()}個 / ${r.orders.toLocaleString()}件</div>`;
 }
 
 // ============================================================
