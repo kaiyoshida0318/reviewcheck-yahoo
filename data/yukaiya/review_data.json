@@ -410,7 +410,9 @@
         null,
         "2026-09-04T16:09:26+09:00",
         "2026-09-04T16:08:55+09:00"
-      ]
+      ],
+      "firstStatus": "acquired",
+      "updatedAt": "2026-09-30T04:52:49.349Z"
     },
     "yoga-23-03-00set": {
       "reviewHistory": {
@@ -10123,7 +10125,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-09-30T03:40:29.415Z",
+  "savedAt": "2026-09-30T04:52:52.355Z",
   "lastAutoFetch": "2026-09-30T03:06:57Z",
   "lastCsvFile": "data202609291804.csv",
   "counts": {
