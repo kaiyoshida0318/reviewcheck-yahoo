@@ -270,8 +270,10 @@
   .dnr-btn.add { background: #fff8e1; color: #e65100; border: 1px dashed #e65100; }
   .dnr-btn.add:hover { background: #ffe0b2; }
   .c-make { width: 110px; text-align: center; }
-  .c-make a.btn { display: inline-block; padding: 5px 10px; border: 1px solid var(--line2); border-radius: 6px; font-size: 12px; font-weight: 700; color: var(--text); background: #fff; white-space: nowrap; }
-  .c-make a.btn:hover { background: #0d47a1; color: #fff; border-color: #0d47a1; text-decoration: none; }
+  .c-make .btn { display: inline-block; padding: 5px 10px; border: 1px solid var(--line2); border-radius: 6px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+  .c-make .btn.go { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 2px 6px rgba(255,0,51,.35); text-decoration: none; }
+  .c-make .btn.go:hover { filter: brightness(.92); text-decoration: none; }
+  .c-make .btn.off { background: #f5f6f8; border-color: var(--line); color: var(--faint); font-weight: 400; opacity: .6; cursor: default; user-select: none; }
   .fbtn.urgent { color: var(--hot); background: var(--hot-soft); box-shadow: inset 0 0 0 2px var(--hot); font-weight: 700; }
   .fbtn.urgent.on { background: var(--hot); color: #fff; }
   .dnr-msg { font-size: 11px; color: var(--muted); }
@@ -544,7 +546,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.17';
+const VERSION = 'v0.8.18';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -1979,10 +1981,12 @@ function denreiCell(code) {
   return `<span class="dnr-badge" style="background:${def.bg};color:${def.fg}"${tip ? ` title="${esc(tip)}"` : ''}>${esc(def.label)}</span>${sub}${link ? `<div>${link}</div>` : ''}`;
 }
 function makeCell(code) {
-  // 1枚目（ランキングバッジ付き）は伝令ちゃんの商品ページで作る（楽天版の MAKE1_URL と同じ飛び先）
-  const url = denrei.state === 'ok' && denrei.map[code] ? denreiPageUrl(code) : '';
-  return url ? `<a class="btn" href="${esc(url)}" target="_blank" rel="noopener" title="伝令ちゃんのこの商品のページを開く">🖼 1枚目作成</a>`
-    : `<span class="muted" title="伝令ちゃんに登録されている商品だけ作れます">${denrei.state === 'ok' ? '伝令ちゃん未登録' : '—'}</span>`;
+  // 1枚目（ランキングバッジ付き）は伝令ちゃんの商品ページで作る（楽天版の MAKE1_URL と同じ飛び先）。
+  // 押せるのは「獲得済-登録可能」の商品だけ（v0.8.18〜）。それ以外は薄く出して押せない。
+  const k = denreiStateOf(code);
+  if (k === 'ready') return `<a class="btn go" href="${esc(denreiPageUrl(code))}" target="_blank" rel="noopener" title="伝令ちゃんのこの商品のページを開いて1枚目を作る">🖼 1枚目作成</a>`;
+  const why = { before: 'まだランキングを獲得していません', registered: 'ランキング登録済みです', none: '伝令ちゃんに登録されていません', unknown: '伝令ちゃんの状態を読めていません' }[k] || '';
+  return `<span class="btn off" title="${esc(why)}（「獲得済-登録可能」の商品だけ押せます）">🖼 1枚目作成</span>`;
 }
 function denreiRowHtml() {
   const base = baseRows();
