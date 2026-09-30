@@ -50,6 +50,11 @@
   #status { font-size: 12px; color: var(--muted); white-space: nowrap; }
   #status.err { color: var(--accent); }
   #status.ok { color: var(--ok); }
+  #btnFetch { font-weight: 700; white-space: nowrap; }
+  #btnFetch.wait { background: #fff6e0; border-color: #f0c36d; color: #8a5a00; }
+  #btnFetch.run { background: #e8f1fd; border-color: #9cc0f0; color: var(--blue); }
+  #btnFetch.run .spin { display: inline-block; animation: spin 1.2s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
   /* ── layout ─────────────────────────────── */
   .layout { display: flex; gap: 16px; padding: 16px; align-items: flex-start; }
@@ -216,6 +221,7 @@
   <span class="meta" id="metaStore"></span>
   <span id="status"></span>
   <button id="btnDefs" title="1枚目変更・2枚目変更の選択肢を編集">↔ 項目設定</button>
+  <button id="btnFetch" class="primary" title="TimerRunner に今すぐ取得してもらう（数分おきに依頼を見に来ます）">📥 商品データ取得</button>
   <button id="btnReload" title="GitHubから読み直す">↻ 再読込</button>
   <button id="btnSettings" title="GitHub PAT の設定">⚙</button>
 </div></header>
@@ -304,7 +310,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.3.1';
+const VERSION = 'v0.4.0';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -385,11 +391,12 @@ function lsDel(k) { try { localStorage.removeItem(k); } catch (e) {} }
 
 // 現在のストアはURLで決め、このタブでは以後変えない（shops.json を読んだ後にもう一度だけ解決し直す）
 let SHOP = resolveShop(false);
-let DATA_PATH = '', DEFS_PATH = '';
+let DATA_PATH = '', DEFS_PATH = '', REQ_PATH = '';
 function applyShop(persist) {
   SHOP = resolveShop(persist);
   DATA_PATH = `data/${SHOP.id}/review_data.json`;
   DEFS_PATH = `data/${SHOP.id}/defs.json`;
+  REQ_PATH = `data/${SHOP.id}/fetch_request.json`;
   document.title = `${SHOP.name} - reviewcheck Yahoo`;
 }
 applyShop(false);
@@ -519,6 +526,7 @@ async function load() {
   store.productCache = store.productCache || {};
   if (migrate()) { dirty = true; scheduleSave(); }
   renderAll();
+  if (pat && !reqWatching) readReq().then(watchReq);
 }
 
 // ============================================================
@@ -1175,6 +1183,90 @@ $('#shopSave').addEventListener('click', async () => {
     setStatus(`ストア一覧の保存失敗: ${e.message}`, 'err');
   } finally { btn.disabled = false; }
 });
+
+// ============================================================
+// 📥 商品データ取得
+//   このページは Yahoo! の API を直接叩けない（CORS）ので、取得は TimerRunner に頼む。
+//   data/{shop}/fetch_request.json に "requested" を書く → TimerRunner の
+//   「Yahooレビュー取得（画面の依頼）」が数分おきに見に来て "running" → "done" / "error" を書き戻す。
+//   終わったら自動で読み直す。
+// ============================================================
+const REQ_POLL_MS = 15000;
+const REQ_SLOW_MIN = 12;   // 依頼してからこれだけ経っても始まらなければ「TimerRunner が止まっているかも」
+let reqState = null, reqSha = null, reqTimer = null, reqWatching = false;
+function reqPending(r) { return r && (r.status === 'requested' || r.status === 'running'); }
+function renderFetchBtn() {
+  const b = $('#btnFetch'); if (!b) return;
+  b.classList.remove('wait', 'run', 'primary');
+  if (reqState?.status === 'requested') {
+    const mins = Math.floor(daysAgo(reqState.requestedAt) * 1440);
+    b.classList.add('wait'); b.disabled = false;
+    b.innerHTML = `⏳ 依頼済み <span class="muted">${mins > 0 ? mins + '分前' : 'たった今'}</span>`;
+    b.title = `TimerRunner の順番待ち（数分おきに見に来ます）\n依頼 ${new Date(reqState.requestedAt).toLocaleString('ja-JP')}`;
+  } else if (reqState?.status === 'running') {
+    b.classList.add('run'); b.disabled = false;
+    b.innerHTML = `<span class="spin">🔄</span> 取得中… <span class="muted">${fmtShort(reqState.startedAt).split(' ')[1] || ''}〜</span>`;
+    b.title = `TimerRunner（${reqState.runner || '?'}）が取得中。画像まで取るので数分かかります`;
+  } else {
+    b.classList.add('primary'); b.disabled = false;
+    b.innerHTML = '📥 商品データ取得';
+    b.title = reqState?.finishedAt ? `前回: ${new Date(reqState.finishedAt).toLocaleString('ja-JP')} ${reqState.status === 'error' ? '失敗' : '完了'} ${reqState.message || ''}` : 'TimerRunner に今すぐ取得してもらう（数分おきに依頼を見に来ます）';
+  }
+}
+async function readReq() {
+  try { const r = await ghGet(REQ_PATH); reqState = r.data; reqSha = r.sha; }
+  catch (e) { /* 読めなくても画面は止めない */ }
+  renderFetchBtn();
+  return reqState;
+}
+function watchReq() {
+  clearTimeout(reqTimer);
+  if (!reqPending(reqState)) { reqWatching = false; return; }
+  reqWatching = true;
+  reqTimer = setTimeout(async () => {
+    const before = reqState?.status;
+    await readReq();
+    if (reqState?.status === 'done' && before !== 'done') {
+      if (dirty) await flush();
+      await load();
+      setStatus(`✓ 商品データを取得しました（${reqState.message || ''}）`, 'ok');
+    } else if (reqState?.status === 'error') {
+      setStatus(`取得失敗: ${reqState.message || '不明'}（TimerRunner のログを確認してください）`, 'err');
+    } else if (reqState?.status === 'requested' && daysAgo(reqState.requestedAt) * 1440 > REQ_SLOW_MIN) {
+      setStatus(`依頼から${REQ_SLOW_MIN}分以上たっても始まりません。TimerRunner が起動しているか確認してください`, 'err');
+    }
+    watchReq();
+  }, REQ_POLL_MS);
+}
+$('#btnFetch').addEventListener('click', async () => {
+  if (!ghConfig().pat) { setStatus('⚙ で PAT を設定すると取得を依頼できます', 'err'); return; }
+  const b = $('#btnFetch');
+  if (reqPending(reqState)) {   // もう依頼中なら状態を読み直すだけ
+    await readReq(); watchReq(); return;
+  }
+  b.disabled = true;
+  try {
+    await readReq();
+    if (!reqPending(reqState)) {
+      const body = { status: 'requested', requestedAt: new Date().toISOString(), shop: SHOP.id, version: VERSION };
+      try { reqSha = await ghPut(REQ_PATH, body, reqSha, `[request] ${SHOP.id} 商品データ取得`); }
+      catch (e) {
+        if (e.status !== 409 && e.status !== 422) throw e;
+        await readReq();   // 別のPCが同時に押した → そちらの依頼に相乗り
+        if (!reqPending(reqState)) reqSha = await ghPut(REQ_PATH, body, reqSha, `[request] ${SHOP.id} 商品データ取得`);
+      }
+      if (!reqPending(reqState)) reqState = body;
+      setStatus('取得を依頼しました。TimerRunner が数分以内に取りに行きます', 'ok');
+    }
+  } catch (e) {
+    setStatus(`依頼できませんでした: ${e.message}`, 'err');
+  } finally {
+    b.disabled = false;
+    renderFetchBtn();
+    watchReq();
+  }
+});
+setInterval(() => { if (reqPending(reqState)) renderFetchBtn(); }, 30000);   // 「N分前」を進める
 
 // ---- 設定ダイアログ ----
 const dlg = $('#dlgSettings');
