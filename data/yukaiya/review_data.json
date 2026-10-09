@@ -979,8 +979,8 @@
         null
       ],
       "registeredAt": "2026-09-29",
-      "secondStatus": "stale",
-      "updatedAt": "2026-10-09T07:47:14.754Z"
+      "secondStatus": "none",
+      "updatedAt": "2026-10-09T07:50:28.394Z"
     },
     "cg-22-03": {
       "reviewHistory": {
@@ -13565,7 +13565,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-09T07:47:28.632Z",
+  "savedAt": "2026-10-09T07:50:31.400Z",
   "lastAutoFetch": "2026-10-09T03:08:14Z",
   "lastCsvFile": "data202610091200.csv",
   "counts": {
