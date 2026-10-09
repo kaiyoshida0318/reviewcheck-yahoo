@@ -51,10 +51,10 @@
         "2026-09-30T18:23:02+09:00"
       ],
       "ranking": "【リアルタイム】メガネ備品＞その他メガネ備品ランキング（9/5 09:06）\n【デイリー】メガネ備品＞その他メガネ備品ランキング（9/4 16:23）",
-      "updatedAt": "2026-10-09T07:55:42.662Z",
+      "updatedAt": "2026-10-09T08:06:29.613Z",
       "registeredAt": "2026-09-29",
       "firstStatus": "acquired",
-      "secondStatus": "changing",
+      "secondStatus": "changed",
       "onScreenCount": 115
     },
     "wat-sma-10": {
@@ -161,10 +161,10 @@
         "2026-09-30T18:21:22+09:00"
       ],
       "ranking": "【リアルタイム】シューケア、革手入れ用品＞外反母趾対策用品ランキング（9/20 08:40）\n【デイリー】シューケア、革手入れ用品＞外反母趾対策用品ランキング（10/4 07:35）",
-      "updatedAt": "2026-10-09T07:55:38.046Z",
+      "updatedAt": "2026-10-09T08:06:35.210Z",
       "registeredAt": "2026-09-29",
       "firstStatus": "acquired",
-      "secondStatus": "changing",
+      "secondStatus": "changed",
       "onScreenCount": 7
     },
     "tb-23-01": {
@@ -218,10 +218,10 @@
         "2026-09-30T18:23:51+09:00"
       ],
       "ranking": "【リアルタイム】オーラルケア＞電動歯ブラシ用替えブラシランキング（9/4 23:50）",
-      "updatedAt": "2026-10-09T07:55:46.489Z",
+      "updatedAt": "2026-10-09T08:06:25.159Z",
       "registeredAt": "2026-09-29",
       "firstStatus": "acquired",
-      "secondStatus": "changing",
+      "secondStatus": "changed",
       "onScreenCount": 203
     },
     "foot-22-04-2set": {
@@ -436,10 +436,10 @@
         "2026-09-30T18:20:35+09:00"
       ],
       "ranking": "【リアルタイム】防災、防犯、セーフティ＞家具転倒防止用品ランキング（9/5 15:36）\n【デイリー】防災、防犯、セーフティ＞家具転倒防止用品ランキング（9/19 07:22）",
-      "updatedAt": "2026-10-09T07:55:39.214Z",
+      "updatedAt": "2026-10-09T08:06:33.589Z",
       "registeredAt": "2026-09-29",
       "firstStatus": "acquired",
-      "secondStatus": "changing",
+      "secondStatus": "changed",
       "onScreenCount": 63
     },
     "wat-fb-21-02": {
@@ -600,10 +600,10 @@
         "2026-09-30T18:26:21+09:00"
       ],
       "ranking": "【リアルタイム】ヨガ、ピラティス＞ヨガソックスランキング（9/6 18:13）",
-      "updatedAt": "2026-10-09T07:55:40.353Z",
+      "updatedAt": "2026-10-09T08:06:32.040Z",
       "registeredAt": "2026-09-29",
       "firstStatus": "acquired",
-      "secondStatus": "changing",
+      "secondStatus": "changed",
       "onScreenCount": 68
     },
     "yoga-23-01-00set": {
@@ -656,10 +656,10 @@
         "2026-09-30T18:25:26+09:00"
       ],
       "ranking": "【リアルタイム】ヨガ、ピラティス＞ヨガソックスランキング（9/7 19:44）",
-      "updatedAt": "2026-10-09T07:55:41.442Z",
+      "updatedAt": "2026-10-09T08:06:31.039Z",
       "registeredAt": "2026-09-29",
       "firstStatus": "acquired",
-      "secondStatus": "changing",
+      "secondStatus": "changed",
       "onScreenCount": 75
     },
     "si-22-11-00set": {
@@ -876,10 +876,10 @@
         "2026-09-30T18:22:14+09:00"
       ],
       "ranking": "【リアルタイム】浴室用具＞排水口カバー、ネットランキング（9/5 01:57）",
-      "updatedAt": "2026-10-09T07:55:45.191Z",
+      "updatedAt": "2026-10-09T08:06:26.271Z",
       "registeredAt": "2026-09-29",
       "firstStatus": "acquired",
-      "secondStatus": "changing",
+      "secondStatus": "changed",
       "onScreenCount": 126
     },
     "wat-sma-01b": {
@@ -1042,10 +1042,10 @@
         "2026-09-30T18:19:08+09:00"
       ],
       "ranking": "【リアルタイム】浴室用具＞排水口カバー、ネットランキング（9/9 12:08）",
-      "updatedAt": "2026-10-09T07:55:44.114Z",
+      "updatedAt": "2026-10-09T08:06:28.023Z",
       "registeredAt": "2026-09-29",
       "firstStatus": "acquired",
-      "secondStatus": "changing",
+      "secondStatus": "changed",
       "onScreenCount": 117
     },
     "wat-sma-01": {
@@ -13733,7 +13733,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-09T08:03:19.808Z",
+  "savedAt": "2026-10-09T08:06:38.219Z",
   "lastAutoFetch": "2026-10-09T03:08:14Z",
   "lastCsvFile": "data202610091200.csv",
   "counts": {
