@@ -41,9 +41,9 @@
   .ver { font-size: 11px; color: var(--faint); }
   .modes { display: flex; gap: 2px; background: #f0f2f5; border: 1px solid var(--line); border-radius: 8px; padding: 3px; }
   .modes button { border: 1px solid transparent; background: transparent; padding: 4px 10px; border-radius: 6px; color: var(--muted); white-space: nowrap; }
-  .modes button.active { background: #fff; color: var(--text); border-color: var(--line2); font-weight: 700; box-shadow: 0 1px 2px rgba(0,0,0,.05); }
-  .modes button.has-work { color: var(--hot); border-color: #f5b5b5; background: var(--hot-soft); font-weight: 700; }
-  .modes button.active.has-work { background: #fff; }
+  /* v0.8.24: 赤い枠と地色は「今選んでいるモード」だけに付ける。
+     手をつける商品があるモードは、赤丸の数字だけで知らせる（枠・地色は付けない＝どれを選んでいるか紛れない） */
+  .modes button.active { background: var(--hot-soft); color: var(--hot); border-color: var(--hot); font-weight: 700; box-shadow: 0 0 0 2px rgba(198,40,40,.15); }
   .modes .badge { display: inline-block; min-width: 18px; padding: 0 5px; margin-left: 4px; border-radius: 999px; background: var(--hot); color: #fff; font-size: 11px; line-height: 17px; text-align: center; }
   .spacer { flex: 1; }
   .meta { color: var(--muted); font-size: 12px; white-space: nowrap; }
@@ -781,7 +781,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.23';
+const VERSION = 'v0.8.24';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
