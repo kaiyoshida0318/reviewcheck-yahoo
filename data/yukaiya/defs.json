@@ -1,6 +1,6 @@
 {
   "version": "v0.8.37",
-  "savedAt": "2026-10-09T09:32:01.154Z",
+  "savedAt": "2026-10-09T09:32:37.871Z",
   "first": [
     {
       "key": "pending",
@@ -13,7 +13,7 @@
     {
       "key": "watching",
       "icon": "",
-      "label": "変更前",
+      "label": "監視中-変更前",
       "bg": "#ede7f6",
       "fg": "#5e35b1"
     },
