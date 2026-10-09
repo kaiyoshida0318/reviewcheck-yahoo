@@ -9888,8 +9888,8 @@
         "2024-06-19T11:05:28+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "firstStatus": "pending",
-      "updatedAt": "2026-10-09T08:22:51.214Z"
+      "firstStatus": "skip",
+      "updatedAt": "2026-10-09T08:23:01.299Z"
     },
     "bloop-18-01-22-2set": {
       "reviewHistory": {
@@ -13735,7 +13735,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-09T08:22:54.226Z",
+  "savedAt": "2026-10-09T08:23:04.308Z",
   "lastAutoFetch": "2026-10-09T08:16:19Z",
   "lastCsvFile": "data202610091200.csv",
   "counts": {
