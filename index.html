@@ -355,14 +355,14 @@
   .tpv-note { font-size: 11px; color: var(--muted); margin-top: 10px; }
 
   /* 1枚目用 */
-  .c-rank { min-width: 260px; }
-  .c-rank .rk-dds { display: flex; gap: 6px; }
-  .c-rank .rk-dd { display: flex; flex-direction: column; gap: 2px; }
-  th .rk-heads { display: flex; gap: 6px; margin-top: 3px; font-weight: 600; font-size: 11px; }
-  th .rk-heads span { width: 128px; cursor: pointer; }
-  .c-rank .rk-cap { display: none; }
-  .c-rank .rk-cap-unused { font-size: 10px; color: var(--faint); line-height: 1.2; }
-  .c-rank .dd { width: 128px; }
+  /* 「1.2枚目変更」列：上に1枚目変更、下に2枚目変更（v0.8.37〜） */
+  .c-rank { min-width: 180px; }
+  .c-rank .rk-dds { display: flex; flex-direction: column; gap: 6px; }
+  .c-rank .rk-dd { display: flex; align-items: center; gap: 6px; }
+  .c-rank .rk-cap { flex: 0 0 auto; font-size: 10px; color: var(--faint); white-space: nowrap; }
+  .c-rank .dd { flex: 1 1 auto; min-width: 128px; }
+  th .rk-heads { display: flex; gap: 10px; margin-top: 3px; font-weight: 600; font-size: 11px; }
+  th .rk-heads span { cursor: pointer; }
   .c-rank textarea { width: 100%; font: inherit; font-size: 12px; line-height: 1.45; border: 1px solid var(--line2); border-radius: 6px; padding: 4px 8px; resize: vertical; min-height: 44px; }
   .rk-fill { margin-top: 4px; font-size: 11px; padding: 2px 8px; }
   #menu .mi.plain { background: #fff; color: var(--text); font-weight: 400; line-height: 1.5; }
@@ -585,7 +585,7 @@
     <tr><td>証拠の画像（○ 選択）</td><td><span class="tag man">手入力</span></td><td>1枚目用。画像1〜3のどれか1枚。選んだ画像の右下が拡大表示されます。</td></tr>
     <tr><td>メモ・無視</td><td><span class="tag man">手入力</span></td><td>右端の「確認」列、または商品名の下の「✏ 詳細」から。1枚目用は「確認」列がないので「✏ 詳細」から。</td></tr>
     <tr><td>2枚目作成</td><td><span class="tag man">手で作る</span></td><td>2枚目用の「🖼 2枚目作成」。レビュー件数・評価・日付を入れた画像（PNG）を作ります。開いただけでは何も変わりません。「PNGを保存 / スタッツ変更」を押したときだけ、2枚目変更が「変更中」になり、画面上件数が今のレビュー件数に合います。</td></tr>
-    <tr><td>項目設定</td><td><span class="tag man">手入力</span></td><td>選択肢の名前・色・並び順（↔ 項目設定）。</td></tr>
+    <tr><td>項目設定</td><td><span class="tag man">手入力</span></td><td>選択肢の名前・色・並び順（↔ 項目設定）。伝令ちゃんの状態（未登録 / 監視中 など）の名前と色も、「🔔 伝令ちゃん」タブで変えられます。</td></tr>
     <tr><td>タイトル末尾の型番</td><td><span class="tag">①</span><span class="tag">②</span><span class="tag man">手で直せる</span></td><td>タイトル末尾用の4つの欄。現在のタイトルの末尾から自動で拾い、タイトルが変われば追従します。手で打ち替えた欄（黄色）はタイトルに追従しません（自動と同じ値に戻すと追従に戻ります）。</td></tr>
     <tr><td>並び順・対応・コピー履歴</td><td><span class="tag man">手入力</span></td><td>タイトル末尾用。並び順は自動判定（手で選び直すと点線の枠）。コピー履歴は消すまで残ります。</td></tr>
   </table>
@@ -798,7 +798,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.35';
+const VERSION = 'v0.8.37';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -1096,6 +1096,7 @@ function normalizeDefs(saved) {
     }
     out[g] = list;
   }
+  out.denrei = normalizeDenreiDefs(saved?.denrei);
   return out;
 }
 const defList = (g) => defs[g] || [];
@@ -1116,6 +1117,7 @@ async function flushDefs() {
   const body = { version: VERSION, savedAt: new Date().toISOString() };
   for (const g of Object.keys(DEF_GROUPS)) body[g] = defList(g).map(d => d.fixed ? { key: d.key, sep: !!d.sep } : d);
   body.seeded = defsSeeded;
+  body.denrei = (defs.denrei || []).map(d => ({ key: d.key, label: d.label, bg: d.bg, fg: d.fg }));
   try {
     try { defsSha = await ghPut(DEFS_PATH, body, defsSha, `[defs] ${SHOP.id}`); }
     catch (e) {
@@ -2169,6 +2171,25 @@ const DENREI_STATES = {
   none:       { label: '未登録',             bg: '#fff9c4', fg: '#827717', order: 0 },   // v0.8.31: 「伝令ちゃん未登録」から改名。並びも先頭（登録する前）
   unknown:    { label: '未取得',             bg: '#f5f6f8', fg: '#9aa1a9', order: 5 },
 };
+// 伝令ちゃんの状態の名前・色は「↔ 項目設定」の「🔔 伝令ちゃん」タブで変えられる（v0.8.36〜）。
+//   変えられるのは名前と色だけ（状態そのものは伝令ちゃんが決めるので、足す・消す・並べ替えは無い）。
+//   保存先はほかの項目設定と同じ defs.json の denrei。
+const DENREI_EDIT_KEYS = ['none', 'before', 'ready', 'registered'];
+const DENREI_DEFAULTS = JSON.parse(JSON.stringify(DENREI_STATES));
+const DENREI_DESC = { none: '伝令ちゃんに登録されていない商品', before: '登録済みで、まだランキングを獲得していない商品', ready: 'ランキングを獲得し、伝令ちゃんで登録できる商品', registered: '伝令ちゃんで登録まで終わった商品' };
+function normalizeDenreiDefs(saved) {
+  const by = {}; for (const d of (Array.isArray(saved) ? saved : [])) if (d && d.key) by[d.key] = d;
+  const hex = (v, fb) => /^#[0-9a-f]{6}$/i.test(String(v || '')) ? String(v) : fb;
+  const list = DENREI_EDIT_KEYS.map(k => {
+    const def = DENREI_DEFAULTS[k], sv = by[k] || {};
+    return { key: k, label: String(sv.label || '').trim() || def.label, bg: hex(sv.bg, def.bg), fg: hex(sv.fg, def.fg) };
+  });
+  applyDenreiDefs(list);
+  return list;
+}
+function applyDenreiDefs(list) {
+  for (const d of list) { const st = DENREI_STATES[d.key]; if (!st) continue; st.label = String(d.label || '').trim() || DENREI_DEFAULTS[d.key].label; st.bg = d.bg; st.fg = d.fg; }
+}
 const PERIOD_LABEL = { realtime: 'リアルタイム', daily: 'デイリー', annual: '年間' };
 // その商品の「獲得」記録（新しい順）。伝令ちゃんが読めていないときは空
 function denreiAchieved(code) {
@@ -2334,8 +2355,8 @@ function makeCell(code) {
   // 押せるのは「獲得済-登録可能」の商品だけ（v0.8.18〜）。それ以外は薄く出して押せない。
   const k = denreiStateOf(code);
   if (k === 'ready') return `<a class="btn go" href="${esc(denreiPageUrl(code))}" target="_blank" rel="noopener" title="伝令ちゃんのこの商品のページを開いて1枚目を作る">🖼 1枚目作成</a>`;
-  const why = { before: 'まだランキングを獲得していません（監視中）', registered: 'ランキング獲得済みです（伝令ちゃんで登録まで終わっています）', none: '伝令ちゃんに登録されていません（未登録）', unknown: '伝令ちゃんの状態を読めていません' }[k] || '';
-  return `<span class="btn off" title="${esc(why)}（「獲得済-登録可能」の商品だけ押せます）">🖼 1枚目作成</span>`;
+  const why = { before: 'まだランキングを獲得していません', registered: '伝令ちゃんで登録まで終わっています', none: '伝令ちゃんに登録されていません', unknown: '伝令ちゃんの状態を読めていません' }[k] || '';
+  return `<span class="btn off" title="${esc(why)}（「${esc(DENREI_STATES.ready.label)}」の商品だけ押せます）">🖼 1枚目作成</span>`;
 }
 function denreiRowHtml() {
   const base = baseRows();
@@ -4241,7 +4262,21 @@ let defsTab = 'second';
 function usageCount(g, key) { return entries().filter(([, p]) => p[DEF_GROUPS[g].field] === key).length; }
 function renderDefsEditor() {
   $('#defsShop').textContent = `（${SHOP.name}）`;
-  $('#defsTabs').innerHTML = Object.entries(DEF_GROUPS).map(([g, v]) => `<button data-tab="${g}" class="${g === defsTab ? 'on' : ''}">${v.icon} ${v.label}</button>`).join('');
+  $('#defsTabs').innerHTML = Object.entries(DEF_GROUPS).map(([g, v]) => `<button data-tab="${g}" class="${g === defsTab ? 'on' : ''}">${v.icon} ${v.label}</button>`).join('') +
+    `<button data-tab="denrei" class="${defsTab === 'denrei' ? 'on' : ''}">🔔 伝令ちゃん</button>`;
+  $('#defsAdd').style.display = defsTab === 'denrei' ? 'none' : '';
+  if (defsTab === 'denrei') {
+    // 名前と色だけ（足す・消す・並べ替えは無い）
+    $('#defsList').innerHTML = (defs.denrei || []).map((d, i) => `<div class="def-row" data-i="${i}">
+      <div class="preview" style="background:${esc(d.bg)};color:${esc(d.fg)}">${esc(d.label)}</div>
+      <span></span>
+      <input type="text" data-k="label" value="${esc(d.label)}" placeholder="${esc(DENREI_DEFAULTS[d.key].label)}">
+      <input type="color" data-k="bg" value="${esc(d.bg)}" title="背景色">
+      <input type="color" data-k="fg" value="${esc(d.fg)}" title="文字色">
+      <span class="hint" style="grid-column: span 2; white-space: normal; line-height: 1.4">${esc(DENREI_DESC[d.key] || '')}</span></div>`).join('') +
+      `<div class="hint" style="padding:8px 4px">伝令ちゃんの状態は、名前と色だけ変えられます（どの商品がどの状態かは伝令ちゃんが決めます）。名前を空にすると元の名前に戻ります。</div>`;
+    return;
+  }
   const list = defList(defsTab);
   $('#defsList').innerHTML = list.map((d, i) => {
     const prot = PROTECTED_KEYS[defsTab].includes(d.key);
@@ -4264,9 +4299,14 @@ function renderDefsEditor() {
 }
 function defsChanged() { markDefsDirty(); renderDefsEditor(); renderAll(); }
 $('#btnDefs').addEventListener('click', () => { renderDefsEditor(); $('#dlgDefs').showModal(); });
-$('#defsClose').addEventListener('click', () => { $('#dlgDefs').close(); flushDefs(); });
+$('#defsClose').addEventListener('click', () => {
+  // 伝令ちゃんの名前を空のまま閉じたら、元の名前に戻して保存する
+  for (const d of (defs.denrei || [])) if (!String(d.label || '').trim()) { d.label = DENREI_DEFAULTS[d.key].label; defsDirty = true; }
+  $('#dlgDefs').close(); flushDefs();
+});
 $('#defsTabs').addEventListener('click', (e) => { const b = e.target.closest('[data-tab]'); if (b) { defsTab = b.dataset.tab; renderDefsEditor(); } });
 $('#defsAdd').addEventListener('click', () => {
+  if (defsTab === 'denrei') return;
   defs[defsTab].push({ key: 'k' + Date.now().toString(36), icon: '🏷', label: '新しい項目', bg: '#f0f2f5', fg: '#374151' });
   defsChanged();
   $('#defsList').scrollTop = 1e6;
@@ -4276,6 +4316,13 @@ $('#defsList').addEventListener('input', (e) => {
   const i = +inp.closest('.def-row').dataset.i, d = defs[defsTab][i], k = inp.dataset.k;
   if (k === 'sep') d.sep = inp.checked; else d[k] = inp.value;
   markDefsDirty();
+  if (defsTab === 'denrei') {
+    applyDenreiDefs(defs.denrei);
+    const st = DENREI_STATES[d.key], pv0 = inp.closest('.def-row').querySelector('.preview');
+    pv0.style.background = st.bg; pv0.style.color = st.fg; pv0.textContent = st.label;
+    renderAll();
+    return;
+  }
   const pv = inp.closest('.def-row').querySelector('.preview');
   pv.style.background = d.bg; pv.style.color = d.fg; pv.textContent = defText(d);
   if (k === 'sep') inp.closest('.def-row').classList.toggle('sep-after', d.sep);
