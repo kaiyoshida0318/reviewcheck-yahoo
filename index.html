@@ -567,7 +567,7 @@
     <tr class="sec"><td colspan="3">手で入れるもの（取得を押しても変わりません）</td></tr>
     <tr><td>商品名</td><td><span class="tag man">手入力</span></td><td><b>自動では変わりません。</b>手で付けた名前を守るため、あえて上書きしていません。Yahoo! 側の名前を見たいときは、商品名の下の「✏ 詳細」を開いてください。</td></tr>
     <tr><td>画面上件数</td><td><span class="tag man">手入力</span></td><td>2枚目用。今バナーに出している件数。</td></tr>
-    <tr><td>1枚目変更・2枚目変更</td><td><span class="tag man">手入力</span></td><td>行のドロップダウン・一括変更。</td></tr>
+    <tr><td>1枚目変更・2枚目変更</td><td><span class="tag man">手入力</span></td><td>1枚目変更の「👀 監視中」だけは自動でも入ります（伝令ちゃんに登録されている商品が「未着手」のままなら、画面を開いたとき・「🔄 更新」で「監視中」に変わります）。行のドロップダウン・一括変更。</td></tr>
     <tr><td>ランキング詳細</td><td><span class="tag">自動</span><span class="tag man">手で直せる</span></td><td>1枚目用。伝令ちゃんに獲得記録が入ると、画面を開いたとき・「🔄 更新」を押したときに自動で入ります（【期間】親＞カテゴリランキング（月/日 時:分）。期間ごとに1行）。手で直した行はそのまま残ります。同じ【期間】の行が無くなると、また自動で入ります。</td></tr>
     <tr><td>証拠の画像（○ 選択）</td><td><span class="tag man">手入力</span></td><td>1枚目用。画像1〜3のどれか1枚。選んだ画像の右下が拡大表示されます。</td></tr>
     <tr><td>メモ・無視</td><td><span class="tag man">手入力</span></td><td>右端の「確認」列、または商品名の下の「✏ 詳細」から。1枚目用は「確認」列がないので「✏ 詳細」から。</td></tr>
@@ -785,7 +785,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.26';
+const VERSION = 'v0.8.28';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -832,10 +832,12 @@ const MODE_FILTER_KINDS = { first: ['first', 'denrei'], second: ['first', 'secon
 const DEFS_DEFAULT = {
   first: [
     { key: 'pending',  icon: '🎯', label: '未着手',       bg: '#fff9c4', fg: '#827717', sep: true },
+    { key: 'watching', icon: '👀', label: '監視中',       bg: '#ede7f6', fg: '#5e35b1' },   // v0.8.27: 伝令ちゃんに登録された商品が自動でここに入る
     { key: 'ready',    icon: '🛠', label: '作成中',       bg: '#e1f5fe', fg: '#0277bd', sep: true },   // v0.8.21: 「作成可能」から改名（key はそのまま）
     { key: 'acquired', icon: '✅', label: '変更完了',     bg: '#e8f5e9', fg: '#2e7d32' },
     { key: 'past',     icon: '📦', label: '昔のまま放置', bg: '#fbeeee', fg: '#a32d2d' },
     { key: 'skip',     icon: '⏭', label: 'SKIP',         bg: '#e7f1fb', fg: '#1976d2' },
+    { key: 'skip_child', icon: '⏭', label: 'SKIP-子商品',  bg: '#e0f2f1', fg: '#00796b' },   // v0.8.28
   ],
   second: [
     { key: 'none',       icon: '✔', label: '獲得前',       bg: '#f5f4ee', fg: '#78716c', sep: true },
@@ -853,9 +855,13 @@ const FIXED_DEFS = {
   __hot3__:   { key: '__hot3__',   icon: '🔥', label: '獲得前-3件以上',  bg: '#fff0f0', fg: '#c62828', fixed: true },
   __hot200__: { key: '__hot200__', icon: '🔥', label: '獲得前-上昇200%', bg: '#fff0f0', fg: '#c62828', fixed: true },
 };
+// 後から既定に足した項目。保存済みの項目設定（defs.json）にまだ無ければ、1回だけ after の後ろへ足す。
+//   足したことは seeded に覚えるので、その後に項目設定で消しても復活しない。
+const SEEDED_DEFS = { first: [{ key: 'skip_child', after: 'skip' }] };
+let defsSeeded = [];
 const RENAMED_LABELS = { first: { ready: { from: '作成可能', to: '作成中', iconFrom: '🆗', icon: '🛠' } } };
 // 削除できない key（既定値の受け皿・動作に組み込まれているもの）
-const PROTECTED_KEYS = { first: ['pending'], second: ['none', '__hot3__', '__hot200__'] };
+const PROTECTED_KEYS = { first: ['pending', 'watching'], second: ['none', '__hot3__', '__hot200__'] };
 
 // ---- ショップはURLで決め、タブごとに固定する ----
 function resolveShop(persist) {
@@ -1008,6 +1014,7 @@ async function load() {
   store.productCache = store.productCache || {};
   if (migrate()) { dirty = true; scheduleSave(); }
   autoFillRanking();
+  autoWatchStatus();
   fillRegisteredAt();
   renderAll();
   if (pat && !reqWatching) readReq().then(watchReq);
@@ -1038,16 +1045,25 @@ function migrate() {
 // ============================================================
 function normalizeDefs(saved) {
   const out = {};
+  const seeded = Array.isArray(saved?.seeded) ? saved.seeded : [];
+  defsSeeded = Object.entries(SEEDED_DEFS).flatMap(([g, l]) => l.map(x => `${g}:${x.key}`));   // 次に保存するときは全部「足した」ことにする
   for (const g of Object.keys(DEF_GROUPS)) {
     let list = Array.isArray(saved?.[g]) && saved[g].length ? saved[g] : DEFS_DEFAULT[g];
     list = list.filter(d => d && d.key).map(d => FIXED_DEFS[d.key] ? { ...FIXED_DEFS[d.key], sep: !!d.sep } : { ...d });
     // 表示名を変えたときの読み替え（保存済みの項目設定が旧名のままなら新名に寄せる。手で付け直した名前は触らない）
     for (const d of list) { const r = (RENAMED_LABELS[g] || {})[d.key]; if (r && d.label === r.from) { d.label = r.to; if (r.icon && d.icon === r.iconFrom) d.icon = r.icon; } }
+    for (const sd of (SEEDED_DEFS[g] || [])) {
+      if (seeded.includes(`${g}:${sd.key}`) || list.some(d => d.key === sd.key) || list === DEFS_DEFAULT[g]) continue;
+      const def = DEFS_DEFAULT[g].find(d => d.key === sd.key), at = list.findIndex(d => d.key === sd.after);
+      if (def) list.splice(at >= 0 ? at + 1 : list.length, 0, { ...def });
+    }
     // 守る key が消えていたら既定から足し直す
     for (const k of PROTECTED_KEYS[g]) {
       if (!list.some(d => d.key === k)) {
         const def = FIXED_DEFS[k] || DEFS_DEFAULT[g].find(d => d.key === k);
-        if (def) list.splice(k === DEF_GROUPS[g].fallback ? 0 : list.length, 0, { ...def });
+        // 足す位置: 既定値の受け皿は先頭、「監視中」は未着手のすぐ後ろ、それ以外は末尾
+        const at = k === DEF_GROUPS[g].fallback ? 0 : k === 'watching' ? list.findIndex(d => d.key === 'pending') + 1 : list.length;
+        if (def) list.splice(at, 0, { ...def });
       }
     }
     out[g] = list;
@@ -1071,6 +1087,7 @@ async function flushDefs() {
   if (!ghConfig().pat) { setStatus('PAT未設定のため項目設定を保存できません', 'err'); return; }
   const body = { version: VERSION, savedAt: new Date().toISOString() };
   for (const g of Object.keys(DEF_GROUPS)) body[g] = defList(g).map(d => d.fixed ? { key: d.key, sep: !!d.sep } : d);
+  body.seeded = defsSeeded;
   try {
     try { defsSha = await ghPut(DEFS_PATH, body, defsSha, `[defs] ${SHOP.id}`); }
     catch (e) {
@@ -2135,6 +2152,26 @@ function rankingTextOf(a) {
  *   ・保存できないとき（PAT なし・読み込み失敗でキャッシュ表示中）は何もしない。
  */
 let storeFresh = false;
+/*
+ * 1枚目変更の「監視中」への自動切り替え（v0.8.27〜）。
+ *   伝令ちゃんに登録されている商品で、1枚目変更が「未着手」のものを「監視中」にする。
+ *   ・動くのは autoFillRanking と同じタイミング（画面を開く / 🔄 更新）。保存できないときは何もしない。
+ *   ・「未着手」以外（作成中・変更完了・SKIP など、人が進めた状態）は触らない。
+ *   ・伝令ちゃんから外しても「未着手」には戻さない（戻すのは手で）。
+ */
+function autoWatchStatus() {
+  if (denrei.state !== 'ok' || !storeFresh || !ghConfig().pat) return 0;
+  if (!defOptions('first').some(d => d.key === 'watching')) return 0;
+  let n = 0;
+  for (const code of Object.keys(denrei.map)) {
+    const p = (store.productCache || {})[code];
+    if (!p || statusOf(p, 'first') !== 'pending') continue;
+    p.firstStatus = 'watching';
+    touch(code); n++;
+  }
+  if (n) setStatus(`伝令ちゃんに登録済みの ${n}件 を「監視中」にしました`, 'ok');
+  return n;
+}
 function autoFillRanking() {
   if (denrei.state !== 'ok' || !storeFresh || !ghConfig().pat) return 0;
   let n = 0;
@@ -2196,6 +2233,7 @@ async function loadDenrei(manual) {
     if (manual) setStatus('伝令ちゃんの状態を取得できませんでした', 'err');
   }
   autoFillRanking();
+  autoWatchStatus();
   renderAll();
 }
 function denreiPageUrl(code) { return denrei.shopId ? `${DENREI_BASE}/${encodeURIComponent(denrei.shopId)}/${encodeURIComponent(code)}` : ''; }
