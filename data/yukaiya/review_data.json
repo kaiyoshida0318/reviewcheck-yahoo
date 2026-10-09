@@ -2895,8 +2895,8 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.399Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-09T08:22:38.453Z",
+      "firstStatus": "skip_child"
     },
     "tb-23-02-4set": {
       "reviewHistory": {
@@ -2950,8 +2950,8 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.463Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-09T08:22:43.511Z",
+      "firstStatus": "skip_child"
     },
     "si-26-08-3set": {
       "reviewHistory": {
@@ -7131,8 +7131,8 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.453Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-09T08:22:41.230Z",
+      "firstStatus": "skip_child"
     },
     "cg-22-04": {
       "reviewHistory": {
@@ -13735,7 +13735,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-09T08:22:37.716Z",
+  "savedAt": "2026-10-09T08:22:46.523Z",
   "lastAutoFetch": "2026-10-09T08:16:19Z",
   "lastCsvFile": "data202610091200.csv",
   "counts": {
