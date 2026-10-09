@@ -356,7 +356,12 @@
 
   /* 1枚目用 */
   .c-rank { min-width: 260px; }
-  .c-rank .rk-dds { display: flex; gap: 6px; margin-bottom: 6px; }
+  .c-rank .rk-dds { display: flex; gap: 6px; }
+  .c-rank .rk-dd { display: flex; flex-direction: column; gap: 2px; }
+  th .rk-heads { display: flex; gap: 6px; margin-top: 3px; font-weight: 600; font-size: 11px; }
+  th .rk-heads span { width: 128px; cursor: pointer; }
+  .c-rank .rk-cap { display: none; }
+  .c-rank .rk-cap-unused { font-size: 10px; color: var(--faint); line-height: 1.2; }
   .c-rank .dd { width: 128px; }
   .c-rank textarea { width: 100%; font: inherit; font-size: 12px; line-height: 1.45; border: 1px solid var(--line2); border-radius: 6px; padding: 4px 8px; resize: vertical; min-height: 44px; }
   .rk-fill { margin-top: 4px; font-size: 11px; padding: 2px 8px; }
@@ -576,7 +581,7 @@
     <tr><td>商品名</td><td><span class="tag man">手入力</span></td><td><b>自動では変わりません。</b>手で付けた名前を守るため、あえて上書きしていません。Yahoo! 側の名前を見たいときは、商品名の下の「✏ 詳細」を開いてください。</td></tr>
     <tr><td>画面上件数</td><td><span class="tag man">手入力</span></td><td>2枚目用。今バナーに出している件数。</td></tr>
     <tr><td>1枚目変更・2枚目変更</td><td><span class="tag man">手入力</span></td><td>1枚目変更の「変更前」だけは自動でも入ります（伝令ちゃんに登録されている商品が「未着手」のままなら、画面を開いたとき・「🔄 更新」で「変更前」に変わります）。行のドロップダウン・一括変更。</td></tr>
-    <tr><td>ランキング詳細</td><td><span class="tag">自動</span><span class="tag man">手で直せる</span></td><td>1枚目用。伝令ちゃんに獲得記録が入ると、画面を開いたとき・「🔄 更新」を押したときに自動で入ります（【期間】親＞カテゴリランキング（月/日 時:分）。期間ごとに1行）。手で直した行はそのまま残ります。同じ【期間】の行が無くなると、また自動で入ります。</td></tr>
+    <tr><td>1.2枚目変更</td><td><span class="tag man">手入力</span></td><td>1枚目用・2枚目用の「1.2枚目変更」列。1枚目変更と2枚目変更のドロップダウンが横に並びます。ランキング詳細の入力欄は v0.8.35 でやめました（入力済みの内容は消していません）。</td></tr>
     <tr><td>証拠の画像（○ 選択）</td><td><span class="tag man">手入力</span></td><td>1枚目用。画像1〜3のどれか1枚。選んだ画像の右下が拡大表示されます。</td></tr>
     <tr><td>メモ・無視</td><td><span class="tag man">手入力</span></td><td>右端の「確認」列、または商品名の下の「✏ 詳細」から。1枚目用は「確認」列がないので「✏ 詳細」から。</td></tr>
     <tr><td>2枚目作成</td><td><span class="tag man">手で作る</span></td><td>2枚目用の「🖼 2枚目作成」。レビュー件数・評価・日付を入れた画像（PNG）を作ります。開いただけでは何も変わりません。「PNGを保存 / スタッツ変更」を押したときだけ、2枚目変更が「変更中」になり、画面上件数が今のレビュー件数に合います。</td></tr>
@@ -793,7 +798,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.34';
+const VERSION = 'v0.8.35';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -1250,7 +1255,7 @@ const COLS = [
   { key: 'code',     cls: 'c-code', label: '商品コード', sort: 'code', alt: [['code', '商品コード'], ['registeredAt', '登録日']] },
   { key: 'name',     cls: 'c-name', label: '商品名', sort: true },
   { key: 'denrei',   cls: 'c-denrei only-first only-second', label: '🔔 伝令ちゃん', sort: 'denrei' },
-  { key: 'rank',     cls: 'c-rank only-first only-second', label: 'ランキング（1枚目変更）', sort: 'first' },
+  { key: 'rank',     cls: 'c-rank only-first only-second', html: () => `1.2枚目変更<div class="rk-heads">${[['first', '1枚目'], ['second', '2枚目']].map(([k, l]) => { const on = sortKey === k; return `<span data-sort="${k}" class="${on ? 'sorted' : ''}" title="${l}変更の順に並び替え">${l}<span class="arrow">${on ? (sortDir > 0 ? '▲' : '▼') : '⇅'}</span></span>`; }).join('')}</div>` },
   { key: 'sales',    cls: 'c-sales', html: () => { const on = sortKey === 'sales'; return `<span class="sortable ${on ? 'sorted' : ''}" data-sort="sales" style="cursor:pointer">売上<span class="arrow">${on ? (sortDir > 0 ? '▲' : '▼') : '⇅'}</span></span>${sales.state === 'ok' && sales.month ? `<div class="sl-m ${salesPartial() ? 'part' : ''}" title="Y-check の ${sales.month.replace('-', '年')}月の売上（${salesSrcText()}。ストア合計 ¥${(sales.total || 0).toLocaleString()}）">${+sales.month.split('-')[1]}月${salesPartial() ? `（${sales.days}日分）` : ''}</div>` : ''}`; } },
   { key: 'rating',   cls: 'c-rate', label: '評価 / 件数', sort: 'reviewCount', alt: [['reviewAvg', '評価'], ['reviewCount', '件数']] },
   { key: 'onscreen', cls: 'c-num only-second', label: '画面上件数', sort: true },
@@ -1265,7 +1270,7 @@ const COLS = [
   { key: 'crop',     cls: 'c-crop only-first', label: '選択画像の右下（拡大）', sort: 'selimg' },
   { key: 'make2',    cls: 'c-make2 only-second', label: '2枚目作成' },
   { key: 'first',    cls: 'c-dd only-basic', label: '1枚目変更', sort: true },
-  { key: 'second',   cls: 'c-dd only-basic only-second', label: '2枚目変更', sort: true },
+  { key: 'second',   cls: 'c-dd only-basic', label: '2枚目変更', sort: true },
   { key: 'act',      cls: 'c-act only-basic only-second only-tail',  label: '確認' },   // 1枚目用では出さない（無視・メモは「詳細」から）
 ];
 function sortVal(code, p, k) {
@@ -1495,8 +1500,9 @@ function fillRegisteredAt() {
 function selIdx(p) { return [1, 2, 3].includes(p.selectedImageIdx) ? p.selectedImageIdx : null; }
 function imgId(p, i) { return (p.imageIds || [])[i] || (i === 0 && p.imageId ? p.imageId : null); }
 function rankCell(code, p) {
-  return `<div class="rk-dds">${ddHtml('first', p)}</div>` +
-    `<textarea data-field="ranking" rows="2" placeholder="ランキング詳細（例: 【デイリー】親＞カテゴリランキング（9/30 10:00））　Enterで改行できます" title="${esc(p.ranking || '')}">${esc(p.ranking || '')}</textarea>`;
+  // 「1.2枚目変更」列（v0.8.35〜）。1枚目変更・2枚目変更のドロップダウンを横に2つ並べる。
+  // ランキング詳細の入力欄はやめた（p.ranking のデータは消さずに残してある）
+  return `<div class="rk-dds"><div class="rk-dd"><span class="rk-cap">1枚目</span>${ddHtml('first', p)}</div><div class="rk-dd"><span class="rk-cap">2枚目</span>${ddHtml('second', p)}</div></div>`;
 }
 function cropCell(p) {
   const i = selIdx(p);
@@ -1554,7 +1560,7 @@ function rowHtml(code, p) {
     <td class="c-crop only-first" data-cell="crop">${cropCell(p)}</td>
     <td class="c-make2 only-second"><button data-act="make2" title="2枚目画像の作成画面を開きます。開くだけでは何も変わりません（作成画面の「PNGを保存 / スタッツ変更」を押すと、2枚目変更が「変更中」になり、画面上件数が今のレビュー件数に合います）">🖼 2枚目作成</button></td>
     <td class="c-dd only-basic">${ddHtml('first', p)}</td>
-    <td class="c-dd only-basic only-second">${ddHtml('second', p)}</td>
+    <td class="c-dd only-basic">${ddHtml('second', p)}</td>
     <td class="c-act only-basic only-second only-tail"><div class="acts">
       <button data-act="ignore">${isIgnored(p) ? '👁 通常に戻す' : '🙈 無視する'}</button>
       <input type="text" data-field="memo" value="${esc(p.memo || '')}" placeholder="メモ">
@@ -2213,6 +2219,7 @@ function autoWatchStatus() {
   return n;
 }
 function autoFillRanking() {
+  return 0;   // v0.8.35: ランキング詳細の欄をやめたので自動入力もしない（入力済みの p.ranking は残す）。下は欄を戻すときのために残してある
   if (denrei.state !== 'ok' || !storeFresh || !ghConfig().pat) return 0;
   let n = 0;
   for (const [code, p] of Object.entries(store.productCache || {})) {
