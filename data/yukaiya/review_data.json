@@ -6597,7 +6597,9 @@
         "2024-05-29T12:37:57+09:00",
         "2024-05-29T12:38:02+09:00"
       ],
-      "registeredAt": "2026-09-29"
+      "registeredAt": "2026-09-29",
+      "secondStatus": "stale",
+      "updatedAt": "2026-10-09T07:47:25.625Z"
     },
     "wat-sma-02-0set": {
       "reviewHistory": {
@@ -7075,7 +7077,9 @@
         "2023-09-01T11:40:58+09:00",
         null
       ],
-      "registeredAt": "2026-09-29"
+      "registeredAt": "2026-09-29",
+      "secondStatus": "stale",
+      "updatedAt": "2026-10-09T07:47:25.616Z"
     },
     "zak-20-17-10": {
       "reviewHistory": {
@@ -7824,7 +7828,9 @@
         "2026-08-17T14:51:50+09:00",
         "2026-08-17T14:51:58+09:00"
       ],
-      "registeredAt": "2026-09-29"
+      "registeredAt": "2026-09-29",
+      "secondStatus": "stale",
+      "updatedAt": "2026-10-09T07:47:25.608Z"
     },
     "zak-20-18-05": {
       "reviewHistory": {
@@ -8894,7 +8900,9 @@
         "2022-10-13T12:07:49+09:00",
         "2022-10-13T12:07:57+09:00"
       ],
-      "registeredAt": "2026-09-29"
+      "registeredAt": "2026-09-29",
+      "secondStatus": "stale",
+      "updatedAt": "2026-10-09T07:47:25.612Z"
     },
     "wat-18-07-set": {
       "reviewHistory": {
@@ -9963,7 +9971,9 @@
         null,
         null
       ],
-      "registeredAt": "2026-09-29"
+      "registeredAt": "2026-09-29",
+      "secondStatus": "stale",
+      "updatedAt": "2026-10-09T07:47:25.620Z"
     },
     "si-22-02-2set": {
       "reviewHistory": {
@@ -13555,7 +13565,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-09T07:47:17.981Z",
+  "savedAt": "2026-10-09T07:47:28.632Z",
   "lastAutoFetch": "2026-10-09T03:08:14Z",
   "lastCsvFile": "data202610091200.csv",
   "counts": {
