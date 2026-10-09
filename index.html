@@ -279,6 +279,7 @@
   .c-sales .sub { font-size: 11px; color: var(--faint); font-family: ui-monospace, Consolas, monospace; margin-top: 2px; }
   thead th.c-sales { text-align: center; }
   thead th.c-sales .sl-m { font-weight: 400; font-size: 10px; color: var(--faint); }
+  thead th.c-sales .sl-m.part { color: var(--warn); font-weight: 700; }
   .c-num { text-align: center; white-space: nowrap; }
   .c-num input { width: 76px; text-align: right; }
   .pill-num { display: inline-block; padding: 2px 8px; border-radius: 6px; font-weight: 800; font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
@@ -566,7 +567,7 @@
     <tr><td>現在のタイトル</td><td><span class="tag">①</span><span class="tag">②</span></td><td>Yahoo! に今出ている商品名。商品名の下の「✏ 詳細」で見られます（商品名の欄にマウスを乗せても出ます）。</td></tr>
     <tr><td>在庫切れ・非公開の印</td><td><span class="tag">①</span><span class="tag">②</span></td><td>商品コードの下の黄色い印。</td></tr>
     <tr><td>レビュー件数の履歴</td><td><span class="tag">①</span><span class="tag">②</span></td><td>1日1件（その日の最後に取った値）を控えています。</td></tr>
-    <tr><td>売上</td><td><span class="tag">画面を開いたとき</span></td><td>評価・件数の左の「売上」列（金額と、その下に 個数 / 注文件数）。Y-check に入っている商品別売上のうち、<b>最後まで終わっている月</b>（今日が9月なら8月）の分です。Y-check 側が持ち主なのでここでは変えられません。Y-check にその月のデータが無い商品は「—」。</td></tr>
+    <tr><td>売上</td><td><span class="tag">画面を開いたとき</span></td><td>評価・件数の左の「売上」列（金額と、その下に 個数 / 注文件数）。Y-check に入っている商品別売上のうち、<b>最後まで終わっている月</b>（今日が10月なら9月）の分です。Y-check の「日別データの合計」と「月次データ」を比べ、数字が大きいほう（1ヶ月分がそろっているほう）を出します。日別データを使ったときは注文件数だけ出ます（販売個数は日別データに無いため）。Y-check 側が持ち主なのでここでは変えられません。Y-check にその月のデータが無い商品は「—」。</td></tr>
     <tr><td>新しく出品した商品</td><td><span class="tag">①</span><span class="tag">②</span></td><td>行が増えます。状態は「未着手 / 変更前」から。</td></tr>
     <tr><td>ストア評価</td><td><span class="tag">①</span><span class="tag">②</span></td><td>右上のストア評価。</td></tr>
     <tr><td>伝令ちゃんへの登録</td><td><span class="tag man">＋ ボタン</span></td><td>1枚目用の「＋ 伝令ちゃんに登録」で、伝令ちゃんの「商品を追加」が商品URL・商品コード・画像1入りで開きます（ランキングURLは伝令ちゃんが取得）。保存したら、ここの「🔄 更新」で状態を読み直してください。</td></tr>
@@ -792,7 +793,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.32';
+const VERSION = 'v0.8.33';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -1250,7 +1251,7 @@ const COLS = [
   { key: 'name',     cls: 'c-name', label: '商品名', sort: true },
   { key: 'denrei',   cls: 'c-denrei only-first', label: '🔔 伝令ちゃん', sort: 'denrei' },
   { key: 'rank',     cls: 'c-rank only-first', label: 'ランキング（1枚目変更）', sort: 'first' },
-  { key: 'sales',    cls: 'c-sales', html: () => { const on = sortKey === 'sales'; return `<span class="sortable ${on ? 'sorted' : ''}" data-sort="sales" style="cursor:pointer">売上<span class="arrow">${on ? (sortDir > 0 ? '▲' : '▼') : '⇅'}</span></span>${sales.state === 'ok' && sales.month ? `<div class="sl-m" title="Y-check の ${sales.month.replace('-', '年')}月の売上">${+sales.month.split('-')[1]}月</div>` : ''}`; } },
+  { key: 'sales',    cls: 'c-sales', html: () => { const on = sortKey === 'sales'; return `<span class="sortable ${on ? 'sorted' : ''}" data-sort="sales" style="cursor:pointer">売上<span class="arrow">${on ? (sortDir > 0 ? '▲' : '▼') : '⇅'}</span></span>${sales.state === 'ok' && sales.month ? `<div class="sl-m ${salesPartial() ? 'part' : ''}" title="Y-check の ${sales.month.replace('-', '年')}月の売上（${salesSrcText()}。ストア合計 ¥${(sales.total || 0).toLocaleString()}）">${+sales.month.split('-')[1]}月${salesPartial() ? `（${sales.days}日分）` : ''}</div>` : ''}`; } },
   { key: 'rating',   cls: 'c-rate', label: '評価 / 件数', sort: 'reviewCount', alt: [['reviewAvg', '評価'], ['reviewCount', '件数']] },
   { key: 'onscreen', cls: 'c-num only-second', label: '画面上件数', sort: true },
   { key: 'diff',     cls: 'c-num only-second', label: '件数差異', sort: true },
@@ -2516,6 +2517,42 @@ function salesTargetMonth(months, now = new Date()) {
   if (months.includes(prev)) return prev;
   return months.filter(m => m < cur).sort().pop() || '';
 }
+/*
+ * Y-check のデータから「出す月」と商品別の売上を作る（v0.8.33〜）。
+ *   Y-check には2種類の売上が入っている:
+ *     月次 item:        [{ code, month:'YYYY-MM', qty, revenue, orders }]  … 月次CSVを入れた時点の数字。月の途中で入れると途中までしか無い
+ *     日次 daily.item:  { 'YYYY-MM-DD': { code: [売上, 注文件数] } }      … 1日ごとの数字
+ *   月の途中の月次CSVだけが入っていると、1ヶ月分より少なく出てしまう（2026年9月がこれだった）。
+ *   そこで、その月の「日次の合計」と「月次」を比べて、合計が大きいほう（＝より揃っているほう）を採る。
+ *   日次には販売個数が無いので、日次を採ったときは注文件数だけを出す。
+ */
+function buildSales(d, now = new Date()) {
+  const monthly = {}, daily = {}, dayCount = {};
+  for (const r of (Array.isArray(d.item) ? d.item : [])) {
+    if (!r || !r.code || !/^\d{4}-\d{2}$/.test(String(r.month || ''))) continue;
+    const c = String(r.code).trim().toLowerCase(), mm = monthly[r.month] || (monthly[r.month] = {}), m = mm[c] || (mm[c] = { rev: 0, qty: 0, orders: 0 });
+    m.rev += Number(r.revenue) || 0; m.qty += Number(r.qty) || 0; m.orders += Number(r.orders) || 0;
+  }
+  for (const [day, rows] of Object.entries((d.daily && d.daily.item) || {})) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(day) || !rows || typeof rows !== 'object') continue;
+    const ym = day.slice(0, 7), mm = daily[ym] || (daily[ym] = {});
+    dayCount[ym] = (dayCount[ym] || 0) + 1;
+    for (const [code, v] of Object.entries(rows)) {
+      const c = String(code).trim().toLowerCase(), m = mm[c] || (mm[c] = { rev: 0, qty: null, orders: 0 });
+      m.rev += Number(Array.isArray(v) ? v[0] : v && v.revenue) || 0; m.orders += Number(Array.isArray(v) ? v[1] : v && v.orders) || 0;
+    }
+  }
+  const month = salesTargetMonth([...new Set([...Object.keys(monthly), ...Object.keys(daily)])], now);
+  if (!month) return { month: '', map: {}, source: '', days: 0, daysInMonth: 0, total: 0 };
+  const sum = (mm) => Object.values(mm || {}).reduce((a, x) => a + x.rev, 0);
+  const tm = sum(monthly[month]), td = sum(daily[month]);
+  const useDaily = td > tm;
+  const [y, mo] = month.split('-').map(Number);
+  return { month, map: (useDaily ? daily[month] : monthly[month]) || {}, source: useDaily ? 'daily' : 'monthly', days: dayCount[month] || 0, daysInMonth: new Date(y, mo, 0).getDate(), total: useDaily ? td : tm };
+}
+// 日次を採ったのに、その月の日が全部そろっていないとき（＝1ヶ月分に足りない）
+function salesPartial() { return sales.state === 'ok' && sales.source === 'daily' && sales.days < sales.daysInMonth; }
+function salesSrcText() { return sales.source === 'daily' ? `日別データ ${sales.days}/${sales.daysInMonth}日分の合計` : '月次データ'; }
 async function loadSales() {
   sales = { ...sales, state: 'loading', error: '' };
   const path = `data/${SHOP.id}/ycheck_data_v2.json`, t = Math.floor(Date.now() / 600e3);   // 10分は同じURL（大きいファイルなので読み直しすぎない）
@@ -2526,14 +2563,9 @@ async function loadSales() {
       const res = await fetch(u);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const d = await res.json();
-      const items = Array.isArray(d.item) ? d.item.filter(r => r && r.code && /^\d{4}-\d{2}$/.test(String(r.month || ''))) : [];
-      const month = salesTargetMonth([...new Set(items.map(r => r.month))]);
-      const map = {};
-      for (const r of items) if (r.month === month) {
-        const c = String(r.code).trim().toLowerCase(), m = map[c] || (map[c] = { rev: 0, qty: 0, orders: 0 });
-        m.rev += Number(r.revenue) || 0; m.qty += Number(r.qty) || 0; m.orders += Number(r.orders) || 0;
-      }
-      sales = { state: 'ok', month, map, savedAt: d.savedAt || '', error: '' };
+      const r = buildSales(d);
+      const { month, map } = r;
+      sales = { state: 'ok', month, map, source: r.source, days: r.days, daysInMonth: r.daysInMonth, total: r.total, savedAt: d.savedAt || '', error: '' };
       renderAll();
       return;
     } catch (e) { lastErr = String(e?.message || e); }
@@ -2547,10 +2579,11 @@ function salesHtml(code) {
   if (sales.state === 'loading' || sales.state === 'idle') return '<span class="muted">…</span>';
   if (sales.state === 'error') return `<span class="muted" title="Y-check の売上を読めませんでした（${esc(sales.error)}）">—</span>`;
   if (!sales.month) return '<span class="muted" title="Y-check に終わった月の売上がまだありません">—</span>';
-  const [y, m] = sales.month.split('-'), r = salesRec(code);
-  const tip = `Y-check の ${y}年${+m}月の売上` + (sales.savedAt ? `（Y-check 保存: ${fmtShort(sales.savedAt)}）` : '');
+  // 日別データは「売れた商品」しか載らないので、載っていない商品は 0円（月次は0円の商品も載るので、無ければ本当にデータなし）
+  const [y, m] = sales.month.split('-'), r = salesRec(code) || (sales.source === 'daily' ? { rev: 0, qty: null, orders: 0 } : null);
+  const tip = `Y-check の ${y}年${+m}月の売上（${salesSrcText()}）` + (sales.savedAt ? `（Y-check 保存: ${fmtShort(sales.savedAt)}）` : '');
   if (!r) return `<span class="muted" title="${esc(tip)}：この商品のデータなし">—</span>`;
-  return `<div class="amt" title="${esc(tip)}">¥${r.rev.toLocaleString()}</div><div class="sub" title="販売個数 / 注文件数">${r.qty.toLocaleString()}個 / ${r.orders.toLocaleString()}件</div>`;
+  return `<div class="amt" title="${esc(tip)}">¥${r.rev.toLocaleString()}</div><div class="sub" title="${r.qty === null ? '注文件数（日別データの合計。販売個数は日別データに無いので出ません）' : '販売個数 / 注文件数'}">${r.qty === null ? '' : r.qty.toLocaleString() + '個 / '}${r.orders.toLocaleString()}件</div>`;
 }
 
 
