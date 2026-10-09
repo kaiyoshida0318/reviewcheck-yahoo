@@ -51,9 +51,9 @@
         "2026-09-30T18:23:02+09:00"
       ],
       "ranking": "【リアルタイム】メガネ備品＞その他メガネ備品ランキング（9/5 09:06）\n【デイリー】メガネ備品＞その他メガネ備品ランキング（9/4 16:23）",
-      "updatedAt": "2026-09-30T09:17:12.276Z",
+      "updatedAt": "2026-10-09T07:55:42.662Z",
       "registeredAt": "2026-09-29",
-      "firstStatus": "ready",
+      "firstStatus": "acquired",
       "secondStatus": "changing",
       "onScreenCount": 115
     },
@@ -160,9 +160,9 @@
         "2026-09-30T18:21:22+09:00"
       ],
       "ranking": "【リアルタイム】シューケア、革手入れ用品＞外反母趾対策用品ランキング（9/20 08:40）\n【デイリー】シューケア、革手入れ用品＞外反母趾対策用品ランキング（10/4 07:35）",
-      "updatedAt": "2026-10-06T01:09:06.258Z",
+      "updatedAt": "2026-10-09T07:55:38.046Z",
       "registeredAt": "2026-09-29",
-      "firstStatus": "ready",
+      "firstStatus": "acquired",
       "secondStatus": "changing",
       "onScreenCount": 7
     },
@@ -217,9 +217,9 @@
         "2026-09-30T18:23:51+09:00"
       ],
       "ranking": "【リアルタイム】オーラルケア＞電動歯ブラシ用替えブラシランキング（9/4 23:50）",
-      "updatedAt": "2026-09-30T09:17:24.672Z",
+      "updatedAt": "2026-10-09T07:55:46.489Z",
       "registeredAt": "2026-09-29",
-      "firstStatus": "ready",
+      "firstStatus": "acquired",
       "secondStatus": "changing",
       "onScreenCount": 203
     },
@@ -432,9 +432,9 @@
         "2026-09-30T18:20:35+09:00"
       ],
       "ranking": "【リアルタイム】防災、防犯、セーフティ＞家具転倒防止用品ランキング（9/5 15:36）\n【デイリー】防災、防犯、セーフティ＞家具転倒防止用品ランキング（9/19 07:22）",
-      "updatedAt": "2026-09-30T09:15:34.688Z",
+      "updatedAt": "2026-10-09T07:55:39.214Z",
       "registeredAt": "2026-09-29",
-      "firstStatus": "ready",
+      "firstStatus": "acquired",
       "secondStatus": "changing",
       "onScreenCount": 63
     },
@@ -595,9 +595,9 @@
         "2026-09-30T18:26:21+09:00"
       ],
       "ranking": "【リアルタイム】ヨガ、ピラティス＞ヨガソックスランキング（9/6 18:13）",
-      "updatedAt": "2026-09-30T09:17:49.444Z",
+      "updatedAt": "2026-10-09T07:55:40.353Z",
       "registeredAt": "2026-09-29",
-      "firstStatus": "ready",
+      "firstStatus": "acquired",
       "secondStatus": "changing",
       "onScreenCount": 68
     },
@@ -651,9 +651,9 @@
         "2026-09-30T18:25:26+09:00"
       ],
       "ranking": "【リアルタイム】ヨガ、ピラティス＞ヨガソックスランキング（9/7 19:44）",
-      "updatedAt": "2026-09-30T09:17:38.459Z",
+      "updatedAt": "2026-10-09T07:55:41.442Z",
       "registeredAt": "2026-09-29",
-      "firstStatus": "ready",
+      "firstStatus": "acquired",
       "secondStatus": "changing",
       "onScreenCount": 75
     },
@@ -869,9 +869,9 @@
         "2026-09-30T18:22:14+09:00"
       ],
       "ranking": "【リアルタイム】浴室用具＞排水口カバー、ネットランキング（9/5 01:57）",
-      "updatedAt": "2026-09-30T09:16:56.059Z",
+      "updatedAt": "2026-10-09T07:55:45.191Z",
       "registeredAt": "2026-09-29",
-      "firstStatus": "ready",
+      "firstStatus": "acquired",
       "secondStatus": "changing",
       "onScreenCount": 126
     },
@@ -1033,9 +1033,9 @@
         "2026-09-30T18:19:08+09:00"
       ],
       "ranking": "【リアルタイム】浴室用具＞排水口カバー、ネットランキング（9/9 12:08）",
-      "updatedAt": "2026-09-30T09:15:11.012Z",
+      "updatedAt": "2026-10-09T07:55:44.114Z",
       "registeredAt": "2026-09-29",
-      "firstStatus": "ready",
+      "firstStatus": "acquired",
       "secondStatus": "changing",
       "onScreenCount": 117
     },
@@ -13565,7 +13565,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-09T07:50:31.400Z",
+  "savedAt": "2026-10-09T07:55:49.500Z",
   "lastAutoFetch": "2026-10-09T03:08:14Z",
   "lastCsvFile": "data202610091200.csv",
   "counts": {
