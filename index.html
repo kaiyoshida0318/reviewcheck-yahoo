@@ -781,7 +781,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.20';
+const VERSION = 'v0.8.23';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -824,11 +824,11 @@ const DEF_GROUPS = {
 const MODE_GROUPS = { first: ['first'], second: ['first', 'second'], basic: ['first', 'second'], tail: [] };
 const MODES = ['first', 'second', 'tail', 'basic'];
 // モードごとに使える絞り込みの種類（これ以外はモードを移ったときに外す）
-const MODE_FILTER_KINDS = { first: ['first', 'denrei'], second: ['first', 'second'], basic: ['first', 'second'], tail: ['torder', 'twork', 'tcode', 'tcopy'] };
+const MODE_FILTER_KINDS = { first: ['first', 'denrei'], second: ['first', 'second', 'denrei'], basic: ['first', 'second'], tail: ['torder', 'twork', 'tcode', 'tcopy'] };
 const DEFS_DEFAULT = {
   first: [
     { key: 'pending',  icon: '🎯', label: '未着手',       bg: '#fff9c4', fg: '#827717', sep: true },
-    { key: 'ready',    icon: '🆗', label: '作成可能',     bg: '#e1f5fe', fg: '#0277bd', sep: true },
+    { key: 'ready',    icon: '🛠', label: '作成中',       bg: '#e1f5fe', fg: '#0277bd', sep: true },   // v0.8.21: 「作成可能」から改名（key はそのまま）
     { key: 'acquired', icon: '✅', label: '変更完了',     bg: '#e8f5e9', fg: '#2e7d32' },
     { key: 'past',     icon: '📦', label: '昔のまま放置', bg: '#fbeeee', fg: '#a32d2d' },
     { key: 'skip',     icon: '⏭', label: 'SKIP',         bg: '#e7f1fb', fg: '#1976d2' },
@@ -849,6 +849,7 @@ const FIXED_DEFS = {
   __hot3__:   { key: '__hot3__',   icon: '🔥', label: '獲得前-3件以上',  bg: '#fff0f0', fg: '#c62828', fixed: true },
   __hot200__: { key: '__hot200__', icon: '🔥', label: '獲得前-上昇200%', bg: '#fff0f0', fg: '#c62828', fixed: true },
 };
+const RENAMED_LABELS = { first: { ready: { from: '作成可能', to: '作成中', iconFrom: '🆗', icon: '🛠' } } };
 // 削除できない key（既定値の受け皿・動作に組み込まれているもの）
 const PROTECTED_KEYS = { first: ['pending'], second: ['none', '__hot3__', '__hot200__'] };
 
@@ -1036,6 +1037,8 @@ function normalizeDefs(saved) {
   for (const g of Object.keys(DEF_GROUPS)) {
     let list = Array.isArray(saved?.[g]) && saved[g].length ? saved[g] : DEFS_DEFAULT[g];
     list = list.filter(d => d && d.key).map(d => FIXED_DEFS[d.key] ? { ...FIXED_DEFS[d.key], sep: !!d.sep } : { ...d });
+    // 表示名を変えたときの読み替え（保存済みの項目設定が旧名のままなら新名に寄せる。手で付け直した名前は触らない）
+    for (const d of list) { const r = (RENAMED_LABELS[g] || {})[d.key]; if (r && d.label === r.from) { d.label = r.to; if (r.icon && d.icon === r.iconFrom) d.icon = r.icon; } }
     // 守る key が消えていたら既定から足し直す
     for (const k of PROTECTED_KEYS[g]) {
       if (!list.some(d => d.key === k)) {
@@ -1284,7 +1287,7 @@ function renderHeader() {
   const work = {
     second: scope.filter(([, p]) => isHot3(p)).length,
     tail: scope.filter(([, p]) => tailOrderValue(p) === 'ng' && p.tailWork !== 'wip').length,   // 順番問題有りで、まだ手を付けていないもの
-    // 伝令ちゃんが読めていれば「獲得済-登録可能」（楽天版と同じ）。読めないときは「作成可能」の件数
+    // 伝令ちゃんが読めていれば「獲得済-登録可能」（楽天版と同じ）。読めないときは「作成中」（key: ready）の件数
     first: denrei.state === 'ok'
       ? scope.filter(([c]) => denreiStateOf(c) === 'ready').length
       : scope.filter(([, p]) => statusOf(p, 'first') === 'ready').length,
@@ -1353,8 +1356,8 @@ function renderFilters() {
   const optHtml = (g) => `<option value="">${DEF_GROUPS[g].label}：変更しない</option>` + defOptions(g).map(d => `<option value="${esc(d.key)}" ${bulkPick[g] === d.key ? 'selected' : ''}>${esc(d.icon)} ${esc(d.label)}</option>`).join('');
   const groups = MODE_GROUPS[mode];
   $('#filters').innerHTML = `
+    ${mode === 'first' || mode === 'second' ? `<div class="frow">${denreiRowHtml()}</div>` : ''}
     ${groups.map(g => `<div class="frow">${filterRowHtml(g)}</div>`).join('')}
-    ${mode === 'first' ? `<div class="frow">${denreiRowHtml()}</div>` : ''}
     ${mode === 'tail' ? tailFilterRowsHtml() : ''}
     <div class="fpanel-foot">
       <div class="bulk">
