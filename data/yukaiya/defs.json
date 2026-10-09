@@ -1,0 +1,140 @@
+{
+  "version": "v0.8.37",
+  "savedAt": "2026-10-09T09:32:01.154Z",
+  "first": [
+    {
+      "key": "pending",
+      "icon": "",
+      "label": "未着手",
+      "bg": "#fff9c4",
+      "fg": "#827717",
+      "sep": true
+    },
+    {
+      "key": "watching",
+      "icon": "",
+      "label": "変更前",
+      "bg": "#ede7f6",
+      "fg": "#5e35b1"
+    },
+    {
+      "key": "ready",
+      "icon": "",
+      "label": "変更中",
+      "bg": "#e1f5fe",
+      "fg": "#0277bd",
+      "sep": true
+    },
+    {
+      "key": "acquired",
+      "icon": "",
+      "label": "変更完了",
+      "bg": "#e8f5e9",
+      "fg": "#2e7d32"
+    },
+    {
+      "key": "past",
+      "icon": "",
+      "label": "昔のまま放置",
+      "bg": "#fbeeee",
+      "fg": "#a32d2d"
+    },
+    {
+      "key": "skip",
+      "icon": "",
+      "label": "SKIP",
+      "bg": "#e7f1fb",
+      "fg": "#1976d2"
+    },
+    {
+      "key": "skip_child",
+      "icon": "",
+      "label": "SKIP-子商品",
+      "bg": "#e0f2f1",
+      "fg": "#00796b"
+    }
+  ],
+  "second": [
+    {
+      "key": "none",
+      "icon": "",
+      "label": "変更前",
+      "bg": "#fff9c4",
+      "fg": "#827717",
+      "sep": true
+    },
+    {
+      "key": "__hot3__",
+      "sep": false
+    },
+    {
+      "key": "__hot200__",
+      "sep": false
+    },
+    {
+      "key": "changing",
+      "icon": "",
+      "label": "変更中",
+      "bg": "#e1f5fe",
+      "fg": "#0277bd",
+      "sep": true
+    },
+    {
+      "key": "changed",
+      "icon": "",
+      "label": "変更完了",
+      "bg": "#e8f5e9",
+      "fg": "#2e7d32"
+    },
+    {
+      "key": "stale",
+      "icon": "",
+      "label": "昔のまま放置",
+      "bg": "#fbeeee",
+      "fg": "#a32d2d"
+    },
+    {
+      "key": "skip",
+      "icon": "",
+      "label": "SKIP",
+      "bg": "#e7f1fb",
+      "fg": "#1976d2"
+    },
+    {
+      "key": "enough",
+      "icon": "",
+      "label": "SKIP-十分な件数",
+      "bg": "#e2f4f6",
+      "fg": "#00838f"
+    }
+  ],
+  "seeded": [
+    "first:skip_child"
+  ],
+  "denrei": [
+    {
+      "key": "none",
+      "label": "未登録",
+      "bg": "#fff9c4",
+      "fg": "#827717"
+    },
+    {
+      "key": "before",
+      "label": "監視中",
+      "bg": "#f5f4ee",
+      "fg": "#78716c"
+    },
+    {
+      "key": "ready",
+      "label": "獲得済-登録可能",
+      "bg": "#fff0f0",
+      "fg": "#c62828"
+    },
+    {
+      "key": "registered",
+      "label": "ランキング獲得済",
+      "bg": "#e8f5e9",
+      "fg": "#2e7d32"
+    }
+  ]
+}
