@@ -13215,8 +13215,8 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_wb-26-01_2_d_20261006152359"
       ],
       "registeredAt": "2026-10-07",
-      "firstStatus": "past",
-      "updatedAt": "2026-10-09T08:03:16.795Z"
+      "firstStatus": "pending",
+      "updatedAt": "2026-10-09T08:10:05.401Z"
     },
     "wb-26-01-set": {
       "reviewHistory": {
@@ -13261,8 +13261,8 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_wb-26-01-set_2_d_20261006153001"
       ],
       "registeredAt": "2026-10-07",
-      "firstStatus": "past",
-      "updatedAt": "2026-10-09T08:03:16.802Z"
+      "firstStatus": "pending",
+      "updatedAt": "2026-10-09T08:10:07.413Z"
     },
     "eq-22-05-toilet-01set": {
       "reviewHistory": {
@@ -13733,7 +13733,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-09T08:07:49.419Z",
+  "savedAt": "2026-10-09T08:10:10.428Z",
   "lastAutoFetch": "2026-10-09T03:08:14Z",
   "lastCsvFile": "data202610091200.csv",
   "counts": {
