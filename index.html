@@ -363,6 +363,10 @@
   .c-img.picked .ph { outline: 3px solid #6a1b9a; outline-offset: 1px; }
   .c-crop { width: 290px; min-width: 240px; }
   .c-denrei { width: 170px; min-width: 150px; }
+  .dnr-rt { font-size: 11px; color: var(--muted); margin-bottom: 4px; white-space: nowrap; }
+  .dnr-rt b { font-size: 14px; color: var(--text); font-family: ui-monospace, Consolas, monospace; }
+  .dnr-rt.top b { color: var(--hot); }
+  .dnr-rt.none { color: var(--faint); }
   .dnr-badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; white-space: nowrap; }
   .dnr-sub { display: block; font-size: 10px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
   .dnr-sub b { color: var(--text); }
@@ -534,7 +538,7 @@
     </button>
     <button class="upd-btn" id="btnDenrei">
       <span class="t">🔔 伝令ちゃんの状態を取り直す</span>
-      <span class="d">ランキング伝令ちゃん（Yahoo版）から「獲得前 / 獲得済-登録可能 / 登録済」を読み直します（数秒）。画面を開いたときにも自動で読みます。</span>
+      <span class="d">ランキング伝令ちゃん（Yahoo版）から「獲得前 / 獲得済-登録可能 / 獲得済」を読み直します（数秒）。画面を開いたときにも自動で読みます。</span>
       <span class="chip" id="chipDenrei"></span>
     </button>
     <button class="upd-btn" id="btnReload">
@@ -559,7 +563,7 @@
     <tr><td>新しく出品した商品</td><td><span class="tag">①</span><span class="tag">②</span></td><td>行が増えます。状態は「未着手 / 獲得前」から。</td></tr>
     <tr><td>ストア評価</td><td><span class="tag">①</span><span class="tag">②</span></td><td>右上のストア評価。</td></tr>
     <tr><td>伝令ちゃんへの登録</td><td><span class="tag man">＋ ボタン</span></td><td>1枚目用の「＋ 伝令ちゃんに登録」で、伝令ちゃんの「商品を追加」が商品URL・商品コード・画像1入りで開きます（ランキングURLは伝令ちゃんが取得）。保存したら、ここの「🔄 更新」で状態を読み直してください。</td></tr>
-    <tr><td>伝令ちゃんの状態</td><td><span class="tag">画面を開いたとき</span><span class="tag">🔔 ボタン</span></td><td>1枚目用の「🔔 伝令ちゃん」列。伝令ちゃん側が持ち主なので GitHub には保存しません。順位そのものは TimerRunner の「Yahooランキング監視」が巡回して伝令ちゃんに記録します。</td></tr>
+    <tr><td>伝令ちゃんの状態</td><td><span class="tag">画面を開いたとき</span><span class="tag">🔔 ボタン</span></td><td>1枚目用の「🔔 伝令ちゃん」列。状態の上の「リアルタイム ○位」は、伝令ちゃんが記録しているリアルタイムランキングの今までの最高順位（まだ順位が無ければ「—」）。伝令ちゃん側が持ち主なので GitHub には保存しません。順位そのものは TimerRunner の「Yahooランキング監視」が巡回して伝令ちゃんに記録します。</td></tr>
     <tr class="sec"><td colspan="3">手で入れるもの（取得を押しても変わりません）</td></tr>
     <tr><td>商品名</td><td><span class="tag man">手入力</span></td><td><b>自動では変わりません。</b>手で付けた名前を守るため、あえて上書きしていません。Yahoo! 側の名前を見たいときは、商品名の下の「✏ 詳細」を開いてください。</td></tr>
     <tr><td>画面上件数</td><td><span class="tag man">手入力</span></td><td>2枚目用。今バナーに出している件数。</td></tr>
@@ -781,7 +785,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.24';
+const VERSION = 'v0.8.26';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -2087,7 +2091,7 @@ function tailFilterRowsHtml() {
 // 🔔 ランキング伝令ちゃん（Yahoo版）の状態を読む（楽天版 v8.07〜 と同じ考え方）
 //   伝令ちゃんの /api/shops で「このストア（seller_id）の伝令ちゃん側のID」を調べ、
 //   /api/products を1回読んで商品コードで突き合わせる。取ってくるのは状態だけ。
-//     ranking_registered が真            → ランキング登録済
+//     ranking_registered が真            → ランキング獲得済（v0.8.26 で「ランキング登録済」から改名。表示名だけ）
 //     偽で achieved の期間が1つでもある  → 獲得済-登録可能
 //     偽で achieved が1つもない          → ランキング獲得前
 //     伝令ちゃんに居ない商品             → 伝令ちゃん未登録
@@ -2098,7 +2102,7 @@ const DENREI_BASE = 'https://ranking-denrei-chan-yahoo.kaiyoshida0318.workers.de
 const DENREI_STATES = {
   before:     { label: 'ランキング獲得前',   bg: '#f5f4ee', fg: '#78716c', order: 1 },
   ready:      { label: '獲得済-登録可能',    bg: '#fff0f0', fg: '#c62828', order: 2 },
-  registered: { label: 'ランキング登録済',   bg: '#e8f5e9', fg: '#2e7d32', order: 3 },
+  registered: { label: 'ランキング獲得済',   bg: '#e8f5e9', fg: '#2e7d32', order: 3 },
   none:       { label: '伝令ちゃん未登録',   bg: '#eceff1', fg: '#546e7a', order: 4 },
   unknown:    { label: '未取得',             bg: '#f5f6f8', fg: '#9aa1a9', order: 5 },
 };
@@ -2176,7 +2180,14 @@ async function loadDenrei(manual) {
       const list = Array.isArray(it.ranking_status) ? it.ranking_status : [];
       const achieved = list.filter(x => x && x.status === 'achieved');
       const state = (it.ranking_registered === true || it.ranking_registered === 1) ? 'registered' : achieved.length ? 'ready' : 'before';
-      map[code] = { state, targets: list.length, achieved: achieved.map(x => ({ period: x.period, rank: x.best_rank, category: x.category_label || '', at: x.achieved_at_jst || '' })) };
+      // リアルタイムの最高順位（v0.8.25〜）。カテゴリが複数あれば、その中でいちばん良い順位
+      let rt = null;
+      for (const x of list) {
+        const r = Number(x && x.best_rank);
+        if (!x || x.period !== 'realtime' || !Number.isFinite(r) || r <= 0) continue;
+        if (!rt || r < rt.rank) rt = { rank: r, category: x.category_label || '', at: x.best_rank_at_jst || '' };
+      }
+      map[code] = { state, rt, hasRt: list.some(x => x && x.period === 'realtime'), targets: list.length, achieved: achieved.map(x => ({ period: x.period, rank: x.best_rank, category: x.category_label || '', at: x.achieved_at_jst || '' })) };
     }
     denrei = { state: 'ok', map, loadedAt: new Date().toISOString(), error: '', shopId: ds.id };
     if (manual) setStatus(`伝令ちゃんの状態を取得しました（${items.length}件）`, 'ok');
@@ -2221,14 +2232,24 @@ function denreiCell(code) {
   }
   const link = d ? `<a class="dnr-btn open" href="${esc(denreiPageUrl(code))}" target="_blank" rel="noopener" title="伝令ちゃんのこの商品のページを開く">🔔 伝令ちゃんで開く</a>`
     : (denrei.state === 'ok' ? `<a class="dnr-btn add" href="${esc(denreiAddUrl(code))}" target="_blank" rel="noopener" title="伝令ちゃんの「商品を追加」を、この商品のURL・商品コード・サムネイル画像（画像1）を入れた状態で開きます。保存は伝令ちゃん側で押してください">＋ 伝令ちゃんに登録</a>` : '');
-  return `<span class="dnr-badge" style="background:${def.bg};color:${def.fg}"${tip ? ` title="${esc(tip)}"` : ''}>${esc(def.label)}</span>${sub}${link ? `<div>${link}</div>` : ''}`;
+  // 状態バッジの上に「リアルタイム ○位」（伝令ちゃんが記録している、リアルタイムランキングの今までの最高順位）
+  let rtHtml = '';
+  if (d) {
+    if (d.rt) {
+      const cat = String(d.rt.category).split(/\s*[>＞]\s*/).filter(Boolean).slice(-2).join('＞');
+      rtHtml = `<div class="dnr-rt ${d.rt.rank <= 3 ? 'top' : ''}" title="${esc(`リアルタイムランキングの最高順位${cat ? `（${cat}）` : ''}${d.rt.at ? `\n記録: ${String(d.rt.at).slice(0, 16).replace('T', ' ')}` : ''}`)}">リアルタイム <b>${d.rt.rank}位</b></div>`;
+    } else {
+      rtHtml = `<div class="dnr-rt none" title="${d.hasRt ? 'リアルタイムランキングでは、まだ順位が記録されていません（圏外）' : '伝令ちゃんにリアルタイムランキングの監視がありません'}">リアルタイム —</div>`;
+    }
+  }
+  return `${rtHtml}<span class="dnr-badge" style="background:${def.bg};color:${def.fg}"${tip ? ` title="${esc(tip)}"` : ''}>${esc(def.label)}</span>${sub}${link ? `<div>${link}</div>` : ''}`;
 }
 function makeCell(code) {
   // 1枚目（ランキングバッジ付き）は伝令ちゃんの商品ページで作る（楽天版の MAKE1_URL と同じ飛び先）。
   // 押せるのは「獲得済-登録可能」の商品だけ（v0.8.18〜）。それ以外は薄く出して押せない。
   const k = denreiStateOf(code);
   if (k === 'ready') return `<a class="btn go" href="${esc(denreiPageUrl(code))}" target="_blank" rel="noopener" title="伝令ちゃんのこの商品のページを開いて1枚目を作る">🖼 1枚目作成</a>`;
-  const why = { before: 'まだランキングを獲得していません', registered: 'ランキング登録済みです', none: '伝令ちゃんに登録されていません', unknown: '伝令ちゃんの状態を読めていません' }[k] || '';
+  const why = { before: 'まだランキングを獲得していません', registered: 'ランキング獲得済みです（伝令ちゃんで登録まで終わっています）', none: '伝令ちゃんに登録されていません', unknown: '伝令ちゃんの状態を読めていません' }[k] || '';
   return `<span class="btn off" title="${esc(why)}（「獲得済-登録可能」の商品だけ押せます）">🖼 1枚目作成</span>`;
 }
 function denreiRowHtml() {
