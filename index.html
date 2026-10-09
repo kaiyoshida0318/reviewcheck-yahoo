@@ -793,7 +793,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.33';
+const VERSION = 'v0.8.34';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -833,10 +833,10 @@ const DEF_GROUPS = {
   second: { label: '2枚目変更', icon: '🖼', field: 'secondStatus', fallback: 'none' },
 };
 // モードごとに出す項目グループ（上部フィルタの行・一括変更の選択肢）
-const MODE_GROUPS = { first: ['first'], second: ['first', 'second'], basic: ['first', 'second'], tail: [] };
+const MODE_GROUPS = { first: ['first', 'second'], second: ['first', 'second'], basic: ['first', 'second'], tail: [] };
 const MODES = ['first', 'second', 'tail', 'basic'];
 // モードごとに使える絞り込みの種類（これ以外はモードを移ったときに外す）
-const MODE_FILTER_KINDS = { first: ['first', 'denrei'], second: ['first', 'second', 'denrei'], basic: ['first', 'second'], tail: ['torder', 'twork', 'tcode', 'tcopy'] };
+const MODE_FILTER_KINDS = { first: ['first', 'second', 'denrei'], second: ['first', 'second', 'denrei'], basic: ['first', 'second'], tail: ['torder', 'twork', 'tcode', 'tcopy'] };
 const DEFS_DEFAULT = {
   first: [
     { key: 'pending',  icon: '', label: '未着手',       bg: '#fff9c4', fg: '#827717', sep: true },
@@ -1249,8 +1249,8 @@ const COLS = [
   { key: 'updatedAt', cls: 'c-upd', label: '更新日時', sort: true },
   { key: 'code',     cls: 'c-code', label: '商品コード', sort: 'code', alt: [['code', '商品コード'], ['registeredAt', '登録日']] },
   { key: 'name',     cls: 'c-name', label: '商品名', sort: true },
-  { key: 'denrei',   cls: 'c-denrei only-first', label: '🔔 伝令ちゃん', sort: 'denrei' },
-  { key: 'rank',     cls: 'c-rank only-first', label: 'ランキング（1枚目変更）', sort: 'first' },
+  { key: 'denrei',   cls: 'c-denrei only-first only-second', label: '🔔 伝令ちゃん', sort: 'denrei' },
+  { key: 'rank',     cls: 'c-rank only-first only-second', label: 'ランキング（1枚目変更）', sort: 'first' },
   { key: 'sales',    cls: 'c-sales', html: () => { const on = sortKey === 'sales'; return `<span class="sortable ${on ? 'sorted' : ''}" data-sort="sales" style="cursor:pointer">売上<span class="arrow">${on ? (sortDir > 0 ? '▲' : '▼') : '⇅'}</span></span>${sales.state === 'ok' && sales.month ? `<div class="sl-m ${salesPartial() ? 'part' : ''}" title="Y-check の ${sales.month.replace('-', '年')}月の売上（${salesSrcText()}。ストア合計 ¥${(sales.total || 0).toLocaleString()}）">${+sales.month.split('-')[1]}月${salesPartial() ? `（${sales.days}日分）` : ''}</div>` : ''}`; } },
   { key: 'rating',   cls: 'c-rate', label: '評価 / 件数', sort: 'reviewCount', alt: [['reviewAvg', '評価'], ['reviewCount', '件数']] },
   { key: 'onscreen', cls: 'c-num only-second', label: '画面上件数', sort: true },
@@ -1538,8 +1538,8 @@ function rowHtml(code, p) {
         <button class="nm-btn" data-act="detail" title="現在のタイトル・メモ・無視の切り替え">✏ 詳細${String(p.memo || '').trim() ? ' <span class="nm-memo" title="メモあり">📝</span>' : ''}</button>
       </div>
     </td>
-    <td class="c-denrei only-first">${denreiCell(code)}</td>
-    <td class="c-rank only-first" data-cell="rank">${rankCell(code, p)}</td>
+    <td class="c-denrei only-first only-second">${denreiCell(code)}</td>
+    <td class="c-rank only-first only-second" data-cell="rank">${rankCell(code, p)}</td>
     <td class="c-sales">${salesHtml(code)}</td>
     <td class="c-rate"><div class="stars">${stars}</div><span class="avg">${p.reviewAvg ? Number(p.reviewAvg).toFixed(2) : '—'}</span><span class="cnt"><a href="${esc(p.reviewUrl)}" target="_blank" rel="noopener">${(p.reviewCount || 0).toLocaleString()}</a></span><span class="unit">件</span></td>
     <td class="c-num only-second"><input type="number" min="0" step="1" data-field="onScreenCount" value="${onScreen(p) ?? ''}" placeholder="—"></td>
