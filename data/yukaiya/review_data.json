@@ -867,8 +867,8 @@
         "2024-05-31T16:47:04+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "secondStatus": "none",
-      "updatedAt": "2026-10-13T01:01:30.519Z",
+      "secondStatus": "kmv5zao37",
+      "updatedAt": "2026-10-13T01:14:48.278Z",
       "firstStatus": "watching"
     },
     "si-21-01": {
@@ -14488,7 +14488,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-13T01:14:47.173Z",
+  "savedAt": "2026-10-13T01:14:52.723Z",
   "lastAutoFetch": "2026-10-12T03:08:03Z",
   "lastCsvFile": "data202610121200.csv",
   "counts": {
