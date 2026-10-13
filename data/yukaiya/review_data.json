@@ -1916,8 +1916,8 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "none",
-      "updatedAt": "2026-10-13T01:52:19.808Z",
-      "firstStatus": "pending"
+      "updatedAt": "2026-10-13T03:24:08.316Z",
+      "firstStatus": "watching"
     },
     "si-23-09": {
       "reviewHistory": {
@@ -14868,7 +14868,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-13T03:24:00.215Z",
+  "savedAt": "2026-10-13T03:24:12.206Z",
   "lastAutoFetch": "2026-10-13T03:08:06Z",
   "lastCsvFile": "data202610131200.csv",
   "counts": {
