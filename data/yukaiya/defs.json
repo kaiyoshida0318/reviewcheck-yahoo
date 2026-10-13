@@ -1,6 +1,6 @@
 {
   "version": "v0.8.49",
-  "savedAt": "2026-10-13T02:47:03.630Z",
+  "savedAt": "2026-10-13T02:47:06.581Z",
   "first": [
     {
       "key": "pending",
@@ -77,8 +77,8 @@
       "key": "none",
       "icon": "",
       "label": "監視中-獲得前",
-      "bg": "#fff9c4",
-      "fg": "#827717",
+      "bg": "#ede7f6",
+      "fg": "#5e35b1",
       "sep": true,
       "sepNo": 2,
       "col": 1
