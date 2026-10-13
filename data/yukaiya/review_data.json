@@ -1159,10 +1159,10 @@
         null
       ],
       "status": "normal",
-      "updatedAt": "2026-10-09T08:21:38.454Z",
+      "updatedAt": "2026-10-13T01:01:50.293Z",
       "registeredAt": "2026-09-29",
       "firstStatus": "watching",
-      "secondStatus": "stale"
+      "secondStatus": "none"
     },
     "ih-22-01": {
       "reviewHistory": {
@@ -6556,8 +6556,8 @@
       ],
       "registeredAt": "2026-09-29",
       "firstStatus": "watching",
-      "updatedAt": "2026-10-09T08:21:38.465Z",
-      "secondStatus": "stale"
+      "updatedAt": "2026-10-13T01:01:49.057Z",
+      "secondStatus": "none"
     },
     "eq-22-05-toilet": {
       "reviewHistory": {
@@ -14488,7 +14488,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-13T01:01:33.540Z",
+  "savedAt": "2026-10-13T01:01:53.308Z",
   "lastAutoFetch": "2026-10-12T03:08:03Z",
   "lastCsvFile": "data202610121200.csv",
   "counts": {
