@@ -1,6 +1,6 @@
 {
   "version": "v0.8.39",
-  "savedAt": "2026-10-13T01:15:57.999Z",
+  "savedAt": "2026-10-13T01:16:05.182Z",
   "first": [
     {
       "key": "pending",
@@ -14,8 +14,9 @@
       "key": "kmv5zp450",
       "icon": "",
       "label": "新しい項目",
-      "bg": "#f0f2f5",
-      "fg": "#374151"
+      "bg": "#fbeeee",
+      "fg": "#a32d2d",
+      "sep": true
     },
     {
       "key": "watching",
