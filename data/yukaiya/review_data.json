@@ -14933,7 +14933,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_eq-24-02-toilet-02set_1_d_20261013164749",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_eq-24-02-toilet-02set_2_d_20261013164750"
       ],
-      "registeredAt": "2026-10-13"
+      "registeredAt": "2026-10-13",
+      "status": "ignore_child",
+      "updatedAt": "2026-10-13T09:18:27.945Z"
     },
     "eq-24-02-toilet-04set": {
       "reviewHistory": {
@@ -14975,7 +14977,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_eq-24-02-toilet-04set_1_d_20261013164845",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_eq-24-02-toilet-04set_2_d_20261013164846"
       ],
-      "registeredAt": "2026-10-13"
+      "registeredAt": "2026-10-13",
+      "status": "ignore_child",
+      "updatedAt": "2026-10-13T09:18:25.376Z"
     },
     "eq-24-02-toilet-05set": {
       "reviewHistory": {
@@ -15017,7 +15021,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_eq-24-02-toilet-05set_1_d_20261013164937",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_eq-24-02-toilet-05set_2_d_20261013164938"
       ],
-      "registeredAt": "2026-10-13"
+      "registeredAt": "2026-10-13",
+      "status": "ignore_child",
+      "updatedAt": "2026-10-13T09:18:23.190Z"
     },
     "eq-24-02-toilet-25set": {
       "reviewHistory": {
@@ -15059,7 +15065,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_eq-24-02-toilet-25set_1_d_20261013165213",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_eq-24-02-toilet-25set_2_d_20261013165214"
       ],
-      "registeredAt": "2026-10-13"
+      "registeredAt": "2026-10-13",
+      "status": "ignore_child",
+      "updatedAt": "2026-10-13T09:18:18.841Z"
     },
     "eq-24-02-toilet-10set": {
       "reviewHistory": {
@@ -15101,7 +15109,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_eq-24-02-toilet-10set_1_d_20261013165050",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_eq-24-02-toilet-10set_2_d_20261013165051"
       ],
-      "registeredAt": "2026-10-13"
+      "registeredAt": "2026-10-13",
+      "status": "ignore_child",
+      "updatedAt": "2026-10-13T09:18:22.041Z"
     },
     "eq-24-02-toilet-15set": {
       "reviewHistory": {
@@ -15143,7 +15153,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_eq-24-02-toilet-15set_1_d_20261013165118",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_eq-24-02-toilet-15set_2_d_20261013165119"
       ],
-      "registeredAt": "2026-10-13"
+      "registeredAt": "2026-10-13",
+      "status": "ignore_child",
+      "updatedAt": "2026-10-13T09:18:20.140Z"
     }
   },
   "storeReviewHistory": {
@@ -15171,7 +15183,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-13T09:16:25Z",
+  "savedAt": "2026-10-13T09:18:31.694Z",
   "lastAutoFetch": "2026-10-13T09:16:25Z",
   "lastCsvFile": "控え:data202610091200.csv",
   "counts": {
