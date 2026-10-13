@@ -111,14 +111,13 @@
   .frow { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
   .frow .flabel { width: 116px; flex: 0 0 116px; white-space: nowrap; color: var(--muted); font-size: 12px; }
   /* 伝令ちゃん / 1枚目変更 / 2枚目変更 を1つの表にして、同じ段階のボタンを縦にそろえる */
-  .fgrid { display: grid; grid-template-columns: max-content max-content repeat(8, max-content) minmax(0, 1fr); gap: 8px 0; align-items: center; overflow-x: auto; }
+  .fgrid { display: grid; grid-template-columns: max-content max-content repeat(10, max-content) minmax(0, 1fr); gap: 8px 0; align-items: center; overflow-x: auto; }
   .fgrid .flabel { white-space: nowrap; color: var(--muted); font-size: 12px; padding-right: 10px; }
-  .fgrid .fcell { display: flex; gap: 4px; align-items: center; padding: 0 8px; align-self: stretch; border-left: 1px solid var(--line); min-height: 26px; }
-  .fgrid .fcell.ln0 { border-left-color: transparent; }
-  .fgrid .fcell.ln2 { border-left: 2px solid #9aa1a9; }
+  .fgrid .fcell { display: flex; gap: 4px; align-items: center; padding: 0 8px; align-self: stretch; border-left: 1px solid transparent; min-height: 26px; }
+  .fgrid .fcell.ln1 { border-left-color: var(--line2); }
+  .fgrid .fcell.unused:empty { padding: 0; border-left: none; }
   .fgrid .fcell.all { border-left: none; padding-left: 0; }
   .fgrid .fcell.tail { border-left: none; gap: 8px; white-space: nowrap; }
-  .fgrid .fcell.st7:empty { padding: 0; border-left: none; }
   .fgroup { display: flex; gap: 4px; flex-wrap: wrap; padding-right: 8px; margin-right: 4px; border-right: 1px solid var(--line); }
   .fgroup:last-child { border-right: none; }
   .fbtn { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 6px; border: 1px solid var(--line2); background: #fff; font-size: 12px; white-space: nowrap; }
@@ -435,27 +434,18 @@
   .shop-row button { white-space: nowrap; }
   .shop-row button.danger { color: var(--accent); border-color: #ffc2cc; }
   #dlgSettings input { width: 100%; }
-  #dlgDefs { width: 760px; }
+  #dlgDefs { width: 820px; }
+  .sep-ctl { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .sep-ctl select { font-size: 12px; padding: 2px 4px; font-weight: 700; }
   .tabs { display: flex; gap: 4px; margin-bottom: 10px; }
   .tabs button.on { background: #1f2933; color: #fff; border-color: #1f2933; }
   .defs-list { display: flex; flex-direction: column; gap: 4px; max-height: 60vh; overflow-y: auto; }
-  .def-row { display: grid; grid-template-columns: 150px 44px 1fr 38px 38px 96px 78px; gap: 6px; align-items: center; padding: 4px; border-radius: 6px; }
+  .def-row { display: grid; grid-template-columns: 150px 44px 1fr 38px 38px 150px 78px; gap: 6px; align-items: center; padding: 4px; border-radius: 6px; }
   .def-row.fixed { background: #fafafa; }
   .def-row.sep-after { border-bottom: 2px solid var(--line2); padding-bottom: 8px; margin-bottom: 4px; }
   .def-row input[type=text] { width: 100%; }
   .def-row input[type=color] { width: 36px; height: 28px; padding: 0; border: 1px solid var(--line2); border-radius: 4px; background: #fff; }
   .def-row label { white-space: nowrap; font-size: 12px; color: var(--muted); }
-  .ln-row { display: grid; grid-template-columns: 1fr 190px 1fr; gap: 10px; align-items: center; padding: 6px 4px; border-bottom: 1px solid var(--line); font-size: 12px; }
-  .ln-side.l { text-align: right; }
-  .ln-side { line-height: 1.5; color: var(--text); }
-  .ln-mid { display: flex; align-items: center; gap: 8px; justify-content: center; }
-  .ln-bar { display: inline-block; width: 0; height: 30px; border-left: 1px solid var(--line2); }
-  .ln-bar.ln0 { border-left: 1px dashed #d5d9de; opacity: .5; }
-  .ln-bar.ln2 { border-left: 3px solid #9aa1a9; }
-  .ln-opts { display: flex; gap: 2px; background: #f0f2f5; border-radius: 6px; padding: 2px; }
-  .ln-opt { margin: 0 !important; padding: 3px 8px; border-radius: 4px; font-size: 12px !important; color: var(--muted) !important; cursor: pointer; white-space: nowrap; }
-  .ln-opt input { display: none; }
-  .ln-opt.on { background: #fff; color: var(--text) !important; font-weight: 700; box-shadow: 0 1px 2px rgba(0,0,0,.1); }
   .clr-btn { grid-column: span 2; height: 28px; padding: 0 4px; font-size: 12px; font-weight: 700; border-radius: 6px; white-space: nowrap; }
   .clr-btn.open { box-shadow: 0 0 0 2px #1f2933; }
   .clr-panel { margin: 2px 4px 8px; padding: 10px; border: 1px solid var(--line2); border-radius: 8px; background: #fafbfc; }
@@ -484,7 +474,7 @@
   .cw-row input[type=number] { width: 100%; text-align: right; }
   .cw-row button { font-size: 11px; padding: 3px 6px; white-space: nowrap; }
   .cw-row.set .nm { color: var(--blue); }
-  .def-head { display: grid; grid-template-columns: 150px 44px 1fr 38px 38px 96px 78px; gap: 6px; font-size: 11px; color: var(--muted); padding: 0 4px; }
+  .def-head { display: grid; grid-template-columns: 150px 44px 1fr 38px 38px 150px 78px; gap: 6px; font-size: 11px; color: var(--muted); padding: 0 4px; }
   .empty { padding: 40px; text-align: center; color: var(--muted); }
 </style>
 </head>
@@ -808,11 +798,11 @@
 <dialog id="dlgDefs">
   <h2>↔ 項目設定 <span class="hint" id="defsShop"></span></h2>
   <div class="tabs" id="defsTabs"></div>
-  <div class="def-head"><span>表示</span><span>アイコン</span><span>名前</span><span style="grid-column: span 2">色</span><span>区切り</span><span></span></div>
+  <div class="def-head"><span>表示</span><span>アイコン</span><span>名前</span><span style="grid-column: span 2">色</span><span>区切り（線の番号）</span><span></span></div>
   <div class="defs-list" id="defsList"></div>
   <div class="row" style="justify-content:space-between">
-    <div><button id="defsAdd">＋ 項目を追加</button> <span class="hint">変更はすぐ保存されます（このショップの全PCで共有）。使用中の項目は削除できません。</span></div>
-    <button id="defsClose" class="primary">閉じる</button>
+    <div><button id="defsAdd">＋ 項目を追加</button> <span class="hint">変更はすぐ保存されます（このショップの全PCで共有）。使用中の項目は削除できません。「下で区切る」の線は、番号が同じものどうしが上の絞り込みの3段で縦にそろいます。</span></div>
+    <button id="defsClose" class="primary" style="white-space:nowrap;flex:0 0 auto">閉じる</button>
   </div>
 </dialog>
 
@@ -823,7 +813,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.41';
+const VERSION = 'v0.8.42';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -869,19 +859,19 @@ const MODES = ['first', 'second', 'tail', 'basic'];
 const MODE_FILTER_KINDS = { first: ['first', 'second', 'denrei'], second: ['first', 'second', 'denrei'], basic: ['first', 'second'], tail: ['torder', 'twork', 'tcode', 'tcopy'] };
 const DEFS_DEFAULT = {
   first: [
-    { key: 'pending',  icon: '', label: '未着手',       bg: '#fff9c4', fg: '#827717', sep: true },
+    { key: 'pending',  icon: '', label: '未着手',       bg: '#fff9c4', fg: '#827717' },
     { key: 'watching', icon: '', label: '変更前',       bg: '#ede7f6', fg: '#5e35b1' },   // v0.8.27: 伝令ちゃんに登録された商品が自動でここに入る
-    { key: 'ready',    icon: '', label: '変更中',       bg: '#e1f5fe', fg: '#0277bd', sep: true },   // v0.8.21: 「作成可能」から改名（key はそのまま）
+    { key: 'ready',    icon: '', label: '変更中',       bg: '#e1f5fe', fg: '#0277bd' },   // v0.8.21: 「作成可能」から改名（key はそのまま）
     { key: 'acquired', icon: '', label: '変更完了',     bg: '#e8f5e9', fg: '#2e7d32' },
     { key: 'past',     icon: '', label: '昔のまま放置', bg: '#fbeeee', fg: '#a32d2d' },
     { key: 'skip',     icon: '', label: 'SKIP',         bg: '#e7f1fb', fg: '#1976d2' },
     { key: 'skip_child', icon: '', label: 'SKIP-子商品',  bg: '#e0f2f1', fg: '#00796b' },   // v0.8.28
   ],
   second: [
-    { key: 'none',       icon: '', label: '変更前',       bg: '#fff9c4', fg: '#827717', sep: true },
+    { key: 'none',       icon: '', label: '変更前',       bg: '#fff9c4', fg: '#827717' },
     { key: '__hot3__',   fixed: true },
     { key: '__hot200__', fixed: true },
-    { key: 'changing',   icon: '', label: '変更中',       bg: '#e1f5fe', fg: '#0277bd', sep: true },   // v0.8.31: 1枚目の「変更中」と同じ色
+    { key: 'changing',   icon: '', label: '変更中',       bg: '#e1f5fe', fg: '#0277bd' },   // v0.8.31: 1枚目の「変更中」と同じ色
     { key: 'changed',    icon: '', label: '変更完了',     bg: '#e8f5e9', fg: '#2e7d32' },
     { key: 'stale',      icon: '', label: '昔のまま放置', bg: '#fbeeee', fg: '#a32d2d' },
     { key: 'skip',       icon: '', label: 'SKIP',         bg: '#e7f1fb', fg: '#1976d2' },
@@ -1098,7 +1088,7 @@ function normalizeDefs(saved) {
   defsSeeded = Object.entries(SEEDED_DEFS).flatMap(([g, l]) => l.map(x => `${g}:${x.key}`));   // 次に保存するときは全部「足した」ことにする
   for (const g of Object.keys(DEF_GROUPS)) {
     let list = Array.isArray(saved?.[g]) && saved[g].length ? saved[g] : DEFS_DEFAULT[g];
-    list = list.filter(d => d && d.key).map(d => FIXED_DEFS[d.key] ? { ...FIXED_DEFS[d.key], sep: !!d.sep } : { ...d });
+    list = list.filter(d => d && d.key).map(d => FIXED_DEFS[d.key] ? { ...FIXED_DEFS[d.key], sep: !!d.sep, sepNo: d.sepNo } : { ...d });
     // 表示名を変えたときの読み替え（保存済みの項目設定が旧名のままなら新名に寄せる。手で付け直した名前は触らない）
     for (const d of list) {
       if ((OLD_DEFAULT_ICONS[g] || {})[d.key]?.includes(d.icon)) d.icon = '';   // 昔の既定のマークのままなら外す（自分で入れたマークは残す）
@@ -1120,10 +1110,11 @@ function normalizeDefs(saved) {
         if (def) list.splice(at, 0, { ...def });
       }
     }
+    // 線の番号が付く前の設定（sepV が 2 でない）は、線を既定の位置に置き直す（昔の「下で区切る」は意味が違ったため）
+    if (saved?.sepV !== 2) applyDefaultSep(g, list);
     out[g] = list;
   }
-  out.denrei = normalizeDenreiDefs(saved?.denrei);
-  out.colLines = normalizeColLines(saved?.colLines);
+  out.denrei = normalizeDenreiDefs(saved?.denrei, saved?.sepV === 2);
   return out;
 }
 const defList = (g) => defs[g] || [];
@@ -1142,10 +1133,10 @@ async function flushDefs() {
   if (!defsDirty) return;
   if (!ghConfig().pat) { setStatus('PAT未設定のため項目設定を保存できません', 'err'); return; }
   const body = { version: VERSION, savedAt: new Date().toISOString() };
-  for (const g of Object.keys(DEF_GROUPS)) body[g] = defList(g).map(d => d.fixed ? { key: d.key, sep: !!d.sep } : d);
+  for (const g of Object.keys(DEF_GROUPS)) body[g] = defList(g).map(d => d.fixed ? { key: d.key, sep: !!d.sep, sepNo: d.sepNo } : d);
+  body.sepV = 2;
   body.seeded = defsSeeded;
-  body.colLines = normalizeColLines(defs.colLines);
-  body.denrei = (defs.denrei || []).map(d => ({ key: d.key, label: d.label, bg: d.bg, fg: d.fg }));
+  body.denrei = (defs.denrei || []).map(d => ({ key: d.key, label: d.label, bg: d.bg, fg: d.fg, sep: !!d.sep, sepNo: d.sepNo }));
   try {
     try { defsSha = await ghPut(DEFS_PATH, body, defsSha, `[defs] ${SHOP.id}`); }
     catch (e) {
@@ -1407,39 +1398,42 @@ function renderSide() {
 function defText(d) { return [d.icon, d.label].filter(x => x && String(x).trim()).join(' '); }
 function pillStyle(d) { return `background:${esc(d.bg)};color:${esc(d.fg)};border-color:${esc(d.fg)}33`; }
 /*
- * 上部の絞り込み（伝令ちゃん / 1枚目変更 / 2枚目変更）は、同じ段階のボタンが縦にそろうように
- * 1つの表（CSS grid）に並べる（v0.8.31〜）。列は左から:
- *   0 手つかず | 1 待ち・様子見 | 2 作業中・作業できる | 3 完了 | 4 放置 | 5 SKIP | 6 SKIP-理由つき | 7 その他（自分で足した項目）
- * どの項目がどの列かはここで決める。項目設定で足した項目は、項目設定の並びで「すぐ上にある項目」と同じ列に入る。
+ * 上部の絞り込み（伝令ちゃん / 1枚目変更 / 2枚目変更）は、1つの表（CSS grid）に並べて縦をそろえる。
+ * どのボタンがどの列に入るかは、項目設定の「下で区切る」で決める（v0.8.42〜）。
+ *   ・「下で区切る」を入れた項目の下に線が1本できる。線には番号（1〜9）を付ける。
+ *   ・線の番号が同じなら、伝令ちゃん・1枚目変更・2枚目変更のどの段でも同じ位置に線が来る。
+ *   ・項目は「すぐ上にある線の番号」の列に入る（線がまだ無い項目は左端の列 0）。
+ *     例: 1枚目変更が  未着手｜線1｜変更前｜線2｜変更中…  なら、未着手=列0、変更前=列1、変更中=列2。
+ *   ・ある段で番号を飛ばせば、その段だけ列を空けられる（伝令ちゃんの SKIP を、ほかの段の SKIP の列に合わせる、など）。
+ *   以前の「列線設定」タブ（v0.8.40）と、列の割り当て表（STAGE_OF）は廃止した。
  */
-const STAGE_COUNT = 8;
-const STAGE_OF = {
-  denrei: { none: 0, before: 1, ready: 2, registered: 3, skip: 5 },
-  first:  { pending: 0, watching: 1, ready: 2, acquired: 3, past: 4, skip: 5, skip_child: 6 },
-  second: { none: 0, __hot3__: 1, __hot200__: 1, changing: 2, changed: 3, stale: 4, skip: 5, enough: 6 },
+const STAGE_COUNT = 10;        // 列 0〜9（線の番号は 1〜9）
+const SEP_MAX = STAGE_COUNT - 1;
+// 既定の線（項目の key → その下に入る線の番号）。保存済みの設定が古い形（番号なし）のときもこれに寄せる
+const DEFAULT_SEP = {
+  denrei: { none: 1, before: 2, ready: 3, registered: 5 },
+  first:  { pending: 1, watching: 2, ready: 3, acquired: 4, past: 5, skip: 6 },
+  second: { none: 1, __hot200__: 2, changing: 3, changed: 4, stale: 5, skip: 6 },
 };
-/*
- * 列線設定（v0.8.40〜）。上の絞り込みの表で、列と列の間に入れる縦線を1本ずつ決める。
- *   項目ごとの「下で区切る」（ドロップダウンの中の横線）とは別の設定。
- *   defs.colLines[i] … i 列目の左（＝ i-1 列目と i 列目の間。0 は「全体」と左端の列の間）の線。0 なし / 1 線 / 2 太線
- *   保存先はほかの項目設定と同じ defs.json（colLines）。
- */
-const LINE_COUNT = STAGE_COUNT - 1;   // 線を決められる境目の数（いちばん右の「その他」列は使っていないので除く）
-const COL_LINES_DEFAULT = Array(STAGE_COUNT).fill(1);
-function normalizeColLines(saved) {
-  return COL_LINES_DEFAULT.map((dv, i) => { const v = Array.isArray(saved) ? Number(saved[i]) : NaN; return [0, 1, 2].includes(v) ? v : dv; });
+function applyDefaultSep(g, list) {
+  for (const d of list) { const n = (DEFAULT_SEP[g] || {})[d.key]; d.sep = !!n; if (n) d.sepNo = n; else delete d.sepNo; }
 }
-function colLineOf(i) { const v = (defs.colLines || COL_LINES_DEFAULT)[i]; return [0, 1, 2].includes(v) ? v : 1; }
-// その列に今どの項目が入っているか（列線設定の画面で、境目の左右に名前を出すため）
-function stageLabels() {
-  const out = Array.from({ length: STAGE_COUNT }, () => []);
-  for (const k of DENREI_EDIT_KEYS) out[STAGE_OF.denrei[k]].push(DENREI_STATES[k].label);
-  for (const g of Object.keys(DEF_GROUPS)) { let last = 0; for (const d of defList(g)) { const st = STAGE_OF[g][d.key] ?? last; last = st; if (!out[st].includes(d.label)) out[st].push(d.label); } }
-  return out;
+function sepNoOf(d, prev) { const n = Math.round(Number(d.sepNo)); return n >= 1 && n <= SEP_MAX ? n : Math.min(SEP_MAX, prev + 1); }
+// 一覧の並びと線の番号から、各項目の列（0〜9）を出す
+function stagesOf(list) {
+  let cur = 0;
+  return list.map(d => { const st = cur; if (d.sep) cur = sepNoOf(d, cur); return st; });
+}
+// いまどの番号の線が使われているか（3段のどれかにあれば、その位置に縦線を引く）
+function usedLines() {
+  const used = new Set();
+  for (const list of [defs.denrei || [], ...Object.keys(DEF_GROUPS).map(g => defList(g))]) { let cur = 0; for (const d of list) if (d.sep) { cur = sepNoOf(d, cur); used.add(cur); } }
+  return used;
 }
 function stageRowHtml(label, allBtn, cells, tail) {
   let h = `<span class="flabel">${label}</span><div class="fcell all">${allBtn}</div>`;
-  for (let i = 0; i < STAGE_COUNT; i++) h += `<div class="fcell st${i} ln${colLineOf(i)}">${cells[i] || ''}</div>`;
+  const lines = usedLines();
+  for (let i = 0; i < STAGE_COUNT; i++) h += `<div class="fcell st${i} ${i > 0 && lines.has(i) ? 'ln1' : (i === 0 ? '' : 'unused')}">${cells[i] || ''}</div>`;
   return h + `<div class="fcell tail">${tail || ''}</div>`;
 }
 function filterRowHtml(g) {
@@ -1455,14 +1449,8 @@ function filterRowHtml(g) {
     return `<button class="fbtn ${on ? 'on' : ''} ${n ? '' : 'zero'}" style="${pillStyle(d)}" data-fg="${g}" data-fk="${esc(d.key)}">${esc(defText(d))} <span class="n">(${n})</span></button>`;
   };
   const cells = [];
-  // 自分で足した項目は、項目設定で置いた場所（すぐ上の項目）と同じ列に出す（v0.8.39〜）。
-  //   以前はいちばん右の「その他」の列にまとめていたので、足しても見つけにくかった。
-  let last = 0;
-  for (const d of defList(g)) {
-    const st = STAGE_OF[g][d.key] ?? last;
-    last = st;
-    cells[st] = (cells[st] || '') + btn(d);
-  }
+  const list = defList(g), sts = stagesOf(list);
+  list.forEach((d, i) => { cells[sts[i]] = (cells[sts[i]] || '') + btn(d); });
   return stageRowHtml(`${DEF_GROUPS[g].icon} ${DEF_GROUPS[g].label}:`,
     `<button class="fbtn all ${allOn ? 'on' : ''}" data-fg="${g}" data-fk="">全体 <span class="n">(${base.length})</span></button>`, cells);
 }
@@ -1668,7 +1656,7 @@ let menuCtx = null;
 function openMenu(btn, g, onPick) {
   const cur = btn.dataset.cur;
   const opts = defOptions(g);
-  showMenu(btn, opts.map((d, i) => `<button class="mi ${d.key === cur ? 'cur' : ''}" data-key="${esc(d.key)}" style="background:${esc(d.bg)};color:${esc(d.fg)}">${esc(defText(d))}</button>${d.sep && i < opts.length - 1 ? '<div class="sep"></div>' : ''}`).join(''), onPick);
+  showMenu(btn, opts.map((d, i) => `<button class="mi ${d.key === cur ? 'cur' : ''}" data-key="${esc(d.key)}" style="background:${esc(d.bg)};color:${esc(d.fg)}">${esc(defText(d))}</button>`).join(''), onPick);
 }
 // 中身（HTML）を渡して、ボタンの下（入らなければ上）に出す。項目は .mi[data-key]
 function showMenu(btn, html, onPick) {
@@ -2246,13 +2234,14 @@ const DENREI_STATES = {
 const DENREI_EDIT_KEYS = ['none', 'before', 'ready', 'registered', 'skip'];
 const DENREI_DEFAULTS = JSON.parse(JSON.stringify(DENREI_STATES));
 const DENREI_DESC = { none: '伝令ちゃんに登録されていない商品', before: '登録済みで、まだランキングを獲得していない商品', ready: 'ランキングを獲得し、伝令ちゃんで登録できる商品', registered: '伝令ちゃんで登録まで終わった商品', skip: '伝令ちゃんに登録しないと決めた商品（表のドロップダウンで手で選ぶ）' };
-function normalizeDenreiDefs(saved) {
+function normalizeDenreiDefs(saved, keepSep) {
   const by = {}; for (const d of (Array.isArray(saved) ? saved : [])) if (d && d.key) by[d.key] = d;
   const hex = (v, fb) => /^#[0-9a-f]{6}$/i.test(String(v || '')) ? String(v) : fb;
   const list = DENREI_EDIT_KEYS.map(k => {
     const def = DENREI_DEFAULTS[k], sv = by[k] || {};
-    return { key: k, label: String(sv.label || '').trim() || def.label, bg: hex(sv.bg, def.bg), fg: hex(sv.fg, def.fg) };
+    return { key: k, label: String(sv.label || '').trim() || def.label, bg: hex(sv.bg, def.bg), fg: hex(sv.fg, def.fg), sep: !!sv.sep, sepNo: sv.sepNo };
   });
+  if (!keepSep) applyDefaultSep('denrei', list);
   applyDenreiDefs(list);
   return list;
 }
@@ -2466,10 +2455,11 @@ function denreiRowHtml() {
   const cells = [];
   let msg;
   if (denrei.state === 'ok') {
-    for (const k of DENREI_EDIT_KEYS) {
-      const def = DENREI_STATES[k], n = base.filter(([c]) => denreiStateOf(c) === k).length;
+    const dsts = stagesOf(defs.denrei || []);
+    for (const [di, dd] of (defs.denrei || []).entries()) {
+      const k = dd.key, def = DENREI_STATES[k], n = base.filter(([c]) => denreiStateOf(c) === k).length;
       const urgent = k === 'ready' && n > 0;   // 登録できる状態で待っている商品がいれば派手にする
-      cells[STAGE_OF.denrei[k]] = `<button class="fbtn ${urgent ? 'urgent' : ''} ${on(k) ? 'on' : ''} ${n ? '' : 'zero'}" ${urgent ? '' : `style="background:${def.bg};color:${def.fg};border-color:${def.fg}33"`} data-fg="denrei" data-fk="${k}">${esc(def.label)} <span class="n">(${n})</span></button>`;
+      cells[dsts[di]] = (cells[dsts[di]] || '') + `<button class="fbtn ${urgent ? 'urgent' : ''} ${on(k) ? 'on' : ''} ${n ? '' : 'zero'}" ${urgent ? '' : `style="background:${def.bg};color:${def.fg};border-color:${def.fg}33"`} data-fg="denrei" data-fk="${k}">${esc(def.label)} <span class="n">(${n})</span></button>`;
     }
     msg = `<span class="dnr-msg">${esc(relTime(denrei.loadedAt))} 時点</span>`;
   } else if (denrei.state === 'loading') {
@@ -4382,6 +4372,14 @@ function clrUsage() {
   for (const d of [...defList('first'), ...defList('second'), ...(defs.denrei || [])]) { const k = clrKey(d.bg, d.fg); m[k] = (m[k] || 0) + 1; }
   return m;
 }
+// 「下で区切る」と、その線の番号。同じ番号の線は、伝令ちゃん・1枚目変更・2枚目変更で縦にそろう
+function sepCtlHtml(list, i) {
+  const d = list[i];
+  let prev = 0; for (let k = 0; k < i; k++) if (list[k].sep) prev = sepNoOf(list[k], prev);
+  const no = d.sep ? sepNoOf(d, prev) : 0;
+  const opts = Array.from({ length: SEP_MAX }, (_, k) => `<option value="${k + 1}" ${no === k + 1 ? 'selected' : ''}>線${k + 1}</option>`).join('');
+  return `<span class="sep-ctl" title="チェックすると、この項目の下に線が入ります。線の番号が同じなら、上の絞り込みの3段（伝令ちゃん / 1枚目変更 / 2枚目変更）で同じ位置にそろいます"><label style="margin:0"><input type="checkbox" data-k="sep" ${d.sep ? 'checked' : ''}> 下で区切る</label>${d.sep ? `<select data-k="sepNo">${opts}</select>` : ''}</span>`;
+}
 function clrBtnHtml(d, i) {
   return `<button type="button" class="clr-btn ${clrOpen === i ? 'open' : ''}" data-clr-open="${i}" style="background:${esc(d.bg)};color:${esc(d.fg)};border-color:${esc(d.fg)}55" title="色を選ぶ（30組から）">色 ▾</button>`;
 }
@@ -4396,30 +4394,19 @@ function usageCount(g, key) { return entries().filter(([, p]) => p[DEF_GROUPS[g]
 function renderDefsEditor() {
   $('#defsShop').textContent = `（${SHOP.name}）`;
   $('#defsTabs').innerHTML = Object.entries(DEF_GROUPS).map(([g, v]) => `<button data-tab="${g}" class="${g === defsTab ? 'on' : ''}">${v.icon} ${v.label}</button>`).join('') +
-    `<button data-tab="denrei" class="${defsTab === 'denrei' ? 'on' : ''}">🔔 伝令ちゃん</button>` +
-    `<button data-tab="lines" class="${defsTab === 'lines' ? 'on' : ''}">┃ 列線設定</button>`;
-  $('#defsAdd').style.display = (defsTab === 'denrei' || defsTab === 'lines') ? 'none' : '';
-  document.querySelector('#dlgDefs .def-head').style.display = defsTab === 'lines' ? 'none' : '';
-  if (defsTab === 'lines') {
-    const names = stageLabels(), show = (a) => a.length ? a.map(esc).join('・') : '<span class="muted">（項目なし）</span>';
-    const opt = (i, v, l) => `<label class="ln-opt ${colLineOf(i) === v ? 'on' : ''}"><input type="radio" name="ln${i}" data-line="${i}" value="${v}" ${colLineOf(i) === v ? 'checked' : ''}>${l}</label>`;
-    $('#defsList').innerHTML = `<div class="hint" style="padding:2px 4px 8px">上の絞り込み（伝令ちゃん / 1枚目変更 / 2枚目変更）で、列と列の間に入れる縦線を1本ずつ決めます。変えるとすぐ画面に反映されます。</div>` +
-      Array.from({ length: LINE_COUNT }, (_, i) => `<div class="ln-row" data-line-row="${i}">
-        <div class="ln-side l">${i === 0 ? '全体' : show(names[i - 1])}</div>
-        <div class="ln-mid"><span class="ln-bar ln${colLineOf(i)}"></span><div class="ln-opts">${opt(i, 0, 'なし')}${opt(i, 1, '線')}${opt(i, 2, '太線')}</div></div>
-        <div class="ln-side r">${show(names[i])}</div></div>`).join('') +
-      `<div class="row" style="justify-content:flex-start;margin-top:8px"><button data-line-all="1">全部 線</button><button data-line-all="0">全部 なし</button></div>`;
-    return;
-  }
+    `<button data-tab="denrei" class="${defsTab === 'denrei' ? 'on' : ''}">🔔 伝令ちゃん</button>`;
+  if (defsTab === 'lines') defsTab = 'first';
+  $('#defsAdd').style.display = defsTab === 'denrei' ? 'none' : '';
   if (defsTab === 'denrei') {
     // 名前と色だけ（足す・消す・並べ替えは無い）
-    $('#defsList').innerHTML = (defs.denrei || []).map((d, i) => `<div class="def-row" data-i="${i}">
+    $('#defsList').innerHTML = (defs.denrei || []).map((d, i) => `<div class="def-row ${d.sep ? 'sep-after' : ''}" data-i="${i}">
       <div class="preview" style="background:${esc(d.bg)};color:${esc(d.fg)}">${esc(d.label)}</div>
       <span></span>
       <input type="text" data-k="label" value="${esc(d.label)}" placeholder="${esc(DENREI_DEFAULTS[d.key].label)}">
       ${clrBtnHtml(d, i)}
-      <span class="hint" style="grid-column: span 2; white-space: normal; line-height: 1.4">${esc(DENREI_DESC[d.key] || '')}</span></div>${clrOpen === i ? clrPanelHtml(d, i) : ''}`).join('') +
-      `<div class="hint" style="padding:8px 4px">伝令ちゃんの状態は、名前と色だけ変えられます（どの商品がどの状態かは伝令ちゃんが決めます）。名前を空にすると元の名前に戻ります。</div>`;
+      ${sepCtlHtml(defs.denrei, i)}
+      <span class="hint" style="white-space: normal; line-height: 1.3; font-size: 10px" title="${esc(DENREI_DESC[d.key] || '')}"></span></div>${clrOpen === i ? clrPanelHtml(d, i) : ''}`).join('') +
+      `<div class="hint" style="padding:8px 4px">伝令ちゃんの状態は、名前・色・区切りの線を変えられます（どの商品がどの状態かは伝令ちゃんが決めます）。名前を空にすると元の名前に戻ります。</div>`;
     return;
   }
   const list = defList(defsTab);
@@ -4429,14 +4416,14 @@ function renderDefsEditor() {
     const preview = `<div class="preview" style="background:${esc(d.bg)};color:${esc(d.fg)}">${esc(defText(d))}</div>`;
     if (d.fixed) {
       return `<div class="def-row fixed ${d.sep ? 'sep-after' : ''}" data-i="${i}">${preview}<span></span><span class="hint">絞り込み専用（名前・色は固定）</span><span></span><span></span>
-        <label style="margin:0"><input type="checkbox" data-k="sep" ${d.sep ? 'checked' : ''}> 下で区切る</label>
+        ${sepCtlHtml(list, i)}
         <div class="ops"><button data-op="up" ${i === 0 ? 'disabled' : ''}>↑</button><button data-op="down" ${i === list.length - 1 ? 'disabled' : ''}>↓</button></div></div>`;
     }
     return `<div class="def-row ${d.sep ? 'sep-after' : ''}" data-i="${i}">${preview}
       <input type="text" data-k="icon" value="${esc(d.icon)}" style="text-align:center">
       <input type="text" data-k="label" value="${esc(d.label)}">
       ${clrBtnHtml(d, i)}
-      <label style="margin:0" title="行のドロップダウンを開いたとき、この項目の下に横線を入れます。上の絞り込みの縦線は「┃ 列線設定」のタブで決めます"><input type="checkbox" data-k="sep" ${d.sep ? 'checked' : ''}> 下で区切る</label>
+      ${sepCtlHtml(list, i)}
       <div><div class="ops"><button data-op="up" ${i === 0 ? 'disabled' : ''}>↑</button><button data-op="down" ${i === list.length - 1 ? 'disabled' : ''}>↓</button><button data-op="del" ${prot || use ? 'disabled' : ''} title="${prot ? '削除できない項目' : use ? '使用中の商品があります' : '削除'}">🗑</button></div>
       <div class="use">${prot ? '既定値' : use ? `使用中 ${use}件` : ''}</div></div></div>${clrOpen === i ? clrPanelHtml(d, i) : ''}`;
   }).join('');
@@ -4450,17 +4437,23 @@ $('#defsClose').addEventListener('click', () => {
 });
 $('#defsTabs').addEventListener('click', (e) => { const b = e.target.closest('[data-tab]'); if (b) { defsTab = b.dataset.tab; clrOpen = null; renderDefsEditor(); } });
 $('#defsAdd').addEventListener('click', () => {
-  if (defsTab === 'denrei' || defsTab === 'lines') return;
+  if (defsTab === 'denrei') return;
   defs[defsTab].push({ key: 'k' + Date.now().toString(36), icon: '', label: '新しい項目', bg: '#f0f2f5', fg: '#374151' });
   defsChanged();
   $('#defsList').scrollTop = 1e6;
 });
 $('#defsList').addEventListener('input', (e) => {
-  const ln = e.target.closest('[data-line]');
-  if (ln) { defs.colLines = normalizeColLines(defs.colLines); defs.colLines[+ln.dataset.line] = +ln.value; defsChanged(); return; }
   const inp = e.target.closest('[data-k]'); if (!inp) return;
   const i = +inp.closest('.def-row').dataset.i, d = defs[defsTab][i], k = inp.dataset.k;
-  if (k === 'sep') d.sep = inp.checked; else d[k] = inp.value;
+  if (k === 'sep' || k === 'sepNo') {
+    // 線を入れる・外す・番号を変える → 上の絞り込みの列がその場で動く
+    const list = defs[defsTab];
+    if (k === 'sep') { d.sep = inp.checked; if (d.sep) { let prev = 0; for (let x = 0; x < i; x++) if (list[x].sep) prev = sepNoOf(list[x], prev); d.sepNo = Math.min(SEP_MAX, prev + 1); } else delete d.sepNo; }
+    else d.sepNo = Math.round(Number(inp.value)) || 1;
+    defsChanged();
+    return;
+  }
+  d[k] = inp.value;
   markDefsDirty();
   if (defsTab === 'denrei') {
     applyDenreiDefs(defs.denrei);
@@ -4471,12 +4464,9 @@ $('#defsList').addEventListener('input', (e) => {
   }
   const pv = inp.closest('.def-row').querySelector('.preview');
   pv.style.background = d.bg; pv.style.color = d.fg; pv.textContent = defText(d);
-  if (k === 'sep') inp.closest('.def-row').classList.toggle('sep-after', d.sep);
   renderAll();
 });
 $('#defsList').addEventListener('click', (e) => {
-  const la = e.target.closest('[data-line-all]');
-  if (la) { defs.colLines = normalizeColLines(defs.colLines).map((v, i) => i < LINE_COUNT ? +la.dataset.lineAll : v); defsChanged(); return; }
   const co = e.target.closest('[data-clr-open]');
   if (co) { const i = +co.dataset.clrOpen; clrOpen = clrOpen === i ? null : i; renderDefsEditor(); return; }
   const sw = e.target.closest('.clr-sw');
