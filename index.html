@@ -820,7 +820,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.57';
+const VERSION = 'v0.8.58';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -1347,11 +1347,16 @@ function sortVal(code, p, k) {
     default: return null;
   }
 }
+function denreiNoRankTier(code) { return denrei.state === 'ok' && denrei.map[code] ? 0 : 1; }
 function visibleRows() {
   const rows = baseRows().filter(([c, p]) => matchFilter(c, p));
   rows.sort(([ca, a], [cb, b]) => {
     const x = sortVal(ca, a, sortKey), y = sortVal(cb, b, sortKey);
-    if (x === null && y === null) return ca.localeCompare(cb);
+    if (x === null && y === null) {
+      // 伝令ちゃん列：順位が無い商品は「伝令ちゃんに登録済み（リアルタイム —）」→「未登録」の順に下へ（v0.8.58〜）
+      if (sortKey === 'denrei') { const ta = denreiNoRankTier(ca), tb = denreiNoRankTier(cb); if (ta !== tb) return ta - tb; }
+      return ca.localeCompare(cb);
+    }
     if (x === null) return 1;            // 空は常に末尾
     if (y === null) return -1;
     if (typeof x === 'string' || typeof y === 'string') return String(x).localeCompare(String(y), 'ja') * sortDir || ca.localeCompare(cb);
