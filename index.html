@@ -598,7 +598,7 @@
     <tr><td>1枚目変更・2枚目変更</td><td><span class="tag man">手入力</span></td><td>1枚目変更の「変更前」だけは自動でも入ります（伝令ちゃんに登録されている商品が「未着手」のままなら、画面を開いたとき・「🔄 更新」で「変更前」に変わります）。行のドロップダウン・一括変更。</td></tr>
     <tr><td>1.2枚目変更</td><td><span class="tag man">手入力</span></td><td>1枚目用・2枚目用の「1.2枚目変更」列。1枚目変更と2枚目変更のドロップダウンが横に並びます。ランキング詳細の入力欄は v0.8.35 でやめました（入力済みの内容は消していません）。</td></tr>
     <tr><td>証拠の画像（○ 選択）</td><td><span class="tag man">手入力</span></td><td>1枚目用。画像1〜3のどれか1枚。選んだ画像の右下が拡大表示されます。</td></tr>
-    <tr><td>メモ・無視</td><td><span class="tag man">手入力</span></td><td>右端の「確認」列、または商品名の下の「✏ 詳細」から。1枚目用は「確認」列がないので「✏ 詳細」から。</td></tr>
+    <tr><td>メモ・無視</td><td><span class="tag man">手入力</span></td><td>状態は「通常 / 無視 / 無視（子商品）」の3つ。無視と無視（子商品）は名前を分けているだけで、どちらも普段の一覧から隠れます。付けるのは、右端の「確認」列、商品名の下の「✏ 詳細」、一括変更の「状態」から。1枚目用は「確認」列がないので「✏ 詳細」から。</td></tr>
     <tr><td>2枚目作成</td><td><span class="tag man">手で作る</span></td><td>2枚目用の「🖼 2枚目作成」。レビュー件数・評価・日付を入れた画像（PNG）を作ります。開いただけでは何も変わりません。「PNGを保存 / スタッツ変更」を押したときだけ、2枚目変更が「変更中」になり、画面上件数が今のレビュー件数に合います。</td></tr>
     <tr><td>項目設定</td><td><span class="tag man">手入力</span></td><td>選択肢の名前・色・並び順（↔ 項目設定）。伝令ちゃんの状態（未登録 / 監視中 など）の名前と色も、「🔔 伝令ちゃん」タブで変えられます。</td></tr>
     <tr><td>タイトル末尾の型番</td><td><span class="tag">①</span><span class="tag">②</span><span class="tag man">手で直せる</span></td><td>タイトル末尾用の4つの欄。現在のタイトルの末尾から自動で拾い、タイトルが変われば追従します。手で打ち替えた欄（黄色）はタイトルに追従しません（自動と同じ値に戻すと追従に戻ります）。</td></tr>
@@ -753,7 +753,7 @@
   <label for="dtMemo">メモ</label>
   <textarea id="dtMemo" placeholder="メモ（入力するとすぐ保存されます）"></textarea>
   <div class="row" style="justify-content:space-between">
-    <button id="dtIgnore"></button>
+    <span style="display:flex;gap:8px"><button id="dtIgnore"></button><button id="dtIgnoreChild"></button></span>
     <button id="dtClose" class="primary">閉じる</button>
   </div>
 </dialog>
@@ -813,7 +813,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.42';
+const VERSION = 'v0.8.44';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -934,7 +934,7 @@ let defsSha = null;
 let mode = 'basic';
 let sortKey = 'reviewCount', sortDir = -1;
 let query = '';
-let statusScope = 'normal';          // normal | ignore | all
+let statusScope = 'normal';          // normal | ignore | ignore_child | all
 let filter = { kind: null, key: null };   // kind: 'first' | 'second' | 'rate'  （重ねがけしない）
 const selected = new Set();
 const dirtyCodes = new Set();
@@ -1234,8 +1234,14 @@ const RATE_BANDS = [
   { key: 'rlow', label: '★ -4.00',      test: (a) => a > 0 && a < 4.0 },
   { key: 'r0',   label: '未評価',       test: (a) => !a },
 ];
-function isIgnored(p) { return p.status === 'ignore'; }
-function inScope(p) { return statusScope === 'all' || (statusScope === 'ignore' ? isIgnored(p) : !isIgnored(p)); }
+// 状態は 通常 / 無視 / 無視（子商品）の3つ（v0.8.44〜）。無視と無視（子商品）は名前を分けているだけで、動きは同じ（どちらも普段の一覧から隠す）
+const IGNORE_KINDS = ['ignore', 'ignore_child'];
+function isIgnored(p) { return IGNORE_KINDS.includes(p.status); }
+function inScope(p) {
+  if (statusScope === 'all') return true;
+  if (IGNORE_KINDS.includes(statusScope)) return p.status === statusScope;
+  return !isIgnored(p);
+}
 // 売上の絞り込み（左カラム。v0.8.16〜）。検索と同じ扱いで、ほかの絞り込みと重ねて効く。
 //   Y-check にその月のデータが無い商品は 0円 として扱う（「0円〜0円」で売れていない商品を出せるように）。
 //   売上を読めていない間は絞り込まない。
@@ -1389,8 +1395,8 @@ function renderSide() {
     return `<button data-rate="${b.key}" class="${on ? 'on' : ''}"><span>${esc(b.label)}</span><span class="n">${n}</span></button>`;
   }).join('');
   const all = entries().filter(([c, p]) => matchQuery(c, p));
-  const cnt = { normal: all.filter(([, p]) => !isIgnored(p)).length, ignore: all.filter(([, p]) => isIgnored(p)).length, all: all.length };
-  const st = [['normal', '👁 通常'], ['ignore', '🙈 無視（非表示）'], ['all', '🗂 全体']];
+  const cnt = { normal: all.filter(([, p]) => !isIgnored(p)).length, ignore: all.filter(([, p]) => p.status === 'ignore').length, ignore_child: all.filter(([, p]) => p.status === 'ignore_child').length, all: all.length };
+  const st = [['normal', '👁 通常'], ['ignore', '🙈 無視'], ['ignore_child', '🙈 無視（子商品）'], ['all', '🗂 全体']];
   $('#statusList').innerHTML = st.map(([k, l]) => `<button data-scope="${k}" class="${statusScope === k ? 'on' : ''}"><span>${l}</span><span class="n">${cnt[k]}</span></button>`).join('');
 }
 
@@ -1457,9 +1463,11 @@ function filterRowHtml(g) {
 // 一括変更で選んだ値（描き直しても消えないように持つ。適用したら消す）。
 // 「→ 選択商品に適用」は、商品を選び、かつ変更する項目を選んだときだけ赤くする（v0.8.13〜）
 const bulkPick = {};
-const BULK_STATUS_OPTS = [['normal', '👁 通常'], ['ignore', '🙈 無視']];   // 一括変更の「状態」
+const BULK_STATUS_OPTS = [['normal', '👁 通常'], ['ignore', '🙈 無視'], ['ignore_child', '🙈 無視（子商品）']];   // 一括変更の「状態」
+// 一括変更で伝令ちゃんの状態を選べるのは、伝令ちゃんの段が出るモードで、伝令ちゃんを読めているときだけ
+function bulkDenreiOn() { return (mode === 'first' || mode === 'second') && denrei.state === 'ok'; }
 function bulkReady() {
-  const gs = [...MODE_GROUPS[mode], '__status', ...(mode === 'tail' ? ['__tailWork'] : [])];
+  const gs = [...(bulkDenreiOn() ? ['__denrei'] : []), ...MODE_GROUPS[mode], '__status', ...(mode === 'tail' ? ['__tailWork'] : [])];
   return selected.size > 0 && gs.some(g => bulkPick[g]);
 }
 function renderFilters() {
@@ -1472,8 +1480,9 @@ function renderFilters() {
     <div class="fpanel-foot">
       <div class="bulk">
         <span class="t">✏ 選択商品を一括変更</span><span class="cnt" id="selCnt">${selected.size}</span>
+        ${bulkDenreiOn() ? `<select class="bulk-sel" data-g="__denrei" title="伝令ちゃん列の状態を、選んだ商品にまとめて付けます（表のドロップダウンで1件ずつ選ぶのと同じ。伝令ちゃん側の状態は変わりません）"><option value="">伝令ちゃん：変更しない</option>${DENREI_EDIT_KEYS.map(k => `<option value="${k}" ${bulkPick.__denrei === k ? 'selected' : ''}>${esc(DENREI_STATES[k].label)}</option>`).join('')}<option value="__auto" ${bulkPick.__denrei === '__auto' ? 'selected' : ''}>↩ 自動に戻す</option></select>` : ''}
         ${groups.map(g => `<select class="bulk-sel" data-g="${g}">${optHtml(g)}</select>`).join('')}
-        <select class="bulk-sel" data-g="__status" title="通常 / 無視 を切り替えます（無視にした商品は、左の「状態」で「無視」か「全体」を選ぶと出ます）"><option value="">状態：変更しない</option>${BULK_STATUS_OPTS.map(([k, l]) => `<option value="${k}" ${bulkPick.__status === k ? 'selected' : ''}>${l}</option>`).join('')}</select>
+        <select class="bulk-sel" data-g="__status" title="通常 / 無視 / 無視（子商品）を切り替えます（無視にした商品は、左の「状態」で「無視」「無視（子商品）」「全体」を選ぶと出ます）"><option value="">状態：変更しない</option>${BULK_STATUS_OPTS.map(([k, l]) => `<option value="${k}" ${bulkPick.__status === k ? 'selected' : ''}>${l}</option>`).join('')}</select>
         ${mode === 'tail' ? `<select class="bulk-sel" data-g="__tailWork"><option value="">対応：変更しない</option>${TTAIL_WORK_OPTS.map(o => `<option value="${o.key || '__none'}" ${bulkPick.__tailWork === (o.key || '__none') ? 'selected' : ''}>${esc(o.label)}</option>`).join('')}</select>` : ''}
         <button id="bulkApply" class="${bulkReady() ? 'primary' : ''}" ${bulkReady() ? '' : 'disabled'} title="${bulkReady() ? '' : '商品にチェックを入れ、変更する項目を選ぶと押せます'}">→ 選択商品に適用</button>
         <button id="bulkClear" ${selected.size ? '' : 'disabled'}>☐ 選択解除</button>
@@ -1879,6 +1888,12 @@ $('#filters').addEventListener('click', (e) => {
       for (const [g, v] of picks) {
         if (g === '__tailWork') { if (v === '__none') delete p.tailWork; else p.tailWork = v; }
         else if (g === '__status') p.status = v;
+        else if (g === '__denrei') {
+          // 表のドロップダウンと同じ決まり：伝令ちゃんの実際の状態と同じものを選んだら、手動は付けない
+          const auto = denreiAutoStateOf(code);
+          if (v === '__auto' || v === auto) delete p.denreiManual;
+          else if (DENREI_EDIT_KEYS.includes(v) && auto !== 'unknown') p.denreiManual = { v, at: auto };
+        }
         else p[DEF_GROUPS[g].field] = v;
       }
       touch(code);
@@ -4202,6 +4217,9 @@ function renderDetail() {
   $('#dtTitle').textContent = p.apiTitle || p.csvName || '—';
   $('#dtLinks').innerHTML = `<a href="${esc(p.itemUrl)}" target="_blank" rel="noopener">🛒 商品ページ</a>` + (p.reviewUrl ? `<a href="${esc(p.reviewUrl)}" target="_blank" rel="noopener">💬 レビュー</a>` : '');
   $('#dtIgnore').textContent = isIgnored(p) ? '👁 通常に戻す' : '🙈 無視する';
+  $('#dtIgnoreChild').textContent = p.status === 'ignore_child' ? '🙈 無視（子商品）のまま' : '🙈 無視（子商品）にする';
+  $('#dtIgnoreChild').disabled = p.status === 'ignore_child';
+  $('#dtIgnore').title = isIgnored(p) ? `今は「${p.status === 'ignore_child' ? '無視（子商品）' : '無視'}」です` : '';
 }
 function openDetail(code) {
   detailCode = code;
@@ -4212,6 +4230,11 @@ function openDetail(code) {
 $('#dtMemo').addEventListener('input', (e) => {
   const p = store.productCache[detailCode]; if (!p) return;
   p.memo = e.target.value; touch(detailCode);
+});
+$('#dtIgnoreChild').addEventListener('click', () => {
+  const p = store.productCache[detailCode]; if (!p) return;
+  p.status = 'ignore_child';
+  touch(detailCode); renderDetail();
 });
 $('#dtIgnore').addEventListener('click', () => {
   const p = store.productCache[detailCode]; if (!p) return;
