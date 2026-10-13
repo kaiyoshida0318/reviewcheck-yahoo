@@ -1,6 +1,6 @@
 {
   "version": "v0.8.49",
-  "savedAt": "2026-10-13T02:49:22.321Z",
+  "savedAt": "2026-10-13T02:50:56.620Z",
   "first": [
     {
       "key": "pending",
@@ -178,19 +178,19 @@
       "col": 1
     },
     {
-      "key": "ready",
-      "label": "獲得済-登録可能",
-      "bg": "#fff0f0",
-      "fg": "#c62828",
+      "key": "registered",
+      "label": "ランキング獲得済",
+      "bg": "#e8f5e9",
+      "fg": "#2e7d32",
       "sep": true,
       "sepNo": 3,
       "col": 2
     },
     {
-      "key": "registered",
-      "label": "ランキング獲得済",
-      "bg": "#e8f5e9",
-      "fg": "#2e7d32",
+      "key": "ready",
+      "label": "獲得済-登録可能",
+      "bg": "#fff0f0",
+      "fg": "#c62828",
       "sep": true,
       "sepNo": 4,
       "col": 3
