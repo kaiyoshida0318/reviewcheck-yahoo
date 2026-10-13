@@ -307,8 +307,12 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "none",
-      "updatedAt": "2026-10-13T03:23:56.986Z",
-      "firstStatus": "watching"
+      "updatedAt": "2026-10-13T03:25:51.845Z",
+      "firstStatus": "watching",
+      "denreiManual": {
+        "v": "before",
+        "at": "none"
+      }
     },
     "ih-21-02": {
       "reviewHistory": {
@@ -1466,8 +1470,12 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "none",
-      "updatedAt": "2026-10-13T03:23:48.041Z",
-      "firstStatus": "watching"
+      "updatedAt": "2026-10-13T03:25:52.936Z",
+      "firstStatus": "watching",
+      "denreiManual": {
+        "v": "before",
+        "at": "none"
+      }
     },
     "foot-23-05": {
       "reviewHistory": {
@@ -1936,8 +1944,12 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "none",
-      "updatedAt": "2026-10-13T03:24:08.316Z",
-      "firstStatus": "watching"
+      "updatedAt": "2026-10-13T03:25:50.636Z",
+      "firstStatus": "watching",
+      "denreiManual": {
+        "v": "before",
+        "at": "none"
+      }
     },
     "si-23-09": {
       "reviewHistory": {
@@ -4828,8 +4840,12 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "none",
-      "updatedAt": "2026-10-13T02:14:20.348Z",
-      "firstStatus": "pending"
+      "updatedAt": "2026-10-13T03:25:59.461Z",
+      "firstStatus": "watching",
+      "denreiManual": {
+        "v": "before",
+        "at": "none"
+      }
     },
     "wat-sma-02": {
       "reviewHistory": {
@@ -5832,9 +5848,13 @@
       ],
       "registeredAt": "2026-09-29",
       "status": "normal",
-      "updatedAt": "2026-10-13T02:14:17.948Z",
+      "updatedAt": "2026-10-13T03:25:56.915Z",
       "secondStatus": "none",
-      "firstStatus": "pending"
+      "firstStatus": "watching",
+      "denreiManual": {
+        "v": "before",
+        "at": "none"
+      }
     },
     "ih-22-03-12set": {
       "reviewHistory": {
@@ -13875,8 +13895,12 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "none",
-      "updatedAt": "2026-10-13T03:23:39.301Z",
-      "firstStatus": "watching"
+      "updatedAt": "2026-10-13T03:25:54.542Z",
+      "firstStatus": "watching",
+      "denreiManual": {
+        "v": "before",
+        "at": "none"
+      }
     },
     "gar-fa-02": {
       "reviewHistory": {
@@ -14896,7 +14920,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-13T03:25:47.206Z",
+  "savedAt": "2026-10-13T03:26:02.469Z",
   "lastAutoFetch": "2026-10-13T03:08:06Z",
   "lastCsvFile": "data202610131200.csv",
   "counts": {
