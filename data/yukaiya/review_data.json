@@ -13847,8 +13847,8 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "none",
-      "updatedAt": "2026-10-13T01:52:50.597Z",
-      "firstStatus": "pending"
+      "updatedAt": "2026-10-13T03:23:39.301Z",
+      "firstStatus": "watching"
     },
     "gar-fa-02": {
       "reviewHistory": {
@@ -14868,7 +14868,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-13T03:22:06.954Z",
+  "savedAt": "2026-10-13T03:23:43.210Z",
   "lastAutoFetch": "2026-10-13T03:08:06Z",
   "lastCsvFile": "data202610131200.csv",
   "counts": {
