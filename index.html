@@ -67,6 +67,8 @@
   .upd-btn .t { font-weight: 700; font-size: 14px; }
   .upd-btn .d { grid-column: 1; font-size: 11px; color: var(--muted); margin-top: 2px; }
   .upd-btn .chip { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-size: 11px; padding: 3px 10px; border-radius: 999px; background: #f0f2f5; color: var(--muted); white-space: nowrap; }
+  .upd-btn .chip.two { border-radius: 10px; text-align: right; line-height: 1.5; }
+  .upd-btn .chip .sub { display: block; font-size: 10px; opacity: .85; }
   .upd-btn .chip.y { background: #fff6e0; color: #8a5a00; font-weight: 700; }
   .upd-btn .chip.r { background: var(--accent-soft); color: var(--accent); font-weight: 700; }
   .upd-btn.main { border-color: #ffc2cc; }
@@ -820,7 +822,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.58';
+const VERSION = 'v0.8.59';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -2650,17 +2652,19 @@ function renderFetchBtn() {
   b.classList.remove('wait', 'run'); hb.classList.remove('wait', 'run');
   const t = b.querySelector('.t'), chip = $('#chipFetch');
   chip.className = 'chip';
+  // 依頼済み・取得中のときに、前回いつ取れたかを2行目に出す
+  const lastHtml = () => `<span class="sub">最終取得: ${lf ? `${esc(fmtFull(lf.at))}（${esc(relTime(lf.at))}）` : 'まだ取得していません'}</span>`;
   if (reqState?.status === 'requested') {
     const mins = Math.floor(daysAgo(reqState.requestedAt) * 1440);
     b.classList.add('wait'); hb.classList.add('wait');
     t.textContent = '⏳ 依頼済み（TimerRunner の順番待ち）';
-    chip.textContent = `依頼 ${mins > 0 ? mins + '分前' : 'たった今'}`;
+    chip.innerHTML = `依頼 ${mins > 0 ? mins + '分前' : 'たった今'}${lastHtml()}`; chip.classList.add('two');
     chip.title = `依頼 ${new Date(reqState.requestedAt).toLocaleString('ja-JP')}`;
     hb.innerHTML = '⏳ 更新一覧';
   } else if (reqState?.status === 'running') {
     b.classList.add('run'); hb.classList.add('run');
     t.innerHTML = '<span class="spin">🔄</span> 取得中…（画像まで取るので数分かかります）';
-    chip.textContent = `${fmtShort(reqState.startedAt).split(' ')[1] || ''} 開始`;
+    chip.innerHTML = `${esc(fmtShort(reqState.startedAt).split(' ')[1] || '')} 開始${lastHtml()}`; chip.classList.add('two');
     chip.title = `TimerRunner（${reqState.runner || '?'}）が取得中`;
     hb.innerHTML = '<span class="spin">🔄</span> 取得中…';
   } else {
