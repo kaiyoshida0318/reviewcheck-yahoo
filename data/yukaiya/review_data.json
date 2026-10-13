@@ -4154,8 +4154,8 @@
         "2024-05-29T14:11:26+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "secondStatus": "none",
-      "updatedAt": "2026-10-13T09:11:46.020Z",
+      "secondStatus": "kmv5zao37",
+      "updatedAt": "2026-10-13T09:13:00.619Z",
       "firstStatus": "pending"
     },
     "zak-20-16-10": {
@@ -14877,7 +14877,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-13T09:12:48.684Z",
+  "savedAt": "2026-10-13T09:13:03.624Z",
   "lastAutoFetch": "2026-10-13T06:16:19Z",
   "lastCsvFile": "控え:data202610091200.csv",
   "counts": {
