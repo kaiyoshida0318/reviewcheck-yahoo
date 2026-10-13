@@ -2139,8 +2139,8 @@
         "2026-09-04T15:42:44+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "status": "normal",
-      "updatedAt": "2026-10-13T01:52:30.699Z",
+      "status": "ignore_child",
+      "updatedAt": "2026-10-13T02:16:10.195Z",
       "firstStatus": "pending"
     },
     "foot-25-05": {
@@ -14584,7 +14584,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-13T02:16:05.969Z",
+  "savedAt": "2026-10-13T02:16:13.212Z",
   "lastAutoFetch": "2026-10-12T03:08:03Z",
   "lastCsvFile": "data202610121200.csv",
   "counts": {
