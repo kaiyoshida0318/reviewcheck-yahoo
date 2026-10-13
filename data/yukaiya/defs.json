@@ -1,6 +1,6 @@
 {
-  "version": "v0.8.53",
-  "savedAt": "2026-10-13T03:12:09.101Z",
+  "version": "v0.8.54",
+  "savedAt": "2026-10-13T03:16:12.629Z",
   "first": [
     {
       "key": "pending",
@@ -58,15 +58,6 @@
       "label": "SKIP",
       "bg": "#e7f1fb",
       "fg": "#1976d2",
-      "sep": false,
-      "col": 6
-    },
-    {
-      "key": "skip_child",
-      "icon": "",
-      "label": "SKIP-子商品",
-      "bg": "#e0f2f1",
-      "fg": "#00796b",
       "sep": false,
       "col": 6
     }
