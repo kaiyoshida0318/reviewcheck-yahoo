@@ -1,6 +1,6 @@
 {
-  "version": "v0.8.49",
-  "savedAt": "2026-10-13T02:51:15.415Z",
+  "version": "v0.8.52",
+  "savedAt": "2026-10-13T03:03:44.624Z",
   "first": [
     {
       "key": "pending",
@@ -49,7 +49,7 @@
       "bg": "#fbeeee",
       "fg": "#a32d2d",
       "sep": true,
-      "sepNo": 5,
+      "sepNo": 6,
       "col": 4
     },
     {
@@ -58,9 +58,8 @@
       "label": "SKIP",
       "bg": "#e7f1fb",
       "fg": "#1976d2",
-      "sep": true,
-      "sepNo": 6,
-      "col": 5
+      "sep": false,
+      "col": 6
     },
     {
       "key": "skip_child",
@@ -179,21 +178,20 @@
     },
     {
       "key": "registered",
-      "label": "ランキング獲得済",
+      "label": "ランキング獲得済-反映前",
       "bg": "#fff0f0",
       "fg": "#c62828",
-      "sep": true,
-      "sepNo": 3,
+      "sep": false,
       "col": 2
     },
     {
-      "key": "ready",
-      "label": "獲得済-登録可能",
-      "bg": "#fff0f0",
-      "fg": "#c62828",
+      "key": "reflected",
+      "label": "ランキング獲得済-反映後",
+      "bg": "#2e7d32",
+      "fg": "#ffffff",
       "sep": true,
       "sepNo": 4,
-      "col": 3
+      "col": 2
     },
     {
       "key": "skip",
