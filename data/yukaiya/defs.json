@@ -1,6 +1,6 @@
 {
   "version": "v0.8.37",
-  "savedAt": "2026-10-13T01:04:53.239Z",
+  "savedAt": "2026-10-13T01:04:59.424Z",
   "first": [
     {
       "key": "pending",
@@ -71,6 +71,13 @@
       "fg": "#374151"
     },
     {
+      "key": "kmv5zaowt",
+      "icon": "🏷",
+      "label": "新しい項目",
+      "bg": "#f0f2f5",
+      "fg": "#374151"
+    },
+    {
       "key": "__hot3__",
       "sep": false
     },
@@ -113,13 +120,6 @@
       "label": "SKIP-十分な件数",
       "bg": "#e2f4f6",
       "fg": "#00838f"
-    },
-    {
-      "key": "kmv5zaowt",
-      "icon": "🏷",
-      "label": "新しい項目",
-      "bg": "#f0f2f5",
-      "fg": "#374151"
     }
   ],
   "seeded": [
