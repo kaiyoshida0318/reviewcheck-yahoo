@@ -369,8 +369,8 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "none",
-      "updatedAt": "2026-10-13T03:24:38.284Z",
-      "firstStatus": "pending",
+      "updatedAt": "2026-10-13T03:26:11.934Z",
+      "firstStatus": "watching",
       "denreiManual": {
         "v": "before",
         "at": "none"
@@ -431,8 +431,8 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "none",
-      "updatedAt": "2026-10-13T03:25:20.194Z",
-      "firstStatus": "pending",
+      "updatedAt": "2026-10-13T03:26:16.454Z",
+      "firstStatus": "watching",
       "denreiManual": {
         "v": "before",
         "at": "none"
@@ -1104,8 +1104,8 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "kmv5zao37",
-      "updatedAt": "2026-10-13T03:25:12.977Z",
-      "firstStatus": "pending",
+      "updatedAt": "2026-10-13T03:26:14.610Z",
+      "firstStatus": "watching",
       "denreiManual": {
         "v": "before",
         "at": "none"
@@ -1348,8 +1348,8 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "none",
-      "updatedAt": "2026-10-13T03:25:35.519Z",
-      "firstStatus": "pending",
+      "updatedAt": "2026-10-13T03:26:19.530Z",
+      "firstStatus": "watching",
       "denreiManual": {
         "v": "before",
         "at": "none"
@@ -1649,8 +1649,8 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "none",
-      "updatedAt": "2026-10-13T03:25:06.912Z",
-      "firstStatus": "pending",
+      "updatedAt": "2026-10-13T03:26:13.061Z",
+      "firstStatus": "watching",
       "denreiManual": {
         "v": "before",
         "at": "none"
@@ -2417,8 +2417,8 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "none",
-      "updatedAt": "2026-10-13T03:25:26.759Z",
-      "firstStatus": "pending",
+      "updatedAt": "2026-10-13T03:26:18.139Z",
+      "firstStatus": "watching",
       "denreiManual": {
         "v": "before",
         "at": "none"
@@ -14920,7 +14920,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-13T03:26:02.469Z",
+  "savedAt": "2026-10-13T03:26:22.539Z",
   "lastAutoFetch": "2026-10-13T03:08:06Z",
   "lastCsvFile": "data202610131200.csv",
   "counts": {
