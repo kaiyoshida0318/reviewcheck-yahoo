@@ -114,6 +114,8 @@
   .fgrid { display: grid; grid-template-columns: max-content max-content repeat(8, max-content) minmax(0, 1fr); gap: 8px 0; align-items: center; overflow-x: auto; }
   .fgrid .flabel { white-space: nowrap; color: var(--muted); font-size: 12px; padding-right: 10px; }
   .fgrid .fcell { display: flex; gap: 4px; align-items: center; padding: 0 8px; align-self: stretch; border-left: 1px solid var(--line); min-height: 26px; }
+  .fgrid .fcell.ln0 { border-left-color: transparent; }
+  .fgrid .fcell.ln2 { border-left: 2px solid #9aa1a9; }
   .fgrid .fcell.all { border-left: none; padding-left: 0; }
   .fgrid .fcell.tail { border-left: none; gap: 8px; white-space: nowrap; }
   .fgrid .fcell.st7:empty { padding: 0; border-left: none; }
@@ -380,6 +382,9 @@
   .dnr-rt b { font-size: 14px; color: var(--text); font-family: ui-monospace, Consolas, monospace; }
   .dnr-rt.top b { color: var(--hot); }
   .dnr-rt.none { color: var(--faint); }
+  button.dnr-pick { border: 1px solid transparent; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; line-height: 1.5; }
+  button.dnr-pick .caret { font-size: 9px; opacity: .6; }
+  button.dnr-pick.manual { border-style: dashed; border-width: 2px; }
   .dnr-badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; white-space: nowrap; }
   .dnr-sub { display: block; font-size: 10px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
   .dnr-sub b { color: var(--text); }
@@ -440,6 +445,17 @@
   .def-row input[type=text] { width: 100%; }
   .def-row input[type=color] { width: 36px; height: 28px; padding: 0; border: 1px solid var(--line2); border-radius: 4px; background: #fff; }
   .def-row label { white-space: nowrap; font-size: 12px; color: var(--muted); }
+  .ln-row { display: grid; grid-template-columns: 1fr 190px 1fr; gap: 10px; align-items: center; padding: 6px 4px; border-bottom: 1px solid var(--line); font-size: 12px; }
+  .ln-side.l { text-align: right; }
+  .ln-side { line-height: 1.5; color: var(--text); }
+  .ln-mid { display: flex; align-items: center; gap: 8px; justify-content: center; }
+  .ln-bar { display: inline-block; width: 0; height: 30px; border-left: 1px solid var(--line2); }
+  .ln-bar.ln0 { border-left: 1px dashed #d5d9de; opacity: .5; }
+  .ln-bar.ln2 { border-left: 3px solid #9aa1a9; }
+  .ln-opts { display: flex; gap: 2px; background: #f0f2f5; border-radius: 6px; padding: 2px; }
+  .ln-opt { margin: 0 !important; padding: 3px 8px; border-radius: 4px; font-size: 12px !important; color: var(--muted) !important; cursor: pointer; white-space: nowrap; }
+  .ln-opt input { display: none; }
+  .ln-opt.on { background: #fff; color: var(--text) !important; font-weight: 700; box-shadow: 0 1px 2px rgba(0,0,0,.1); }
   .clr-btn { grid-column: span 2; height: 28px; padding: 0 4px; font-size: 12px; font-weight: 700; border-radius: 6px; white-space: nowrap; }
   .clr-btn.open { box-shadow: 0 0 0 2px #1f2933; }
   .clr-panel { margin: 2px 4px 8px; padding: 10px; border: 1px solid var(--line2); border-radius: 8px; background: #fafbfc; }
@@ -585,7 +601,7 @@
     <tr><td>新しく出品した商品</td><td><span class="tag">①</span><span class="tag">②</span></td><td>行が増えます。状態は「未着手 / 変更前」から。</td></tr>
     <tr><td>ストア評価</td><td><span class="tag">①</span><span class="tag">②</span></td><td>右上のストア評価。</td></tr>
     <tr><td>伝令ちゃんへの登録</td><td><span class="tag man">＋ ボタン</span></td><td>1枚目用の「＋ 伝令ちゃんに登録」で、伝令ちゃんの「商品を追加」が商品URL・商品コード・画像1入りで開きます（ランキングURLは伝令ちゃんが取得）。保存したら、ここの「🔄 更新」で状態を読み直してください。</td></tr>
-    <tr><td>伝令ちゃんの状態</td><td><span class="tag">画面を開いたとき</span><span class="tag">🔔 ボタン</span></td><td>1枚目用の「🔔 伝令ちゃん」列。状態の上の「リアルタイム ○位」は、伝令ちゃんが記録しているリアルタイムランキングの今までの最高順位（まだ順位が無ければ「—」）。伝令ちゃん側が持ち主なので GitHub には保存しません。順位そのものは TimerRunner の「Yahooランキング監視」が巡回して伝令ちゃんに記録します。</td></tr>
+    <tr><td>伝令ちゃんの状態</td><td><span class="tag">画面を開いたとき</span><span class="tag">🔔 ボタン</span></td><td>1枚目用・2枚目用の「🔔 伝令ちゃん」列。状態は伝令ちゃんから自動で入りますが、列のドロップダウンで手でも選べます（SKIP など）。手で選んだ状態は、伝令ちゃん側の実際の状態が変わると外れて自動に戻ります（未登録で SKIP にした商品も、伝令ちゃんに登録すれば「監視中」になります）。状態の上の「リアルタイム ○位」は、伝令ちゃんが記録しているリアルタイムランキングの今までの最高順位（まだ順位が無ければ「—」）。伝令ちゃん側が持ち主なので GitHub には保存しません。順位そのものは TimerRunner の「Yahooランキング監視」が巡回して伝令ちゃんに記録します。</td></tr>
     <tr class="sec"><td colspan="3">手で入れるもの（取得を押しても変わりません）</td></tr>
     <tr><td>商品名</td><td><span class="tag man">手入力</span></td><td><b>自動では変わりません。</b>手で付けた名前を守るため、あえて上書きしていません。Yahoo! 側の名前を見たいときは、商品名の下の「✏ 詳細」を開いてください。</td></tr>
     <tr><td>画面上件数</td><td><span class="tag man">手入力</span></td><td>2枚目用。今バナーに出している件数。</td></tr>
@@ -807,7 +823,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.39';
+const VERSION = 'v0.8.41';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -1047,6 +1063,7 @@ async function load() {
   if (migrate()) { dirty = true; scheduleSave(); }
   autoFillRanking();
   autoWatchStatus();
+  cleanDenreiManual();
   fillRegisteredAt();
   renderAll();
   if (pat && !reqWatching) readReq().then(watchReq);
@@ -1106,6 +1123,7 @@ function normalizeDefs(saved) {
     out[g] = list;
   }
   out.denrei = normalizeDenreiDefs(saved?.denrei);
+  out.colLines = normalizeColLines(saved?.colLines);
   return out;
 }
 const defList = (g) => defs[g] || [];
@@ -1126,6 +1144,7 @@ async function flushDefs() {
   const body = { version: VERSION, savedAt: new Date().toISOString() };
   for (const g of Object.keys(DEF_GROUPS)) body[g] = defList(g).map(d => d.fixed ? { key: d.key, sep: !!d.sep } : d);
   body.seeded = defsSeeded;
+  body.colLines = normalizeColLines(defs.colLines);
   body.denrei = (defs.denrei || []).map(d => ({ key: d.key, label: d.label, bg: d.bg, fg: d.fg }));
   try {
     try { defsSha = await ghPut(DEFS_PATH, body, defsSha, `[defs] ${SHOP.id}`); }
@@ -1395,13 +1414,32 @@ function pillStyle(d) { return `background:${esc(d.bg)};color:${esc(d.fg)};borde
  */
 const STAGE_COUNT = 8;
 const STAGE_OF = {
-  denrei: { none: 0, before: 1, ready: 2, registered: 3 },
+  denrei: { none: 0, before: 1, ready: 2, registered: 3, skip: 5 },
   first:  { pending: 0, watching: 1, ready: 2, acquired: 3, past: 4, skip: 5, skip_child: 6 },
   second: { none: 0, __hot3__: 1, __hot200__: 1, changing: 2, changed: 3, stale: 4, skip: 5, enough: 6 },
 };
+/*
+ * 列線設定（v0.8.40〜）。上の絞り込みの表で、列と列の間に入れる縦線を1本ずつ決める。
+ *   項目ごとの「下で区切る」（ドロップダウンの中の横線）とは別の設定。
+ *   defs.colLines[i] … i 列目の左（＝ i-1 列目と i 列目の間。0 は「全体」と左端の列の間）の線。0 なし / 1 線 / 2 太線
+ *   保存先はほかの項目設定と同じ defs.json（colLines）。
+ */
+const LINE_COUNT = STAGE_COUNT - 1;   // 線を決められる境目の数（いちばん右の「その他」列は使っていないので除く）
+const COL_LINES_DEFAULT = Array(STAGE_COUNT).fill(1);
+function normalizeColLines(saved) {
+  return COL_LINES_DEFAULT.map((dv, i) => { const v = Array.isArray(saved) ? Number(saved[i]) : NaN; return [0, 1, 2].includes(v) ? v : dv; });
+}
+function colLineOf(i) { const v = (defs.colLines || COL_LINES_DEFAULT)[i]; return [0, 1, 2].includes(v) ? v : 1; }
+// その列に今どの項目が入っているか（列線設定の画面で、境目の左右に名前を出すため）
+function stageLabels() {
+  const out = Array.from({ length: STAGE_COUNT }, () => []);
+  for (const k of DENREI_EDIT_KEYS) out[STAGE_OF.denrei[k]].push(DENREI_STATES[k].label);
+  for (const g of Object.keys(DEF_GROUPS)) { let last = 0; for (const d of defList(g)) { const st = STAGE_OF[g][d.key] ?? last; last = st; if (!out[st].includes(d.label)) out[st].push(d.label); } }
+  return out;
+}
 function stageRowHtml(label, allBtn, cells, tail) {
   let h = `<span class="flabel">${label}</span><div class="fcell all">${allBtn}</div>`;
-  for (let i = 0; i < STAGE_COUNT; i++) h += `<div class="fcell st${i}">${cells[i] || ''}</div>`;
+  for (let i = 0; i < STAGE_COUNT; i++) h += `<div class="fcell st${i} ln${colLineOf(i)}">${cells[i] || ''}</div>`;
   return h + `<div class="fcell tail">${tail || ''}</div>`;
 }
 function filterRowHtml(g) {
@@ -1654,7 +1692,7 @@ $('#menu').addEventListener('click', (e) => {
   const b = e.target.closest('.mi'); if (!b || !menuCtx) return;
   const fn = menuCtx.onPick; closeMenu(); fn(b.dataset.key);
 });
-document.addEventListener('mousedown', (e) => { if (menuCtx && !e.target.closest('#menu') && !e.target.closest('.dd') && !e.target.closest('.rk-fill')) closeMenu(); });
+document.addEventListener('mousedown', (e) => { if (menuCtx && !e.target.closest('#menu') && !e.target.closest('.dd') && !e.target.closest('.rk-fill') && !e.target.closest('.dnr-pick')) closeMenu(); });
 window.addEventListener('scroll', () => { if (menuCtx) closeMenu(); }, true);
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
 
@@ -1696,6 +1734,20 @@ $('#rows').addEventListener('click', (e) => {
     e.preventDefault();
     const p = store.productCache[code];
     navigator.clipboard?.writeText(p.itemUrl || '').then(() => setStatus('URLをコピーしました', 'ok'), () => setStatus('コピーできませんでした', 'err'));
+  } else if (act.dataset.act === 'dnrPick') {
+    if (menuCtx) { closeMenu(); return; }
+    const p = store.productCache[code], auto = denreiAutoStateOf(code), cur = denreiStateOf(code), manual = !!denreiManualOf(code);
+    const items = DENREI_EDIT_KEYS.map(k => { const d = DENREI_STATES[k]; return `<button class="mi ${k === cur ? 'cur' : ''}" data-key="${k}" style="background:${esc(d.bg)};color:${esc(d.fg)}">${esc(d.label)}${k === auto ? '<small style="opacity:.7;margin-left:6px">（伝令ちゃんの状態）</small>' : ''}</button>`; }).join('') +
+      (manual ? `<div class="sep"></div><button class="mi plain" data-key="__auto">↩ 自動に戻す<small>伝令ちゃんの状態（${esc(DENREI_STATES[auto].label)}）に合わせる</small></button>` : '');
+    showMenu(act, items, (key) => {
+      if (key === '__auto' || key === auto) delete p.denreiManual;
+      else if (DENREI_EDIT_KEYS.includes(key)) p.denreiManual = { v: key, at: auto };
+      touch(code);
+      const tr = act.closest('tr');
+      tr.querySelector('td.c-denrei').innerHTML = denreiCell(code);
+      tr.querySelector('td.c-make').innerHTML = makeCell(code);
+      renderHeader(); renderFilters();   // 件数だけ更新（行は並べ直さない＝押した行が逃げない）
+    });
   } else if (act.dataset.act === 'make2') {
     openMake2(code);
   } else if (act.dataset.act === 'detail') {
@@ -2185,14 +2237,15 @@ const DENREI_STATES = {
   ready:      { label: '獲得済-登録可能',    bg: '#fff0f0', fg: '#c62828', order: 2 },
   registered: { label: 'ランキング獲得済',   bg: '#e8f5e9', fg: '#2e7d32', order: 3 },
   none:       { label: '未登録',             bg: '#fff9c4', fg: '#827717', order: 0 },   // v0.8.31: 「伝令ちゃん未登録」から改名。並びも先頭（登録する前）
+  skip:       { label: 'SKIP',               bg: '#e7f1fb', fg: '#1976d2', order: 4 },   // v0.8.41: 手で選ぶだけの状態（伝令ちゃん側には無い）
   unknown:    { label: '未取得',             bg: '#f5f6f8', fg: '#9aa1a9', order: 5 },
 };
 // 伝令ちゃんの状態の名前・色は「↔ 項目設定」の「🔔 伝令ちゃん」タブで変えられる（v0.8.36〜）。
 //   変えられるのは名前と色だけ（状態そのものは伝令ちゃんが決めるので、足す・消す・並べ替えは無い）。
 //   保存先はほかの項目設定と同じ defs.json の denrei。
-const DENREI_EDIT_KEYS = ['none', 'before', 'ready', 'registered'];
+const DENREI_EDIT_KEYS = ['none', 'before', 'ready', 'registered', 'skip'];
 const DENREI_DEFAULTS = JSON.parse(JSON.stringify(DENREI_STATES));
-const DENREI_DESC = { none: '伝令ちゃんに登録されていない商品', before: '登録済みで、まだランキングを獲得していない商品', ready: 'ランキングを獲得し、伝令ちゃんで登録できる商品', registered: '伝令ちゃんで登録まで終わった商品' };
+const DENREI_DESC = { none: '伝令ちゃんに登録されていない商品', before: '登録済みで、まだランキングを獲得していない商品', ready: 'ランキングを獲得し、伝令ちゃんで登録できる商品', registered: '伝令ちゃんで登録まで終わった商品', skip: '伝令ちゃんに登録しないと決めた商品（表のドロップダウンで手で選ぶ）' };
 function normalizeDenreiDefs(saved) {
   const by = {}; for (const d of (Array.isArray(saved) ? saved : [])) if (d && d.key) by[d.key] = d;
   const hex = (v, fb) => /^#[0-9a-f]{6}$/i.test(String(v || '')) ? String(v) : fb;
@@ -2276,9 +2329,37 @@ function autoFillRanking() {
   return n;
 }
 let denrei = { state: 'idle', map: {}, loadedAt: '', error: '', shopId: null };   // state: idle|loading|ok|error|noshop
-function denreiStateOf(code) {
+/*
+ * 伝令ちゃんの状態（v0.8.41〜）。
+ *   自動: 伝令ちゃんから読んだ実際の状態（未登録 / 監視中 / 獲得済-登録可能 / ランキング獲得済）。
+ *   手動: 表の伝令ちゃん列のドロップダウンで選んだ状態（SKIP を含む）。p.denreiManual = { v: 選んだ状態, at: 選んだ時点の自動の状態 }
+ *   手動は「伝令ちゃん側の実際の状態が変わるまで」有効。たとえば未登録の商品を SKIP にしておいても、
+ *   伝令ちゃんに登録すれば at（未登録）と合わなくなるので手動は外れ、自動の「監視中」に変わる。
+ *   denreiStateOf は絞り込み・並び替え・件数に使う「表示上の状態」を返す。リンクや順位は実際の登録（denrei.map）で決める。
+ */
+function denreiAutoStateOf(code) {
   if (denrei.state !== 'ok') return 'unknown';
   return denrei.map[code] ? denrei.map[code].state : 'none';
+}
+function denreiManualOf(code) {
+  const p = (store.productCache || {})[code], m = p && p.denreiManual;
+  if (!m || !DENREI_EDIT_KEYS.includes(m.v)) return null;
+  return m.at === denreiAutoStateOf(code) ? m.v : null;
+}
+function denreiStateOf(code) {
+  const a = denreiAutoStateOf(code);
+  return a === 'unknown' ? a : (denreiManualOf(code) || a);
+}
+// 伝令ちゃん側の状態が進んで効かなくなった手動の選択を、データからも消す（保存できるときだけ。更新日時は変えない）
+function cleanDenreiManual() {
+  if (denrei.state !== 'ok' || !storeFresh || !ghConfig().pat) return 0;
+  let n = 0;
+  for (const [code, p] of Object.entries(store.productCache || {})) {
+    if (!p.denreiManual || denreiManualOf(code)) continue;
+    delete p.denreiManual; dirtyCodes.add(code); n++;
+  }
+  if (n) { dirty = true; scheduleSave(); }
+  return n;
 }
 async function loadDenrei(manual) {
   if (denrei.state === 'loading') return;
@@ -2318,6 +2399,7 @@ async function loadDenrei(manual) {
   }
   autoFillRanking();
   autoWatchStatus();
+  cleanDenreiManual();
   renderAll();
 }
 function denreiPageUrl(code) { return denrei.shopId ? `${DENREI_BASE}/${encodeURIComponent(denrei.shopId)}/${encodeURIComponent(code)}` : ''; }
@@ -2364,14 +2446,18 @@ function denreiCell(code) {
       rtHtml = `<div class="dnr-rt none" title="${d.hasRt ? 'リアルタイムランキングでは、まだ順位が記録されていません（圏外）' : '伝令ちゃんにリアルタイムランキングの監視がありません'}">リアルタイム —</div>`;
     }
   }
-  return `${rtHtml}<span class="dnr-badge" style="background:${def.bg};color:${def.fg}"${tip ? ` title="${esc(tip)}"` : ''}>${esc(def.label)}</span>${sub}${link ? `<div>${link}</div>` : ''}`;
+  // 状態はドロップダウンで手でも選べる（v0.8.41〜）。伝令ちゃんを読めていないときは選べない
+  if (k === 'unknown') return `${rtHtml}<span class="dnr-badge" style="background:${def.bg};color:${def.fg}">${esc(def.label)}</span>${sub}${link ? `<div>${link}</div>` : ''}`;
+  const manual = !!denreiManualOf(code), auto = DENREI_STATES[denreiAutoStateOf(code)].label;
+  const t2 = (manual ? `手で選んだ状態です（伝令ちゃんの実際の状態: ${auto}）` : '押すと状態を手で選べます') + (tip ? `\n${tip}` : '');
+  return `${rtHtml}<button type="button" class="dnr-badge dnr-pick ${manual ? 'manual' : ''}" data-act="dnrPick" style="background:${def.bg};color:${def.fg};border-color:${def.fg}55" title="${esc(t2)}">${esc(def.label)}<span class="caret">▼</span></button>${sub}${link ? `<div>${link}</div>` : ''}`;
 }
 function makeCell(code) {
   // 1枚目（ランキングバッジ付き）は伝令ちゃんの商品ページで作る（楽天版の MAKE1_URL と同じ飛び先）。
   // 押せるのは「獲得済-登録可能」の商品だけ（v0.8.18〜）。それ以外は薄く出して押せない。
   const k = denreiStateOf(code);
-  if (k === 'ready') return `<a class="btn go" href="${esc(denreiPageUrl(code))}" target="_blank" rel="noopener" title="伝令ちゃんのこの商品のページを開いて1枚目を作る">🖼 1枚目作成</a>`;
-  const why = { before: 'まだランキングを獲得していません', registered: '伝令ちゃんで登録まで終わっています', none: '伝令ちゃんに登録されていません', unknown: '伝令ちゃんの状態を読めていません' }[k] || '';
+  if (k === 'ready' && denrei.map[code]) return `<a class="btn go" href="${esc(denreiPageUrl(code))}" target="_blank" rel="noopener" title="伝令ちゃんのこの商品のページを開いて1枚目を作る">🖼 1枚目作成</a>`;
+  const why = { before: 'まだランキングを獲得していません', registered: '伝令ちゃんで登録まで終わっています', none: '伝令ちゃんに登録されていません', skip: 'SKIP にしています', ready: '伝令ちゃんに登録されていないので、作成ページがありません', unknown: '伝令ちゃんの状態を読めていません' }[k] || '';
   return `<span class="btn off" title="${esc(why)}（「${esc(DENREI_STATES.ready.label)}」の商品だけ押せます）">🖼 1枚目作成</span>`;
 }
 function denreiRowHtml() {
@@ -2380,7 +2466,7 @@ function denreiRowHtml() {
   const cells = [];
   let msg;
   if (denrei.state === 'ok') {
-    for (const k of ['none', 'before', 'ready', 'registered']) {
+    for (const k of DENREI_EDIT_KEYS) {
       const def = DENREI_STATES[k], n = base.filter(([c]) => denreiStateOf(c) === k).length;
       const urgent = k === 'ready' && n > 0;   // 登録できる状態で待っている商品がいれば派手にする
       cells[STAGE_OF.denrei[k]] = `<button class="fbtn ${urgent ? 'urgent' : ''} ${on(k) ? 'on' : ''} ${n ? '' : 'zero'}" ${urgent ? '' : `style="background:${def.bg};color:${def.fg};border-color:${def.fg}33"`} data-fg="denrei" data-fk="${k}">${esc(def.label)} <span class="n">(${n})</span></button>`;
@@ -4310,8 +4396,21 @@ function usageCount(g, key) { return entries().filter(([, p]) => p[DEF_GROUPS[g]
 function renderDefsEditor() {
   $('#defsShop').textContent = `（${SHOP.name}）`;
   $('#defsTabs').innerHTML = Object.entries(DEF_GROUPS).map(([g, v]) => `<button data-tab="${g}" class="${g === defsTab ? 'on' : ''}">${v.icon} ${v.label}</button>`).join('') +
-    `<button data-tab="denrei" class="${defsTab === 'denrei' ? 'on' : ''}">🔔 伝令ちゃん</button>`;
-  $('#defsAdd').style.display = defsTab === 'denrei' ? 'none' : '';
+    `<button data-tab="denrei" class="${defsTab === 'denrei' ? 'on' : ''}">🔔 伝令ちゃん</button>` +
+    `<button data-tab="lines" class="${defsTab === 'lines' ? 'on' : ''}">┃ 列線設定</button>`;
+  $('#defsAdd').style.display = (defsTab === 'denrei' || defsTab === 'lines') ? 'none' : '';
+  document.querySelector('#dlgDefs .def-head').style.display = defsTab === 'lines' ? 'none' : '';
+  if (defsTab === 'lines') {
+    const names = stageLabels(), show = (a) => a.length ? a.map(esc).join('・') : '<span class="muted">（項目なし）</span>';
+    const opt = (i, v, l) => `<label class="ln-opt ${colLineOf(i) === v ? 'on' : ''}"><input type="radio" name="ln${i}" data-line="${i}" value="${v}" ${colLineOf(i) === v ? 'checked' : ''}>${l}</label>`;
+    $('#defsList').innerHTML = `<div class="hint" style="padding:2px 4px 8px">上の絞り込み（伝令ちゃん / 1枚目変更 / 2枚目変更）で、列と列の間に入れる縦線を1本ずつ決めます。変えるとすぐ画面に反映されます。</div>` +
+      Array.from({ length: LINE_COUNT }, (_, i) => `<div class="ln-row" data-line-row="${i}">
+        <div class="ln-side l">${i === 0 ? '全体' : show(names[i - 1])}</div>
+        <div class="ln-mid"><span class="ln-bar ln${colLineOf(i)}"></span><div class="ln-opts">${opt(i, 0, 'なし')}${opt(i, 1, '線')}${opt(i, 2, '太線')}</div></div>
+        <div class="ln-side r">${show(names[i])}</div></div>`).join('') +
+      `<div class="row" style="justify-content:flex-start;margin-top:8px"><button data-line-all="1">全部 線</button><button data-line-all="0">全部 なし</button></div>`;
+    return;
+  }
   if (defsTab === 'denrei') {
     // 名前と色だけ（足す・消す・並べ替えは無い）
     $('#defsList').innerHTML = (defs.denrei || []).map((d, i) => `<div class="def-row" data-i="${i}">
@@ -4337,7 +4436,7 @@ function renderDefsEditor() {
       <input type="text" data-k="icon" value="${esc(d.icon)}" style="text-align:center">
       <input type="text" data-k="label" value="${esc(d.label)}">
       ${clrBtnHtml(d, i)}
-      <label style="margin:0"><input type="checkbox" data-k="sep" ${d.sep ? 'checked' : ''}> 下で区切る</label>
+      <label style="margin:0" title="行のドロップダウンを開いたとき、この項目の下に横線を入れます。上の絞り込みの縦線は「┃ 列線設定」のタブで決めます"><input type="checkbox" data-k="sep" ${d.sep ? 'checked' : ''}> 下で区切る</label>
       <div><div class="ops"><button data-op="up" ${i === 0 ? 'disabled' : ''}>↑</button><button data-op="down" ${i === list.length - 1 ? 'disabled' : ''}>↓</button><button data-op="del" ${prot || use ? 'disabled' : ''} title="${prot ? '削除できない項目' : use ? '使用中の商品があります' : '削除'}">🗑</button></div>
       <div class="use">${prot ? '既定値' : use ? `使用中 ${use}件` : ''}</div></div></div>${clrOpen === i ? clrPanelHtml(d, i) : ''}`;
   }).join('');
@@ -4351,12 +4450,14 @@ $('#defsClose').addEventListener('click', () => {
 });
 $('#defsTabs').addEventListener('click', (e) => { const b = e.target.closest('[data-tab]'); if (b) { defsTab = b.dataset.tab; clrOpen = null; renderDefsEditor(); } });
 $('#defsAdd').addEventListener('click', () => {
-  if (defsTab === 'denrei') return;
+  if (defsTab === 'denrei' || defsTab === 'lines') return;
   defs[defsTab].push({ key: 'k' + Date.now().toString(36), icon: '', label: '新しい項目', bg: '#f0f2f5', fg: '#374151' });
   defsChanged();
   $('#defsList').scrollTop = 1e6;
 });
 $('#defsList').addEventListener('input', (e) => {
+  const ln = e.target.closest('[data-line]');
+  if (ln) { defs.colLines = normalizeColLines(defs.colLines); defs.colLines[+ln.dataset.line] = +ln.value; defsChanged(); return; }
   const inp = e.target.closest('[data-k]'); if (!inp) return;
   const i = +inp.closest('.def-row').dataset.i, d = defs[defsTab][i], k = inp.dataset.k;
   if (k === 'sep') d.sep = inp.checked; else d[k] = inp.value;
@@ -4374,6 +4475,8 @@ $('#defsList').addEventListener('input', (e) => {
   renderAll();
 });
 $('#defsList').addEventListener('click', (e) => {
+  const la = e.target.closest('[data-line-all]');
+  if (la) { defs.colLines = normalizeColLines(defs.colLines).map((v, i) => i < LINE_COUNT ? +la.dataset.lineAll : v); defsChanged(); return; }
   const co = e.target.closest('[data-clr-open]');
   if (co) { const i = +co.dataset.clrOpen; clrOpen = clrOpen === i ? null : i; renderDefsEditor(); return; }
   const sw = e.target.closest('.clr-sw');
