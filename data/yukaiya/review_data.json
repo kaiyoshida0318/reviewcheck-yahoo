@@ -289,9 +289,9 @@
         "2025-02-19T11:13:00+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.160Z",
-      "firstStatus": "past"
+      "secondStatus": "none",
+      "updatedAt": "2026-10-13T02:14:36.894Z",
+      "firstStatus": "pending"
     },
     "ih-21-02": {
       "reviewHistory": {
@@ -1276,9 +1276,9 @@
         "2025-02-19T11:21:16+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.937Z",
-      "firstStatus": "past"
+      "secondStatus": "none",
+      "updatedAt": "2026-10-13T02:14:39.682Z",
+      "firstStatus": "pending"
     },
     "scarf-23-01": {
       "reviewHistory": {
@@ -1392,8 +1392,8 @@
         "2025-11-12T18:16:52+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:23:46.779Z",
+      "secondStatus": "none",
+      "updatedAt": "2026-10-13T02:14:41.266Z",
       "firstStatus": "pending"
     },
     "foot-23-05": {
@@ -1449,9 +1449,9 @@
         "2025-08-19T17:54:20+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.363Z",
-      "firstStatus": "past"
+      "secondStatus": "none",
+      "updatedAt": "2026-10-13T02:14:43.235Z",
+      "firstStatus": "pending"
     },
     "ih-23-01-00set": {
       "reviewHistory": {
@@ -2368,9 +2368,9 @@
         "2025-04-03T09:43:32+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.997Z",
-      "firstStatus": "past"
+      "secondStatus": "none",
+      "updatedAt": "2026-10-13T02:14:31.518Z",
+      "firstStatus": "pending"
     },
     "wat-18-22-0set": {
       "reviewHistory": {
@@ -3406,9 +3406,9 @@
         "2025-04-03T09:53:25+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.408Z",
-      "firstStatus": "past"
+      "secondStatus": "none",
+      "updatedAt": "2026-10-13T02:14:33.710Z",
+      "firstStatus": "pending"
     },
     "si-23-06": {
       "reviewHistory": {
@@ -13422,8 +13422,8 @@
         "2025-11-12T18:11:11+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "firstStatus": "past",
-      "updatedAt": "2026-10-09T08:03:16.758Z"
+      "firstStatus": "pending",
+      "updatedAt": "2026-10-13T02:14:29.072Z"
     },
     "zak-18-17-38": {
       "reviewHistory": {
@@ -14117,8 +14117,8 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_eq-22-05-toilet-01set_2_d_20261007122426"
       ],
       "registeredAt": "2026-10-08",
-      "firstStatus": "past",
-      "updatedAt": "2026-10-09T08:03:16.658Z"
+      "firstStatus": "pending",
+      "updatedAt": "2026-10-13T02:14:26.073Z"
     },
     "eq-22-05-toilet-02set": {
       "reviewHistory": {
@@ -14458,8 +14458,8 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_et-a-25-01-2set_2_d_20261008165422"
       ],
       "registeredAt": "2026-10-09",
-      "firstStatus": "past",
-      "updatedAt": "2026-10-09T08:03:16.728Z"
+      "firstStatus": "pending",
+      "updatedAt": "2026-10-13T02:14:27.933Z"
     },
     "et-a-25-01-4set": {
       "reviewHistory": {
@@ -14582,7 +14582,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-13T02:14:23.363Z",
+  "savedAt": "2026-10-13T02:14:46.248Z",
   "lastAutoFetch": "2026-10-12T03:08:03Z",
   "lastCsvFile": "data202610121200.csv",
   "counts": {
