@@ -2467,8 +2467,12 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "none",
-      "updatedAt": "2026-10-13T03:24:16.361Z",
-      "firstStatus": "watching"
+      "updatedAt": "2026-10-13T03:25:44.157Z",
+      "firstStatus": "watching",
+      "denreiManual": {
+        "v": "before",
+        "at": "none"
+      }
     },
     "wat-18-22-0set": {
       "reviewHistory": {
@@ -14892,7 +14896,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-13T03:25:39.214Z",
+  "savedAt": "2026-10-13T03:25:47.206Z",
   "lastAutoFetch": "2026-10-13T03:08:06Z",
   "lastCsvFile": "data202610131200.csv",
   "counts": {
