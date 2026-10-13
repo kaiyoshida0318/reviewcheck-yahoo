@@ -2740,8 +2740,8 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-13T02:08:09.293Z",
-      "firstStatus": "skip_child",
+      "updatedAt": "2026-10-13T03:15:56.955Z",
+      "firstStatus": "skip",
       "status": "ignore_child"
     },
     "cab-25-02": {
@@ -3150,8 +3150,8 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-13T02:07:02.327Z",
-      "firstStatus": "skip_child",
+      "updatedAt": "2026-10-13T03:15:59.310Z",
+      "firstStatus": "skip",
       "status": "ignore_child"
     },
     "tb-23-02-4set": {
@@ -3210,8 +3210,8 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-13T02:08:09.307Z",
-      "firstStatus": "skip_child",
+      "updatedAt": "2026-10-13T03:16:03.085Z",
+      "firstStatus": "skip",
       "status": "ignore_child"
     },
     "si-26-08-3set": {
@@ -7747,8 +7747,8 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-13T02:07:02.323Z",
-      "firstStatus": "skip_child",
+      "updatedAt": "2026-10-13T03:16:01.558Z",
+      "firstStatus": "skip",
       "status": "ignore_child"
     },
     "cg-22-04": {
@@ -14868,7 +14868,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-13T03:11:45.875Z",
+  "savedAt": "2026-10-13T03:16:06.089Z",
   "lastAutoFetch": "2026-10-13T03:08:06Z",
   "lastCsvFile": "data202610131200.csv",
   "counts": {
