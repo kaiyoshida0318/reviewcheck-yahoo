@@ -362,6 +362,10 @@
   .c-rank .rk-dd { display: flex; align-items: center; gap: 6px; }
   .c-rank .rk-cap { flex: 0 0 auto; font-size: 10px; color: var(--faint); white-space: nowrap; }
   .c-rank .dd { flex: 1 1 auto; min-width: 128px; }
+  .c-rank .rk-cap { width: 30px; }
+  .c-rank .dnr-pick, .c-rank .st-pick, .c-rank .dnr-off { flex: 1 1 auto; min-width: 128px; display: inline-flex; align-items: center; justify-content: space-between; gap: 6px; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 700; text-align: left; line-height: 1.5; }
+  .c-rank .st-pick { border: 1px solid rgba(0,0,0,.14); cursor: pointer; }
+  .c-rank .st-pick .caret { font-size: 9px; opacity: .6; }
   th .rk-heads { display: flex; gap: 10px; margin-top: 3px; font-weight: 600; font-size: 11px; }
   th .rk-heads span { cursor: pointer; }
   .c-rank textarea { width: 100%; font: inherit; font-size: 12px; line-height: 1.45; border: 1px solid var(--line2); border-radius: 6px; padding: 4px 8px; resize: vertical; min-height: 44px; }
@@ -596,7 +600,7 @@
     <tr><td>商品名</td><td><span class="tag man">手入力</span></td><td><b>自動では変わりません。</b>手で付けた名前を守るため、あえて上書きしていません。Yahoo! 側の名前を見たいときは、商品名の下の「✏ 詳細」を開いてください。</td></tr>
     <tr><td>画面上件数</td><td><span class="tag man">手入力</span></td><td>2枚目用。今バナーに出している件数。</td></tr>
     <tr><td>1枚目変更・2枚目変更</td><td><span class="tag man">手入力</span></td><td>1枚目変更の「変更前」だけは自動でも入ります（伝令ちゃんに登録されている商品が「未着手」のままなら、画面を開いたとき・「🔄 更新」で「変更前」に変わります）。行のドロップダウン・一括変更。</td></tr>
-    <tr><td>1.2枚目変更</td><td><span class="tag man">手入力</span></td><td>1枚目用・2枚目用の「1.2枚目変更」列。1枚目変更と2枚目変更のドロップダウンが横に並びます。ランキング詳細の入力欄は v0.8.35 でやめました（入力済みの内容は消していません）。</td></tr>
+    <tr><td>1.2枚目変更</td><td><span class="tag man">手入力</span></td><td>1枚目用・2枚目用の「1.2枚目変更」列。上から 伝令ちゃんの状態 / 1枚目変更 / 2枚目変更 / 状態（通常・無視・無視（子商品））のドロップダウンが並びます。ランキング詳細の入力欄は v0.8.35 でやめました（入力済みの内容は消していません）。</td></tr>
     <tr><td>証拠の画像（○ 選択）</td><td><span class="tag man">手入力</span></td><td>1枚目用。画像1〜3のどれか1枚。選んだ画像の右下が拡大表示されます。</td></tr>
     <tr><td>メモ・無視</td><td><span class="tag man">手入力</span></td><td>状態は「通常 / 無視 / 無視（子商品）」の3つ。無視と無視（子商品）は名前を分けているだけで、どちらも普段の一覧から隠れます。付けるのは、右端の「確認」列、商品名の下の「✏ 詳細」、一括変更の「状態」から。1枚目用は「確認」列がないので「✏ 詳細」から。</td></tr>
     <tr><td>2枚目作成</td><td><span class="tag man">手で作る</span></td><td>2枚目用の「🖼 2枚目作成」。レビュー件数・評価・日付を入れた画像（PNG）を作ります。開いただけでは何も変わりません。「PNGを保存 / スタッツ変更」を押したときだけ、2枚目変更が「変更中」になり、画面上件数が今のレビュー件数に合います。</td></tr>
@@ -813,7 +817,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.44';
+const VERSION = 'v0.8.45';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -1555,7 +1559,8 @@ function imgId(p, i) { return (p.imageIds || [])[i] || (i === 0 && p.imageId ? p
 function rankCell(code, p) {
   // 「1.2枚目変更」列（v0.8.35〜）。1枚目変更・2枚目変更のドロップダウンを横に2つ並べる。
   // ランキング詳細の入力欄はやめた（p.ranking のデータは消さずに残してある）
-  return `<div class="rk-dds"><div class="rk-dd"><span class="rk-cap">1枚目</span>${ddHtml('first', p)}</div><div class="rk-dd"><span class="rk-cap">2枚目</span>${ddHtml('second', p)}</div></div>`;
+  // v0.8.45: いちばん上に伝令ちゃんの状態、いちばん下に 状態（通常 / 無視 / 無視（子商品））を足した
+  return `<div class="rk-dds"><div class="rk-dd"><span class="rk-cap">伝令</span>${denreiPickHtml(code)}</div><div class="rk-dd"><span class="rk-cap">1枚目</span>${ddHtml('first', p)}</div><div class="rk-dd"><span class="rk-cap">2枚目</span>${ddHtml('second', p)}</div><div class="rk-dd"><span class="rk-cap">状態</span>${statusPickHtml(p)}</div></div>`;
 }
 function cropCell(p) {
   const i = selIdx(p);
@@ -1689,7 +1694,7 @@ $('#menu').addEventListener('click', (e) => {
   const b = e.target.closest('.mi'); if (!b || !menuCtx) return;
   const fn = menuCtx.onPick; closeMenu(); fn(b.dataset.key);
 });
-document.addEventListener('mousedown', (e) => { if (menuCtx && !e.target.closest('#menu') && !e.target.closest('.dd') && !e.target.closest('.rk-fill') && !e.target.closest('.dnr-pick')) closeMenu(); });
+document.addEventListener('mousedown', (e) => { if (menuCtx && !e.target.closest('#menu') && !e.target.closest('.dd') && !e.target.closest('.rk-fill') && !e.target.closest('.dnr-pick') && !e.target.closest('.st-pick')) closeMenu(); });
 window.addEventListener('scroll', () => { if (menuCtx) closeMenu(); }, true);
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
 
@@ -1743,7 +1748,21 @@ $('#rows').addEventListener('click', (e) => {
       const tr = act.closest('tr');
       tr.querySelector('td.c-denrei').innerHTML = denreiCell(code);
       tr.querySelector('td.c-make').innerHTML = makeCell(code);
+      tr.querySelector('[data-cell="rank"]').innerHTML = rankCell(code, p);
       renderHeader(); renderFilters();   // 件数だけ更新（行は並べ直さない＝押した行が逃げない）
+    });
+  } else if (act.dataset.act === 'stPick') {
+    if (menuCtx) { closeMenu(); return; }
+    const p = store.productCache[code], cur = isIgnored(p) ? p.status : 'normal';
+    showMenu(act, STATUS_PICK.map(([k, l, bg, fg]) => `<button class="mi ${k === cur ? 'cur' : ''}" data-key="${k}" style="background:${bg};color:${fg}">${l}</button>`).join(''), (key) => {
+      if (!STATUS_PICK.some(x => x[0] === key)) return;
+      p.status = key;
+      touch(code);
+      const tr = act.closest('tr');
+      tr.classList.toggle('ignored', isIgnored(p));
+      tr.querySelector('[data-cell="rank"]').innerHTML = rankCell(code, p);
+      const ib = tr.querySelector('[data-act="ignore"]'); if (ib) ib.textContent = isIgnored(p) ? '👁 通常に戻す' : '🙈 無視する';
+      renderHeader(); renderSide(); renderFilters();   // 件数だけ更新（行は並べ直さない＝押した行が逃げない）
     });
   } else if (act.dataset.act === 'make2') {
     openMake2(code);
@@ -2451,10 +2470,23 @@ function denreiCell(code) {
     }
   }
   // 状態はドロップダウンで手でも選べる（v0.8.41〜）。伝令ちゃんを読めていないときは選べない
-  if (k === 'unknown') return `${rtHtml}<span class="dnr-badge" style="background:${def.bg};color:${def.fg}">${esc(def.label)}</span>${sub}${link ? `<div>${link}</div>` : ''}`;
+  // 状態のドロップダウンは「1.2枚目変更」列のいちばん上へ移した（v0.8.45〜）。ここは順位と、開く / 登録 のボタンだけ
+  return `${rtHtml}${sub}${link ? `<div>${link}</div>` : ''}`;
+}
+// 伝令ちゃんの状態のドロップダウン（「1.2枚目変更」列のいちばん上に置く）。伝令ちゃんを読めていないときは選べない
+function denreiPickHtml(code) {
+  const k = denreiStateOf(code), def = DENREI_STATES[k], d = denrei.state === 'ok' ? denrei.map[code] : null;
+  if (k === 'unknown') return `<span class="dnr-badge dnr-off" style="background:${def.bg};color:${def.fg}">${esc(def.label)}</span>`;
+  const tip = d ? `獲得 ${d.achieved.length}/${d.targets}` + d.achieved.map(a => `\n${PERIOD_LABEL[a.period] || a.period}${a.rank ? ` ${a.rank}位` : ''}${a.at ? ` ${String(a.at).slice(5, 10).replace('-', '/')}` : ''}`).join('') : '';
   const manual = !!denreiManualOf(code), auto = DENREI_STATES[denreiAutoStateOf(code)].label;
-  const t2 = (manual ? `手で選んだ状態です（伝令ちゃんの実際の状態: ${auto}）` : '押すと状態を手で選べます') + (tip ? `\n${tip}` : '');
-  return `${rtHtml}<button type="button" class="dnr-badge dnr-pick ${manual ? 'manual' : ''}" data-act="dnrPick" style="background:${def.bg};color:${def.fg};border-color:${def.fg}55" title="${esc(t2)}">${esc(def.label)}<span class="caret">▼</span></button>${sub}${link ? `<div>${link}</div>` : ''}`;
+  const t2 = (manual ? `手で選んだ状態です（伝令ちゃんの実際の状態: ${auto}）` : '押すと伝令ちゃんの状態を手で選べます') + (tip ? `\n${tip}` : '');
+  return `<button type="button" class="dnr-badge dnr-pick ${manual ? 'manual' : ''}" data-act="dnrPick" style="background:${def.bg};color:${def.fg};border-color:${def.fg}55" title="${esc(t2)}"><span>${esc(def.label)}</span><span class="caret">▼</span></button>`;
+}
+// 状態（通常 / 無視 / 無視（子商品））のドロップダウン（「1.2枚目変更」列のいちばん下に置く）
+const STATUS_PICK = [['normal', '通常', '#ffffff', '#374151'], ['ignore', '無視', '#eceff1', '#546e7a'], ['ignore_child', '無視（子商品）', '#eceff1', '#546e7a']];
+function statusPickHtml(p) {
+  const cur = STATUS_PICK.find(x => x[0] === (isIgnored(p) ? p.status : 'normal')) || STATUS_PICK[0];
+  return `<button type="button" class="st-pick" data-act="stPick" style="background:${cur[2]};color:${cur[3]}" title="状態（通常 / 無視 / 無視（子商品））を選びます。無視にした商品は、普段の一覧から隠れます"><span>${cur[1]}</span><span class="caret">▼</span></button>`;
 }
 function makeCell(code) {
   // 1枚目（ランキングバッジ付き）は伝令ちゃんの商品ページで作る（楽天版の MAKE1_URL と同じ飛び先）。
