@@ -3742,8 +3742,8 @@
         "2024-05-28T17:58:37+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "secondStatus": "none",
-      "updatedAt": "2026-10-13T09:24:16.746Z",
+      "secondStatus": "kmv5zao37",
+      "updatedAt": "2026-10-13T09:24:22.118Z",
       "firstStatus": "watching"
     },
     "si-23-07a": {
@@ -15189,7 +15189,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-13T09:24:19.749Z",
+  "savedAt": "2026-10-13T09:24:25.133Z",
   "lastAutoFetch": "2026-10-13T09:16:25Z",
   "lastCsvFile": "控え:data202610091200.csv",
   "counts": {
