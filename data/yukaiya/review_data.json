@@ -12638,8 +12638,8 @@
       ],
       "registeredAt": "2026-09-29",
       "status": "normal",
-      "updatedAt": "2026-10-13T02:11:40.660Z",
-      "firstStatus": "pending"
+      "updatedAt": "2026-10-13T03:21:28.252Z",
+      "firstStatus": "watching"
     },
     "bg-03-con-mesu-30set": {
       "reviewHistory": {
@@ -13689,8 +13689,8 @@
         "2025-11-12T18:11:11+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "firstStatus": "pending",
-      "updatedAt": "2026-10-13T02:14:29.072Z"
+      "firstStatus": "watching",
+      "updatedAt": "2026-10-13T03:21:28.243Z"
     },
     "zak-18-17-38": {
       "reviewHistory": {
@@ -14393,8 +14393,8 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_eq-22-05-toilet-01set_2_d_20261007122426"
       ],
       "registeredAt": "2026-10-08",
-      "firstStatus": "pending",
-      "updatedAt": "2026-10-13T02:14:26.073Z"
+      "firstStatus": "watching",
+      "updatedAt": "2026-10-13T03:21:28.249Z"
     },
     "eq-22-05-toilet-02set": {
       "reviewHistory": {
@@ -14741,8 +14741,8 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_et-a-25-01-2set_2_d_20261008165422"
       ],
       "registeredAt": "2026-10-09",
-      "firstStatus": "pending",
-      "updatedAt": "2026-10-13T02:14:27.933Z"
+      "firstStatus": "watching",
+      "updatedAt": "2026-10-13T03:21:28.246Z"
     },
     "et-a-25-01-4set": {
       "reviewHistory": {
@@ -14868,7 +14868,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-13T03:17:21.689Z",
+  "savedAt": "2026-10-13T03:21:31.267Z",
   "lastAutoFetch": "2026-10-13T03:08:06Z",
   "lastCsvFile": "data202610131200.csv",
   "counts": {
