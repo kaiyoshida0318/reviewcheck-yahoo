@@ -1344,8 +1344,12 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "none",
-      "updatedAt": "2026-10-13T02:14:39.682Z",
-      "firstStatus": "pending"
+      "updatedAt": "2026-10-13T03:25:35.519Z",
+      "firstStatus": "pending",
+      "denreiManual": {
+        "v": "before",
+        "at": "none"
+      }
     },
     "scarf-23-01": {
       "reviewHistory": {
@@ -14888,7 +14892,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-13T03:25:30.218Z",
+  "savedAt": "2026-10-13T03:25:39.214Z",
   "lastAutoFetch": "2026-10-13T03:08:06Z",
   "lastCsvFile": "data202610131200.csv",
   "counts": {
