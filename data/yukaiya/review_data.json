@@ -14891,7 +14891,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_eq-24-02-toilet-01set_1_d_20261013164631",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_eq-24-02-toilet-01set_2_d_20261013164633"
       ],
-      "registeredAt": "2026-10-13"
+      "registeredAt": "2026-10-13",
+      "firstStatus": "watching",
+      "updatedAt": "2026-10-13T09:18:39.457Z"
     },
     "eq-24-02-toilet-02set": {
       "reviewHistory": {
@@ -15183,7 +15185,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-13T09:18:31.694Z",
+  "savedAt": "2026-10-13T09:18:42.473Z",
   "lastAutoFetch": "2026-10-13T09:16:25Z",
   "lastCsvFile": "控え:data202610091200.csv",
   "counts": {
