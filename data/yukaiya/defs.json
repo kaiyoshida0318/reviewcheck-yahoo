@@ -1,6 +1,6 @@
 {
-  "version": "v0.8.37",
-  "savedAt": "2026-10-13T01:05:07.344Z",
+  "version": "v0.8.39",
+  "savedAt": "2026-10-13T01:13:25.729Z",
   "first": [
     {
       "key": "pending",
@@ -58,7 +58,7 @@
     {
       "key": "none",
       "icon": "",
-      "label": "変更前",
+      "label": "獲得前",
       "bg": "#fff9c4",
       "fg": "#827717",
       "sep": true
