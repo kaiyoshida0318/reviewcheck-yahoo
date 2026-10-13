@@ -1,6 +1,6 @@
 {
-  "version": "v0.8.48",
-  "savedAt": "2026-10-13T02:36:31.025Z",
+  "version": "v0.8.49",
+  "savedAt": "2026-10-13T02:46:12.941Z",
   "first": [
     {
       "key": "pending",
@@ -9,7 +9,8 @@
       "bg": "#fff9c4",
       "fg": "#827717",
       "sep": true,
-      "sepNo": 1
+      "sepNo": 1,
+      "col": 0
     },
     {
       "key": "watching",
@@ -18,7 +19,8 @@
       "bg": "#ede7f6",
       "fg": "#5e35b1",
       "sep": true,
-      "sepNo": 2
+      "sepNo": 2,
+      "col": 1
     },
     {
       "key": "ready",
@@ -27,7 +29,8 @@
       "bg": "#e1f5fe",
       "fg": "#0277bd",
       "sep": true,
-      "sepNo": 3
+      "sepNo": 3,
+      "col": 2
     },
     {
       "key": "acquired",
@@ -36,7 +39,8 @@
       "bg": "#e8f5e9",
       "fg": "#2e7d32",
       "sep": true,
-      "sepNo": 4
+      "sepNo": 4,
+      "col": 3
     },
     {
       "key": "past",
@@ -45,7 +49,8 @@
       "bg": "#fbeeee",
       "fg": "#a32d2d",
       "sep": true,
-      "sepNo": 5
+      "sepNo": 5,
+      "col": 4
     },
     {
       "key": "skip",
@@ -54,7 +59,8 @@
       "bg": "#e7f1fb",
       "fg": "#1976d2",
       "sep": true,
-      "sepNo": 6
+      "sepNo": 6,
+      "col": 5
     },
     {
       "key": "skip_child",
@@ -62,7 +68,8 @@
       "label": "SKIP-子商品",
       "bg": "#e0f2f1",
       "fg": "#00796b",
-      "sep": false
+      "sep": false,
+      "col": 6
     }
   ],
   "second": [
@@ -73,7 +80,8 @@
       "bg": "#fff9c4",
       "fg": "#827717",
       "sep": true,
-      "sepNo": 1
+      "sepNo": 2,
+      "col": 1
     },
     {
       "key": "kmv5zao37",
@@ -81,16 +89,19 @@
       "label": "獲得済-変更前",
       "bg": "#fff9c4",
       "fg": "#827717",
-      "sep": false
+      "sep": false,
+      "col": 2
     },
     {
       "key": "__hot3__",
-      "sep": false
+      "sep": false,
+      "col": 2
     },
     {
       "key": "__hot200__",
       "sep": true,
-      "sepNo": 2
+      "sepNo": 3,
+      "col": 2
     },
     {
       "key": "changing",
@@ -99,7 +110,8 @@
       "bg": "#e1f5fe",
       "fg": "#0277bd",
       "sep": true,
-      "sepNo": 3
+      "sepNo": 4,
+      "col": 3
     },
     {
       "key": "changed",
@@ -108,7 +120,8 @@
       "bg": "#e8f5e9",
       "fg": "#2e7d32",
       "sep": true,
-      "sepNo": 4
+      "sepNo": 5,
+      "col": 4
     },
     {
       "key": "stale",
@@ -117,7 +130,8 @@
       "bg": "#fbeeee",
       "fg": "#a32d2d",
       "sep": true,
-      "sepNo": 5
+      "sepNo": 6,
+      "col": 5
     },
     {
       "key": "skip",
@@ -126,7 +140,8 @@
       "bg": "#e7f1fb",
       "fg": "#1976d2",
       "sep": true,
-      "sepNo": 6
+      "sepNo": 7,
+      "col": 6
     },
     {
       "key": "enough",
@@ -134,10 +149,12 @@
       "label": "SKIP-十分な件数",
       "bg": "#e2f4f6",
       "fg": "#00838f",
-      "sep": false
+      "sep": false,
+      "col": 7
     }
   ],
   "sepV": 2,
+  "colV": 1,
   "seeded": [
     "first:skip_child"
   ],
@@ -148,7 +165,8 @@
       "bg": "#fff9c4",
       "fg": "#827717",
       "sep": true,
-      "sepNo": 1
+      "sepNo": 1,
+      "col": 0
     },
     {
       "key": "before",
@@ -156,7 +174,8 @@
       "bg": "#ede7f6",
       "fg": "#5e35b1",
       "sep": true,
-      "sepNo": 2
+      "sepNo": 2,
+      "col": 1
     },
     {
       "key": "ready",
@@ -164,7 +183,8 @@
       "bg": "#fff0f0",
       "fg": "#c62828",
       "sep": true,
-      "sepNo": 3
+      "sepNo": 3,
+      "col": 2
     },
     {
       "key": "registered",
@@ -172,14 +192,16 @@
       "bg": "#e8f5e9",
       "fg": "#2e7d32",
       "sep": true,
-      "sepNo": 4
+      "sepNo": 4,
+      "col": 3
     },
     {
       "key": "skip",
       "label": "SKIP",
       "bg": "#e7f1fb",
       "fg": "#1976d2",
-      "sep": false
+      "sep": false,
+      "col": 4
     }
   ]
 }
