@@ -346,9 +346,9 @@
         null
       ],
       "registeredAt": "2026-09-29",
-      "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.467Z",
-      "firstStatus": "past"
+      "secondStatus": "none",
+      "updatedAt": "2026-10-13T01:52:34.260Z",
+      "firstStatus": "pending"
     },
     "foot-22-02-3set": {
       "reviewHistory": {
@@ -403,8 +403,8 @@
         "2024-10-28T16:30:52+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:23:50.043Z",
+      "secondStatus": "none",
+      "updatedAt": "2026-10-13T01:52:35.916Z",
       "firstStatus": "pending"
     },
     "eq-22-01": {
@@ -810,9 +810,9 @@
         "2024-06-04T15:08:43+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:22:33.189Z",
-      "firstStatus": "skip_child"
+      "secondStatus": "none",
+      "updatedAt": "2026-10-13T01:52:40.784Z",
+      "firstStatus": "pending"
     },
     "ih-22-10-0set": {
       "reviewHistory": {
@@ -1563,8 +1563,8 @@
         "2024-10-28T16:01:39+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:23:37.461Z",
+      "secondStatus": "none",
+      "updatedAt": "2026-10-13T01:52:37.635Z",
       "firstStatus": "pending"
     },
     "si-22-07": {
@@ -2137,8 +2137,8 @@
       ],
       "registeredAt": "2026-09-29",
       "status": "normal",
-      "updatedAt": "2026-10-13T01:48:44.089Z",
-      "firstStatus": "skip_child"
+      "updatedAt": "2026-10-13T01:52:30.699Z",
+      "firstStatus": "pending"
     },
     "foot-25-05": {
       "reviewHistory": {
@@ -14568,7 +14568,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-13T01:52:28.115Z",
+  "savedAt": "2026-10-13T01:52:43.804Z",
   "lastAutoFetch": "2026-10-12T03:08:03Z",
   "lastCsvFile": "data202610121200.csv",
   "counts": {
