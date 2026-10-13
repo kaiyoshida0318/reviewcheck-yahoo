@@ -520,8 +520,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.490Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.323Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "si-22-05": {
       "reviewHistory": {
@@ -2423,8 +2424,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.748Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.337Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "wat-18-08-set": {
       "reviewHistory": {
@@ -2481,8 +2483,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.763Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.369Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "ih-23-11": {
       "reviewHistory": {
@@ -2654,8 +2657,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:22:34.706Z",
-      "firstStatus": "skip_child"
+      "updatedAt": "2026-10-13T01:47:52.315Z",
+      "firstStatus": "skip_child",
+      "status": "ignore"
     },
     "cab-25-02": {
       "reviewHistory": {
@@ -2825,8 +2829,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.243Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.487Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "si-22-08": {
       "reviewHistory": {
@@ -2996,8 +3001,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.619Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.419Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "tb-23-02-2set": {
       "reviewHistory": {
@@ -3112,8 +3118,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:22:43.511Z",
-      "firstStatus": "skip_child"
+      "updatedAt": "2026-10-13T01:47:52.330Z",
+      "firstStatus": "skip_child",
+      "status": "ignore"
     },
     "si-26-08-3set": {
       "reviewHistory": {
@@ -3569,8 +3576,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.541Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.542Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "ih-21-03a": {
       "reviewHistory": {
@@ -3684,7 +3692,8 @@
       ],
       "registeredAt": "2026-09-29",
       "firstStatus": "past",
-      "updatedAt": "2026-10-09T08:03:16.603Z"
+      "updatedAt": "2026-10-13T01:47:52.437Z",
+      "status": "ignore"
     },
     "wat-sma-04-set1a": {
       "reviewHistory": {
@@ -3740,8 +3749,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.093Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.364Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "wat-18-08": {
       "reviewHistory": {
@@ -3798,8 +3808,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.644Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.456Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "nt-19-01a": {
       "reviewHistory": {
@@ -3856,8 +3867,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.460Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.597Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "sb-04": {
       "reviewHistory": {
@@ -3914,8 +3926,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.562Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.633Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "si-23-02-00set": {
       "reviewHistory": {
@@ -4087,8 +4100,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.851Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.444Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "si-22-01": {
       "reviewHistory": {
@@ -4145,8 +4159,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.789Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.400Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "cg-22-03-2set": {
       "reviewHistory": {
@@ -4203,8 +4218,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.723Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.350Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "si-23-12": {
       "reviewHistory": {
@@ -4318,8 +4334,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.990Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.553Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "fel-22-01": {
       "reviewHistory": {
@@ -4375,8 +4392,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.150Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.615Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "wat-sma-04-set1": {
       "reviewHistory": {
@@ -4489,8 +4507,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.206Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.666Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "wat-sma-03a": {
       "reviewHistory": {
@@ -4546,8 +4565,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.714Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.517Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "bg-01-con-20set": {
       "reviewHistory": {
@@ -4603,8 +4623,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.214Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.682Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "eq-22-04-clear-mat": {
       "reviewHistory": {
@@ -4717,8 +4738,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.809Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.801Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "wat-fb-21-03": {
       "reviewHistory": {
@@ -4774,8 +4796,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.897Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.579Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "cab-16-02-01": {
       "reviewHistory": {
@@ -4832,8 +4855,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.529Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.547Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "sb-02": {
       "reviewHistory": {
@@ -4890,8 +4914,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.661Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.627Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "wat-sma-04-set2": {
       "reviewHistory": {
@@ -4947,8 +4972,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.514Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.344Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "wat-sma-02b": {
       "reviewHistory": {
@@ -5004,8 +5030,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.056Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.431Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "zak-20-16-05": {
       "reviewHistory": {
@@ -5061,8 +5088,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.842Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.709Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "fas-17-03": {
       "reviewHistory": {
@@ -5233,8 +5261,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.732Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.376Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "wat-sma-03-0set1": {
       "reviewHistory": {
@@ -5290,8 +5319,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.551Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.356Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "foot-25-06": {
       "reviewHistory": {
@@ -5463,8 +5493,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.756Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.382Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "wat-18-05": {
       "reviewHistory": {
@@ -5521,8 +5552,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.685Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.785Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "wat-sma-08": {
       "reviewHistory": {
@@ -5578,8 +5610,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.021Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.560Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "eq-22-02": {
       "reviewHistory": {
@@ -5694,8 +5727,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.169Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.481Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "gar-feni-03": {
       "reviewHistory": {
@@ -5808,8 +5842,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.909Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.475Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "si-22-03": {
       "reviewHistory": {
@@ -5866,8 +5901,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.475Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.529Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "si-24-03": {
       "reviewHistory": {
@@ -5980,8 +6016,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.519Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.426Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "sb-06": {
       "reviewHistory": {
@@ -6038,8 +6075,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.819Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.765Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "wat-sma-09": {
       "reviewHistory": {
@@ -6095,8 +6133,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.103Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.674Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "si-22-03-0set": {
       "reviewHistory": {
@@ -6153,8 +6192,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.586Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.771Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "bg-06-kakon-10set": {
       "reviewHistory": {
@@ -6210,8 +6250,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.295Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.646Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "fas-16-01-orange": {
       "reviewHistory": {
@@ -6325,8 +6366,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.980Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.695Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "zak-18-17-25": {
       "reviewHistory": {
@@ -6383,8 +6425,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.063Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.388Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "wat-18-05-set2": {
       "reviewHistory": {
@@ -6441,8 +6484,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.862Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.566Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "cg-22-05": {
       "reviewHistory": {
@@ -6499,8 +6543,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.223Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.463Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "ih-21-01": {
       "reviewHistory": {
@@ -6614,8 +6659,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.040Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.610Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "cam-21-01": {
       "reviewHistory": {
@@ -6785,8 +6831,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.798Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.535Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "bg-10-usbc-osu-20set": {
       "reviewHistory": {
@@ -6898,8 +6945,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.112Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.714Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "si-24-01": {
       "reviewHistory": {
@@ -7012,8 +7060,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.781Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.791Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "si-22-06-brush": {
       "reviewHistory": {
@@ -7069,8 +7118,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.564Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.659Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "wat-sma-02-0set": {
       "reviewHistory": {
@@ -7126,8 +7176,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.337Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.811Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "wat-fb-21-06": {
       "reviewHistory": {
@@ -7183,8 +7234,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.250Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.407Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "ih-21-01-set": {
       "reviewHistory": {
@@ -7296,8 +7348,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.830Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.504Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "wat-sma-05": {
       "reviewHistory": {
@@ -7466,8 +7519,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.677Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.498Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "tb-23-01-3set": {
       "reviewHistory": {
@@ -7582,8 +7636,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.544Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.739Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "zak-20-17-10": {
       "reviewHistory": {
@@ -7924,8 +7979,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.182Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.778Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "bloop-18-01-24": {
       "reviewHistory": {
@@ -8208,8 +8264,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.306Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.523Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "zak-18-11-10": {
       "reviewHistory": {
@@ -8265,8 +8322,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.960Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.603Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "wat-18-14-set": {
       "reviewHistory": {
@@ -8323,8 +8381,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.081Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.468Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "bg-02-con-hook-20set": {
       "reviewHistory": {
@@ -8380,8 +8439,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.527Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.720Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "zak-20-18-05": {
       "reviewHistory": {
@@ -8437,8 +8497,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.516Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.826Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "ih-22-01-2set": {
       "reviewHistory": {
@@ -8494,8 +8555,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.320Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.450Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "bloop-18-02-2set": {
       "reviewHistory": {
@@ -8610,8 +8672,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.436Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.759Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "zak-20-16-50": {
       "reviewHistory": {
@@ -8667,8 +8730,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.474Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.820Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "ih-22-04": {
       "reviewHistory": {
@@ -9351,8 +9415,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.195Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.584Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "si-22-04-00set": {
       "reviewHistory": {
@@ -9408,8 +9473,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.380Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.621Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "wat-sma-05-0set": {
       "reviewHistory": {
@@ -9521,8 +9587,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.536Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.732Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "wat-18-07-set": {
       "reviewHistory": {
@@ -9579,8 +9646,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.927Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.572Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "fas-16-01-purple": {
       "reviewHistory": {
@@ -9750,8 +9818,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.483Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.652Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "cam-21-01-2set": {
       "reviewHistory": {
@@ -9808,7 +9877,8 @@
       ],
       "registeredAt": "2026-09-29",
       "firstStatus": "past",
-      "updatedAt": "2026-10-09T08:03:16.649Z"
+      "updatedAt": "2026-10-13T01:47:52.492Z",
+      "status": "ignore"
     },
     "fas-16-01-2set": {
       "reviewHistory": {
@@ -9921,8 +9991,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.285Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.702Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "wat-18-01": {
       "reviewHistory": {
@@ -10320,7 +10391,8 @@
       ],
       "registeredAt": "2026-09-29",
       "firstStatus": "past",
-      "updatedAt": "2026-10-09T08:03:16.575Z"
+      "updatedAt": "2026-10-13T01:47:52.690Z",
+      "status": "ignore"
     },
     "bloop-18-01-20": {
       "reviewHistory": {
@@ -10435,7 +10507,8 @@
       ],
       "registeredAt": "2026-09-29",
       "firstStatus": "skip",
-      "updatedAt": "2026-10-09T08:23:01.299Z"
+      "updatedAt": "2026-10-13T01:47:52.591Z",
+      "status": "ignore"
     },
     "bloop-18-01-22-2set": {
       "reviewHistory": {
@@ -10662,8 +10735,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.552Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.413Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "si-22-02-2set": {
       "reviewHistory": {
@@ -11915,7 +11989,8 @@
       ],
       "registeredAt": "2026-09-29",
       "firstStatus": "past",
-      "updatedAt": "2026-10-09T08:03:16.596Z"
+      "updatedAt": "2026-10-13T01:47:52.753Z",
+      "status": "ignore"
     },
     "cg-22-04-2set": {
       "reviewHistory": {
@@ -12192,7 +12267,8 @@
       ],
       "registeredAt": "2026-09-29",
       "firstStatus": "past",
-      "updatedAt": "2026-10-09T08:03:16.767Z"
+      "updatedAt": "2026-10-13T01:47:52.640Z",
+      "status": "ignore"
     },
     "si-23-10": {
       "reviewHistory": {
@@ -12363,7 +12439,8 @@
       ],
       "registeredAt": "2026-09-29",
       "firstStatus": "past",
-      "updatedAt": "2026-10-09T08:03:16.641Z"
+      "updatedAt": "2026-10-13T01:47:52.726Z",
+      "status": "ignore"
     },
     "tb-23-03-4set": {
       "reviewHistory": {
@@ -13280,8 +13357,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.499Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.511Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "fing-25-02": {
       "reviewHistory": {
@@ -13442,8 +13520,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.482Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T01:47:52.394Z",
+      "firstStatus": "past",
+      "status": "ignore"
     },
     "yoga-23-02-set": {
       "reviewHistory": {
@@ -14488,7 +14567,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-13T01:34:17.045Z",
+  "savedAt": "2026-10-13T01:47:55.830Z",
   "lastAutoFetch": "2026-10-12T03:08:03Z",
   "lastCsvFile": "data202610121200.csv",
   "counts": {
