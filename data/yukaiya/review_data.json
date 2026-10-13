@@ -1799,9 +1799,9 @@
         "2024-05-29T14:28:25+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.600Z",
-      "firstStatus": "past"
+      "secondStatus": "none",
+      "updatedAt": "2026-10-13T03:17:18.671Z",
+      "firstStatus": "watching"
     },
     "wat-sma-03": {
       "reviewHistory": {
@@ -14868,7 +14868,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-13T03:17:03.696Z",
+  "savedAt": "2026-10-13T03:17:21.689Z",
   "lastAutoFetch": "2026-10-13T03:08:06Z",
   "lastCsvFile": "data202610131200.csv",
   "counts": {
