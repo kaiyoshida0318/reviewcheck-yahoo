@@ -52,7 +52,10 @@
         null,
         "2025-04-21T13:48:21+09:00",
         "2026-01-27T18:33:53+09:00"
-      ]
+      ],
+      "firstStatus": "watching",
+      "updatedAt": "2026-10-13T04:52:04.649Z",
+      "registeredAt": "2026-09-29"
     },
     "pos-23-08-1set": {
       "reviewHistory": {
@@ -106,7 +109,10 @@
         null,
         "2025-04-17T16:52:48+09:00",
         "2026-01-27T18:35:57+09:00"
-      ]
+      ],
+      "firstStatus": "watching",
+      "updatedAt": "2026-10-13T04:52:04.648Z",
+      "registeredAt": "2026-09-29"
     },
     "tak-24-02": {
       "reviewHistory": {
@@ -160,7 +166,10 @@
         null,
         "2024-04-11T18:00:51+09:00",
         "2024-04-11T18:00:56+09:00"
-      ]
+      ],
+      "firstStatus": "watching",
+      "updatedAt": "2026-10-13T04:52:04.650Z",
+      "registeredAt": "2026-09-29"
     },
     "pos-23-01": {
       "reviewHistory": {
@@ -214,7 +223,8 @@
         null,
         "2023-02-15T15:53:35+09:00",
         "2023-02-15T15:53:42+09:00"
-      ]
+      ],
+      "registeredAt": "2026-09-29"
     },
     "pos-23-08-fbag": {
       "reviewHistory": {
@@ -268,7 +278,10 @@
         null,
         "2025-04-17T17:00:47+09:00",
         "2026-01-27T18:36:58+09:00"
-      ]
+      ],
+      "firstStatus": "watching",
+      "updatedAt": "2026-10-13T04:52:04.649Z",
+      "registeredAt": "2026-09-29"
     },
     "tak-24-04-5set": {
       "reviewHistory": {
@@ -323,7 +336,10 @@
         null,
         "2024-05-30T17:42:04+09:00",
         "2024-05-30T17:42:21+09:00"
-      ]
+      ],
+      "firstStatus": "watching",
+      "updatedAt": "2026-10-13T04:52:04.649Z",
+      "registeredAt": "2026-09-29"
     },
     "tak-24-06": {
       "reviewHistory": {
@@ -378,7 +394,10 @@
         null,
         "2024-06-21T14:35:56+09:00",
         "2024-06-21T14:35:56+09:00"
-      ]
+      ],
+      "firstStatus": "watching",
+      "updatedAt": "2026-10-13T04:52:04.649Z",
+      "registeredAt": "2026-09-29"
     },
     "tak-24-03a": {
       "reviewHistory": {
@@ -432,7 +451,8 @@
         null,
         null,
         null
-      ]
+      ],
+      "registeredAt": "2026-09-29"
     },
     "pos-23-07-tb": {
       "reviewHistory": {
@@ -463,7 +483,7 @@
         "https://item-shopping.c.yimg.jp/i/j/burariya_pos-23-07-tb_2_d_20230512142304"
       ],
       "reviewCount": 0,
-      "reviewAvg": 0.0,
+      "reviewAvg": 0,
       "inStock": true,
       "price": 780,
       "categoryId": 77059,
@@ -487,7 +507,8 @@
         null,
         "2023-05-12T14:22:59+09:00",
         "2023-05-12T14:23:04+09:00"
-      ]
+      ],
+      "registeredAt": "2026-09-29"
     },
     "tak-24-01": {
       "reviewHistory": {
@@ -529,7 +550,8 @@
         null,
         "2024-04-11T17:50:49+09:00",
         "2024-04-11T17:50:53+09:00"
-      ]
+      ],
+      "registeredAt": "2026-09-29"
     },
     "pos-23-01-0set": {
       "reviewHistory": {
@@ -548,7 +570,7 @@
         "https://item-shopping.c.yimg.jp/i/j/burariya_pos-23-01-0set_2_d_20230404144525"
       ],
       "reviewCount": 2,
-      "reviewAvg": 0.0,
+      "reviewAvg": 0,
       "inStock": false,
       "price": 1980,
       "categoryId": 1814,
@@ -571,7 +593,8 @@
         null,
         "2023-04-04T14:45:13+09:00",
         "2023-04-04T14:45:25+09:00"
-      ]
+      ],
+      "registeredAt": "2026-09-29"
     }
   },
   "storeReviewHistory": {
@@ -599,7 +622,7 @@
   "platform": "yahoo",
   "shopId": "kairy",
   "sellerId": "burariya",
-  "savedAt": "2026-10-13T03:08:23Z",
+  "savedAt": "2026-10-13T04:52:07.662Z",
   "lastAutoFetch": "2026-10-13T03:08:23Z",
   "lastCsvFile": "data202610131201.csv",
   "counts": {
