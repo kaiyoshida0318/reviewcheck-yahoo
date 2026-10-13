@@ -1,6 +1,6 @@
 {
-  "version": "v0.8.52",
-  "savedAt": "2026-10-13T03:07:52.938Z",
+  "version": "v0.8.53",
+  "savedAt": "2026-10-13T03:10:38.441Z",
   "first": [
     {
       "key": "pending",
@@ -88,19 +88,9 @@
       "label": "獲得済-変更前",
       "bg": "#fff0f0",
       "fg": "#c62828",
-      "sep": false,
-      "col": 2
-    },
-    {
-      "key": "__hot3__",
-      "sep": false,
-      "col": 2
-    },
-    {
-      "key": "__hot200__",
       "sep": true,
-      "sepNo": 3,
-      "col": 2
+      "col": 2,
+      "sepNo": 3
     },
     {
       "key": "changing",
@@ -188,8 +178,8 @@
     {
       "key": "reflected",
       "label": "ランキング獲得済-反映後",
-      "bg": "#2e7d32",
-      "fg": "#ffffff",
+      "bg": "#e8f5e9",
+      "fg": "#2e7d32",
       "sep": true,
       "sepNo": 6,
       "col": 3
