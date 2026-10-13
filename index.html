@@ -817,7 +817,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.46';
+const VERSION = 'v0.8.48';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -1116,6 +1116,7 @@ function normalizeDefs(saved) {
     }
     // 線の番号が付く前の設定（sepV が 2 でない）は、線を既定の位置に置き直す（昔の「下で区切る」は意味が違ったため）
     if (saved?.sepV !== 2) applyDefaultSep(g, list);
+    fixSepOrder(list);
     out[g] = list;
   }
   out.denrei = normalizeDenreiDefs(saved?.denrei, saved?.sepV === 2);
@@ -1263,7 +1264,7 @@ function matchQuery(code, p) {
   return (code + ' ' + (p.name || '') + ' ' + (p.apiTitle || '') + ' ' + (p.csvName || '')).toLowerCase().includes(q);
 }
 // 伝令ちゃん＝ランキング獲得済・1枚目＝変更完了・2枚目＝変更完了 の3つがそろった商品は「全部完了」。
-// 何も絞り込んでいないとき（全体（完了以外））は出さない。それぞれの完了ボタンを押せば出る（v0.8.46〜）
+// 何も絞り込んでいないとき（「全体」ボタン。v0.8.48 で「全体（完了以外）」から改名）は出さない。それぞれの完了ボタンを押せば出る（v0.8.46〜）
 function allDone(code, p) { return denreiStateOf(code) === 'registered' && statusOf(p, 'first') === 'acquired' && statusOf(p, 'second') === 'changed'; }
 function hideDone() { return mode !== 'tail'; }
 function openCount(base) { return hideDone() ? base.filter(([c, p]) => !allDone(c, p)).length : base.length; }
@@ -1434,6 +1435,18 @@ const DEFAULT_SEP = {
 function applyDefaultSep(g, list) {
   for (const d of list) { const n = (DEFAULT_SEP[g] || {})[d.key]; d.sep = !!n; if (n) d.sepNo = n; else delete d.sepNo; }
 }
+// 線の番号は上から順に大きくなるように直す（小さい番号が後ろに来ると、ボタンが前の列に戻って重なるため。v0.8.47〜）
+function fixSepOrder(list) {
+  let prev = 0, changed = false;
+  for (const d of list) {
+    if (!d.sep) continue;
+    let n = sepNoOf(d, prev);
+    if (n <= prev) n = Math.min(SEP_MAX, prev + 1);
+    if (d.sepNo !== n) { d.sepNo = n; changed = true; }
+    prev = n;
+  }
+  return changed;
+}
 function sepNoOf(d, prev) { const n = Math.round(Number(d.sepNo)); return n >= 1 && n <= SEP_MAX ? n : Math.min(SEP_MAX, prev + 1); }
 // 一覧の並びと線の番号から、各項目の列（0〜9）を出す
 function stagesOf(list) {
@@ -1468,7 +1481,7 @@ function filterRowHtml(g) {
   const list = defList(g), sts = stagesOf(list);
   list.forEach((d, i) => { cells[sts[i]] = (cells[sts[i]] || '') + btn(d); });
   return stageRowHtml(`${DEF_GROUPS[g].icon} ${DEF_GROUPS[g].label}:`,
-    `<button class="fbtn all ${allOn ? 'on' : ''}" data-fg="${g}" data-fk="" title="${ALL_TIP}">全体（完了以外） <span class="n">(${openCount(base)})</span></button>`, cells);
+    `<button class="fbtn all ${allOn ? 'on' : ''}" data-fg="${g}" data-fk="" title="${ALL_TIP}">全体 <span class="n">(${openCount(base)})</span></button>`, cells);
 }
 // 一括変更で選んだ値（描き直しても消えないように持つ。適用したら消す）。
 // 「→ 選択商品に適用」は、商品を選び、かつ変更する項目を選んだときだけ赤くする（v0.8.13〜）
@@ -1490,7 +1503,7 @@ function renderFilters() {
     <div class="fpanel-foot">
       <div class="bulk">
         <span class="t">✏ 選択商品を一括変更</span><span class="cnt" id="selCnt">${selected.size}</span>
-        ${bulkDenreiOn() ? `<select class="bulk-sel" data-g="__denrei" title="伝令ちゃん列の状態を、選んだ商品にまとめて付けます（表のドロップダウンで1件ずつ選ぶのと同じ。伝令ちゃん側の状態は変わりません）"><option value="">伝令ちゃん：変更しない</option>${DENREI_EDIT_KEYS.map(k => `<option value="${k}" ${bulkPick.__denrei === k ? 'selected' : ''}>${esc(DENREI_STATES[k].label)}</option>`).join('')}<option value="__auto" ${bulkPick.__denrei === '__auto' ? 'selected' : ''}>↩ 自動に戻す</option></select>` : ''}
+        ${bulkDenreiOn() ? `<select class="bulk-sel" data-g="__denrei" title="伝令ちゃん列の状態を、選んだ商品にまとめて付けます（表のドロップダウンで1件ずつ選ぶのと同じ。伝令ちゃん側の状態は変わりません）"><option value="">伝令ちゃん：変更しない</option>${denreiKeys().map(k => `<option value="${k}" ${bulkPick.__denrei === k ? 'selected' : ''}>${esc(DENREI_STATES[k].label)}</option>`).join('')}<option value="__auto" ${bulkPick.__denrei === '__auto' ? 'selected' : ''}>↩ 自動に戻す</option></select>` : ''}
         ${groups.map(g => `<select class="bulk-sel" data-g="${g}">${optHtml(g)}</select>`).join('')}
         <select class="bulk-sel" data-g="__status" title="通常 / 無視 / 無視（子商品）を切り替えます（無視にした商品は、左の「状態」で「無視」「無視（子商品）」「全体」を選ぶと出ます）"><option value="">状態：変更しない</option>${BULK_STATUS_OPTS.map(([k, l]) => `<option value="${k}" ${bulkPick.__status === k ? 'selected' : ''}>${l}</option>`).join('')}</select>
         ${mode === 'tail' ? `<select class="bulk-sel" data-g="__tailWork"><option value="">対応：変更しない</option>${TTAIL_WORK_OPTS.map(o => `<option value="${o.key || '__none'}" ${bulkPick.__tailWork === (o.key || '__none') ? 'selected' : ''}>${esc(o.label)}</option>`).join('')}</select>` : ''}
@@ -1745,7 +1758,7 @@ $('#rows').addEventListener('click', (e) => {
   } else if (act.dataset.act === 'dnrPick') {
     if (menuCtx) { closeMenu(); return; }
     const p = store.productCache[code], auto = denreiAutoStateOf(code), cur = denreiStateOf(code), manual = !!denreiManualOf(code);
-    const items = DENREI_EDIT_KEYS.map(k => { const d = DENREI_STATES[k]; return `<button class="mi ${k === cur ? 'cur' : ''}" data-key="${k}" style="background:${esc(d.bg)};color:${esc(d.fg)}">${esc(d.label)}${k === auto ? '<small style="opacity:.7;margin-left:6px">（伝令ちゃんの状態）</small>' : ''}</button>`; }).join('') +
+    const items = denreiKeys().map(k => { const d = DENREI_STATES[k]; return `<button class="mi ${k === cur ? 'cur' : ''}" data-key="${k}" style="background:${esc(d.bg)};color:${esc(d.fg)}">${esc(d.label)}${k === auto ? '<small style="opacity:.7;margin-left:6px">（伝令ちゃんの状態）</small>' : ''}</button>`; }).join('') +
       (manual ? `<div class="sep"></div><button class="mi plain" data-key="__auto">↩ 自動に戻す<small>伝令ちゃんの状態（${esc(DENREI_STATES[auto].label)}）に合わせる</small></button>` : '');
     showMenu(act, items, (key) => {
       if (key === '__auto' || key === auto) delete p.denreiManual;
@@ -2269,19 +2282,23 @@ const DENREI_STATES = {
   unknown:    { label: '未取得',             bg: '#f5f6f8', fg: '#9aa1a9', order: 5 },
 };
 // 伝令ちゃんの状態の名前・色は「↔ 項目設定」の「🔔 伝令ちゃん」タブで変えられる（v0.8.36〜）。
-//   変えられるのは名前と色だけ（状態そのものは伝令ちゃんが決めるので、足す・消す・並べ替えは無い）。
+//   変えられるのは名前・色・並び・区切りの線（v0.8.47 で並べ替えを追加）。状態そのものは伝令ちゃんが決めるので、足す・消すは無い。
 //   保存先はほかの項目設定と同じ defs.json の denrei。
 const DENREI_EDIT_KEYS = ['none', 'before', 'ready', 'registered', 'skip'];
 const DENREI_DEFAULTS = JSON.parse(JSON.stringify(DENREI_STATES));
+const denreiKeys = () => { const l = (defs && defs.denrei || []).map(d => d.key).filter(k => DENREI_EDIT_KEYS.includes(k)); return l.length ? l : DENREI_EDIT_KEYS; };
 const DENREI_DESC = { none: '伝令ちゃんに登録されていない商品', before: '登録済みで、まだランキングを獲得していない商品', ready: 'ランキングを獲得し、伝令ちゃんで登録できる商品', registered: '伝令ちゃんで登録まで終わった商品', skip: '伝令ちゃんに登録しないと決めた商品（表のドロップダウンで手で選ぶ）' };
 function normalizeDenreiDefs(saved, keepSep) {
   const by = {}; for (const d of (Array.isArray(saved) ? saved : [])) if (d && d.key) by[d.key] = d;
   const hex = (v, fb) => /^#[0-9a-f]{6}$/i.test(String(v || '')) ? String(v) : fb;
-  const list = DENREI_EDIT_KEYS.map(k => {
+  // 並びは保存どおり（v0.8.47〜 並べ替えできる）。保存に無い状態は後ろに足す
+  const order = [...(Array.isArray(saved) ? saved : []).map(d => d && d.key).filter(k => DENREI_EDIT_KEYS.includes(k)), ...DENREI_EDIT_KEYS];
+  const list = [...new Set(order)].map(k => {
     const def = DENREI_DEFAULTS[k], sv = by[k] || {};
     return { key: k, label: String(sv.label || '').trim() || def.label, bg: hex(sv.bg, def.bg), fg: hex(sv.fg, def.fg), sep: !!sv.sep, sepNo: sv.sepNo };
   });
   if (!keepSep) applyDefaultSep('denrei', list);
+  fixSepOrder(list);
   applyDenreiDefs(list);
   return list;
 }
@@ -2525,7 +2542,7 @@ function denreiRowHtml() {
     msg = `<span class="dnr-msg">未取得</span>`;
   }
   return stageRowHtml('🔔 伝令ちゃん:',
-    `<button class="fbtn all ${filter.kind !== 'denrei' ? 'on' : ''}" data-fg="denrei" data-fk="" title="${ALL_TIP}">全体（完了以外） <span class="n">(${openCount(base)})</span></button>`,
+    `<button class="fbtn all ${filter.kind !== 'denrei' ? 'on' : ''}" data-fg="denrei" data-fk="" title="${ALL_TIP}">全体 <span class="n">(${openCount(base)})</span></button>`,
     cells, `${msg} <button class="fbtn" data-act="denreiReload" title="伝令ちゃん側の状態を取り直します">🔄 更新</button>`);
 }
 function renderDenreiParts() {
@@ -4438,8 +4455,9 @@ function sepCtlHtml(list, i) {
   const d = list[i];
   let prev = 0; for (let k = 0; k < i; k++) if (list[k].sep) prev = sepNoOf(list[k], prev);
   const no = d.sep ? sepNoOf(d, prev) : 0;
-  const opts = Array.from({ length: SEP_MAX }, (_, k) => `<option value="${k + 1}" ${no === k + 1 ? 'selected' : ''}>線${k + 1}</option>`).join('');
-  return `<span class="sep-ctl" title="チェックすると、この項目の下に線が入ります。線の番号が同じなら、上の絞り込みの3段（伝令ちゃん / 1枚目変更 / 2枚目変更）で同じ位置にそろいます"><label style="margin:0"><input type="checkbox" data-k="sep" ${d.sep ? 'checked' : ''}> 下で区切る</label>${d.sep ? `<select data-k="sepNo">${opts}</select>` : ''}</span>`;
+  const lo = Math.min(SEP_MAX, prev + 1);
+  const opts = Array.from({ length: SEP_MAX - lo + 1 }, (_, k) => lo + k).map(n => `<option value="${n}" ${no === n ? 'selected' : ''}>線${n}</option>`).join('');
+  return `<span class="sep-ctl" title="チェックすると、この項目の下に線が入ります。線の番号が同じなら、上の絞り込みの3段（伝令ちゃん / 1枚目変更 / 2枚目変更）で同じ位置にそろいます。番号は上の線より大きいものだけ選べます（下の線は必要なら自動でずれます）"><label style="margin:0"><input type="checkbox" data-k="sep" ${d.sep ? 'checked' : ''}> 下で区切る</label>${d.sep ? `<select data-k="sepNo">${opts}</select>` : ''}</span>`;
 }
 function clrBtnHtml(d, i) {
   return `<button type="button" class="clr-btn ${clrOpen === i ? 'open' : ''}" data-clr-open="${i}" style="background:${esc(d.bg)};color:${esc(d.fg)};border-color:${esc(d.fg)}55" title="色を選ぶ（30組から）">色 ▾</button>`;
@@ -4454,20 +4472,23 @@ function clrPanelHtml(d, i) {
 function usageCount(g, key) { return entries().filter(([, p]) => p[DEF_GROUPS[g].field] === key).length; }
 function renderDefsEditor() {
   $('#defsShop').textContent = `（${SHOP.name}）`;
-  $('#defsTabs').innerHTML = Object.entries(DEF_GROUPS).map(([g, v]) => `<button data-tab="${g}" class="${g === defsTab ? 'on' : ''}">${v.icon} ${v.label}</button>`).join('') +
-    `<button data-tab="denrei" class="${defsTab === 'denrei' ? 'on' : ''}">🔔 伝令ちゃん</button>`;
+  $('#defsTabs').innerHTML = `<button data-tab="denrei" class="${defsTab === 'denrei' ? 'on' : ''}">🔔 伝令ちゃん</button>` +
+    Object.entries(DEF_GROUPS).map(([g, v]) => `<button data-tab="${g}" class="${g === defsTab ? 'on' : ''}">${v.icon} ${v.label}</button>`).join('');
   if (defsTab === 'lines') defsTab = 'first';
   $('#defsAdd').style.display = defsTab === 'denrei' ? 'none' : '';
   if (defsTab === 'denrei') {
-    // 名前と色だけ（足す・消す・並べ替えは無い）
-    $('#defsList').innerHTML = (defs.denrei || []).map((d, i) => `<div class="def-row ${d.sep ? 'sep-after' : ''}" data-i="${i}">
+    // 名前・色・並び・区切りの線を変えられる（v0.8.47〜 並べ替えも可）。状態を足す・消すは無い（伝令ちゃんが決めるため）
+    const dl = defs.denrei || [];
+    const dUse = (k) => denrei.state === 'ok' ? entries().filter(([c]) => denreiStateOf(c) === k).length : null;
+    $('#defsList').innerHTML = dl.map((d, i) => { const u = dUse(d.key); return `<div class="def-row ${d.sep ? 'sep-after' : ''}" data-i="${i}" title="${esc(DENREI_DESC[d.key] || '')}">
       <div class="preview" style="background:${esc(d.bg)};color:${esc(d.fg)}">${esc(d.label)}</div>
       <span></span>
       <input type="text" data-k="label" value="${esc(d.label)}" placeholder="${esc(DENREI_DEFAULTS[d.key].label)}">
       ${clrBtnHtml(d, i)}
-      ${sepCtlHtml(defs.denrei, i)}
-      <span class="hint" style="white-space: normal; line-height: 1.3; font-size: 10px" title="${esc(DENREI_DESC[d.key] || '')}"></span></div>${clrOpen === i ? clrPanelHtml(d, i) : ''}`).join('') +
-      `<div class="hint" style="padding:8px 4px">伝令ちゃんの状態は、名前・色・区切りの線を変えられます（どの商品がどの状態かは伝令ちゃんが決めます）。名前を空にすると元の名前に戻ります。</div>`;
+      ${sepCtlHtml(dl, i)}
+      <div><div class="ops"><button data-op="up" ${i === 0 ? 'disabled' : ''}>↑</button><button data-op="down" ${i === dl.length - 1 ? 'disabled' : ''}>↓</button><button data-op="del" disabled title="伝令ちゃんの状態は消せません">🗑</button></div>
+      <div class="use">${u ? `使用中 ${u}件` : ''}</div></div></div>${clrOpen === i ? clrPanelHtml(d, i) : ''}`; }).join('') +
+      `<div class="hint" style="padding:8px 4px">伝令ちゃんの状態は、名前・色・並び・区切りの線を変えられます（足す・消すはできません。どの商品がどの状態かは伝令ちゃんが決めます）。名前を空にすると元の名前に戻ります。</div>`;
     return;
   }
   const list = defList(defsTab);
@@ -4511,6 +4532,7 @@ $('#defsList').addEventListener('input', (e) => {
     const list = defs[defsTab];
     if (k === 'sep') { d.sep = inp.checked; if (d.sep) { let prev = 0; for (let x = 0; x < i; x++) if (list[x].sep) prev = sepNoOf(list[x], prev); d.sepNo = Math.min(SEP_MAX, prev + 1); } else delete d.sepNo; }
     else d.sepNo = Math.round(Number(inp.value)) || 1;
+    fixSepOrder(list);   // 下の線が同じか小さい番号なら、自動で後ろへずらす
     defsChanged();
     return;
   }
@@ -4544,7 +4566,8 @@ $('#defsList').addEventListener('click', (e) => {
   const i = +b.closest('.def-row').dataset.i, list = defs[defsTab];
   if (b.dataset.op === 'up' && i > 0) [list[i - 1], list[i]] = [list[i], list[i - 1]];
   else if (b.dataset.op === 'down' && i < list.length - 1) [list[i + 1], list[i]] = [list[i], list[i + 1]];
-  else if (b.dataset.op === 'del') list.splice(i, 1);
+  else if (b.dataset.op === 'del' && defsTab !== 'denrei') list.splice(i, 1);
+  fixSepOrder(list);
   defsChanged();
 });
 
