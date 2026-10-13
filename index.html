@@ -440,6 +440,15 @@
   .def-row input[type=text] { width: 100%; }
   .def-row input[type=color] { width: 36px; height: 28px; padding: 0; border: 1px solid var(--line2); border-radius: 4px; background: #fff; }
   .def-row label { white-space: nowrap; font-size: 12px; color: var(--muted); }
+  .clr-btn { grid-column: span 2; height: 28px; padding: 0 4px; font-size: 12px; font-weight: 700; border-radius: 6px; white-space: nowrap; }
+  .clr-btn.open { box-shadow: 0 0 0 2px #1f2933; }
+  .clr-panel { margin: 2px 4px 8px; padding: 10px; border: 1px solid var(--line2); border-radius: 8px; background: #fafbfc; }
+  .clr-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-bottom: 6px; }
+  .clr-sw { position: relative; height: 34px; padding: 0; border-radius: 6px; font-size: 13px; font-weight: 700; }
+  .clr-sw:hover { box-shadow: 0 0 0 2px #9cc0f0; }
+  .clr-sw.cur { box-shadow: 0 0 0 3px #1f2933; }
+  .clr-n { position: absolute; top: -6px; right: -5px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 999px; background: #1f2933; color: #fff; font-size: 10px; line-height: 16px; font-weight: 700; }
+  .clr-n.zero { display: none; }
   .def-row .preview { padding: 3px 8px; border-radius: 6px; font-size: 12px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .def-row .ops { display: flex; gap: 2px; }
   .def-row .ops button { padding: 2px 5px; font-size: 11px; }
@@ -783,7 +792,7 @@
 <dialog id="dlgDefs">
   <h2>↔ 項目設定 <span class="hint" id="defsShop"></span></h2>
   <div class="tabs" id="defsTabs"></div>
-  <div class="def-head"><span>表示</span><span>アイコン</span><span>名前</span><span>背景</span><span>文字</span><span>区切り</span><span></span></div>
+  <div class="def-head"><span>表示</span><span>アイコン</span><span>名前</span><span style="grid-column: span 2">色</span><span>区切り</span><span></span></div>
   <div class="defs-list" id="defsList"></div>
   <div class="row" style="justify-content:space-between">
     <div><button id="defsAdd">＋ 項目を追加</button> <span class="hint">変更はすぐ保存されます（このショップの全PCで共有）。使用中の項目は削除できません。</span></div>
@@ -798,7 +807,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.37';
+const VERSION = 'v0.8.39';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -1382,7 +1391,7 @@ function pillStyle(d) { return `background:${esc(d.bg)};color:${esc(d.fg)};borde
  * 上部の絞り込み（伝令ちゃん / 1枚目変更 / 2枚目変更）は、同じ段階のボタンが縦にそろうように
  * 1つの表（CSS grid）に並べる（v0.8.31〜）。列は左から:
  *   0 手つかず | 1 待ち・様子見 | 2 作業中・作業できる | 3 完了 | 4 放置 | 5 SKIP | 6 SKIP-理由つき | 7 その他（自分で足した項目）
- * どの項目がどの列かはここで決める。項目設定で足した項目は「その他」の列に入る。
+ * どの項目がどの列かはここで決める。項目設定で足した項目は、項目設定の並びで「すぐ上にある項目」と同じ列に入る。
  */
 const STAGE_COUNT = 8;
 const STAGE_OF = {
@@ -1408,7 +1417,14 @@ function filterRowHtml(g) {
     return `<button class="fbtn ${on ? 'on' : ''} ${n ? '' : 'zero'}" style="${pillStyle(d)}" data-fg="${g}" data-fk="${esc(d.key)}">${esc(defText(d))} <span class="n">(${n})</span></button>`;
   };
   const cells = [];
-  for (const d of defList(g)) { const st = STAGE_OF[g][d.key] ?? STAGE_COUNT - 1; cells[st] = (cells[st] || '') + btn(d); }
+  // 自分で足した項目は、項目設定で置いた場所（すぐ上の項目）と同じ列に出す（v0.8.39〜）。
+  //   以前はいちばん右の「その他」の列にまとめていたので、足しても見つけにくかった。
+  let last = 0;
+  for (const d of defList(g)) {
+    const st = STAGE_OF[g][d.key] ?? last;
+    last = st;
+    cells[st] = (cells[st] || '') + btn(d);
+  }
   return stageRowHtml(`${DEF_GROUPS[g].icon} ${DEF_GROUPS[g].label}:`,
     `<button class="fbtn all ${allOn ? 'on' : ''}" data-fg="${g}" data-fk="">全体 <span class="n">(${base.length})</span></button>`, cells);
 }
@@ -4259,6 +4275,37 @@ $('#thead').addEventListener('dblclick', (e) => {
 // 項目設定モーダル
 // ============================================================
 let defsTab = 'second';
+/*
+ * 色は30組の中から選ぶ（v0.8.38〜）。背景と文字を別々に細かく決めるのはやめた。
+ *   色のボタンを押すと、その行の下に一覧が開く。各色の右上の数字は「今その色を使っている項目の数」
+ *   （1枚目変更・2枚目変更・伝令ちゃんの全部を数える）。色をそろえるときの目安。
+ *   一覧に無い色（昔の設定）を使っている項目は、一覧の先頭に「今の色」として出る。
+ */
+const COLOR_SETS = [
+  ['#fff9c4', '#827717', '黄'], ['#ffecb3', '#8d5a00', 'こはく'], ['#ffe0b2', '#bf360c', 'オレンジ'], ['#fff3e0', '#e65100', 'うすオレンジ'], ['#fbeeee', '#a32d2d', 'うす赤'],
+  ['#fff0f0', '#c62828', 'ピンク赤'], ['#fce4ec', '#ad1457', 'ローズ'], ['#f3e5f5', '#7b1fa2', 'すみれ'], ['#ede7f6', '#5e35b1', '紫'], ['#e8eaf6', '#303f9f', '藍'],
+  ['#e7f1fb', '#1976d2', '青'], ['#e1f5fe', '#0277bd', '水色'], ['#e2f4f6', '#00838f', 'シアン'], ['#e0f2f1', '#00796b', '青緑'], ['#e8f5e9', '#2e7d32', '緑'],
+  ['#f1f8e9', '#558b2f', '黄緑'], ['#efebe9', '#5d4037', '茶'], ['#f5f4ee', '#78716c', 'ベージュ'], ['#f0f2f5', '#374151', 'グレー'], ['#eceff1', '#546e7a', '青グレー'],
+  ['#c62828', '#ffffff', '赤（濃）'], ['#ef6c00', '#ffffff', 'オレンジ（濃）'], ['#fdd835', '#3e2723', '黄（濃）'], ['#2e7d32', '#ffffff', '緑（濃）'], ['#00796b', '#ffffff', '青緑（濃）'],
+  ['#1565c0', '#ffffff', '青（濃）'], ['#6a1b9a', '#ffffff', '紫（濃）'], ['#ad1457', '#ffffff', 'ローズ（濃）'], ['#546e7a', '#ffffff', 'グレー（濃）'], ['#1f2933', '#ffffff', '黒'],
+];
+let clrOpen = null;   // 色の一覧を開いている行（その行の添え字）
+const clrKey = (bg, fg) => `${String(bg).toLowerCase()}|${String(fg).toLowerCase()}`;
+function clrUsage() {
+  const m = {};
+  for (const d of [...defList('first'), ...defList('second'), ...(defs.denrei || [])]) { const k = clrKey(d.bg, d.fg); m[k] = (m[k] || 0) + 1; }
+  return m;
+}
+function clrBtnHtml(d, i) {
+  return `<button type="button" class="clr-btn ${clrOpen === i ? 'open' : ''}" data-clr-open="${i}" style="background:${esc(d.bg)};color:${esc(d.fg)};border-color:${esc(d.fg)}55" title="色を選ぶ（30組から）">色 ▾</button>`;
+}
+function clrPanelHtml(d, i) {
+  const use = clrUsage(), cur = clrKey(d.bg, d.fg);
+  const sw = (bg, fg, name, extra) => { const n = use[clrKey(bg, fg)] || 0; return `<button type="button" class="clr-sw ${clrKey(bg, fg) === cur ? 'cur' : ''}" data-clr-row="${i}" data-bg="${esc(bg)}" data-fg="${esc(fg)}" style="background:${esc(bg)};color:${esc(fg)};border-color:${esc(fg)}55" title="${esc(name)}${n ? `（${n}個の項目で使用中）` : ''}">${extra || 'あ'}<span class="clr-n ${n ? '' : 'zero'}">${n}</span></button>`; };
+  const custom = COLOR_SETS.some(([b, f]) => clrKey(b, f) === cur) ? '' : sw(d.bg, d.fg, '今の色（一覧に無い色）', '今');
+  return `<div class="clr-panel" data-clr-panel="${i}"><div class="clr-grid">${custom}${COLOR_SETS.map(([b, f, n]) => sw(b, f, n)).join('')}</div>
+    <div class="hint">数字は、今その色を使っている項目の数です（1枚目変更・2枚目変更・伝令ちゃんの合計）。押すとこの項目の色が変わります。</div></div>`;
+}
 function usageCount(g, key) { return entries().filter(([, p]) => p[DEF_GROUPS[g].field] === key).length; }
 function renderDefsEditor() {
   $('#defsShop').textContent = `（${SHOP.name}）`;
@@ -4271,9 +4318,8 @@ function renderDefsEditor() {
       <div class="preview" style="background:${esc(d.bg)};color:${esc(d.fg)}">${esc(d.label)}</div>
       <span></span>
       <input type="text" data-k="label" value="${esc(d.label)}" placeholder="${esc(DENREI_DEFAULTS[d.key].label)}">
-      <input type="color" data-k="bg" value="${esc(d.bg)}" title="背景色">
-      <input type="color" data-k="fg" value="${esc(d.fg)}" title="文字色">
-      <span class="hint" style="grid-column: span 2; white-space: normal; line-height: 1.4">${esc(DENREI_DESC[d.key] || '')}</span></div>`).join('') +
+      ${clrBtnHtml(d, i)}
+      <span class="hint" style="grid-column: span 2; white-space: normal; line-height: 1.4">${esc(DENREI_DESC[d.key] || '')}</span></div>${clrOpen === i ? clrPanelHtml(d, i) : ''}`).join('') +
       `<div class="hint" style="padding:8px 4px">伝令ちゃんの状態は、名前と色だけ変えられます（どの商品がどの状態かは伝令ちゃんが決めます）。名前を空にすると元の名前に戻ります。</div>`;
     return;
   }
@@ -4290,24 +4336,23 @@ function renderDefsEditor() {
     return `<div class="def-row ${d.sep ? 'sep-after' : ''}" data-i="${i}">${preview}
       <input type="text" data-k="icon" value="${esc(d.icon)}" style="text-align:center">
       <input type="text" data-k="label" value="${esc(d.label)}">
-      <input type="color" data-k="bg" value="${esc(d.bg)}" title="背景色">
-      <input type="color" data-k="fg" value="${esc(d.fg)}" title="文字色">
+      ${clrBtnHtml(d, i)}
       <label style="margin:0"><input type="checkbox" data-k="sep" ${d.sep ? 'checked' : ''}> 下で区切る</label>
       <div><div class="ops"><button data-op="up" ${i === 0 ? 'disabled' : ''}>↑</button><button data-op="down" ${i === list.length - 1 ? 'disabled' : ''}>↓</button><button data-op="del" ${prot || use ? 'disabled' : ''} title="${prot ? '削除できない項目' : use ? '使用中の商品があります' : '削除'}">🗑</button></div>
-      <div class="use">${prot ? '既定値' : use ? `使用中 ${use}件` : ''}</div></div></div>`;
+      <div class="use">${prot ? '既定値' : use ? `使用中 ${use}件` : ''}</div></div></div>${clrOpen === i ? clrPanelHtml(d, i) : ''}`;
   }).join('');
 }
 function defsChanged() { markDefsDirty(); renderDefsEditor(); renderAll(); }
-$('#btnDefs').addEventListener('click', () => { renderDefsEditor(); $('#dlgDefs').showModal(); });
+$('#btnDefs').addEventListener('click', () => { clrOpen = null; renderDefsEditor(); $('#dlgDefs').showModal(); });
 $('#defsClose').addEventListener('click', () => {
   // 伝令ちゃんの名前を空のまま閉じたら、元の名前に戻して保存する
   for (const d of (defs.denrei || [])) if (!String(d.label || '').trim()) { d.label = DENREI_DEFAULTS[d.key].label; defsDirty = true; }
   $('#dlgDefs').close(); flushDefs();
 });
-$('#defsTabs').addEventListener('click', (e) => { const b = e.target.closest('[data-tab]'); if (b) { defsTab = b.dataset.tab; renderDefsEditor(); } });
+$('#defsTabs').addEventListener('click', (e) => { const b = e.target.closest('[data-tab]'); if (b) { defsTab = b.dataset.tab; clrOpen = null; renderDefsEditor(); } });
 $('#defsAdd').addEventListener('click', () => {
   if (defsTab === 'denrei') return;
-  defs[defsTab].push({ key: 'k' + Date.now().toString(36), icon: '🏷', label: '新しい項目', bg: '#f0f2f5', fg: '#374151' });
+  defs[defsTab].push({ key: 'k' + Date.now().toString(36), icon: '', label: '新しい項目', bg: '#f0f2f5', fg: '#374151' });
   defsChanged();
   $('#defsList').scrollTop = 1e6;
 });
@@ -4329,7 +4374,19 @@ $('#defsList').addEventListener('input', (e) => {
   renderAll();
 });
 $('#defsList').addEventListener('click', (e) => {
+  const co = e.target.closest('[data-clr-open]');
+  if (co) { const i = +co.dataset.clrOpen; clrOpen = clrOpen === i ? null : i; renderDefsEditor(); return; }
+  const sw = e.target.closest('.clr-sw');
+  if (sw) {
+    const d = defs[defsTab][+sw.dataset.clrRow]; if (!d) return;
+    d.bg = sw.dataset.bg; d.fg = sw.dataset.fg;
+    if (defsTab === 'denrei') applyDenreiDefs(defs.denrei);
+    clrOpen = null;
+    defsChanged();
+    return;
+  }
   const b = e.target.closest('[data-op]'); if (!b || b.disabled) return;
+  clrOpen = null;   // 並べ替え・削除で行がずれるので閉じる
   const i = +b.closest('.def-row').dataset.i, list = defs[defsTab];
   if (b.dataset.op === 'up' && i > 0) [list[i - 1], list[i]] = [list[i], list[i - 1]];
   else if (b.dataset.op === 'down' && i < list.length - 1) [list[i + 1], list[i]] = [list[i], list[i + 1]];
