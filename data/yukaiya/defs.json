@@ -1,6 +1,6 @@
 {
   "version": "v0.8.37",
-  "savedAt": "2026-10-13T01:04:50.645Z",
+  "savedAt": "2026-10-13T01:04:53.239Z",
   "first": [
     {
       "key": "pending",
@@ -56,19 +56,19 @@
   ],
   "second": [
     {
-      "key": "kmv5zao37",
-      "icon": "🏷",
-      "label": "新しい項目",
-      "bg": "#f0f2f5",
-      "fg": "#374151"
-    },
-    {
       "key": "none",
       "icon": "",
       "label": "変更前",
       "bg": "#fff9c4",
       "fg": "#827717",
       "sep": true
+    },
+    {
+      "key": "kmv5zao37",
+      "icon": "🏷",
+      "label": "新しい項目",
+      "bg": "#f0f2f5",
+      "fg": "#374151"
     },
     {
       "key": "__hot3__",
