@@ -1,6 +1,6 @@
 {
   "version": "v0.8.53",
-  "savedAt": "2026-10-13T03:10:41.985Z",
+  "savedAt": "2026-10-13T03:12:08.507Z",
   "first": [
     {
       "key": "pending",
@@ -128,18 +128,8 @@
       "label": "SKIP",
       "bg": "#e7f1fb",
       "fg": "#1976d2",
-      "sep": true,
-      "sepNo": 7,
-      "col": 6
-    },
-    {
-      "key": "enough",
-      "icon": "",
-      "label": "SKIP-十分な件数",
-      "bg": "#e2f4f6",
-      "fg": "#00838f",
       "sep": false,
-      "col": 7
+      "col": 6
     }
   ],
   "sepV": 2,
