@@ -440,6 +440,7 @@
   #dlgDefs { width: 820px; }
   .sep-ctl { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
   .sep-ctl select { font-size: 12px; padding: 2px 4px; font-weight: 700; }
+  .def-row label.auto3 { display: block; margin-top: 3px; font-size: 11px; color: var(--muted); cursor: pointer; }
   .defs-shift { display: flex; align-items: center; gap: 6px; margin: -4px 0 8px; font-size: 12px; color: var(--muted); }
   .defs-shift button { font-size: 12px; padding: 3px 10px; }
   .tabs { display: flex; gap: 4px; margin-bottom: 10px; }
@@ -819,7 +820,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.54';
+const VERSION = 'v0.8.55';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -1058,6 +1059,7 @@ async function load() {
   if (migrate()) { dirty = true; scheduleSave(); }
   autoFillRanking();
   autoWatchStatus();
+  autoHot3Status();
   cleanDenreiManual();
   fillRegisteredAt();
   renderAll();
@@ -1123,6 +1125,10 @@ function normalizeDefs(saved) {
     fixCols(list);
     out[g] = list;
   }
+  if (saved?.auto3V !== 1 && !out.second.some(d => d.auto3)) {
+    const t = out.second.find(d => d.key !== DEF_GROUPS.second.fallback && !d.fixed && String(d.label || '').trim() === '獲得済-変更前');
+    if (t) t.auto3 = true;
+  }
   out.denrei = normalizeDenreiDefs(saved?.denrei, saved?.sepV === 2, saved?.colV === 1);
   return out;
 }
@@ -1145,6 +1151,7 @@ async function flushDefs() {
   for (const g of Object.keys(DEF_GROUPS)) body[g] = defList(g).map(d => d.fixed ? { key: d.key, sep: !!d.sep, sepNo: d.sepNo, col: d.col } : d);
   body.sepV = 2;
   body.colV = 1;
+  body.auto3V = 1;   // ⚡（レビュー3件以上で自動）を一度でも保存した印。外したまま保存したら勝手に付け直さない
   body.seeded = defsSeeded;
   body.denrei = (defs.denrei || []).map(d => ({ key: d.key, label: d.label, bg: d.bg, fg: d.fg, sep: !!d.sep, sepNo: d.sepNo, col: d.col }));
   try {
@@ -1377,7 +1384,7 @@ function renderHeader() {
   // モード切り替えボタンに「手をつける商品の件数」を出す。0件ならバッジも色も出さない
   const scope = entries().filter(([, p]) => !isIgnored(p));
   const work = {
-    second: scope.filter(([, p]) => isHot3(p)).length,
+    second: auto3Key() ? scope.filter(([, p]) => statusOf(p, 'second') === auto3Key()).length : scope.filter(([, p]) => isHot3(p)).length,   // v0.8.55〜 ⚡の項目の件数
     tail: scope.filter(([, p]) => tailOrderValue(p) === 'ng' && p.tailWork !== 'wip').length,   // 順番問題有りで、まだ手を付けていないもの
     // 伝令ちゃんが読めていれば「ランキング獲得済-反映前」の件数（v0.8.51〜）。読めないときは「変更中」（key: ready）の件数
     first: denrei.state === 'ok'
@@ -2386,6 +2393,26 @@ function autoWatchStatus() {
     touch(code); n++;
   }
   if (n) setStatus(`伝令ちゃんに登録済みの ${n}件 を、1枚目変更「変更前」にしました`, 'ok');
+  return n;
+}
+/*
+ * 2枚目変更の自動移動（v0.8.55〜）
+ *   2枚目変更が既定の項目（key: none。表示名は「監視中-獲得前」など）のままで、レビューが3件以上になった商品（無視は除く）を、
+ *   項目設定の2枚目変更で ⚡（レビュー3件以上で自動）を付けた項目へ移す。移すだけで、戻しはしない。
+ *   2枚目用モードの赤丸の数は、その項目に入っている商品の数（無視を除く）。
+ */
+const AUTO3_MIN = 3;
+function auto3Key() { const d = defOptions('second').find(x => x.auto3 && x.key !== DEF_GROUPS.second.fallback); return d ? d.key : null; }
+function autoHot3Status() {
+  const k = auto3Key();
+  if (!k || !storeFresh || !ghConfig().pat) return 0;
+  let n = 0;
+  for (const [code, p] of Object.entries(store.productCache || {})) {
+    if (isIgnored(p) || statusOf(p, 'second') !== DEF_GROUPS.second.fallback || (p.reviewCount || 0) < AUTO3_MIN) continue;   // 無視にした商品は動かさない（通常に戻したら次の読み込みで移る）
+    p.secondStatus = k;
+    touch(code); n++;
+  }
+  if (n) setStatus(`レビューが${AUTO3_MIN}件以上になった ${n}件 を、2枚目変更「${defText(defOf('second', k))}」にしました`, 'ok');
   return n;
 }
 function autoFillRanking() {
@@ -4545,7 +4572,7 @@ function renderDefsEditor() {
       <input type="text" data-k="icon" value="${esc(d.icon)}" style="text-align:center">
       <input type="text" data-k="label" value="${esc(d.label)}">
       ${clrBtnHtml(d, i)}
-      ${sepCtlHtml(list, i)}
+      ${defsTab === 'second' && d.key !== DEF_GROUPS.second.fallback && (d.auto3 || !auto3Key()) ? `<div>${sepCtlHtml(list, i)}<label class="auto3" title="2枚目変更が「${esc(defText(defOf('second', DEF_GROUPS.second.fallback)))}」のままでレビューが${AUTO3_MIN}件以上になった商品を、自動でこの項目に移します。2枚目用モードの赤丸の数も、この項目の件数になります（1つの項目だけ選べます。別の項目にしたいときは、いったんチェックを外すと全部の項目に出ます）"><input type="checkbox" data-k="auto3" ${d.auto3 ? 'checked' : ''}> ⚡レビュー${AUTO3_MIN}件以上で自動</label></div>` : sepCtlHtml(list, i)}
       <div><div class="ops"><button data-op="up" ${i === 0 ? 'disabled' : ''}>↑</button><button data-op="down" ${i === list.length - 1 ? 'disabled' : ''}>↓</button><button data-op="del" ${prot ? 'disabled' : ''} title="${prot ? '削除できない項目' : use ? `削除（使用中の ${use}件は「${esc(defText(defOf(defsTab, DEF_GROUPS[defsTab].fallback)))}」になります）` : '削除'}">🗑</button></div>
       <div class="use" title="無視にした商品も数えています">${prot ? '既定値' : use ? `使用中 ${use}件` : ''}</div></div></div>${clrOpen === i ? clrPanelHtml(d, i) : ''}`;
   }).join('');
@@ -4578,6 +4605,14 @@ $('#defsAdd').addEventListener('click', () => {
 $('#defsList').addEventListener('input', (e) => {
   const inp = e.target.closest('[data-k]'); if (!inp) return;
   const i = +inp.closest('.def-row').dataset.i, d = defs[defsTab][i], k = inp.dataset.k;
+  if (k === 'auto3') {
+    // ⚡は1つの項目だけ。付けたらすぐ移す
+    for (const x of defs.second) delete x.auto3;
+    if (inp.checked) d.auto3 = true;
+    defsChanged();
+    autoHot3Status(); renderAll();
+    return;
+  }
   if (k === 'col') {
     // 位置を変える → 上の絞り込みの列がその場で動く。下の項目が左に残るなら一緒に右へずらす
     const list = defs[defsTab];
