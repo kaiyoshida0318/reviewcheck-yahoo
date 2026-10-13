@@ -811,8 +811,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "none",
-      "updatedAt": "2026-10-13T01:52:40.784Z",
-      "firstStatus": "pending"
+      "updatedAt": "2026-10-13T02:07:02.317Z",
+      "firstStatus": "pending",
+      "status": "ignore_child"
     },
     "ih-22-10-0set": {
       "reviewHistory": {
@@ -2022,8 +2023,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.704Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T02:07:02.332Z",
+      "firstStatus": "past",
+      "status": "ignore_child"
     },
     "si-22-04a": {
       "reviewHistory": {
@@ -3061,8 +3063,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:22:38.453Z",
-      "firstStatus": "skip_child"
+      "updatedAt": "2026-10-13T02:07:02.327Z",
+      "firstStatus": "skip_child",
+      "status": "ignore_child"
     },
     "tb-23-02-4set": {
       "reviewHistory": {
@@ -7579,8 +7582,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:22:41.230Z",
-      "firstStatus": "skip_child"
+      "updatedAt": "2026-10-13T02:07:02.323Z",
+      "firstStatus": "skip_child",
+      "status": "ignore_child"
     },
     "cg-22-04": {
       "reviewHistory": {
@@ -9077,8 +9081,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.267Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-13T02:07:02.311Z",
+      "firstStatus": "past",
+      "status": "ignore_child"
     },
     "zak-18-07-20": {
       "reviewHistory": {
@@ -14161,7 +14166,8 @@
       ],
       "registeredAt": "2026-10-08",
       "firstStatus": "past",
-      "updatedAt": "2026-10-09T08:03:16.666Z"
+      "updatedAt": "2026-10-13T02:07:02.268Z",
+      "status": "ignore_child"
     },
     "eq-22-05-toilet-04set": {
       "reviewHistory": {
@@ -14209,7 +14215,8 @@
       ],
       "registeredAt": "2026-10-08",
       "firstStatus": "past",
-      "updatedAt": "2026-10-09T08:03:16.677Z"
+      "updatedAt": "2026-10-13T02:07:02.273Z",
+      "status": "ignore_child"
     },
     "eq-22-05-toilet-05set": {
       "reviewHistory": {
@@ -14257,7 +14264,8 @@
       ],
       "registeredAt": "2026-10-08",
       "firstStatus": "past",
-      "updatedAt": "2026-10-09T08:03:16.687Z"
+      "updatedAt": "2026-10-13T02:07:02.279Z",
+      "status": "ignore_child"
     },
     "eq-22-05-toilet-25set": {
       "reviewHistory": {
@@ -14305,7 +14313,8 @@
       ],
       "registeredAt": "2026-10-08",
       "firstStatus": "past",
-      "updatedAt": "2026-10-09T08:03:16.719Z"
+      "updatedAt": "2026-10-13T02:07:02.297Z",
+      "status": "ignore_child"
     },
     "eq-22-05-toilet-10set": {
       "reviewHistory": {
@@ -14353,7 +14362,8 @@
       ],
       "registeredAt": "2026-10-08",
       "firstStatus": "past",
-      "updatedAt": "2026-10-09T08:03:16.698Z"
+      "updatedAt": "2026-10-13T02:07:02.286Z",
+      "status": "ignore_child"
     },
     "eq-22-05-toilet-15set": {
       "reviewHistory": {
@@ -14401,7 +14411,8 @@
       ],
       "registeredAt": "2026-10-08",
       "firstStatus": "past",
-      "updatedAt": "2026-10-09T08:03:16.708Z"
+      "updatedAt": "2026-10-13T02:07:02.291Z",
+      "status": "ignore_child"
     },
     "et-a-25-01-2set": {
       "reviewHistory": {
@@ -14495,7 +14506,8 @@
       ],
       "registeredAt": "2026-10-09",
       "firstStatus": "past",
-      "updatedAt": "2026-10-09T08:03:16.735Z"
+      "updatedAt": "2026-10-13T02:07:02.302Z",
+      "status": "ignore_child"
     },
     "et-a-25-01-6set": {
       "reviewHistory": {
@@ -14542,7 +14554,8 @@
       ],
       "registeredAt": "2026-10-09",
       "firstStatus": "past",
-      "updatedAt": "2026-10-09T08:03:16.746Z"
+      "updatedAt": "2026-10-13T02:07:02.307Z",
+      "status": "ignore_child"
     }
   },
   "storeReviewHistory": {
