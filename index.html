@@ -819,7 +819,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.53';
+const VERSION = 'v0.8.54';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -4546,8 +4546,8 @@ function renderDefsEditor() {
       <input type="text" data-k="label" value="${esc(d.label)}">
       ${clrBtnHtml(d, i)}
       ${sepCtlHtml(list, i)}
-      <div><div class="ops"><button data-op="up" ${i === 0 ? 'disabled' : ''}>↑</button><button data-op="down" ${i === list.length - 1 ? 'disabled' : ''}>↓</button><button data-op="del" ${prot || use ? 'disabled' : ''} title="${prot ? '削除できない項目' : use ? '使用中の商品があります' : '削除'}">🗑</button></div>
-      <div class="use">${prot ? '既定値' : use ? `使用中 ${use}件` : ''}</div></div></div>${clrOpen === i ? clrPanelHtml(d, i) : ''}`;
+      <div><div class="ops"><button data-op="up" ${i === 0 ? 'disabled' : ''}>↑</button><button data-op="down" ${i === list.length - 1 ? 'disabled' : ''}>↓</button><button data-op="del" ${prot ? 'disabled' : ''} title="${prot ? '削除できない項目' : use ? `削除（使用中の ${use}件は「${esc(defText(defOf(defsTab, DEF_GROUPS[defsTab].fallback)))}」になります）` : '削除'}">🗑</button></div>
+      <div class="use" title="無視にした商品も数えています">${prot ? '既定値' : use ? `使用中 ${use}件` : ''}</div></div></div>${clrOpen === i ? clrPanelHtml(d, i) : ''}`;
   }).join('');
 }
 function defsChanged() { markDefsDirty(); renderDefsEditor(); renderAll(); }
@@ -4626,7 +4626,13 @@ $('#defsList').addEventListener('click', (e) => {
   const swap = (a, c) => { const ca = list[a].col, cc = list[c].col; [list[a], list[c]] = [list[c], list[a]]; list[a].col = ca; list[c].col = cc; };
   if (b.dataset.op === 'up' && i > 0) swap(i - 1, i);
   else if (b.dataset.op === 'down' && i < list.length - 1) swap(i, i + 1);
-  else if (b.dataset.op === 'del' && defsTab !== 'denrei') list.splice(i, 1);
+  else if (b.dataset.op === 'del' && defsTab !== 'denrei') {
+    // v0.8.54〜 使用中でも消せる。使っていた商品は既定の項目（1枚目＝未着手 / 2枚目＝変更前）として扱われる（データはそのまま）
+    const d = list[i], use = usageCount(defsTab, d.key);
+    const fb = defText(defOf(defsTab, DEF_GROUPS[defsTab].fallback));
+    if (use && !confirm(`「${defText(d)}」を消しますか？\n\nこの項目の商品が ${use}件 あります（無視にした商品を含む）。\n消すと、これらは「${fb}」として扱われます。`)) return;
+    list.splice(i, 1);
+  }
   fixCols(list);
   defsChanged();
 });
