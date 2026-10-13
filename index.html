@@ -572,7 +572,7 @@
     </button>
     <button class="upd-btn" id="btnDenrei">
       <span class="t">🔔 伝令ちゃんの状態を取り直す</span>
-      <span class="d">ランキング伝令ちゃん（Yahoo版）から「未登録 / 監視中 / 獲得済-登録可能 / ランキング獲得済」を読み直します（数秒）。画面を開いたときにも自動で読みます。</span>
+      <span class="d">ランキング伝令ちゃん（Yahoo版）から「未登録 / 監視中 / ランキング獲得済」を読み直します（数秒）。画面を開いたときにも自動で読みます。</span>
       <span class="chip" id="chipDenrei"></span>
     </button>
     <button class="upd-btn" id="btnReload">
@@ -820,7 +820,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.49';
+const VERSION = 'v0.8.50';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -1381,9 +1381,9 @@ function renderHeader() {
   const work = {
     second: scope.filter(([, p]) => isHot3(p)).length,
     tail: scope.filter(([, p]) => tailOrderValue(p) === 'ng' && p.tailWork !== 'wip').length,   // 順番問題有りで、まだ手を付けていないもの
-    // 伝令ちゃんが読めていれば「獲得済-登録可能」（楽天版と同じ）。読めないときは「変更中」（key: ready）の件数
+    // 伝令ちゃんが読めていれば「ランキング獲得済」で1枚目がまだ（未着手・変更前・変更中）の件数（v0.8.50〜）。読めないときは「変更中」（key: ready）の件数
     first: denrei.state === 'ok'
-      ? scope.filter(([c]) => denreiStateOf(c) === 'ready').length
+      ? scope.filter(([c, p]) => denreiTodo(c, p)).length
       : scope.filter(([, p]) => statusOf(p, 'first') === 'ready').length,
   };
   document.querySelectorAll('#modes button').forEach(b => {
@@ -1441,7 +1441,7 @@ const STAGE_COUNT = 10;        // 列 0〜9（線の番号は 1〜9）
 const SEP_MAX = STAGE_COUNT - 1;
 // 既定の線（項目の key → その下に入る線の番号）。保存済みの設定が古い形（番号なし）のときもこれに寄せる
 const DEFAULT_SEP = {
-  denrei: { none: 1, before: 2, ready: 3, registered: 5 },
+  denrei: { none: 1, before: 2, registered: 5 },
   first:  { pending: 1, watching: 2, ready: 3, acquired: 4, past: 5, skip: 6 },
   second: { none: 1, __hot200__: 2, changing: 3, changed: 4, stale: 5, skip: 6 },
 };
@@ -2293,9 +2293,9 @@ function tailFilterRowsHtml() {
 // 🔔 ランキング伝令ちゃん（Yahoo版）の状態を読む（楽天版 v8.07〜 と同じ考え方）
 //   伝令ちゃんの /api/shops で「このストア（seller_id）の伝令ちゃん側のID」を調べ、
 //   /api/products を1回読んで商品コードで突き合わせる。取ってくるのは状態だけ。
-//     ranking_registered が真            → ランキング獲得済（v0.8.26 で「ランキング登録済」から改名。表示名だけ）
-//     偽で achieved の期間が1つでもある  → 獲得済-登録可能
-//     偽で achieved が1つもない          → 監視中（v0.8.32 で「ランキング獲得前」から改名）
+//     achieved の期間が1つでもある（または ranking_registered が真） → ランキング獲得済
+//     achieved が1つもない                                           → 監視中（v0.8.32 で「ランキング獲得前」から改名）
+//     （v0.8.50 で「獲得済-登録可能」をやめ、ランキング獲得済にまとめた。伝令ちゃんで登録済みかどうかは見分けない）
 //     伝令ちゃんに居ない商品             → 未登録
 //   読んだ内容は画面の中だけに置く（GitHubには保存しない）。伝令ちゃん側が本当の持ち主なので。
 //   別サイトからの読み取りになるので、伝令ちゃん v0.8.1 以上（CORS 許可）が必要。
@@ -2303,7 +2303,6 @@ function tailFilterRowsHtml() {
 const DENREI_BASE = 'https://ranking-denrei-chan-yahoo.kaiyoshida0318.workers.dev';
 const DENREI_STATES = {
   before:     { label: '監視中',             bg: '#f5f4ee', fg: '#78716c', order: 1 },
-  ready:      { label: '獲得済-登録可能',    bg: '#fff0f0', fg: '#c62828', order: 2 },
   registered: { label: 'ランキング獲得済',   bg: '#e8f5e9', fg: '#2e7d32', order: 3 },
   none:       { label: '未登録',             bg: '#fff9c4', fg: '#827717', order: 0 },   // v0.8.31: 「伝令ちゃん未登録」から改名。並びも先頭（登録する前）
   skip:       { label: 'SKIP',               bg: '#e7f1fb', fg: '#1976d2', order: 4 },   // v0.8.41: 手で選ぶだけの状態（伝令ちゃん側には無い）
@@ -2312,10 +2311,10 @@ const DENREI_STATES = {
 // 伝令ちゃんの状態の名前・色は「↔ 項目設定」の「🔔 伝令ちゃん」タブで変えられる（v0.8.36〜）。
 //   変えられるのは名前・色・並び・区切りの線（v0.8.47 で並べ替えを追加）。状態そのものは伝令ちゃんが決めるので、足す・消すは無い。
 //   保存先はほかの項目設定と同じ defs.json の denrei。
-const DENREI_EDIT_KEYS = ['none', 'before', 'ready', 'registered', 'skip'];
+const DENREI_EDIT_KEYS = ['none', 'before', 'registered', 'skip'];   // v0.8.50: ready（獲得済-登録可能）は registered にまとめた
 const DENREI_DEFAULTS = JSON.parse(JSON.stringify(DENREI_STATES));
 const denreiKeys = () => { const l = (defs && defs.denrei || []).map(d => d.key).filter(k => DENREI_EDIT_KEYS.includes(k)); return l.length ? l : DENREI_EDIT_KEYS; };
-const DENREI_DESC = { none: '伝令ちゃんに登録されていない商品', before: '登録済みで、まだランキングを獲得していない商品', ready: 'ランキングを獲得し、伝令ちゃんで登録できる商品', registered: '伝令ちゃんで登録まで終わった商品', skip: '伝令ちゃんに登録しないと決めた商品（表のドロップダウンで手で選ぶ）' };
+const DENREI_DESC = { none: '伝令ちゃんに登録されていない商品', before: '登録済みで、まだランキングを獲得していない商品', registered: 'ランキングを獲得した商品（伝令ちゃんで1枚目を作れます）', skip: '伝令ちゃんに登録しないと決めた商品（表のドロップダウンで手で選ぶ）' };
 function normalizeDenreiDefs(saved, keepSep, hasCol) {
   const by = {}; for (const d of (Array.isArray(saved) ? saved : [])) if (d && d.key) by[d.key] = d;
   const hex = (v, fb) => /^#[0-9a-f]{6}$/i.test(String(v || '')) ? String(v) : fb;
@@ -2408,20 +2407,24 @@ function autoFillRanking() {
 let denrei = { state: 'idle', map: {}, loadedAt: '', error: '', shopId: null };   // state: idle|loading|ok|error|noshop
 /*
  * 伝令ちゃんの状態（v0.8.41〜）。
- *   自動: 伝令ちゃんから読んだ実際の状態（未登録 / 監視中 / 獲得済-登録可能 / ランキング獲得済）。
+ *   自動: 伝令ちゃんから読んだ実際の状態（未登録 / 監視中 / ランキング獲得済）。
  *   手動: 表の伝令ちゃん列のドロップダウンで選んだ状態（SKIP を含む）。p.denreiManual = { v: 選んだ状態, at: 選んだ時点の自動の状態 }
  *   手動は「伝令ちゃん側の実際の状態が変わるまで」有効。たとえば未登録の商品を SKIP にしておいても、
  *   伝令ちゃんに登録すれば at（未登録）と合わなくなるので手動は外れ、自動の「監視中」に変わる。
  *   denreiStateOf は絞り込み・並び替え・件数に使う「表示上の状態」を返す。リンクや順位は実際の登録（denrei.map）で決める。
  */
+const FIRST_TODO = ['pending', 'watching', 'ready'];   // 1枚目変更が 未着手 / 変更前 / 変更中
+function denreiTodo(code, p) { return denreiStateOf(code) === 'registered' && !!p && FIRST_TODO.includes(statusOf(p, 'first')); }
 function denreiAutoStateOf(code) {
   if (denrei.state !== 'ok') return 'unknown';
   return denrei.map[code] ? denrei.map[code].state : 'none';
 }
 function denreiManualOf(code) {
   const p = (store.productCache || {})[code], m = p && p.denreiManual;
-  if (!m || !DENREI_EDIT_KEYS.includes(m.v)) return null;
-  return m.at === denreiAutoStateOf(code) ? m.v : null;
+  if (!m) return null;
+  const v = m.v === 'ready' ? 'registered' : m.v, at = m.at === 'ready' ? 'registered' : m.at;   // v0.8.50 より前の ready を読み替え
+  if (!DENREI_EDIT_KEYS.includes(v)) return null;
+  return at === denreiAutoStateOf(code) && v !== at ? v : null;
 }
 function denreiStateOf(code) {
   const a = denreiAutoStateOf(code);
@@ -2458,7 +2461,7 @@ async function loadDenrei(manual) {
       if (!code) continue;
       const list = Array.isArray(it.ranking_status) ? it.ranking_status : [];
       const achieved = list.filter(x => x && x.status === 'achieved');
-      const state = (it.ranking_registered === true || it.ranking_registered === 1) ? 'registered' : achieved.length ? 'ready' : 'before';
+      const state = (it.ranking_registered === true || it.ranking_registered === 1 || achieved.length) ? 'registered' : 'before';
       // リアルタイムの最高順位（v0.8.25〜）。カテゴリが複数あれば、その中でいちばん良い順位
       let rt = null;
       for (const x of list) {
@@ -2544,11 +2547,11 @@ function statusPickHtml(p) {
 }
 function makeCell(code) {
   // 1枚目（ランキングバッジ付き）は伝令ちゃんの商品ページで作る（楽天版の MAKE1_URL と同じ飛び先）。
-  // 押せるのは「獲得済-登録可能」の商品だけ（v0.8.18〜）。それ以外は薄く出して押せない。
+  // 押せるのは「ランキング獲得済」の商品だけ（v0.8.50〜。前は「獲得済-登録可能」だけ）。それ以外は薄く出して押せない。
   const k = denreiStateOf(code);
-  if (k === 'ready' && denrei.map[code]) return `<a class="btn go" href="${esc(denreiPageUrl(code))}" target="_blank" rel="noopener" title="伝令ちゃんのこの商品のページを開いて1枚目を作る">🖼 1枚目作成</a>`;
-  const why = { before: 'まだランキングを獲得していません', registered: '伝令ちゃんで登録まで終わっています', none: '伝令ちゃんに登録されていません', skip: 'SKIP にしています', ready: '伝令ちゃんに登録されていないので、作成ページがありません', unknown: '伝令ちゃんの状態を読めていません' }[k] || '';
-  return `<span class="btn off" title="${esc(why)}（「${esc(DENREI_STATES.ready.label)}」の商品だけ押せます）">🖼 1枚目作成</span>`;
+  if (k === 'registered' && denrei.map[code]) return `<a class="btn go" href="${esc(denreiPageUrl(code))}" target="_blank" rel="noopener" title="伝令ちゃんのこの商品のページを開いて1枚目を作る">🖼 1枚目作成</a>`;
+  const why = { before: 'まだランキングを獲得していません', registered: '伝令ちゃんに登録されていないので、作成ページがありません', none: '伝令ちゃんに登録されていません', skip: 'SKIP にしています', unknown: '伝令ちゃんの状態を読めていません' }[k] || '';
+  return `<span class="btn off" title="${esc(why)}（「${esc(DENREI_STATES.registered.label)}」の商品だけ押せます）">🖼 1枚目作成</span>`;
 }
 function denreiRowHtml() {
   const base = baseRows();
@@ -2559,7 +2562,7 @@ function denreiRowHtml() {
     const dsts = stagesOf(defs.denrei || []);
     for (const [di, dd] of (defs.denrei || []).entries()) {
       const k = dd.key, def = DENREI_STATES[k], n = base.filter(([c]) => denreiStateOf(c) === k).length;
-      const urgent = k === 'ready' && n > 0;   // 登録できる状態で待っている商品がいれば派手にする
+      const urgent = k === 'registered' && base.some(([c, p]) => denreiTodo(c, p));   // 1枚目がまだの獲得済み商品があれば派手にする（v0.8.50〜）
       cells[dsts[di]] = (cells[dsts[di]] || '') + `<button class="fbtn ${urgent ? 'urgent' : ''} ${on(k) ? 'on' : ''} ${n ? '' : 'zero'}" ${urgent ? '' : `style="background:${def.bg};color:${def.fg};border-color:${def.fg}33"`} data-fg="denrei" data-fk="${k}">${esc(def.label)} <span class="n">(${n})</span></button>`;
     }
     msg = `<span class="dnr-msg">${esc(relTime(denrei.loadedAt))} 時点</span>`;
