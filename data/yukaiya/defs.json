@@ -1,6 +1,6 @@
 {
   "version": "v0.8.49",
-  "savedAt": "2026-10-13T02:50:56.620Z",
+  "savedAt": "2026-10-13T02:51:15.415Z",
   "first": [
     {
       "key": "pending",
@@ -180,8 +180,8 @@
     {
       "key": "registered",
       "label": "ランキング獲得済",
-      "bg": "#e8f5e9",
-      "fg": "#2e7d32",
+      "bg": "#fff0f0",
+      "fg": "#c62828",
       "sep": true,
       "sepNo": 3,
       "col": 2
