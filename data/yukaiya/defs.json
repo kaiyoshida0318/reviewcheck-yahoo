@@ -1,6 +1,6 @@
 {
-  "version": "v0.8.45",
-  "savedAt": "2026-10-13T02:20:52.370Z",
+  "version": "v0.8.48",
+  "savedAt": "2026-10-13T02:36:30.658Z",
   "first": [
     {
       "key": "pending",
@@ -153,8 +153,8 @@
     {
       "key": "before",
       "label": "監視中",
-      "bg": "#f5f4ee",
-      "fg": "#78716c",
+      "bg": "#ede7f6",
+      "fg": "#5e35b1",
       "sep": true,
       "sepNo": 2
     },
@@ -164,7 +164,7 @@
       "bg": "#fff0f0",
       "fg": "#c62828",
       "sep": true,
-      "sepNo": 1
+      "sepNo": 3
     },
     {
       "key": "registered",
@@ -172,7 +172,7 @@
       "bg": "#e8f5e9",
       "fg": "#2e7d32",
       "sep": true,
-      "sepNo": 3
+      "sepNo": 4
     },
     {
       "key": "skip",
