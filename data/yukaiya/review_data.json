@@ -1800,8 +1800,12 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "kmv5zao37",
-      "updatedAt": "2026-10-13T03:28:31.634Z",
-      "firstStatus": "watching"
+      "updatedAt": "2026-10-13T03:29:16.006Z",
+      "firstStatus": "watching",
+      "denreiManual": {
+        "v": "before",
+        "at": "none"
+      }
     },
     "wat-sma-03": {
       "reviewHistory": {
@@ -14872,7 +14876,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-13T03:28:34.673Z",
+  "savedAt": "2026-10-13T03:29:19.014Z",
   "lastAutoFetch": "2026-10-13T03:08:06Z",
   "lastCsvFile": "data202610131200.csv",
   "counts": {
