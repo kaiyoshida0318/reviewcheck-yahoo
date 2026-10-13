@@ -1,6 +1,6 @@
 {
   "version": "v0.8.52",
-  "savedAt": "2026-10-13T03:03:55.900Z",
+  "savedAt": "2026-10-13T03:05:04.769Z",
   "first": [
     {
       "key": "pending",
@@ -29,7 +29,7 @@
       "bg": "#fff0f0",
       "fg": "#c62828",
       "sep": true,
-      "sepNo": 3,
+      "sepNo": 4,
       "col": 2
     },
     {
@@ -39,8 +39,8 @@
       "bg": "#e8f5e9",
       "fg": "#2e7d32",
       "sep": true,
-      "sepNo": 4,
-      "col": 3
+      "sepNo": 5,
+      "col": 4
     },
     {
       "key": "past",
@@ -50,7 +50,7 @@
       "fg": "#a32d2d",
       "sep": true,
       "sepNo": 6,
-      "col": 4
+      "col": 5
     },
     {
       "key": "skip",
