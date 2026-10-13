@@ -2443,8 +2443,8 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "none",
-      "updatedAt": "2026-10-13T02:14:31.518Z",
-      "firstStatus": "pending"
+      "updatedAt": "2026-10-13T03:24:16.361Z",
+      "firstStatus": "watching"
     },
     "wat-18-22-0set": {
       "reviewHistory": {
@@ -14868,7 +14868,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-13T03:24:12.206Z",
+  "savedAt": "2026-10-13T03:24:19.380Z",
   "lastAutoFetch": "2026-10-13T03:08:06Z",
   "lastCsvFile": "data202610131200.csv",
   "counts": {
