@@ -1,6 +1,6 @@
 {
   "version": "v0.8.45",
-  "savedAt": "2026-10-13T02:20:02.126Z",
+  "savedAt": "2026-10-13T02:20:16.671Z",
   "first": [
     {
       "key": "pending",
@@ -164,7 +164,7 @@
       "bg": "#fff0f0",
       "fg": "#c62828",
       "sep": true,
-      "sepNo": 2
+      "sepNo": 1
     },
     {
       "key": "registered",
