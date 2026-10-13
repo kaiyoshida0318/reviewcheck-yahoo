@@ -820,7 +820,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.55';
+const VERSION = 'v0.8.57';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -1304,7 +1304,7 @@ const COLS = [
   { key: 'updatedAt', cls: 'c-upd', label: '更新日時', sort: true },
   { key: 'code',     cls: 'c-code', label: '商品コード', sort: 'code', alt: [['code', '商品コード'], ['registeredAt', '登録日']] },
   { key: 'name',     cls: 'c-name', label: '商品名', sort: true },
-  { key: 'denrei',   cls: 'c-denrei only-first only-second', label: '🔔 伝令ちゃん', sort: 'denrei' },
+  { key: 'denrei',   cls: 'c-denrei only-first only-second', label: '🔔 伝令ちゃん', sort: 'denrei', tip: 'リアルタイムの順位で並び替え（▲＝1位から。順位が無い商品は下）' },
   { key: 'rank',     cls: 'c-rank only-first only-second', html: () => `1.2枚目変更<div class="rk-heads">${[['first', '1枚目'], ['second', '2枚目']].map(([k, l]) => { const on = sortKey === k; return `<span data-sort="${k}" class="${on ? 'sorted' : ''}" title="${l}変更の順に並び替え">${l}<span class="arrow">${on ? (sortDir > 0 ? '▲' : '▼') : '⇅'}</span></span>`; }).join('')}</div>` },
   { key: 'sales',    cls: 'c-sales', html: () => { const on = sortKey === 'sales'; return `<span class="sortable ${on ? 'sorted' : ''}" data-sort="sales" style="cursor:pointer">売上<span class="arrow">${on ? (sortDir > 0 ? '▲' : '▼') : '⇅'}</span></span>${sales.state === 'ok' && sales.month ? `<div class="sl-m ${salesPartial() ? 'part' : ''}" title="Y-check の ${sales.month.replace('-', '年')}月の売上（${salesSrcText()}。ストア合計 ¥${(sales.total || 0).toLocaleString()}）">${+sales.month.split('-')[1]}月${salesPartial() ? `（${sales.days}日分）` : ''}</div>` : ''}`; } },
   { key: 'rating',   cls: 'c-rate', label: '評価 / 件数', sort: 'reviewCount', alt: [['reviewAvg', '評価'], ['reviewCount', '件数']] },
@@ -1340,7 +1340,8 @@ function sortVal(code, p, k) {
     case 'second': return defList('second').findIndex(d => d.key === statusOf(p, 'second'));
     case 'ranking': return p.ranking || null;
     case 'selimg': return selIdx(p) || null;
-    case 'denrei': return denrei.state === 'ok' ? DENREI_STATES[denreiStateOf(code)].order : null;
+    // v0.8.56〜 伝令ちゃん列はリアルタイムの最高順位で並べる（▲＝1位から）。順位が無い商品は常に末尾
+    case 'denrei': { const d = denrei.state === 'ok' ? denrei.map[code] : null; return d && d.rt ? d.rt.rank : null; }
     case 'apiTitle': return p.apiTitle || null;
     case 'tail_a': case 'tail_b': case 'tail_m': case 'tail_c': return tailSlotValue(p, k.slice(5)) || null;   // 空は常に末尾
     default: return null;
@@ -1386,10 +1387,8 @@ function renderHeader() {
   const work = {
     second: auto3Key() ? scope.filter(([, p]) => statusOf(p, 'second') === auto3Key()).length : scope.filter(([, p]) => isHot3(p)).length,   // v0.8.55〜 ⚡の項目の件数
     tail: scope.filter(([, p]) => tailOrderValue(p) === 'ng' && p.tailWork !== 'wip').length,   // 順番問題有りで、まだ手を付けていないもの
-    // 伝令ちゃんが読めていれば「ランキング獲得済-反映前」の件数（v0.8.51〜）。読めないときは「変更中」（key: ready）の件数
-    first: denrei.state === 'ok'
-      ? scope.filter(([c, p]) => denreiTodo(c, p)).length
-      : scope.filter(([, p]) => statusOf(p, 'first') === 'ready').length,
+    // v0.8.57〜 1枚目変更の key: ready（表示名「獲得済-変更前」。前の「変更中」）の件数。伝令ちゃんを読めているかは関係なし
+    first: scope.filter(([, p]) => statusOf(p, 'first') === 'ready').length,
   };
   document.querySelectorAll('#modes button').forEach(b => {
     const m = b.dataset.mode;
@@ -1557,7 +1556,7 @@ function renderThead() {
     const sk = c.sort === true ? c.key : c.sort;
     if (!sk) return `<th class="${c.cls}">${c.label}${grip(c)}</th>`;
     const on = sortKey === sk;
-    return `<th class="${c.cls} sortable ${on ? 'sorted' : ''}" data-sort="${sk}">${c.label}<span class="arrow">${on ? (sortDir > 0 ? '▲' : '▼') : '⇅'}</span>${grip(c)}</th>`;
+    return `<th class="${c.cls} sortable ${on ? 'sorted' : ''}" data-sort="${sk}"${c.tip ? ` title="${esc(c.tip)}"` : ''}>${c.label}<span class="arrow">${on ? (sortDir > 0 ? '▲' : '▼') : '⇅'}</span>${grip(c)}</th>`;
   }).join('');
   const rows = visibleRows();
   const all = rows.length > 0 && rows.every(([c]) => selected.has(c));
