@@ -819,7 +819,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.52';
+const VERSION = 'v0.8.53';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -875,8 +875,6 @@ const DEFS_DEFAULT = {
   ],
   second: [
     { key: 'none',       icon: '', label: '変更前',       bg: '#fff9c4', fg: '#827717' },
-    { key: '__hot3__',   fixed: true },
-    { key: '__hot200__', fixed: true },
     { key: 'changing',   icon: '', label: '変更中',       bg: '#e1f5fe', fg: '#0277bd' },   // v0.8.31: 1枚目の「変更中」と同じ色
     { key: 'changed',    icon: '', label: '変更完了',     bg: '#e8f5e9', fg: '#2e7d32' },
     { key: 'stale',      icon: '', label: '昔のまま放置', bg: '#fbeeee', fg: '#a32d2d' },
@@ -905,7 +903,8 @@ const RENAMED_LABELS = {
             enough: { from: ['十分な件数'], to: 'SKIP-十分な件数' } },
 };
 // 削除できない key（既定値の受け皿・動作に組み込まれているもの）
-const PROTECTED_KEYS = { first: ['pending', 'watching'], second: ['none', '__hot3__', '__hot200__'] };
+const PROTECTED_KEYS = { first: ['pending', 'watching'], second: ['none'] };   // v0.8.53: 変更前-3件以上 / 変更前-上昇200% の絞り込みはやめた
+const REMOVED_KEYS = ['__hot3__', '__hot200__'];   // 保存済みの項目設定に残っていても読み飛ばす（次の保存で消える）
 
 // ---- ショップはURLで決め、タブごとに固定する ----
 function resolveShop(persist) {
@@ -1094,7 +1093,7 @@ function normalizeDefs(saved) {
   defsSeeded = Object.entries(SEEDED_DEFS).flatMap(([g, l]) => l.map(x => `${g}:${x.key}`));   // 次に保存するときは全部「足した」ことにする
   for (const g of Object.keys(DEF_GROUPS)) {
     let list = Array.isArray(saved?.[g]) && saved[g].length ? saved[g] : DEFS_DEFAULT[g];
-    list = list.filter(d => d && d.key).map(d => FIXED_DEFS[d.key] ? { ...FIXED_DEFS[d.key], sep: !!d.sep, sepNo: d.sepNo, col: d.col } : { ...d });
+    list = list.filter(d => d && d.key && !REMOVED_KEYS.includes(d.key)).map(d => FIXED_DEFS[d.key] ? { ...FIXED_DEFS[d.key], sep: !!d.sep, sepNo: d.sepNo, col: d.col } : { ...d });
     // 表示名を変えたときの読み替え（保存済みの項目設定が旧名のままなら新名に寄せる。手で付け直した名前は触らない）
     for (const d of list) {
       if ((OLD_DEFAULT_ICONS[g] || {})[d.key]?.includes(d.icon)) d.icon = '';   // 昔の既定のマークのままなら外す（自分で入れたマークは残す）
@@ -1442,7 +1441,7 @@ const SEP_MAX = STAGE_COUNT - 1;
 const DEFAULT_SEP = {
   denrei: { none: 1, before: 2, reflected: 5 },
   first:  { pending: 1, watching: 2, ready: 3, acquired: 4, past: 5, skip: 6 },
-  second: { none: 1, __hot200__: 2, changing: 3, changed: 4, stale: 5, skip: 6 },
+  second: { none: 2, changing: 3, changed: 4, stale: 5, skip: 6 },
 };
 function applyDefaultSep(g, list) {
   for (const d of list) { const n = (DEFAULT_SEP[g] || {})[d.key]; d.sep = !!n; if (n) d.sepNo = n; else delete d.sepNo; }
