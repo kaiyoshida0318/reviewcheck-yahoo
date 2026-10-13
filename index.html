@@ -441,6 +441,8 @@
   #dlgDefs { width: 820px; }
   .sep-ctl { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
   .sep-ctl select { font-size: 12px; padding: 2px 4px; font-weight: 700; }
+  .defs-shift { display: flex; align-items: center; gap: 6px; margin: -4px 0 8px; font-size: 12px; color: var(--muted); }
+  .defs-shift button { font-size: 12px; padding: 3px 10px; }
   .tabs { display: flex; gap: 4px; margin-bottom: 10px; }
   .tabs button.on { background: #1f2933; color: #fff; border-color: #1f2933; }
   .defs-list { display: flex; flex-direction: column; gap: 4px; max-height: 60vh; overflow-y: auto; }
@@ -802,10 +804,11 @@
 <dialog id="dlgDefs">
   <h2>↔ 項目設定 <span class="hint" id="defsShop"></span></h2>
   <div class="tabs" id="defsTabs"></div>
-  <div class="def-head"><span>表示</span><span>アイコン</span><span>名前</span><span style="grid-column: span 2">色</span><span>区切り（線の番号）</span><span></span></div>
+  <div class="defs-shift" id="defsShift"></div>
+  <div class="def-head"><span>表示</span><span>アイコン</span><span>名前</span><span style="grid-column: span 2">色</span><span>位置（左から何列目）</span><span></span></div>
   <div class="defs-list" id="defsList"></div>
   <div class="row" style="justify-content:space-between">
-    <div><button id="defsAdd">＋ 項目を追加</button> <span class="hint">変更はすぐ保存されます（このショップの全PCで共有）。使用中の項目は削除できません。「下で区切る」の線は、番号が同じものどうしが上の絞り込みの3段で縦にそろいます。</span></div>
+    <div><button id="defsAdd">＋ 項目を追加</button> <span class="hint">変更はすぐ保存されます（このショップの全PCで共有）。使用中の項目は削除できません。「位置」が同じ項目は、上の絞り込みの3段（伝令ちゃん / 1枚目変更 / 2枚目変更）で縦にそろいます。</span></div>
     <button id="defsClose" class="primary" style="white-space:nowrap;flex:0 0 auto">閉じる</button>
   </div>
 </dialog>
@@ -817,7 +820,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.48';
+const VERSION = 'v0.8.49';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -1092,7 +1095,7 @@ function normalizeDefs(saved) {
   defsSeeded = Object.entries(SEEDED_DEFS).flatMap(([g, l]) => l.map(x => `${g}:${x.key}`));   // 次に保存するときは全部「足した」ことにする
   for (const g of Object.keys(DEF_GROUPS)) {
     let list = Array.isArray(saved?.[g]) && saved[g].length ? saved[g] : DEFS_DEFAULT[g];
-    list = list.filter(d => d && d.key).map(d => FIXED_DEFS[d.key] ? { ...FIXED_DEFS[d.key], sep: !!d.sep, sepNo: d.sepNo } : { ...d });
+    list = list.filter(d => d && d.key).map(d => FIXED_DEFS[d.key] ? { ...FIXED_DEFS[d.key], sep: !!d.sep, sepNo: d.sepNo, col: d.col } : { ...d });
     // 表示名を変えたときの読み替え（保存済みの項目設定が旧名のままなら新名に寄せる。手で付け直した名前は触らない）
     for (const d of list) {
       if ((OLD_DEFAULT_ICONS[g] || {})[d.key]?.includes(d.icon)) d.icon = '';   // 昔の既定のマークのままなら外す（自分で入れたマークは残す）
@@ -1115,11 +1118,14 @@ function normalizeDefs(saved) {
       }
     }
     // 線の番号が付く前の設定（sepV が 2 でない）は、線を既定の位置に置き直す（昔の「下で区切る」は意味が違ったため）
-    if (saved?.sepV !== 2) applyDefaultSep(g, list);
-    fixSepOrder(list);
+    if (saved?.colV !== 1) {
+      if (saved?.sepV !== 2) applyDefaultSep(g, list);
+      fixSepOrder(list); colsFromSeps(list);
+    }
+    fixCols(list);
     out[g] = list;
   }
-  out.denrei = normalizeDenreiDefs(saved?.denrei, saved?.sepV === 2);
+  out.denrei = normalizeDenreiDefs(saved?.denrei, saved?.sepV === 2, saved?.colV === 1);
   return out;
 }
 const defList = (g) => defs[g] || [];
@@ -1138,10 +1144,11 @@ async function flushDefs() {
   if (!defsDirty) return;
   if (!ghConfig().pat) { setStatus('PAT未設定のため項目設定を保存できません', 'err'); return; }
   const body = { version: VERSION, savedAt: new Date().toISOString() };
-  for (const g of Object.keys(DEF_GROUPS)) body[g] = defList(g).map(d => d.fixed ? { key: d.key, sep: !!d.sep, sepNo: d.sepNo } : d);
+  for (const g of Object.keys(DEF_GROUPS)) body[g] = defList(g).map(d => d.fixed ? { key: d.key, sep: !!d.sep, sepNo: d.sepNo, col: d.col } : d);
   body.sepV = 2;
+  body.colV = 1;
   body.seeded = defsSeeded;
-  body.denrei = (defs.denrei || []).map(d => ({ key: d.key, label: d.label, bg: d.bg, fg: d.fg, sep: !!d.sep, sepNo: d.sepNo }));
+  body.denrei = (defs.denrei || []).map(d => ({ key: d.key, label: d.label, bg: d.bg, fg: d.fg, sep: !!d.sep, sepNo: d.sepNo, col: d.col }));
   try {
     try { defsSha = await ghPut(DEFS_PATH, body, defsSha, `[defs] ${SHOP.id}`); }
     catch (e) {
@@ -1423,6 +1430,12 @@ function pillStyle(d) { return `background:${esc(d.bg)};color:${esc(d.fg)};borde
  *     例: 1枚目変更が  未着手｜線1｜変更前｜線2｜変更中…  なら、未着手=列0、変更前=列1、変更中=列2。
  *   ・ある段で番号を飛ばせば、その段だけ列を空けられる（伝令ちゃんの SKIP を、ほかの段の SKIP の列に合わせる、など）。
  *   以前の「列線設定」タブ（v0.8.40）と、列の割り当て表（STAGE_OF）は廃止した。
+ *
+ * v0.8.49〜 上の「線」のしくみをやめ、各項目が自分の「位置（左から何列目）」を持つ形にした（保存は col: 0〜9）。
+ *   ・位置が同じ項目は同じ列に入る。位置は上の項目と同じか、それより右だけ選べる。
+ *   ・先頭の項目も右にずらせる（その段の左端を空けられる）。
+ *   ・「まとめて右へ／左へ」でその段の全部を1列ずつ動かせる。
+ *   ・古い版でも読めるように、sep / sepNo も位置から作って一緒に保存する（colV: 1 が新しい形の印）。
  */
 const STAGE_COUNT = 10;        // 列 0〜9（線の番号は 1〜9）
 const SEP_MAX = STAGE_COUNT - 1;
@@ -1447,16 +1460,31 @@ function fixSepOrder(list) {
   }
   return changed;
 }
+// 古い形（線）から位置を作る
+function colsFromSeps(list) { let cur = 0; for (const d of list) { d.col = cur; if (d.sep) cur = sepNoOf(d, cur); } }
+// 位置を 0〜9 の整数にし、上から順に同じか右になるように直す。古い版のための線（sep / sepNo）もここで作り直す
+function fixCols(list) {
+  let prev = 0, changed = false;
+  for (const d of list) {
+    let c = Math.round(Number(d.col));
+    if (!Number.isFinite(c) || d.col == null || d.col === '') c = prev;
+    c = Math.max(prev, Math.min(STAGE_COUNT - 1, c));
+    if (d.col !== c) { d.col = c; changed = true; }
+    prev = c;
+  }
+  list.forEach((d, i) => { const nx = list[i + 1]; if (nx && nx.col > d.col) { d.sep = true; d.sepNo = nx.col; } else { d.sep = false; delete d.sepNo; } });
+  return changed;
+}
+const colOf = (d) => Number.isInteger(d.col) ? d.col : 0;
 function sepNoOf(d, prev) { const n = Math.round(Number(d.sepNo)); return n >= 1 && n <= SEP_MAX ? n : Math.min(SEP_MAX, prev + 1); }
 // 一覧の並びと線の番号から、各項目の列（0〜9）を出す
 function stagesOf(list) {
-  let cur = 0;
-  return list.map(d => { const st = cur; if (d.sep) cur = sepNoOf(d, cur); return st; });
+  return list.map(colOf);
 }
 // いまどの番号の線が使われているか（3段のどれかにあれば、その位置に縦線を引く）
 function usedLines() {
   const used = new Set();
-  for (const list of [defs.denrei || [], ...Object.keys(DEF_GROUPS).map(g => defList(g))]) { let cur = 0; for (const d of list) if (d.sep) { cur = sepNoOf(d, cur); used.add(cur); } }
+  for (const list of [defs.denrei || [], ...Object.keys(DEF_GROUPS).map(g => defList(g))]) for (const d of list) if (colOf(d) > 0) used.add(colOf(d));
   return used;
 }
 function stageRowHtml(label, allBtn, cells, tail) {
@@ -2288,17 +2316,20 @@ const DENREI_EDIT_KEYS = ['none', 'before', 'ready', 'registered', 'skip'];
 const DENREI_DEFAULTS = JSON.parse(JSON.stringify(DENREI_STATES));
 const denreiKeys = () => { const l = (defs && defs.denrei || []).map(d => d.key).filter(k => DENREI_EDIT_KEYS.includes(k)); return l.length ? l : DENREI_EDIT_KEYS; };
 const DENREI_DESC = { none: '伝令ちゃんに登録されていない商品', before: '登録済みで、まだランキングを獲得していない商品', ready: 'ランキングを獲得し、伝令ちゃんで登録できる商品', registered: '伝令ちゃんで登録まで終わった商品', skip: '伝令ちゃんに登録しないと決めた商品（表のドロップダウンで手で選ぶ）' };
-function normalizeDenreiDefs(saved, keepSep) {
+function normalizeDenreiDefs(saved, keepSep, hasCol) {
   const by = {}; for (const d of (Array.isArray(saved) ? saved : [])) if (d && d.key) by[d.key] = d;
   const hex = (v, fb) => /^#[0-9a-f]{6}$/i.test(String(v || '')) ? String(v) : fb;
   // 並びは保存どおり（v0.8.47〜 並べ替えできる）。保存に無い状態は後ろに足す
   const order = [...(Array.isArray(saved) ? saved : []).map(d => d && d.key).filter(k => DENREI_EDIT_KEYS.includes(k)), ...DENREI_EDIT_KEYS];
   const list = [...new Set(order)].map(k => {
     const def = DENREI_DEFAULTS[k], sv = by[k] || {};
-    return { key: k, label: String(sv.label || '').trim() || def.label, bg: hex(sv.bg, def.bg), fg: hex(sv.fg, def.fg), sep: !!sv.sep, sepNo: sv.sepNo };
+    return { key: k, label: String(sv.label || '').trim() || def.label, bg: hex(sv.bg, def.bg), fg: hex(sv.fg, def.fg), sep: !!sv.sep, sepNo: sv.sepNo, col: sv.col };
   });
-  if (!keepSep) applyDefaultSep('denrei', list);
-  fixSepOrder(list);
+  if (!hasCol) {
+    if (!keepSep) applyDefaultSep('denrei', list);
+    fixSepOrder(list); colsFromSeps(list);
+  }
+  fixCols(list);
   applyDenreiDefs(list);
   return list;
 }
@@ -4450,14 +4481,11 @@ function clrUsage() {
   for (const d of [...defList('first'), ...defList('second'), ...(defs.denrei || [])]) { const k = clrKey(d.bg, d.fg); m[k] = (m[k] || 0) + 1; }
   return m;
 }
-// 「下で区切る」と、その線の番号。同じ番号の線は、伝令ちゃん・1枚目変更・2枚目変更で縦にそろう
+// 位置（左から何列目）。同じ位置の項目は、伝令ちゃん・1枚目変更・2枚目変更の3段で縦にそろう（v0.8.49〜）
 function sepCtlHtml(list, i) {
-  const d = list[i];
-  let prev = 0; for (let k = 0; k < i; k++) if (list[k].sep) prev = sepNoOf(list[k], prev);
-  const no = d.sep ? sepNoOf(d, prev) : 0;
-  const lo = Math.min(SEP_MAX, prev + 1);
-  const opts = Array.from({ length: SEP_MAX - lo + 1 }, (_, k) => lo + k).map(n => `<option value="${n}" ${no === n ? 'selected' : ''}>線${n}</option>`).join('');
-  return `<span class="sep-ctl" title="チェックすると、この項目の下に線が入ります。線の番号が同じなら、上の絞り込みの3段（伝令ちゃん / 1枚目変更 / 2枚目変更）で同じ位置にそろいます。番号は上の線より大きいものだけ選べます（下の線は必要なら自動でずれます）"><label style="margin:0"><input type="checkbox" data-k="sep" ${d.sep ? 'checked' : ''}> 下で区切る</label>${d.sep ? `<select data-k="sepNo">${opts}</select>` : ''}</span>`;
+  const lo = i > 0 ? colOf(list[i - 1]) : 0, cur = colOf(list[i]);
+  const opts = Array.from({ length: STAGE_COUNT - lo }, (_, k) => lo + k).map(c => `<option value="${c}" ${c === cur ? 'selected' : ''}>${c + 1}列目</option>`).join('');
+  return `<span class="sep-ctl" title="上の絞り込みで、左から何列目に出すか。同じ列の項目は3段で縦にそろいます。上の項目と同じか、それより右だけ選べます（下の項目は必要なら一緒に右へずれます）">位置 <select data-k="col">${opts}</select></span>`;
 }
 function clrBtnHtml(d, i) {
   return `<button type="button" class="clr-btn ${clrOpen === i ? 'open' : ''}" data-clr-open="${i}" style="background:${esc(d.bg)};color:${esc(d.fg)};border-color:${esc(d.fg)}55" title="色を選ぶ（30組から）">色 ▾</button>`;
@@ -4476,6 +4504,11 @@ function renderDefsEditor() {
     Object.entries(DEF_GROUPS).map(([g, v]) => `<button data-tab="${g}" class="${g === defsTab ? 'on' : ''}">${v.icon} ${v.label}</button>`).join('');
   if (defsTab === 'lines') defsTab = 'first';
   $('#defsAdd').style.display = defsTab === 'denrei' ? 'none' : '';
+  {
+    const cl = (defsTab === 'denrei' ? defs.denrei : defList(defsTab)) || [];
+    const mn = Math.min(...cl.map(colOf)), mx = Math.max(...cl.map(colOf));
+    $('#defsShift').innerHTML = `この段をまとめて動かす：<button type="button" data-shift="-1" ${cl.length && mn > 0 ? '' : 'disabled'}>◀ 1列左へ</button><button type="button" data-shift="1" ${cl.length && mx < STAGE_COUNT - 1 ? '' : 'disabled'}>1列右へ ▶</button>`;
+  }
   if (defsTab === 'denrei') {
     // 名前・色・並び・区切りの線を変えられる（v0.8.47〜 並べ替えも可）。状態を足す・消すは無い（伝令ちゃんが決めるため）
     const dl = defs.denrei || [];
@@ -4488,7 +4521,7 @@ function renderDefsEditor() {
       ${sepCtlHtml(dl, i)}
       <div><div class="ops"><button data-op="up" ${i === 0 ? 'disabled' : ''}>↑</button><button data-op="down" ${i === dl.length - 1 ? 'disabled' : ''}>↓</button><button data-op="del" disabled title="伝令ちゃんの状態は消せません">🗑</button></div>
       <div class="use">${u ? `使用中 ${u}件` : ''}</div></div></div>${clrOpen === i ? clrPanelHtml(d, i) : ''}`; }).join('') +
-      `<div class="hint" style="padding:8px 4px">伝令ちゃんの状態は、名前・色・並び・区切りの線を変えられます（足す・消すはできません。どの商品がどの状態かは伝令ちゃんが決めます）。名前を空にすると元の名前に戻ります。</div>`;
+      `<div class="hint" style="padding:8px 4px">伝令ちゃんの状態は、名前・色・並び・位置を変えられます（足す・消すはできません。どの商品がどの状態かは伝令ちゃんが決めます）。名前を空にすると元の名前に戻ります。</div>`;
     return;
   }
   const list = defList(defsTab);
@@ -4518,17 +4551,35 @@ $('#defsClose').addEventListener('click', () => {
   $('#dlgDefs').close(); flushDefs();
 });
 $('#defsTabs').addEventListener('click', (e) => { const b = e.target.closest('[data-tab]'); if (b) { defsTab = b.dataset.tab; clrOpen = null; renderDefsEditor(); } });
+$('#defsShift').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-shift]'); if (!b || b.disabled) return;
+  const list = defs[defsTab] || [], dir = Number(b.dataset.shift);
+  if (!list.length) return;
+  if (dir < 0 && Math.min(...list.map(colOf)) <= 0) return;
+  if (dir > 0 && Math.max(...list.map(colOf)) >= STAGE_COUNT - 1) return;
+  for (const d of list) d.col = colOf(d) + dir;
+  fixCols(list); clrOpen = null;
+  defsChanged();
+});
 $('#defsAdd').addEventListener('click', () => {
   if (defsTab === 'denrei') return;
   defs[defsTab].push({ key: 'k' + Date.now().toString(36), icon: '', label: '新しい項目', bg: '#f0f2f5', fg: '#374151' });
+  fixCols(defs[defsTab]);
   defsChanged();
   $('#defsList').scrollTop = 1e6;
 });
 $('#defsList').addEventListener('input', (e) => {
   const inp = e.target.closest('[data-k]'); if (!inp) return;
   const i = +inp.closest('.def-row').dataset.i, d = defs[defsTab][i], k = inp.dataset.k;
+  if (k === 'col') {
+    // 位置を変える → 上の絞り込みの列がその場で動く。下の項目が左に残るなら一緒に右へずらす
+    const list = defs[defsTab];
+    d.col = Math.round(Number(inp.value)) || 0;
+    fixCols(list);
+    defsChanged();
+    return;
+  }
   if (k === 'sep' || k === 'sepNo') {
-    // 線を入れる・外す・番号を変える → 上の絞り込みの列がその場で動く
     const list = defs[defsTab];
     if (k === 'sep') { d.sep = inp.checked; if (d.sep) { let prev = 0; for (let x = 0; x < i; x++) if (list[x].sep) prev = sepNoOf(list[x], prev); d.sepNo = Math.min(SEP_MAX, prev + 1); } else delete d.sepNo; }
     else d.sepNo = Math.round(Number(inp.value)) || 1;
@@ -4564,10 +4615,12 @@ $('#defsList').addEventListener('click', (e) => {
   const b = e.target.closest('[data-op]'); if (!b || b.disabled) return;
   clrOpen = null;   // 並べ替え・削除で行がずれるので閉じる
   const i = +b.closest('.def-row').dataset.i, list = defs[defsTab];
-  if (b.dataset.op === 'up' && i > 0) [list[i - 1], list[i]] = [list[i], list[i - 1]];
-  else if (b.dataset.op === 'down' && i < list.length - 1) [list[i + 1], list[i]] = [list[i], list[i + 1]];
+  // 並べ替えでは、位置は場所に残して項目だけ入れ替える（列の形はそのまま）
+  const swap = (a, c) => { const ca = list[a].col, cc = list[c].col; [list[a], list[c]] = [list[c], list[a]]; list[a].col = ca; list[c].col = cc; };
+  if (b.dataset.op === 'up' && i > 0) swap(i - 1, i);
+  else if (b.dataset.op === 'down' && i < list.length - 1) swap(i, i + 1);
   else if (b.dataset.op === 'del' && defsTab !== 'denrei') list.splice(i, 1);
-  fixSepOrder(list);
+  fixCols(list);
   defsChanged();
 });
 
