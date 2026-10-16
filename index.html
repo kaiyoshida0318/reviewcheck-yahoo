@@ -822,7 +822,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.59';
+const VERSION = 'v0.8.60';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -964,8 +964,14 @@ function ymd(d) { return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.
 // ※ String.fromCharCode(...bytes) は数十KBで "Maximum call stack size exceeded" になるので分割する
 const utf8ToB64 = (s) => { const b = new TextEncoder().encode(s); let bin = ''; for (let i = 0; i < b.length; i += 0x8000) bin += String.fromCharCode.apply(null, b.subarray(i, i + 0x8000)); return btoa(bin); };
 const b64ToUtf8 = (b) => new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\n/g, '')), c => c.charCodeAt(0)));
-const imgThumb = (id) => `https://item-shopping.c.yimg.jp/i/j/${id}`;
-const imgLarge = (id) => `https://item-shopping.c.yimg.jp/i/n/${id}`;
+// 画像の場所（v0.8.60〜）
+//   ふつうは商品画像（yukaiya_商品コード_1_d_日時 など）→ item-shopping.c.yimg.jp/i/j（小）・/i/n（大）
+//   ストアの「画像管理」に置いた画像を使っている商品は、名前が「01.jpg」のようなファイル名で届く
+//   → shopping.c.yimg.jp/lib/{ストアID}/ファイル名（大きさは1つだけ）。http から始まるものはそのまま使う
+const imgIsLib = (id) => /[./]/.test(String(id || '')) && !/^https?:/i.test(String(id));
+const imgLib = (id) => `https://shopping.c.yimg.jp/lib/${encodeURIComponent(SHOP.sellerId)}/${String(id).split('/').map(encodeURIComponent).join('/')}`;
+const imgThumb = (id) => /^https?:/i.test(String(id)) ? String(id) : imgIsLib(id) ? imgLib(id) : `https://item-shopping.c.yimg.jp/i/j/${id}`;
+const imgLarge = (id) => /^https?:/i.test(String(id)) ? String(id) : imgIsLib(id) ? imgLib(id) : `https://item-shopping.c.yimg.jp/i/n/${id}`;
 
 // localStorage は kaiyoshida0318.github.io の全プロジェクト（楽天版 reviewcheck 等）で共有する5MB枠。
 // 楽天版のキャッシュで埋まっていることがあるので、保存できなくても諦めるだけにする。
