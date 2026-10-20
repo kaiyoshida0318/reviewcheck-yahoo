@@ -17597,7 +17597,8 @@
         "v": "skip",
         "at": "none"
       },
-      "updatedAt": "2026-10-20T07:03:15.796Z"
+      "updatedAt": "2026-10-20T07:05:24.609Z",
+      "status": "ignore_child"
     }
   },
   "storeReviewHistory": {
@@ -17632,7 +17633,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-20T07:04:25.565Z",
+  "savedAt": "2026-10-20T07:05:27.625Z",
   "lastAutoFetch": "2026-10-20T07:01:46Z",
   "lastCsvFile": "控え:data202610191200.csv",
   "counts": {
