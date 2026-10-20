@@ -336,10 +336,14 @@
         "2025-02-19T11:13:00+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "secondStatus": "changing",
-      "updatedAt": "2026-10-20T02:48:58.933Z",
-      "firstStatus": "watching",
-      "onScreenCount": 12
+      "secondStatus": "changed",
+      "updatedAt": "2026-10-20T03:01:07.565Z",
+      "firstStatus": "acquired",
+      "onScreenCount": 12,
+      "denreiManual": {
+        "v": "reflected",
+        "at": "registered"
+      }
     },
     "ih-21-02": {
       "reviewHistory": {
@@ -16202,8 +16206,8 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_et-a-25-01-2set_2_d_20261008165422"
       ],
       "registeredAt": "2026-10-09",
-      "firstStatus": "watching",
-      "updatedAt": "2026-10-20T02:59:45.384Z",
+      "firstStatus": "acquired",
+      "updatedAt": "2026-10-20T02:59:49.402Z",
       "denreiManual": {
         "v": "reflected",
         "at": "registered"
@@ -17305,7 +17309,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-20T02:59:48.399Z",
+  "savedAt": "2026-10-20T03:01:10.580Z",
   "lastAutoFetch": "2026-10-19T03:08:37Z",
   "lastCsvFile": "data202610191200.csv",
   "counts": {
