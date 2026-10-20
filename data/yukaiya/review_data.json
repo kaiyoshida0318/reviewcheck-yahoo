@@ -337,8 +337,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "kmv5zao37",
-      "updatedAt": "2026-10-13T03:28:31.607Z",
-      "firstStatus": "watching"
+      "updatedAt": "2026-10-20T02:40:41.304Z",
+      "firstStatus": "watching",
+      "onScreenCount": 0
     },
     "ih-21-02": {
       "reviewHistory": {
@@ -401,8 +402,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "kmv5zao37",
-      "updatedAt": "2026-10-13T03:28:31.610Z",
-      "firstStatus": "watching"
+      "updatedAt": "2026-10-20T02:40:42.127Z",
+      "firstStatus": "watching",
+      "onScreenCount": 0
     },
     "foot-22-02-3set": {
       "reviewHistory": {
@@ -1401,8 +1403,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:15.575Z",
-      "firstStatus": "past"
+      "updatedAt": "2026-10-20T02:40:43.043Z",
+      "firstStatus": "past",
+      "onScreenCount": 0
     },
     "foot-23-02-4set": {
       "reviewHistory": {
@@ -3599,7 +3602,8 @@
       ],
       "registeredAt": "2026-09-29",
       "firstStatus": "watching",
-      "updatedAt": "2026-10-13T09:23:07.773Z"
+      "updatedAt": "2026-10-20T02:40:45.568Z",
+      "onScreenCount": 0
     },
     "ih-21-04": {
       "reviewHistory": {
@@ -4580,8 +4584,9 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "kmv5zao37",
-      "updatedAt": "2026-10-13T09:24:42.005Z",
-      "firstStatus": "watching"
+      "updatedAt": "2026-10-20T02:40:44.199Z",
+      "firstStatus": "watching",
+      "onScreenCount": 0
     },
     "zak-20-16-10": {
       "reviewHistory": {
@@ -17296,7 +17301,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-19T08:10:47.743Z",
+  "savedAt": "2026-10-20T02:40:48.584Z",
   "lastAutoFetch": "2026-10-19T03:08:37Z",
   "lastCsvFile": "data202610191200.csv",
   "counts": {
