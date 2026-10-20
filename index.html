@@ -283,6 +283,18 @@
   thead th.c-sales .sl-m { font-weight: 400; font-size: 10px; color: var(--faint); }
   thead th.c-sales .sl-m.part { color: var(--warn); font-weight: 700; }
   .c-num { text-align: center; white-space: nowrap; }
+  /* v0.8.61〜 まとめた2列 */
+  .c-salrate { text-align: center; white-space: nowrap; }
+  .c-salrate .c-rate { border-top: 1px dashed var(--line2); margin-top: 6px; padding-top: 5px; }
+  thead th.c-salrate, thead th.c-nums { text-align: center; }
+  thead th.c-salrate .sl-m { display: block; font-weight: 400; font-size: 10px; color: var(--faint); }
+  thead th.c-salrate .sl-m.part { color: var(--warn); font-weight: 700; }
+  thead th .hd-sub { display: flex; justify-content: center; gap: 8px; margin-top: 3px; padding-top: 3px; border-top: 1px dashed var(--line2); }
+  thead th .hd-stack .sortable { display: block; margin: 1px 0; }
+  .c-nums { white-space: nowrap; }
+  .c-nums .nm-l { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin: 3px 0; }
+  .c-nums .cap { font-size: 10px; color: var(--muted); }
+  .c-nums input { width: 64px; text-align: right; }
   .c-num input { width: 76px; text-align: right; }
   .pill-num { display: inline-block; padding: 2px 8px; border-radius: 6px; font-weight: 800; font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
   .pill-num.pos { background: var(--ok-soft); color: var(--ok); }
@@ -822,7 +834,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.60';
+const VERSION = 'v0.8.61';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -1314,11 +1326,9 @@ const COLS = [
   { key: 'name',     cls: 'c-name', label: '商品名', sort: true },
   { key: 'denrei',   cls: 'c-denrei only-first only-second', label: '🔔 伝令ちゃん', sort: 'denrei', tip: 'リアルタイムの順位で並び替え（▲＝1位から。順位が無い商品は下）' },
   { key: 'rank',     cls: 'c-rank only-first only-second', html: () => `1.2枚目変更<div class="rk-heads">${[['first', '1枚目'], ['second', '2枚目']].map(([k, l]) => { const on = sortKey === k; return `<span data-sort="${k}" class="${on ? 'sorted' : ''}" title="${l}変更の順に並び替え">${l}<span class="arrow">${on ? (sortDir > 0 ? '▲' : '▼') : '⇅'}</span></span>`; }).join('')}</div>` },
-  { key: 'sales',    cls: 'c-sales', html: () => { const on = sortKey === 'sales'; return `<span class="sortable ${on ? 'sorted' : ''}" data-sort="sales" style="cursor:pointer">売上<span class="arrow">${on ? (sortDir > 0 ? '▲' : '▼') : '⇅'}</span></span>${sales.state === 'ok' && sales.month ? `<div class="sl-m ${salesPartial() ? 'part' : ''}" title="Y-check の ${sales.month.replace('-', '年')}月の売上（${salesSrcText()}。ストア合計 ¥${(sales.total || 0).toLocaleString()}）">${+sales.month.split('-')[1]}月${salesPartial() ? `（${sales.days}日分）` : ''}</div>` : ''}`; } },
-  { key: 'rating',   cls: 'c-rate', label: '評価 / 件数', sort: 'reviewCount', alt: [['reviewAvg', '評価'], ['reviewCount', '件数']] },
-  { key: 'onscreen', cls: 'c-num only-second', label: '画面上件数', sort: true },
-  { key: 'diff',     cls: 'c-num only-second', label: '件数差異', sort: true },
-  { key: 'rate',     cls: 'c-num only-second', label: '上昇率', sort: true },
+  // v0.8.61〜 横幅を節約するため、売上と評価・件数を1列に、画面上件数・件数差異・上昇率を1列にまとめた（並び替えは見出しの各名前で）
+  { key: 'salrate',  cls: 'c-salrate', html: () => `${sortSpan('sales', '売上', '前月の売上で並び替え')}${sales.state === 'ok' && sales.month ? `<span class="sl-m ${salesPartial() ? 'part' : ''}" title="Y-check の ${sales.month.replace('-', '年')}月の売上（${salesSrcText()}。ストア合計 ¥${(sales.total || 0).toLocaleString()}）">${+sales.month.split('-')[1]}月${salesPartial() ? `（${sales.days}日分）` : ''}</span>` : ''}<div class="hd-sub">${sortSpan('reviewAvg', '評価', '平均評価で並び替え')}${sortSpan('reviewCount', '件数', 'レビュー件数で並び替え')}</div>` },
+  { key: 'nums',     cls: 'c-nums only-second', html: () => `<div class="hd-stack">${sortSpan('onscreen', '画面上件数', '画面上件数で並び替え')}${sortSpan('diff', '件数差異', '件数差異で並び替え')}${sortSpan('rate', '上昇率', '上昇率で並び替え')}</div>` },
   { key: 'make',     cls: 'c-make only-first', label: '1枚目作成' },
   { key: 'tail',     cls: 'c-tail only-tail', html: () => `タイトル末尾変更<div class="tt-heads">${TTAIL_SLOTS.map(sl => { const k = 'tail_' + sl.key, on = sortKey === k; return `<span data-sort="${k}" class="${on ? 'sorted' : ''}" title="${esc(sl.hint)}">${esc(sl.label)}<span class="arrow">${on ? (sortDir > 0 ? '▲' : '▼') : '⇅'}</span></span>`; }).join('')}</div>` },
   { key: 'curt',     cls: 'c-curt only-tail', label: '現在のタイトル', sort: 'apiTitle' },
@@ -1559,6 +1569,8 @@ function renderFilters() {
     </div>`;
 }
 
+// 見出しの中の並び替えボタン（1つの列に2つ以上の並び替えを置くとき用）
+function sortSpan(k, label, tip) { const on = sortKey === k; return `<span class="sortable ${on ? 'sorted' : ''}" data-sort="${k}" style="cursor:pointer"${tip ? ` title="${esc(tip)}"` : ''}>${label}<span class="arrow">${on ? (sortDir > 0 ? '▲' : '▼') : '⇅'}</span></span>`; }
 function renderThead() {
   const grip = (c) => c.key === 'chk' ? '' : `<span class="cw-grip" data-colkey="${c.key}" title="ドラッグで列幅を変更（ダブルクリックで自動に戻す）"></span>`;
   $('#thead').innerHTML = COLS.map(c => {
@@ -1668,11 +1680,8 @@ function rowHtml(code, p) {
     </td>
     <td class="c-denrei only-first only-second">${denreiCell(code)}</td>
     <td class="c-rank only-first only-second" data-cell="rank">${rankCell(code, p)}</td>
-    <td class="c-sales">${salesHtml(code)}</td>
-    <td class="c-rate"><div class="stars">${stars}</div><span class="avg">${p.reviewAvg ? Number(p.reviewAvg).toFixed(2) : '—'}</span><span class="cnt"><a href="${esc(p.reviewUrl)}" target="_blank" rel="noopener">${(p.reviewCount || 0).toLocaleString()}</a></span><span class="unit">件</span></td>
-    <td class="c-num only-second"><input type="number" min="0" step="1" data-field="onScreenCount" value="${onScreen(p) ?? ''}" placeholder="—"></td>
-    <td class="c-num only-second" data-cell="diff">${nh.diff}</td>
-    <td class="c-num only-second" data-cell="rate">${nh.rate}</td>
+    <td class="c-salrate"><div class="c-sales">${salesHtml(code)}</div><div class="c-rate"><div class="stars">${stars}</div><span class="avg">${p.reviewAvg ? Number(p.reviewAvg).toFixed(2) : '—'}</span><span class="cnt"><a href="${esc(p.reviewUrl)}" target="_blank" rel="noopener">${(p.reviewCount || 0).toLocaleString()}</a></span><span class="unit">件</span></div></td>
+    <td class="c-nums only-second"><div class="nm-l"><span class="cap">画面上</span><input type="number" min="0" step="1" data-field="onScreenCount" value="${onScreen(p) ?? ''}" placeholder="—"></div><div class="nm-l"><span class="cap">差異</span><span data-cell="diff">${nh.diff}</span></div><div class="nm-l"><span class="cap">上昇率</span><span data-cell="rate">${nh.rate}</span></div></td>
     <td class="c-make only-first">${makeCell(code)}</td>
     <td class="c-tail only-tail" data-cell="tail">${tailCell(code, p)}</td>
     <td class="c-curt only-tail" data-cell="curt">${curTitleCell(p)}</td>
