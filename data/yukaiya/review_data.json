@@ -18748,7 +18748,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_eq-24-03-lock-mat12_1_d_20261023170253",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_eq-24-03-lock-mat12_2_d_20261023170253"
       ],
-      "registeredAt": "2026-10-23"
+      "registeredAt": "2026-10-23",
+      "status": "ignore_child",
+      "updatedAt": "2026-10-23T08:53:41.091Z"
     },
     "eq-24-03-lock-mat04": {
       "reviewHistory": {
@@ -18789,7 +18791,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_eq-24-03-lock-mat04_1_d_20261023170129",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_eq-24-03-lock-mat04_2_d_20261023170130"
       ],
-      "registeredAt": "2026-10-23"
+      "registeredAt": "2026-10-23",
+      "status": "ignore_child",
+      "updatedAt": "2026-10-23T08:53:39.581Z"
     }
   },
   "storeReviewHistory": {
@@ -18827,7 +18831,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-23T08:47:10.848Z",
+  "savedAt": "2026-10-23T08:53:44.111Z",
   "lastAutoFetch": "2026-10-23T08:46:57Z",
   "lastCsvFile": "控え:data202610231200.csv",
   "counts": {
