@@ -1,6 +1,9 @@
 {
-  "status": "requested",
+  "status": "running",
   "requestedAt": "2026-10-23T03:25:25.514Z",
   "shop": "yukaiya",
-  "version": "v0.8.61"
+  "version": "v0.8.61",
+  "startedAt": "2026-10-23T03:30:02Z",
+  "runner": "DESKTOP-23UR5L4",
+  "message": "取得中"
 }
