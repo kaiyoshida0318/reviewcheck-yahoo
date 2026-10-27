@@ -20313,7 +20313,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_yoga-23-01-03set_1_d_20261026173055",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_yoga-23-01-03set_2_d_20261026173056"
       ],
-      "registeredAt": "2026-10-27"
+      "registeredAt": "2026-10-27",
+      "firstStatus": "watching",
+      "updatedAt": "2026-10-27T09:16:51.781Z"
     },
     "si-26-02-2l-20set-case": {
       "reviewHistory": {
@@ -20923,7 +20925,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-27T09:15:39.279Z",
+  "savedAt": "2026-10-27T09:16:54.786Z",
   "lastAutoFetch": "2026-10-27T09:12:21Z",
   "lastCsvFile": "控え:data202610271200.csv",
   "counts": {
