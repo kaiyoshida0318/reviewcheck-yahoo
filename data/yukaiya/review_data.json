@@ -2815,9 +2815,9 @@
         "2025-11-12T18:25:24+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.417Z",
-      "firstStatus": "past"
+      "secondStatus": "none",
+      "updatedAt": "2026-10-27T09:11:58.635Z",
+      "firstStatus": "pending"
     },
     "bloop-18-02": {
       "reviewHistory": {
@@ -6828,9 +6828,9 @@
         "2025-11-12T18:30:37+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "secondStatus": "stale",
-      "updatedAt": "2026-10-09T08:03:16.427Z",
-      "firstStatus": "past"
+      "secondStatus": "none",
+      "updatedAt": "2026-10-27T09:12:01.788Z",
+      "firstStatus": "pending"
     },
     "si-23-11a": {
       "reviewHistory": {
@@ -20537,7 +20537,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-27T09:11:56.160Z",
+  "savedAt": "2026-10-27T09:12:04.796Z",
   "lastAutoFetch": "2026-10-27T03:09:00Z",
   "lastCsvFile": "data202610271200.csv",
   "counts": {
