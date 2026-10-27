@@ -20369,7 +20369,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-26-02-2l-30set-case_1_d_20261027113308",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-26-02-2l-30set-case_2_d_20261027113309"
       ],
-      "registeredAt": "2026-10-27"
+      "registeredAt": "2026-10-27",
+      "status": "ignore_child",
+      "updatedAt": "2026-10-27T09:13:13.006Z"
     },
     "si-26-02-1s-30set-case": {
       "reviewHistory": {
@@ -20495,7 +20497,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-26-02-2l-30set-no_1_d_20261027113351",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-26-02-2l-30set-no_2_d_20261027113352"
       ],
-      "registeredAt": "2026-10-27"
+      "registeredAt": "2026-10-27",
+      "status": "ignore_child",
+      "updatedAt": "2026-10-27T09:13:11.683Z"
     },
     "et-sony-26-01-2set": {
       "reviewHistory": {
@@ -20663,7 +20667,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_tb-25-01-2set_1_d_20261027123514",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_tb-25-01-2set_2_d_20261027123515"
       ],
-      "registeredAt": "2026-10-27"
+      "registeredAt": "2026-10-27",
+      "status": "ignore_child",
+      "updatedAt": "2026-10-27T09:13:08.249Z"
     },
     "tb-25-01-3set": {
       "reviewHistory": {
@@ -20879,7 +20885,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-27T09:13:07.900Z",
+  "savedAt": "2026-10-27T09:13:16.009Z",
   "lastAutoFetch": "2026-10-27T09:12:21Z",
   "lastCsvFile": "控え:data202610271200.csv",
   "counts": {
