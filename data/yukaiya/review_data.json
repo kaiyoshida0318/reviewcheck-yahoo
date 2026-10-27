@@ -2163,13 +2163,9 @@
         "2024-06-18T16:18:59+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "secondStatus": "none",
-      "updatedAt": "2026-10-27T09:10:20.234Z",
-      "firstStatus": "watching",
-      "denreiManual": {
-        "v": "before",
-        "at": "none"
-      }
+      "secondStatus": "kmv5zao37",
+      "updatedAt": "2026-10-27T09:10:29.204Z",
+      "firstStatus": "watching"
     },
     "si-23-03": {
       "reviewHistory": {
@@ -2312,8 +2308,8 @@
       ],
       "registeredAt": "2026-09-29",
       "firstStatus": "watching",
-      "updatedAt": "2026-10-27T09:09:57.027Z",
-      "secondStatus": "none"
+      "updatedAt": "2026-10-27T09:10:29.206Z",
+      "secondStatus": "kmv5zao37"
     },
     "ih-24-05": {
       "reviewHistory": {
@@ -20540,7 +20536,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-27T09:10:23.241Z",
+  "savedAt": "2026-10-27T09:10:32.210Z",
   "lastAutoFetch": "2026-10-27T03:09:00Z",
   "lastCsvFile": "data202610271200.csv",
   "counts": {
