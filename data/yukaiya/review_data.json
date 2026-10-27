@@ -19962,7 +19962,9 @@
         "防災、防犯、セーフティ用品",
         "その他防災、防犯、セーフティ"
       ],
-      "registeredAt": "2026-10-27"
+      "registeredAt": "2026-10-27",
+      "status": "ignore_child",
+      "updatedAt": "2026-10-27T09:14:44.934Z"
     },
     "si-26-02-1s-10set-case": {
       "reviewHistory": {
@@ -20613,7 +20615,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_et-sony-26-01-4set_1_d_20261027161828",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_et-sony-26-01-4set_2_d_20261027161829"
       ],
-      "registeredAt": "2026-10-27"
+      "registeredAt": "2026-10-27",
+      "status": "ignore_child",
+      "updatedAt": "2026-10-27T09:14:40.933Z"
     },
     "tb-25-01-1set": {
       "reviewHistory": {
@@ -20785,7 +20789,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_et-sony-26-01-8set_1_d_20261027162048",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_et-sony-26-01-8set_2_d_20261027162049"
       ],
-      "registeredAt": "2026-10-27"
+      "registeredAt": "2026-10-27",
+      "status": "ignore_child",
+      "updatedAt": "2026-10-27T09:14:42.165Z"
     },
     "tb-25-01-4set": {
       "reviewHistory": {
@@ -20915,7 +20921,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-27T09:14:01.358Z",
+  "savedAt": "2026-10-27T09:14:47.939Z",
   "lastAutoFetch": "2026-10-27T09:12:21Z",
   "lastCsvFile": "控え:data202610271200.csv",
   "counts": {
