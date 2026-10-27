@@ -834,7 +834,7 @@
 //   取得は TimerRunner（jobs/yahoo_review_fetch.py）が毎日行い、このページは
 //   data/{shopId}/review_data.json と defs.json を GitHub Contents API で読み書きするだけ。
 // ============================================================
-const VERSION = 'v0.8.61';
+const VERSION = 'v0.8.62';
 
 // ---- ショップ定義（sellerId は Yahoo! の店舗ID）----
 // data/shops.json が無いときの既定。ストア管理から追加・変更したものは shops.json に入る（全PC・TimerRunner共通）
@@ -1635,8 +1635,9 @@ function imgId(p, i) { return (p.imageIds || [])[i] || (i === 0 && p.imageId ? p
 function rankCell(code, p) {
   // 「1.2枚目変更」列（v0.8.35〜）。1枚目変更・2枚目変更のドロップダウンを横に2つ並べる。
   // ランキング詳細の入力欄はやめた（p.ranking のデータは消さずに残してある）
-  // v0.8.45: いちばん上に伝令ちゃんの状態、いちばん下に 状態（通常 / 無視 / 無視（子商品））を足した
-  return `<div class="rk-dds"><div class="rk-dd"><span class="rk-cap">伝令</span>${denreiPickHtml(code)}</div><div class="rk-dd"><span class="rk-cap">1枚目</span>${ddHtml('first', p)}</div><div class="rk-dd"><span class="rk-cap">2枚目</span>${ddHtml('second', p)}</div><div class="rk-dd"><span class="rk-cap">状態</span>${statusPickHtml(p)}</div></div>`;
+  // v0.8.45: 伝令ちゃんの状態と、状態（通常 / 無視 / 無視（子商品））を足した
+  // v0.8.62: 並びを 状態 → 伝令 → 1枚目 → 2枚目 に（状態をいちばん上へ）
+  return `<div class="rk-dds"><div class="rk-dd"><span class="rk-cap">状態</span>${statusPickHtml(p)}</div><div class="rk-dd"><span class="rk-cap">伝令</span>${denreiPickHtml(code)}</div><div class="rk-dd"><span class="rk-cap">1枚目</span>${ddHtml('first', p)}</div><div class="rk-dd"><span class="rk-cap">2枚目</span>${ddHtml('second', p)}</div></div>`;
 }
 function cropCell(p) {
   const i = selIdx(p);
