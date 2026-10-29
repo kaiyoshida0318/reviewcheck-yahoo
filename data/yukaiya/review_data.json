@@ -21514,7 +21514,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-24-08-set2_1_d_20261028160446",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-24-08-set2_1_d_20261028123603"
       ],
-      "registeredAt": "2026-10-29"
+      "registeredAt": "2026-10-29",
+      "status": "ignore_child",
+      "updatedAt": "2026-10-29T06:16:44.140Z"
     },
     "ih-24-08-set4": {
       "reviewHistory": {
@@ -21555,7 +21557,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-24-08-set4_1_d_20261028123829",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-24-08-set4_2_d_20261028123830"
       ],
-      "registeredAt": "2026-10-29"
+      "registeredAt": "2026-10-29",
+      "status": "ignore_child",
+      "updatedAt": "2026-10-29T06:16:45.623Z"
     },
     "ih-24-08-set3": {
       "reviewHistory": {
@@ -21894,7 +21898,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-29T06:16:43.112Z",
+  "savedAt": "2026-10-29T06:16:49.066Z",
   "lastAutoFetch": "2026-10-29T06:07:32Z",
   "lastCsvFile": "控え:data202610291200.csv",
   "counts": {
