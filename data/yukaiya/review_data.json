@@ -21688,7 +21688,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ss-22-01-set_1_d_20261028164627",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ss-22-01-set_2_d_20261028164628"
       ],
-      "registeredAt": "2026-10-29"
+      "registeredAt": "2026-10-29",
+      "status": "ignore_child",
+      "updatedAt": "2026-10-29T06:17:30.953Z"
     },
     "si-26-03-group-12set": {
       "reviewHistory": {
@@ -21898,7 +21900,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-10-29T06:16:49.066Z",
+  "savedAt": "2026-10-29T06:17:33.957Z",
   "lastAutoFetch": "2026-10-29T06:07:32Z",
   "lastCsvFile": "控え:data202610291200.csv",
   "counts": {
