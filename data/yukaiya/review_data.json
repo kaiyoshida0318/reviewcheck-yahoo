@@ -23879,7 +23879,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_et-apple-25-02-1set_1_d_20261104104913",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_et-apple-25-02-1set_2_d_20261104104914"
       ],
-      "registeredAt": "2026-11-04"
+      "registeredAt": "2026-11-04",
+      "firstStatus": "watching",
+      "updatedAt": "2026-11-04T07:17:41.150Z"
     },
     "et-apple-25-02-2set": {
       "reviewHistory": {
@@ -23973,7 +23975,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-04T07:16:39.819Z",
+  "savedAt": "2026-11-04T07:17:44.154Z",
   "lastAutoFetch": "2026-11-04T03:09:16Z",
   "lastCsvFile": "data202611041200.csv",
   "counts": {
