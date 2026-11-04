@@ -23700,7 +23700,9 @@
         "2026-11-02T14:24:33+09:00",
         "2026-11-02T14:24:33+09:00"
       ],
-      "registeredAt": "2026-11-02"
+      "registeredAt": "2026-11-02",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-04T07:16:30.855Z"
     },
     "ih-22-10-0set-template-band": {
       "reviewHistory": {
@@ -23833,7 +23835,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_eq-24-02-toilet-test_1_d_20261102151056",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_eq-24-02-toilet-test_2_d_20261102151058"
       ],
-      "registeredAt": "2026-11-03"
+      "registeredAt": "2026-11-03",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-04T07:16:36.812Z"
     },
     "et-apple-25-02-1set": {
       "reviewHistory": {
@@ -23917,7 +23921,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_et-apple-25-02-2set_1_d_20261104105111",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_et-apple-25-02-2set_2_d_20261104105111"
       ],
-      "registeredAt": "2026-11-04"
+      "registeredAt": "2026-11-04",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-04T07:16:33.841Z"
     }
   },
   "storeReviewHistory": {
@@ -23967,7 +23973,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-04T07:16:29.828Z",
+  "savedAt": "2026-11-04T07:16:39.819Z",
   "lastAutoFetch": "2026-11-04T03:09:16Z",
   "lastCsvFile": "data202611041200.csv",
   "counts": {
