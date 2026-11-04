@@ -23743,7 +23743,9 @@
         "2026-11-02T14:23:15+09:00",
         "2026-11-02T14:23:15+09:00"
       ],
-      "registeredAt": "2026-11-02"
+      "registeredAt": "2026-11-02",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-04T07:16:25.014Z"
     },
     "ih-22-10-0set-template-no": {
       "reviewHistory": {
@@ -23786,7 +23788,9 @@
         "2026-11-02T14:21:25+09:00",
         "2026-11-02T14:21:25+09:00"
       ],
-      "registeredAt": "2026-11-02"
+      "registeredAt": "2026-11-02",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-04T07:16:26.821Z"
     },
     "eq-24-02-toilet-test": {
       "reviewHistory": {
@@ -23963,7 +23967,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-04T03:10:18.310Z",
+  "savedAt": "2026-11-04T07:16:29.828Z",
   "lastAutoFetch": "2026-11-04T03:09:16Z",
   "lastCsvFile": "data202611041200.csv",
   "counts": {
