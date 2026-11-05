@@ -1939,13 +1939,14 @@
         "2024-09-17T10:53:57+09:00"
       ],
       "registeredAt": "2026-09-29",
-      "secondStatus": "kmv5zao37",
-      "updatedAt": "2026-11-05T01:51:23.453Z",
+      "secondStatus": "changing",
+      "updatedAt": "2026-11-05T03:12:29.183Z",
       "firstStatus": "acquired",
       "denreiManual": {
         "v": "reflected",
         "at": "registered"
-      }
+      },
+      "onScreenCount": 19
     },
     "foot-25-03": {
       "reviewHistory": {
@@ -24650,7 +24651,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-05T03:12:22.431Z",
+  "savedAt": "2026-11-05T03:12:32.887Z",
   "lastAutoFetch": "2026-11-05T03:09:36Z",
   "lastCsvFile": "data202611051200.csv",
   "counts": {
