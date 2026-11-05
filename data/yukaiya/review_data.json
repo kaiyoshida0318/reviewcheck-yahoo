@@ -24445,10 +24445,6 @@
       "registeredAt": "2026-11-05",
       "name": "ピラティス　ソックス",
       "updatedAt": "2026-11-05T07:35:37.196Z",
-      "denreiManual": {
-        "v": "before",
-        "at": "none"
-      },
       "firstStatus": "watching"
     },
     "yoga-25-01-1set-s": {
@@ -24672,7 +24668,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-05T07:35:40.216Z",
+  "savedAt": "2026-11-05T07:35:49.362Z",
   "lastAutoFetch": "2026-11-05T03:22:41Z",
   "lastCsvFile": "data202611051200.csv",
   "counts": {
