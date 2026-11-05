@@ -24352,7 +24352,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-25-03-group-2set_1_d_20261104155835",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-25-03-group-2set_2_d_20261104155836"
       ],
-      "registeredAt": "2026-11-04"
+      "registeredAt": "2026-11-04",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-05T07:34:09.901Z"
     },
     "ih-25-03-group-3set": {
       "reviewHistory": {
@@ -24396,8 +24398,8 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-25-03-group-3set_2_d_20261104160029"
       ],
       "registeredAt": "2026-11-04",
-      "status": "normal",
-      "updatedAt": "2026-11-05T07:33:20.368Z"
+      "status": "ignore_child",
+      "updatedAt": "2026-11-05T07:34:11.468Z"
     },
     "yoga-25-01-1set-n": {
       "reviewHistory": {
@@ -24653,7 +24655,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-05T07:33:23.381Z",
+  "savedAt": "2026-11-05T07:34:14.488Z",
   "lastAutoFetch": "2026-11-05T03:22:41Z",
   "lastCsvFile": "data202611051200.csv",
   "counts": {
