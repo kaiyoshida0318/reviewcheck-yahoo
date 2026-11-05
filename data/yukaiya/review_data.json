@@ -24396,8 +24396,8 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-25-03-group-3set_2_d_20261104160029"
       ],
       "registeredAt": "2026-11-04",
-      "status": "ignore",
-      "updatedAt": "2026-11-05T07:33:06.105Z"
+      "status": "normal",
+      "updatedAt": "2026-11-05T07:33:20.368Z"
     },
     "yoga-25-01-1set-n": {
       "reviewHistory": {
@@ -24653,7 +24653,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-05T07:33:09.122Z",
+  "savedAt": "2026-11-05T07:33:23.381Z",
   "lastAutoFetch": "2026-11-05T03:22:41Z",
   "lastCsvFile": "data202611051200.csv",
   "counts": {
