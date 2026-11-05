@@ -24483,7 +24483,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_yoga-25-01-1set-s_1_d_20261104180559",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_yoga-25-01-1set-s_2_d_20261104180600"
       ],
-      "registeredAt": "2026-11-05"
+      "registeredAt": "2026-11-05",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-05T07:35:04.862Z"
     },
     "yoga-25-01-2set-nn": {
       "reviewHistory": {
@@ -24663,7 +24665,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-05T07:35:02.375Z",
+  "savedAt": "2026-11-05T07:35:08.303Z",
   "lastAutoFetch": "2026-11-05T03:22:41Z",
   "lastCsvFile": "data202611051200.csv",
   "counts": {
