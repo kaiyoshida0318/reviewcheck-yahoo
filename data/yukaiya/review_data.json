@@ -17531,8 +17531,12 @@
       ],
       "registeredAt": "2026-09-29",
       "status": "normal",
-      "updatedAt": "2026-10-13T03:21:28.252Z",
-      "firstStatus": "watching"
+      "updatedAt": "2026-11-05T01:51:48.260Z",
+      "firstStatus": "acquired",
+      "denreiManual": {
+        "v": "reflected",
+        "at": "registered"
+      }
     },
     "bg-03-con-mesu-30set": {
       "reviewHistory": {
@@ -20915,8 +20919,12 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-25-01-30set_2_d_20261015154146"
       ],
       "registeredAt": "2026-10-15",
-      "firstStatus": "watching",
-      "updatedAt": "2026-10-16T01:39:15.344Z"
+      "firstStatus": "acquired",
+      "updatedAt": "2026-11-05T01:51:42.247Z",
+      "denreiManual": {
+        "v": "reflected",
+        "at": "registered"
+      }
     },
     "si-25-01-60set": {
       "reviewHistory": {
@@ -21549,8 +21557,12 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-26-09-02set_2_d_20261016164617"
       ],
       "registeredAt": "2026-10-16",
-      "firstStatus": "watching",
-      "updatedAt": "2026-10-19T08:10:44.721Z"
+      "firstStatus": "acquired",
+      "updatedAt": "2026-11-05T01:51:45.362Z",
+      "denreiManual": {
+        "v": "reflected",
+        "at": "registered"
+      }
     },
     "si-26-09-04set": {
       "reviewHistory": {
@@ -22510,8 +22522,12 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-26-02-1s-10set-no_2_d_20261027112838"
       ],
       "registeredAt": "2026-10-27",
-      "firstStatus": "watching",
-      "updatedAt": "2026-10-27T09:19:26.266Z"
+      "firstStatus": "acquired",
+      "updatedAt": "2026-11-05T01:51:51.541Z",
+      "denreiManual": {
+        "v": "reflected",
+        "at": "registered"
+      }
     },
     "si-26-02-2l-10set-case": {
       "reviewHistory": {
@@ -23716,9 +23732,13 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ss-22-01_1_d_20261028164406",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ss-22-01_2_d_20261028164407"
       ],
-      "firstStatus": "watching",
-      "updatedAt": "2026-10-29T06:07:46.347Z",
-      "registeredAt": "2026-10-29"
+      "firstStatus": "acquired",
+      "updatedAt": "2026-11-05T01:51:54.756Z",
+      "registeredAt": "2026-10-29",
+      "denreiManual": {
+        "v": "reflected",
+        "at": "registered"
+      }
     },
     "ss-22-01-set": {
       "reviewHistory": {
@@ -24628,7 +24648,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-05T01:51:30.616Z",
+  "savedAt": "2026-11-05T01:51:57.765Z",
   "lastAutoFetch": "2026-11-05T01:37:55Z",
   "lastCsvFile": "控え:data202611041200.csv",
   "counts": {
