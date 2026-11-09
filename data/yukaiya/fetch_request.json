@@ -1,9 +1,23 @@
 {
-  "status": "running",
+  "status": "done",
   "requestedAt": "2026-11-09T08:46:42.467Z",
   "shop": "yukaiya",
   "version": "v0.8.62",
   "startedAt": "2026-11-09T08:50:02Z",
   "runner": "DESKTOP-23UR5L4",
-  "message": "取得中"
+  "message": "333件を取得（画像 310件）",
+  "finishedAt": "2026-11-09T08:57:51Z",
+  "result": {
+    "products": 333,
+    "images": 310,
+    "api": 310,
+    "csv": 310,
+    "new": 1,
+    "updated": 309,
+    "csv_only": 1,
+    "gone": 0,
+    "release": 0,
+    "release_csv": 0,
+    "release_api": 0
+  }
 }
