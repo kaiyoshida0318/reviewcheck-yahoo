@@ -27042,7 +27042,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-26-07-10set_1_d_20261110181936",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-26-07-10set_2_d_20261110181937"
       ],
-      "registeredAt": "2026-11-11"
+      "registeredAt": "2026-11-11",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-12T08:28:49.231Z"
     },
     "bg-02-con-hook-30set": {
       "reviewHistory": {
@@ -27128,7 +27130,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-26-07-20set_1_d_20261110182011",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-26-07-20set_2_d_20261110182012"
       ],
-      "registeredAt": "2026-11-11"
+      "registeredAt": "2026-11-11",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-12T08:28:50.513Z"
     },
     "si-24-04-set": {
       "reviewHistory": {
@@ -27228,7 +27232,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-12T08:28:29.114Z",
+  "savedAt": "2026-11-12T08:28:54.113Z",
   "lastAutoFetch": "2026-11-12T07:47:59Z",
   "lastCsvFile": "控え:data202611111200.csv",
   "counts": {
