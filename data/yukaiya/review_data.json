@@ -10400,7 +10400,9 @@
       ],
       "registeredAt": "2026-09-29",
       "status": "normal",
-      "updatedAt": "2026-11-12T08:27:09.295Z"
+      "updatedAt": "2026-11-12T08:27:41.515Z",
+      "firstStatus": "watching",
+      "secondStatus": "kmv5zao37"
     },
     "wat-18-04": {
       "reviewHistory": {
@@ -27224,7 +27226,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-12T08:27:12.299Z",
+  "savedAt": "2026-11-12T08:27:44.533Z",
   "lastAutoFetch": "2026-11-12T07:47:59Z",
   "lastCsvFile": "控え:data202611111200.csv",
   "counts": {
