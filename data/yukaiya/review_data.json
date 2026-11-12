@@ -27084,7 +27084,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_bg-02-con-hook-30set_1_d_20261110161316",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_bg-02-con-hook-30set_2_d_20261110161316"
       ],
-      "registeredAt": "2026-11-11"
+      "registeredAt": "2026-11-11",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-12T08:28:26.023Z"
     },
     "si-26-07-20set": {
       "reviewHistory": {
@@ -27226,7 +27228,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-12T08:27:44.533Z",
+  "savedAt": "2026-11-12T08:28:29.114Z",
   "lastAutoFetch": "2026-11-12T07:47:59Z",
   "lastCsvFile": "控え:data202611111200.csv",
   "counts": {
