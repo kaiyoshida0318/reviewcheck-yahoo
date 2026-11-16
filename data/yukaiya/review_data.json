@@ -5836,8 +5836,12 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "kmv5zao37",
-      "updatedAt": "2026-10-13T09:24:22.118Z",
-      "firstStatus": "watching"
+      "updatedAt": "2026-11-16T01:14:30.254Z",
+      "firstStatus": "watching",
+      "denreiManual": {
+        "v": "reflected",
+        "at": "registered"
+      }
     },
     "si-23-07a": {
       "reviewHistory": {
@@ -26760,8 +26764,12 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-26-03-group-12set_1_d_20261029121657"
       ],
       "firstStatus": "watching",
-      "updatedAt": "2026-10-29T06:07:46.350Z",
-      "registeredAt": "2026-10-29"
+      "updatedAt": "2026-11-16T01:14:31.783Z",
+      "registeredAt": "2026-10-29",
+      "denreiManual": {
+        "v": "reflected",
+        "at": "registered"
+      }
     },
     "si-26-03-group-24set": {
       "reviewHistory": {
@@ -27220,7 +27228,11 @@
       ],
       "registeredAt": "2026-11-04",
       "firstStatus": "watching",
-      "updatedAt": "2026-11-04T07:17:41.150Z"
+      "updatedAt": "2026-11-16T01:14:28.385Z",
+      "denreiManual": {
+        "v": "reflected",
+        "at": "registered"
+      }
     },
     "et-apple-25-02-2set": {
       "reviewHistory": {
@@ -28234,7 +28246,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-16T01:13:08.999Z",
+  "savedAt": "2026-11-16T01:14:34.788Z",
   "lastAutoFetch": "2026-11-15T03:09:27Z",
   "lastCsvFile": "控え:data202611131200.csv",
   "counts": {
