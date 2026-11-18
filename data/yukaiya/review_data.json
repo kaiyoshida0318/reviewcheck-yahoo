@@ -27638,8 +27638,8 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-26-03-group-12set_10_d_20261113143433",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-26-03-group-12set_1_d_20261029121657"
       ],
-      "firstStatus": "watching",
-      "updatedAt": "2026-11-16T01:14:31.783Z",
+      "firstStatus": "acquired",
+      "updatedAt": "2026-11-18T05:03:50.467Z",
       "registeredAt": "2026-10-29",
       "denreiManual": {
         "v": "reflected",
@@ -29969,7 +29969,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-18T05:02:00.049Z",
+  "savedAt": "2026-11-18T05:03:53.475Z",
   "lastAutoFetch": "2026-11-18T03:10:14Z",
   "lastCsvFile": "data202611181200.csv",
   "counts": {
