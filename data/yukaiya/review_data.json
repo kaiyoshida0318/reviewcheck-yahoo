@@ -28126,8 +28126,8 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_et-apple-25-02-1set_2_d_20261104104914"
       ],
       "registeredAt": "2026-11-04",
-      "firstStatus": "watching",
-      "updatedAt": "2026-11-16T01:14:28.385Z",
+      "firstStatus": "acquired",
+      "updatedAt": "2026-11-18T05:04:51.831Z",
       "denreiManual": {
         "v": "reflected",
         "at": "registered"
@@ -29969,7 +29969,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-18T05:04:10.857Z",
+  "savedAt": "2026-11-18T05:04:54.836Z",
   "lastAutoFetch": "2026-11-18T03:10:14Z",
   "lastCsvFile": "data202611181200.csv",
   "counts": {
