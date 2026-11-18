@@ -6024,8 +6024,8 @@
       ],
       "registeredAt": "2026-09-29",
       "secondStatus": "kmv5zao37",
-      "updatedAt": "2026-11-16T01:14:30.254Z",
-      "firstStatus": "watching",
+      "updatedAt": "2026-11-18T05:04:07.851Z",
+      "firstStatus": "acquired",
       "denreiManual": {
         "v": "reflected",
         "at": "registered"
@@ -29969,7 +29969,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-18T05:03:53.475Z",
+  "savedAt": "2026-11-18T05:04:10.857Z",
   "lastAutoFetch": "2026-11-18T03:10:14Z",
   "lastCsvFile": "data202611181200.csv",
   "counts": {
