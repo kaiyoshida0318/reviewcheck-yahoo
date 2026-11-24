@@ -32016,7 +32016,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_bi-25-01-2set-tape_1_d_20261118163842",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_bi-25-01-2set-tape_2_d_20261118163843"
       ],
-      "registeredAt": "2026-11-19"
+      "registeredAt": "2026-11-19",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-24T08:03:12.867Z"
     },
     "si-23-13a-01-hane": {
       "reviewHistory": {
@@ -32253,7 +32255,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_bi-25-01-4set_1_d_20261118163927",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_bi-25-01-4set_2_d_20261118163928"
       ],
-      "registeredAt": "2026-11-19"
+      "registeredAt": "2026-11-19",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-24T08:03:14.121Z"
     },
     "bi-25-01-4set-tape": {
       "reviewHistory": {
@@ -32300,7 +32304,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_bi-25-01-4set-tape_1_d_20261118164104",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_bi-25-01-4set-tape_2_d_20261118164105"
       ],
-      "registeredAt": "2026-11-19"
+      "registeredAt": "2026-11-19",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-24T08:03:15.627Z"
     },
     "si-23-13a-01-hane-st": {
       "reviewHistory": {
@@ -33102,7 +33108,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-24T08:03:02.471Z",
+  "savedAt": "2026-11-24T08:03:18.634Z",
   "lastAutoFetch": "2026-11-24T07:49:07Z",
   "lastCsvFile": "data202611241200.csv",
   "counts": {
