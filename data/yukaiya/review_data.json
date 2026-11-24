@@ -32701,7 +32701,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-03-hue_1_d_20261120172357",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-03-hue_2_d_20261120172358"
       ],
-      "registeredAt": "2026-11-21"
+      "registeredAt": "2026-11-21",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-24T08:02:10.414Z"
     },
     "ih-22-04-set1-3cm-5cm": {
       "reviewHistory": {
@@ -33078,7 +33080,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-24T08:01:38.551Z",
+  "savedAt": "2026-11-24T08:02:13.431Z",
   "lastAutoFetch": "2026-11-24T07:49:07Z",
   "lastCsvFile": "data202611241200.csv",
   "counts": {
