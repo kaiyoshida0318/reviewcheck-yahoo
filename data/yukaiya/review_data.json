@@ -31105,7 +31105,9 @@
         "メガネ備品",
         "その他メガネ備品"
       ],
-      "registeredAt": "2026-11-17"
+      "registeredAt": "2026-11-17",
+      "firstStatus": "watching",
+      "updatedAt": "2026-11-24T08:10:35.719Z"
     },
     "si-25-03-3set-h": {
       "reviewHistory": {
@@ -31607,7 +31609,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-11-cut-case1_1_d_20261117155848",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-11-cut-case1_2_d_20261117155849"
       ],
-      "registeredAt": "2026-11-18"
+      "registeredAt": "2026-11-18",
+      "firstStatus": "watching",
+      "updatedAt": "2026-11-24T08:10:35.730Z"
     },
     "si-23-11-push1": {
       "reviewHistory": {
@@ -31705,7 +31709,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_yoga-24-01-band1_1_d_20261117174718",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_yoga-24-01-band1_2_d_20261117174718"
       ],
-      "registeredAt": "2026-11-18"
+      "registeredAt": "2026-11-18",
+      "firstStatus": "watching",
+      "updatedAt": "2026-11-24T08:10:35.705Z"
     },
     "si-23-11-cut-case1-push1": {
       "reviewHistory": {
@@ -32096,7 +32102,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-13a-01-hane_1_d_20261119112532",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-13a-01-hane_2_d_20261119112533"
       ],
-      "registeredAt": "2026-11-19"
+      "registeredAt": "2026-11-19",
+      "firstStatus": "watching",
+      "updatedAt": "2026-11-24T08:10:35.723Z"
     },
     "si-23-13a-02-heart": {
       "reviewHistory": {
@@ -32619,7 +32627,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_mus-25-01_1_d_20261120181727",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_mus-25-01_2_d_20261120181728"
       ],
-      "registeredAt": "2026-11-21"
+      "registeredAt": "2026-11-21",
+      "firstStatus": "watching",
+      "updatedAt": "2026-11-24T08:10:35.734Z"
     },
     "ih-22-04-set1-3cm-3cm": {
       "reviewHistory": {
@@ -32941,7 +32951,9 @@
         "2026-11-24T12:11:10+09:00",
         "2026-11-24T12:11:10+09:00"
       ],
-      "registeredAt": "2026-11-24"
+      "registeredAt": "2026-11-24",
+      "firstStatus": "watching",
+      "updatedAt": "2026-11-24T08:10:35.710Z"
     },
     "ss-22-03-8set": {
       "reviewHistory": {
@@ -33026,7 +33038,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-26-05-1set_1_d_20261124150949",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-26-05-1set_2_d_20261124150950"
       ],
-      "registeredAt": "2026-11-24"
+      "registeredAt": "2026-11-24",
+      "firstStatus": "watching",
+      "updatedAt": "2026-11-24T08:10:35.715Z"
     },
     "si-26-05-2set": {
       "reviewHistory": {
@@ -33140,7 +33154,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-24T08:09:56.966Z",
+  "savedAt": "2026-11-24T08:10:39.353Z",
   "lastAutoFetch": "2026-11-24T07:49:07Z",
   "lastCsvFile": "data202611241200.csv",
   "counts": {
