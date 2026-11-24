@@ -32836,7 +32836,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_mus-25-01-set_1_d_20261120181853",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_mus-25-01-set_2_d_20261120181853"
       ],
-      "registeredAt": "2026-11-21"
+      "registeredAt": "2026-11-21",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-24T08:01:35.546Z"
     },
     "ss-22-03": {
       "reviewHistory": {
@@ -33076,7 +33078,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-24T08:01:28.424Z",
+  "savedAt": "2026-11-24T08:01:38.551Z",
   "lastAutoFetch": "2026-11-24T07:49:07Z",
   "lastCsvFile": "data202611241200.csv",
   "counts": {
