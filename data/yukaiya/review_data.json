@@ -32522,7 +32522,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-22-04-set1-2cm-3cm_2_d_20261120122012",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-22-04-set1-2cm-3cm_3_d_20261120122012"
       ],
-      "registeredAt": "2026-11-21"
+      "registeredAt": "2026-11-21",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-24T08:02:30.402Z"
     },
     "mus-25-01": {
       "reviewHistory": {
@@ -32612,7 +32614,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-22-04-set1-3cm-3cm_1_d_20261120122131",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-22-04-set1-3cm-3cm_2_d_20261120122132"
       ],
-      "registeredAt": "2026-11-21"
+      "registeredAt": "2026-11-21",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-24T08:02:34.029Z"
     },
     "ih-22-04-set1-2cm-5cm": {
       "reviewHistory": {
@@ -32657,7 +32661,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-22-04-set1-2cm-5cm_1_d_20261120122059",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-22-04-set1-2cm-5cm_2_d_20261120122100"
       ],
-      "registeredAt": "2026-11-21"
+      "registeredAt": "2026-11-21",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-24T08:02:32.704Z"
     },
     "si-23-03-hue": {
       "reviewHistory": {
@@ -32748,7 +32754,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-22-04-set1-3cm-5cm_1_d_20261120122212",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-22-04-set1-3cm-5cm_2_d_20261120122212"
       ],
-      "registeredAt": "2026-11-21"
+      "registeredAt": "2026-11-21",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-24T08:02:35.734Z"
     },
     "ih-22-04-set1-5cm-5cm": {
       "reviewHistory": {
@@ -32793,7 +32801,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-22-04-set1-5cm-5cm_1_d_20261120122304",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-22-04-set1-5cm-5cm_2_d_20261120122305"
       ],
-      "registeredAt": "2026-11-21"
+      "registeredAt": "2026-11-21",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-24T08:02:36.944Z"
     },
     "mus-25-01-set": {
       "reviewHistory": {
@@ -33080,7 +33090,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-24T08:02:13.431Z",
+  "savedAt": "2026-11-24T08:02:39.968Z",
   "lastAutoFetch": "2026-11-24T07:49:07Z",
   "lastCsvFile": "data202611241200.csv",
   "counts": {
