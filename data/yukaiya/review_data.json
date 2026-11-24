@@ -32535,7 +32535,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-22-04-set1-2cm-2cm_1_d_20261120121933",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-22-04-set1-2cm-2cm_2_d_20261120121934"
       ],
-      "registeredAt": "2026-11-21"
+      "registeredAt": "2026-11-21",
+      "firstStatus": "watching",
+      "updatedAt": "2026-11-24T08:13:34.153Z"
     },
     "ih-22-04-set1-2cm-3cm": {
       "reviewHistory": {
@@ -33154,7 +33156,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-24T08:10:39.353Z",
+  "savedAt": "2026-11-24T08:13:37.162Z",
   "lastAutoFetch": "2026-11-24T07:49:07Z",
   "lastCsvFile": "data202611241200.csv",
   "counts": {
