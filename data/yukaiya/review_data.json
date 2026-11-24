@@ -31875,7 +31875,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-25-01-set2_1_d_20261118104436",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-25-01-set2_2_d_20261118104437"
       ],
-      "registeredAt": "2026-11-18"
+      "registeredAt": "2026-11-18",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-24T08:03:25.453Z"
     },
     "ih-25-01-set3": {
       "reviewHistory": {
@@ -31922,7 +31924,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-25-01-set3_1_d_20261118104711",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_ih-25-01-set3_2_d_20261118104712"
       ],
-      "registeredAt": "2026-11-18"
+      "registeredAt": "2026-11-18",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-24T08:03:26.627Z"
     },
     "bi-25-01-2set": {
       "reviewHistory": {
@@ -33108,7 +33112,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-24T08:03:18.634Z",
+  "savedAt": "2026-11-24T08:03:29.637Z",
   "lastAutoFetch": "2026-11-24T07:49:07Z",
   "lastCsvFile": "data202611241200.csv",
   "counts": {
