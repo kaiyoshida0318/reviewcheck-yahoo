@@ -32108,7 +32108,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-13a-02-heart_1_d_20261119113402",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-13a-02-heart_2_d_20261119113403"
       ],
-      "registeredAt": "2026-11-19"
+      "registeredAt": "2026-11-19",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-24T08:02:53.822Z"
     },
     "si-23-13a-03-noko": {
       "reviewHistory": {
@@ -32154,7 +32156,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-13a-03-noko_1_d_20261119113557",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-13a-03-noko_2_d_20261119113558"
       ],
-      "registeredAt": "2026-11-19"
+      "registeredAt": "2026-11-19",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-24T08:02:56.429Z"
     },
     "si-23-13a-04-st": {
       "reviewHistory": {
@@ -32200,7 +32204,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-13a-04-st_1_d_20261119113751",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-13a-04-st_2_d_20261119113752"
       ],
-      "registeredAt": "2026-11-19"
+      "registeredAt": "2026-11-19",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-24T08:02:59.452Z"
     },
     "bi-25-01-4set": {
       "reviewHistory": {
@@ -32340,7 +32346,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-13a-01-hane-st_1_d_20261119113221",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-13a-01-hane-st_2_d_20261119113222"
       ],
-      "registeredAt": "2026-11-19"
+      "registeredAt": "2026-11-19",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-24T08:02:52.271Z"
     },
     "si-23-13a-02-heart-st": {
       "reviewHistory": {
@@ -32386,7 +32394,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-13a-02-heart-st_1_d_20261119113437",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-13a-02-heart-st_2_d_20261119113438"
       ],
-      "registeredAt": "2026-11-19"
+      "registeredAt": "2026-11-19",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-24T08:02:54.937Z"
     },
     "si-23-13a-03-noko-st": {
       "reviewHistory": {
@@ -32432,7 +32442,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-13a-03-noko-st_1_d_20261119113627",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-13a-03-noko-st_2_d_20261119113627"
       ],
-      "registeredAt": "2026-11-19"
+      "registeredAt": "2026-11-19",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-24T08:02:57.655Z"
     },
     "ih-22-04-set1-2cm-2cm": {
       "reviewHistory": {
@@ -33090,7 +33102,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-24T08:02:39.968Z",
+  "savedAt": "2026-11-24T08:03:02.471Z",
   "lastAutoFetch": "2026-11-24T07:49:07Z",
   "lastCsvFile": "data202611241200.csv",
   "counts": {
