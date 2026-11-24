@@ -31637,7 +31637,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-11-push1_1_d_20261117160349",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-11-push1_2_d_20261117160349"
       ],
-      "registeredAt": "2026-11-18"
+      "registeredAt": "2026-11-18",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-24T08:03:43.510Z"
     },
     "yoga-24-01-band1": {
       "reviewHistory": {
@@ -31733,7 +31735,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-11-cut-case1-push1_1_d_20261117155918",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-11-cut-case1-push1_2_d_20261117155918"
       ],
-      "registeredAt": "2026-11-18"
+      "registeredAt": "2026-11-18",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-24T08:03:45.761Z"
     },
     "si-23-11-cut1-push1": {
       "reviewHistory": {
@@ -31781,7 +31785,9 @@
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-11-cut1-push1_1_d_20261117160228",
         "https://item-shopping.c.yimg.jp/i/j/yukaiya_si-23-11-cut1-push1_2_d_20261117160228"
       ],
-      "registeredAt": "2026-11-18"
+      "registeredAt": "2026-11-18",
+      "status": "ignore_child",
+      "updatedAt": "2026-11-24T08:03:44.541Z"
     },
     "ih-25-01-set1": {
       "reviewHistory": {
@@ -33112,7 +33118,7 @@
   "platform": "yahoo",
   "shopId": "yukaiya",
   "sellerId": "yukaiya",
-  "savedAt": "2026-11-24T08:03:29.637Z",
+  "savedAt": "2026-11-24T08:03:48.768Z",
   "lastAutoFetch": "2026-11-24T07:49:07Z",
   "lastCsvFile": "data202611241200.csv",
   "counts": {
